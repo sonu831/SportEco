@@ -11,6 +11,7 @@ export const endpoints = {
   addPlayer: `/api/player/addplayerprofile`,
   updatePlayerProfile: `api/player/updateplayerprofile`,
   uploadPlayerProfileImage: `/api/player/playerprofilepicupload`,
+  deletePlayer: `api/player/deleteplayerbyid`,
 
   // Batches
   addBatch: `api/batch/addbatch`,
@@ -31,4 +32,5 @@ export const endpoints = {
   addPrograms: `api/program/addprogram`,
   fetchPrograms: `api/program/listofprograms`,
   deleteProgram: `api/program/deleteprogrambyid`,
+  updateProgram: `api/program/updateprogram`,
 };

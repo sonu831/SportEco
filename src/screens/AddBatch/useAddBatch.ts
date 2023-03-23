@@ -43,6 +43,7 @@ const useAddBatch = ({
   const [state, setState] = useState<Partial<InitialState>>(initialState);
   const selectedPlayers = useSelector(selectedPlayers$);
   const selectedBatch: Partial<batchDefinition> = useSelector(batchDetails$);
+
   const handleGoBack = () => navigation.goBack();
 
   const updateState = (request: any) => {
@@ -57,14 +58,7 @@ const useAddBatch = ({
   };
 
   const removeSelectedPlayer = (player: any) => {
-    // dispatch(
-    //   deletePlayerFromBatch({
-    //     id: selectedBatch?._id,
-    //     player_id: player.playerid,
-    //   })
-    // ).then(() => {
     dispatch(deletePlayer(player));
-    // });
   };
 
   const handleSaveBatches = () => {
@@ -78,23 +72,15 @@ const useAddBatch = ({
         })),
       };
 
-      // const playersPayload = {
-      //   batch_id: selectedBatch?._id,
-      //   players: selectedPlayers?.map((item: PlayerDefinition) => ({
-      //     playerid: item._id,
-      //     name: item.name || `${item.first_name} ${item.last_name}`,
-      //   })),
-      // };
-
       dispatch(updateBatch({ data: request, id: selectedBatch?._id })).then(
         (res) => {
           if (!!res.payload) {
-            // dispatch(addPlayersInBatch(playersPayload)).then(() =>
+            dispatch(setSelectedPlayers([]));
+
             navigation.navigate("CommonScreen", {
               title: "Batches",
               shouldRefresh: true,
             });
-            // );
           }
         }
       );
@@ -117,7 +103,11 @@ const useAddBatch = ({
   };
 
   useEffect(() => {
-    if (!!selectedBatch._id) {
+    const reset = () => {
+      dispatch(setSelectedPlayers([]));
+    };
+
+    if (!!selectedBatch._id && isEdit) {
       setState((preState) => ({
         ...preState,
         batchName: selectedBatch?.batch_name,
@@ -126,6 +116,8 @@ const useAddBatch = ({
 
       dispatch(setSelectedPlayers(selectedBatch?.players));
     }
+
+    return () => reset();
   }, [selectedBatch]);
 
   return {

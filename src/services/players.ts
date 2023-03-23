@@ -48,9 +48,13 @@ export const fetchPlayerById = createAsyncThunk(
 
 export const deletePlayer = createAsyncThunk(
   "deletePlayer",
-  async (id: string, { rejectWithValue }) => {
+  async ({ id }: { id: string | undefined }, { rejectWithValue }) => {
     return axios
-      .delete(endpoints.fetchPlayerById(id))
+      .get(endpoints.deletePlayer, {
+        headers: {
+          playerid: id,
+        },
+      })
       .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);

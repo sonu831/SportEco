@@ -1,12 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { userDetails$ } from "../../store/users/selectors";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
 import { RouteProp } from "@react-navigation/native";
 import { AppDispatch } from "../../store";
-import { deletePlayer, fetchPlayerById } from "../../services/players";
+import { deletePlayer } from "../../services/players";
 import { playerDetails$ } from "../../store/players/selectors";
+import { PlayerDefinition } from "../../types/player";
+import { UpdateStateRequest } from "../../types/UpdateState";
+
+type InitialState = {
+  showConfirmation: boolean;
+};
+
+const initialState = {
+  showConfirmation: false,
+};
 
 const useProfilePage = ({
   navigation,
@@ -21,7 +31,22 @@ const useProfilePage = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userDetails = useSelector(userDetails$);
-  const playerDetails = useSelector(playerDetails$);
+  const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
+  const [state, setState] = useState<Partial<InitialState>>(initialState);
+
+  const { showConfirmation } = state;
+
+  const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
+    if (Array.isArray(request)) {
+      request.forEach(({ key, value }) =>
+        setState((preState) => ({ ...preState, [key]: value }))
+      );
+    } else {
+      const { key, value } = request;
+      setState((preState) => ({ ...preState, [key]: value }));
+    }
+  };
+
   const isPlayer = route.params?.player || false;
 
   const dataToShow = !!isPlayer ? playerDetails : userDetails;
@@ -32,17 +57,23 @@ const useProfilePage = ({
     navigation.navigate("EditProfile", { isEdit: true, isAddPlayer: isPlayer });
 
   const handlePlayerDeletion = () => {
-    // dispatch(deletePlayer(playerId)).then((res) => {
-    //   if (!!res)
-    //     navigation.navigate("Confirmation", {
-    //       label: "Deleted !",
-    //       navigateTo: "CommonScreen",
-    //       navigateOption: {
-    //         title: "Players",
-    //         shouldRefresh: true,
-    //       },
-    //     });
-    // });
+    dispatch(deletePlayer({ id: playerDetails?._id })).then((res) => {
+      if (!!res) {
+        updateState({
+          key: "showConfirmation",
+          value: !showConfirmation,
+        });
+
+        navigation.navigate("Confirmation", {
+          label: "Deleted !",
+          navigateTo: "CommonScreen",
+          navigateOption: {
+            title: "Players",
+            shouldRefresh: true,
+          },
+        });
+      }
+    });
   };
 
   return {
@@ -52,6 +83,8 @@ const useProfilePage = ({
     showPlayerDetails: isPlayer,
     handlePlayerDeletion,
     handleEditBtn,
+    updateState,
+    state,
   };
 };
 

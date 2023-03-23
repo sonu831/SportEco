@@ -128,7 +128,6 @@ export const styles = StyleSheet.create({
   playerName: {
     marginLeft: 20,
     fontFamily: "Avenir-Regular",
-    fontSize: 12,
-    lineHeight: 14,
+    fontSize: 16,
   },
 });

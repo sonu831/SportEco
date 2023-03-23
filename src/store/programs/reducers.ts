@@ -27,6 +27,9 @@ export const ProgramSlice = createSlice({
     setSelectedProgram: (s, a) => {
       s.selectedProgram = a.payload;
     },
+    setSessionForEdit: (s, a) => {
+      s.sessions = a.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPrograms.fulfilled, (s, a) => {
@@ -35,5 +38,9 @@ export const ProgramSlice = createSlice({
   },
 });
 
-export const { addSession, removeSession, setSelectedProgram } =
-  ProgramSlice.actions;
+export const {
+  addSession,
+  removeSession,
+  setSelectedProgram,
+  setSessionForEdit,
+} = ProgramSlice.actions;

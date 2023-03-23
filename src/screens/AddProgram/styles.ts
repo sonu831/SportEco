@@ -80,8 +80,7 @@ export const styles = StyleSheet.create({
   listItemText: {
     color: Colors.darkGray,
     fontFamily: "Avenir-Regular",
-    fontSize: 12,
-    lineHeight: 14,
+    fontSize: 16,
     marginLeft: 21,
   },
   mb30: {

@@ -45,11 +45,11 @@ const ProgramDetails = ({
               <Button
                 label="Edit Program"
                 icon="chevron-right"
-                // onPress={() =>
-                //   navigation.navigate("AddBatch", {
-                //     isEdit: true,
-                //   })
-                // }
+                onPress={() =>
+                  navigation.navigate("AddProgram", {
+                    isEdit: true,
+                  })
+                }
               />
               <Button
                 type="cancel"

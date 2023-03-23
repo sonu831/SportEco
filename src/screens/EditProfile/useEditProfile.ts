@@ -144,9 +144,6 @@ const useEditProfile = ({
         { key: "role", value: role || [] },
         { key: "state", value: state || "" },
         { key: "city", value: city || "" },
-        // { key: "dobMonth", value: dob ? moment(dob).format("MMM") : "" },
-        // { key: "dobDate", value: dob ? moment(dob).format("DD") : "" },
-        // { key: "dobYear", value: dob ? moment(dob).format("YYYY") : "" },
       ]);
     }
   }, [userDetails]);

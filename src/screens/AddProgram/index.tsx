@@ -97,7 +97,9 @@ const AddProgram = ({
                   ]}
                 >
                   {/* <Image source={dummyUserIcon} style={styles.playerImage} /> */}
-                  <Text style={styles.listItemText}>{session.name}</Text>
+                  <Text style={styles.listItemText}>
+                    {session.name || session.sesionname}
+                  </Text>
                   <TouchableOpacity
                     style={[styles.mlAuto, styles.mr30]}
                     onPress={() => handleDeleteSession(session.id)}

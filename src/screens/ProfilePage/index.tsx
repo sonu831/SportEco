@@ -16,6 +16,7 @@ import { RootStackScreenProps } from "../Navigation/types";
 import Button from "../../components/Button";
 import dummyUser from "../../assets/images/dummy-user.png";
 import SafeArea from "../../components/SafeArea";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 const ProfileScreen = ({
   navigation,
@@ -27,10 +28,14 @@ const ProfileScreen = ({
     showPlayerDetails,
     handlePlayerDeletion,
     handleEditBtn,
+    state,
+    updateState,
   } = useProfilePage({
     navigation,
     route,
   });
+
+  const { showConfirmation } = state;
 
   const userFields = UserDetailsFields(dataToShow);
   const userLocationFields = locations(dataToShow);
@@ -59,7 +64,12 @@ const ProfileScreen = ({
                   label="Delete Profile"
                   icon="chevron-right"
                   iconColor={Colors.orange}
-                  onPress={() => handlePlayerDeletion()}
+                  onPress={() =>
+                    updateState({
+                      key: "showConfirmation",
+                      value: !showConfirmation,
+                    })
+                  }
                   style={styles.ml10}
                 />
               )}
@@ -94,6 +104,37 @@ const ProfileScreen = ({
           ))}
         </View>
       </ScrollView>
+
+      <ConfirmationModal
+        open={showConfirmation}
+        onHide={() =>
+          updateState({
+            key: "showConfirmation",
+            value: !showConfirmation,
+          })
+        }
+      >
+        <View>
+          <Text>Are you sure want to remove this player?</Text>
+          <View style={styles.flexRow}>
+            <Button
+              label="Cancel"
+              type="cancel"
+              onPress={() =>
+                updateState({
+                  key: "showConfirmation",
+                  value: !showConfirmation,
+                })
+              }
+            />
+            <Button
+              label="Delete"
+              onPress={handlePlayerDeletion}
+              style={styles.ml10}
+            />
+          </View>
+        </View>
+      </ConfirmationModal>
     </SafeArea>
   );
 };

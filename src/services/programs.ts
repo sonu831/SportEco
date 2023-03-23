@@ -49,3 +49,26 @@ export const deleteProgram = createAsyncThunk(
       });
   }
 );
+
+type UpdateProgramProps = {
+  data: { [key: string]: any };
+  id: string | undefined;
+};
+
+export const updateProgram = createAsyncThunk(
+  "updateProgram",
+  async (request: UpdateProgramProps, { rejectWithValue }) => {
+    const { data, id } = request;
+
+    return axios
+      .post(endpoints.updateProgram, data, {
+        headers: {
+          program_id: id,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
