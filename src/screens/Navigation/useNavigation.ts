@@ -48,7 +48,6 @@ const useNavigation = () => {
     if (fontsLoaded) {
       //Below Code Added to avoid user not authorised when first time loaded
       fetchFromStorage(StorageKeys.tokenKey).then((res) => {
-        debugger;
         if (res) {
           dispatch(fetchUserById()).then((res) => {
             if (res?.payload?.success) {
@@ -56,6 +55,8 @@ const useNavigation = () => {
             }
             isAppReady(true);
           });
+        } else if (res == null) {
+          isAppReady(true);
         }
       });
     }
