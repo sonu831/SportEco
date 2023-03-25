@@ -51,7 +51,7 @@ export const useVerificationScreen = ({
   const styles = customStyle({ window });
   const [state, setState] = useState<InitialStateType>(initialState);
   const phoneInput = useRef(null);
-  const [validationCode, setValidationCode] = useState("");
+  const [validationCode, setValidationCode] = useState<string>("");
   const validCodeRef = useBlurOnFulfill({
     value: validationCode,
     cellCount: CELL_COUNT,
@@ -101,8 +101,7 @@ export const useVerificationScreen = ({
             value: true,
           },
         ]);
-
-        setValidationCode(data.otp);
+        setValidationCode(!!data?.otp ? String(data.otp) : "");
       }
     });
   };

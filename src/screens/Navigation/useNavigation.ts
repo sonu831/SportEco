@@ -12,6 +12,8 @@ import { isLoading$ } from "../../store/common/selectors";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { setIsVerified } from "../../store/users/reducers";
+import { fetchFromStorage } from "../../utils/storage";
+import { StorageKeys } from "../../constants/storageKeys";
 
 type UserDataProps = {
   phNum: string;
@@ -43,15 +45,21 @@ const useNavigation = () => {
   });
 
   useEffect(() => {
-    if (fontsLoaded)
-      dispatch(fetchUserById()).then((res) => {
-        if (res?.payload?.success) {
-          dispatch(setIsVerified(true));
-          isAppReady(true);
-        } else {
+    if (fontsLoaded) {
+      //Below Code Added to avoid user not authorised when first time loaded
+      fetchFromStorage(StorageKeys.tokenKey).then((res) => {
+        if (res) {
+          dispatch(fetchUserById()).then((res) => {
+            if (res?.payload?.success) {
+              dispatch(setIsVerified(true));
+            }
+            isAppReady(true);
+          });
+        } else if (res == null) {
           isAppReady(true);
         }
       });
+    }
   }, [fontsLoaded]);
 
   useEffect(() => {
