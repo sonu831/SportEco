@@ -41,7 +41,6 @@ const responseHandler = (response: any) => {
 
 const errorHandler = (error: any) => {
   store.dispatch(hideLoader());
-
   if (error.response.status === 401) {
     AsyncStorage.clear().then(() => {
       store.dispatch(
