@@ -84,7 +84,7 @@ const EditProfile = ({
               {!!image ? (
                 <Image source={{ uri: image }} style={styles.uploadedImage} />
               ) : (
-                <ImagePicker handleImage={uploadImage} />
+                <ImagePicker currentImage={image} handleImage={uploadImage} />
               )}
             </View>
           </View>
@@ -191,19 +191,6 @@ const EditProfile = ({
           </View>
           <View style={[styles.fieldRow, styles.py16]}>
             <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>City</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <CustomDropdown
-              options={CITY_OPTIONS}
-              value={city}
-              onChange={(item) => {
-                updateState({ key: "city", value: item.value });
-              }}
-            />
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
               <Text style={styles.fieldRowLabel}>State</Text>
               <Text style={styles.required}>*</Text>
             </View>
@@ -212,6 +199,19 @@ const EditProfile = ({
               value={userState}
               onChange={(item) => {
                 updateState({ key: "state", value: item.value });
+              }}
+            />
+          </View>
+          <View style={[styles.fieldRow, styles.py16]}>
+            <View style={styles.flex}>
+              <Text style={styles.fieldRowLabel}>City</Text>
+              <Text style={styles.required}>*</Text>
+            </View>
+            <CustomDropdown
+              options={CITY_OPTIONS}
+              value={city}
+              onChange={(item) => {
+                updateState({ key: "city", value: item.value });
               }}
             />
           </View>
