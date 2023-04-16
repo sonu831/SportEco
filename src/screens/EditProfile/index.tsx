@@ -15,12 +15,10 @@ import { Colors } from "../../constants/Colors";
 import { styles } from "./styles";
 import useEditProfile from "./useEditProfile";
 import {
-  CITY_OPTIONS,
   DATE_OPTIONS,
   GENDER_OPTIONS,
   MONTH_OPTIONS,
   ROLE_OPTIONS,
-  STATE_OPTIONS,
 } from "../../constants/EditProfile";
 import CustomDropdown from "../../components/Dropdown";
 import { RootStackScreenProps } from "../Navigation/types";
@@ -42,6 +40,8 @@ const EditProfile = ({
     handleUploadID,
     isAddPlayer,
     isEdit,
+    countryStates,
+    citiesByState,
   } = useEditProfile({ navigation, route });
   const {
     fName,
@@ -51,10 +51,10 @@ const EditProfile = ({
     dobDate,
     dobMonth,
     dobYear,
-    city,
     role,
     gender,
-    state: userState,
+    selectedCity,
+    selectedState,
     image,
     idProof,
   } = state;
@@ -195,26 +195,28 @@ const EditProfile = ({
               <Text style={styles.required}>*</Text>
             </View>
             <CustomDropdown
-              options={STATE_OPTIONS}
-              value={userState}
+              options={countryStates}
+              value={selectedState}
               onChange={(item) => {
-                updateState({ key: "state", value: item.value });
+                updateState({ key: "selectedState", value: item.value });
               }}
             />
           </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>City</Text>
-              <Text style={styles.required}>*</Text>
+          {citiesByState?.length > 0 && (
+            <View style={[styles.fieldRow, styles.py16]}>
+              <View style={styles.flex}>
+                <Text style={styles.fieldRowLabel}>City</Text>
+                <Text style={styles.required}>*</Text>
+              </View>
+              <CustomDropdown
+                options={citiesByState}
+                value={selectedCity}
+                onChange={(item) => {
+                  updateState({ key: "selectedCity", value: item.value });
+                }}
+              />
             </View>
-            <CustomDropdown
-              options={CITY_OPTIONS}
-              value={city}
-              onChange={(item) => {
-                updateState({ key: "city", value: item.value });
-              }}
-            />
-          </View>
+          )}
           {!isAddPlayer && (
             <View style={[styles.py16, styles.fieldColumn]}>
               <Text style={styles.fieldRowLabel}>I am a...</Text>
