@@ -4,6 +4,8 @@ import {
   registerUser,
   fetchUserById,
   updateUserProfile,
+  getAllStates,
+  getSelectedCityByState,
 } from "./../../services/users";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -13,6 +15,8 @@ const initialState = {
   isNewUser: false,
   isVerified: false,
   isLoginVerified: false,
+  states: [],
+  cities: [],
 };
 
 export const UserSlice = createSlice({
@@ -42,6 +46,13 @@ export const UserSlice = createSlice({
       })
       .addCase(registerUser.rejected, (s, a) => {
         s.error = JSON.stringify(a.payload);
+      })
+      .addCase(getAllStates.fulfilled, (s, a) => {
+        s.states = a.payload;
+      })
+      .addCase(getSelectedCityByState.fulfilled, (s, a) => {
+        debugger;
+        s.cities = a.payload;
       });
   },
 });

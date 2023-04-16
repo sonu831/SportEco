@@ -1,5 +1,6 @@
 import { endpoints } from "./utils/endpoints";
 import axios from "./utils/axios";
+import http from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const registerUser = createAsyncThunk(
@@ -76,6 +77,39 @@ export const uploadUserProfilePicture = createAsyncThunk(
     return axios
       .post(endpoints.uploadUserProfileImage, request?.formData)
       .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
+
+//TODO: For now we have hard code the country
+export const getAllStates = createAsyncThunk(
+  "getAllStates",
+  async (_, { rejectWithValue, fulfillWithValue }) => {
+    return http
+      .post(endpoints.fetchAllState, { country: "India" })
+      .then((res) => {
+        return fulfillWithValue(res.data);
+      })
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
+
+//TODO: For now we have hard code the country
+export const getSelectedCityByState = createAsyncThunk(
+  "getSelectedCityByState",
+  async (selectedState: string, { rejectWithValue, fulfillWithValue }) => {
+    return http
+      .post(endpoints.fetchCityByState, {
+        country: "India",
+        state: selectedState,
+      })
+      .then((res) => {
+        return fulfillWithValue(res.data);
+      })
       .catch((err) => {
         rejectWithValue(err);
       });

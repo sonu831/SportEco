@@ -5,6 +5,8 @@ export const endpoints = {
   updateUserProfile: `/api/user/updateuserprofile`,
   uploadUserProfileImage: `/api/user/userprofilepicupload`,
   fetchUserById: `/api/user/getuserdetailbyid`,
+  fetchAllState: `https://countriesnow.space/api/v0.1/countries/states`,
+  fetchCityByState: `https://countriesnow.space/api/v0.1/countries/state/cities`,
 
   // Players
   fetchPlayers: `/api/player/listofplayers`,

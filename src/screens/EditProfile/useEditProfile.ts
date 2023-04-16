@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetails$ } from "../../store/users/selectors";
+import {
+  citiesByState$,
+  countryState$,
+  userDetails$,
+} from "../../store/users/selectors";
 import { playerDetails$ } from "../../store/players/selectors";
 import {
   fetchUserById,
+  getAllStates,
+  getSelectedCityByState,
   updateUserProfile,
   uploadUserProfilePicture,
 } from "../../services/users";
@@ -30,8 +36,8 @@ type InitialState = {
   dobDate: string;
   dobYear: string;
   gender: string;
-  city: string;
-  state: string;
+  selectedCity: string;
+  selectedState: string;
   role: string[];
   image: string;
   idProof?: FileUploadResponse;
@@ -46,11 +52,16 @@ const initialState = {
   dobDate: "",
   dobYear: "",
   gender: "",
-  city: "",
-  state: "",
+  selectedCity: "",
+  selectedState: "",
   role: [],
   image: "",
   idProof: undefined,
+};
+
+export type OptionType = {
+  label: string;
+  value: string;
 };
 
 const useEditProfile = ({
@@ -70,8 +81,12 @@ const useEditProfile = ({
   const dispatch = useDispatch<AppDispatch>();
   const [response, setResponse] = useState<any>(null);
   const userDetails: Partial<User> = useSelector(userDetails$);
+  const countryStates: OptionType[] = useSelector(countryState$);
+  const citiesByState: OptionType[] = useSelector(citiesByState$);
   const playerDetails: Partial<User> = useSelector(playerDetails$);
   const [state, setState] = useState<InitialState>(initialState);
+
+  const { selectedState } = state;
 
   const handleGoBack = () => navigation.goBack();
 
@@ -142,8 +157,8 @@ const useEditProfile = ({
         { key: "mName", value: middle_name || "" },
         { key: "gender", value: gender || "" },
         { key: "role", value: role || [] },
-        { key: "state", value: state || "" },
-        { key: "city", value: city || "" },
+        { key: "selectedState", value: state || "" },
+        { key: "selectedCity", value: city || "" },
       ]);
     }
   }, [userDetails]);
@@ -156,8 +171,8 @@ const useEditProfile = ({
       mName,
       gender,
       role,
-      state: userState,
-      city,
+      selectedState: userState,
+      selectedCity,
       dobMonth,
       dobDate,
       dobYear,
@@ -175,7 +190,7 @@ const useEditProfile = ({
       },
       email: email?.toLowerCase(),
       gender: gender,
-      city: city,
+      city: selectedCity,
       state: userState,
       ...(!isAddPlayer && { role: role }),
     };
@@ -227,6 +242,16 @@ const useEditProfile = ({
     }
   };
 
+  useEffect(() => {
+    dispatch(getAllStates());
+  }, []);
+
+  useEffect(() => {
+    if (selectedState?.length) {
+      dispatch(getSelectedCityByState(selectedState));
+    }
+  }, [selectedState]);
+
   return {
     uploadImage,
     userDetails,
@@ -238,6 +263,8 @@ const useEditProfile = ({
     handleUploadID,
     isAddPlayer,
     isEdit,
+    countryStates,
+    citiesByState,
   };
 };
 
