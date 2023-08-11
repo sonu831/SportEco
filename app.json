@@ -15,16 +15,22 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "sport.eco"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "sport.eco"
+      "package": "sport.eco",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
