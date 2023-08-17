@@ -1,29 +1,23 @@
-import { Text, View, Pressable, Image } from "react-native";
+import React, { useEffect } from "react";
+import { View, Image } from "react-native";
 import logo from "../../assets/images/logo.png";
-import soccerIcon from "../../assets/images/soccer.png";
-import prizeIcon from "../../assets/images/prize.png";
-import footballIcon from "../../assets/images/football.png";
-import badmintonIcon from "../../assets/images/badminton.png";
 import { styles } from "./styles";
 
 const LandingScreen = (props: any) => {
+  useEffect(() => {
+    const landingTimer = setTimeout(() => {
+      props.navigation.navigate("Loading"); // Navigate to the Loading screen after 3 seconds
+    }, 3000);
+
+    // Clean up the landing timer if the component unmounts before the timer completes
+    return () => {
+      clearTimeout(landingTimer);
+    };
+  }, []); // Empty dependency array ensures this effect runs only once
+
   return (
     <View style={styles.container}>
-      <Image source={footballIcon} style={styles.footballIcon} />
-      <Image source={soccerIcon} style={styles.soccerIcon} />
-      <Image source={prizeIcon} style={styles.prizeIcon} />
-      <Image source={badmintonIcon} style={styles.badmintonIcon} />
       <Image source={logo} style={styles.logo} />
-      <View style={styles.headingContainer}>
-        <Text style={styles.title}>India's Largest</Text>
-        <Text style={styles.title}>Sports Community</Text>
-      </View>
-      <Pressable
-        style={styles.button}
-        onPress={() => props.navigation.navigate("Verification")}
-      >
-        <Text style={styles.buttonText}>Lets Go</Text>
-      </Pressable>
     </View>
   );
 };
