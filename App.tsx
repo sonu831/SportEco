@@ -13,7 +13,6 @@ Sentry.init({
   debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 });
 
-import { Text, View, Button } from "react-native";
 import ErrorBoundary from "./src/screens/ErrorBoundary";
 
 const App = () => {

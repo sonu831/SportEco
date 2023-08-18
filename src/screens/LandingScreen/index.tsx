@@ -7,7 +7,7 @@ const LandingScreen = (props: any) => {
   useEffect(() => {
     const landingTimer = setTimeout(() => {
       props.navigation.navigate("Loading"); // Navigate to the Loading screen after 3 seconds
-    }, 3000);
+    }, 10);
 
     // Clean up the landing timer if the component unmounts before the timer completes
     return () => {

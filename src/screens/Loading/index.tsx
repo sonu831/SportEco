@@ -7,7 +7,7 @@ const Loading = (props: any) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       props.navigation.navigate("Verification");
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 2000); // 3000 milliseconds = 3 seconds
 
     // Clean up the timer if the component unmounts before the timer completes
     return () => {
