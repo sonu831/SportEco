@@ -26,6 +26,7 @@ import Events from "../Events";
 import AddEvents from "../AddEvents";
 import ProgramDetails from "../ProgramDetails";
 import CalendarScreen from "../CalendarScreen";
+import Loading from "../Loading";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -59,6 +60,7 @@ const Navigation = () => {
               <Stack.Screen name="AddEvents" component={AddEvents} />
               <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
               <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
+              <Stack.Screen name="Loading" component={Loading} />
             </Stack.Group>
           ) : (
             <Stack.Group>
@@ -67,6 +69,7 @@ const Navigation = () => {
                 name="Verification"
                 component={VerificationScreen}
               />
+              <Stack.Screen name="Loading" component={Loading} />
             </Stack.Group>
           )}
           <Stack.Screen name="Confirmation" component={Confirmation} />

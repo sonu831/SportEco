@@ -13,6 +13,7 @@ export type RootStackParamList = {
   EditProfile: { isAddPlayer?: boolean; isEdit?: boolean } | undefined;
   CommonScreen: { title: string; shouldRefresh?: boolean };
   Landing: undefined;
+  Loading: undefined;
   Verification: undefined;
   Main: undefined;
   Calendar: undefined;
