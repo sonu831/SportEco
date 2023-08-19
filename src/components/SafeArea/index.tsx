@@ -28,11 +28,5 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: Colors.white,
-    paddingTop:
-      Platform.OS === "android"
-        ? StatusBar.currentHeight
-          ? StatusBar.currentHeight + 10
-          : 10
-        : 0,
   },
 });

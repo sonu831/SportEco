@@ -5,6 +5,7 @@ import {
   View,
   Image,
   ImageBackground,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -12,12 +13,21 @@ import { Colors } from "../../constants/Colors";
 import { Input } from "react-native-elements";
 import imageBg from "../../assets/images/image_bg.png";
 import enterNumberImage from "../../assets/images/enter_number.png";
+import loginImage from "../../assets/images/loginImage.png";
 // import accountVerifiedImage from "../../assets/images/account_verified.png";
 import enterCodeImage from "../../assets/images/enter_code.png";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { useVerificationScreen } from "./useVerificationScreen";
 import { RootStackScreenProps } from "../Navigation/types";
 import SafeArea from "../../components/SafeArea";
+import Button from "../../components/Button";
+import {
+  TitleText,
+  CenteredLineWithText,
+  PhoneNumberInput,
+  SocialButton,
+  TermsAndConditions
+} from "../../components";
 
 const CELL_COUNT = 4;
 
@@ -41,9 +51,49 @@ const VerificationScreen = ({
 
   const { accountVerified, codeSent, invalidCode, phNum } = state;
 
+  const handleGoogleLogin = () => {}
+  const handleWhatsappLogin = () => {}
+
+  const loginScreen = <View style={{flex: 1}}>
+    <View style={{flex: 1}}>
+      <ImageBackground source={loginImage} style={styles.loginImageBg} />
+    </View>
+    <View style={{flex: 1.2}}>
+      <ScrollView>
+        <TitleText text={`India's Largest Sports Community`} />
+        <CenteredLineWithText lineText="Log in or Sign up" />
+        <PhoneNumberInput
+          phoneNumber={phNum}
+          onChangePhoneNumber={(phone: string) => {
+          updateState({
+            key: "phNum",
+            value: phone,
+          });
+        }}/>
+        <Button
+          style={{width: '90%', alignSelf: 'center'}}
+          label="Continue"
+          onPress={handleCreateAccount}
+        />
+        <CenteredLineWithText lineText="or" />
+        <View style={styles.socialBtn}>
+          <SocialButton 
+          onPress={handleGoogleLogin}
+          icon={'google'}
+          />
+          <SocialButton 
+          onPress={handleWhatsappLogin}
+          icon={'whatsapp'}
+          />
+        </View>
+        <TermsAndConditions />
+      </ScrollView>
+    </View>
+  </View>;
+
   return (
     <SafeArea classNames={styles.container}>
-      <View style={styles.containerView}>
+      {codeSent ? <View style={styles.containerView}>
         <Pressable
           style={styles.backButton}
           onPress={() =>
@@ -55,9 +105,8 @@ const VerificationScreen = ({
         <View>
           <View style={styles.logo}>
             <ImageBackground source={imageBg} style={styles.imageBg}>
-              <Image source={codeSent ? enterCodeImage : enterNumberImage} />
+              <Image source={enterCodeImage} />
             </ImageBackground>
-            {codeSent ? (
               <View>
                 {invalidCode ? (
                   <View style={styles.numContainer}>
@@ -71,13 +120,7 @@ const VerificationScreen = ({
                   </View>
                 )}
               </View>
-            ) : (
-              <Text style={styles.title}>
-                You'll receive a 4-digit code for verification
-              </Text>
-            )}
           </View>
-          {codeSent ? (
             <View style={styles.centerContainer}>
               <CodeField
                 ref={validCodeRef}
@@ -134,37 +177,8 @@ const VerificationScreen = ({
                 </TouchableOpacity>
               )}
             </View>
-          ) : (
-            <View style={styles.bottomContainer}>
-              <View style={styles.fieldContainer}>
-                <Input
-                  ref={phoneInput}
-                  keyboardType="number-pad"
-                  onChangeText={(phone: string) => {
-                    updateState({
-                      key: "phNum",
-                      value: phone,
-                    });
-                  }}
-                  value={phNum}
-                  containerStyle={styles.mt15}
-                  inputContainerStyle={styles.fieldInputContainer}
-                  inputStyle={styles.fieldInput}
-                  label="Enter your phone number"
-                  labelStyle={styles.fieldLabel}
-                />
-              </View>
-              <TouchableOpacity
-                style={[styles.button, !isPhNumValid() && styles.disabledBtn]}
-                onPress={handleCreateAccount}
-                disabled={!phNum}
-              >
-                <Text style={styles.buttonText}>Continue</Text>
-              </TouchableOpacity>
-            </View>
-          )}
         </View>
-      </View>
+      </View> : loginScreen}
     </SafeArea>
   );
 };

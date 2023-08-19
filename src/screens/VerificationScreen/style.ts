@@ -25,6 +25,10 @@ export const customStyle = ({ window }: { window: any }) =>
       justifyContent: "center",
       alignItems: "center",
     },
+    loginImageBg: {
+      height: '100%',
+      width: '100%',
+    },
     title: {
       width: 284,
       height: 19,
@@ -171,4 +175,10 @@ export const customStyle = ({ window }: { window: any }) =>
     disabledBtn: {
       opacity: 0.5,
     },
+    socialBtn: {
+      flexDirection: 'row',
+      width: '25%',
+      justifyContent: 'space-around',
+      alignSelf: 'center'
+    }
   });
