@@ -5,6 +5,7 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "native:android": "react-native run-android",
+    "native:start": "react-native start --reset-cache",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",

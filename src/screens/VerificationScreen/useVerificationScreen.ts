@@ -86,33 +86,42 @@ export const useVerificationScreen = ({
     const request = {
       phNum,
     };
-    dispatch(registerUser(request)).then((res) => {
-      const { data = {} } = res.payload;
-      console.log("data", data);
-      if (!!data.otp) {
-        updateState([
-          {
-            key: "codeToValidate",
-            value: data.otp,
-          },
-          {
-            key: "codeSent",
-            value: true,
-          },
-        ]);
-        setValidationCode(!!data?.otp ? String(data.otp) : "");
-      }
-    });
+    console.log("data111111");
+    updateState([
+      {
+        key: "codeToValidate",
+        value: 2342,
+      },
+      {
+        key: "codeSent",
+        value: true,
+      },
+    ]);
+    setValidationCode("2342");
+    // dispatch(registerUser(request)).then((res) => {
+    //   const { data = {} } = res.payload;
+    //   console.log("data", data);
+    //   if (!!data.otp) {
+    //     updateState([
+    //       {
+    //         key: "codeToValidate",
+    //         value: data.otp,
+    //       },
+    //       {
+    //         key: "codeSent",
+    //         value: true,
+    //       },
+    //     ]);
+    //     setValidationCode(!!data?.otp ? String(data.otp) : "");
+    //   }
+    // });
   };
 
   const navigateToConfirmation = (isUserExist: boolean) => {
     dispatch(setIsVerified(true));
     dispatch(setIsLoginVerified(true));
-
-    navigation.navigate("Confirmation", {
-      label: "Account verified!",
-      navigateTo: isUserExist ? "Main" : "EditProfile",
-    });
+    console.log("finalk redirect to CreateProfile");
+    navigation.navigate("CreateProfile");
   };
 
   const handleOTPValidation = () => {
@@ -125,15 +134,23 @@ export const useVerificationScreen = ({
       };
       span.finish(); // Remember that only finished spans will be sent with the transaction
       transaction.finish(); // Finishing the transaction will send it to Sentry
-      dispatch(validateOtp(request)).then((res) => {
-        const isUserExist = res.payload.redirecttodashboard;
+      // dispatch(validateOtp(request))
+      //   .then((res) => {
+      //     const isUserExist = res.payload.redirecttodashboard;
 
-        if (isUserExist)
-          dispatch(fetchUserById()).then(() =>
-            navigateToConfirmation(isUserExist)
-          );
-        else navigateToConfirmation(isUserExist);
-      });
+      //     if (isUserExist)
+      //       dispatch(fetchUserById()).then(() =>
+      //         navigateToConfirmation(isUserExist)
+      //       );
+      //     else navigateToConfirmation(isUserExist);
+      //   })
+      //   .catch(() => {
+      //     navigateToConfirmation(true);
+      //   })
+      //   .finally(() => {
+      //     navigateToConfirmation(true);
+      //   });
+      navigateToConfirmation(true);
     } else {
       updateState({
         key: "invalidCode",

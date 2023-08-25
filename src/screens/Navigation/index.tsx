@@ -27,6 +27,7 @@ import AddEvents from "../AddEvents";
 import ProgramDetails from "../ProgramDetails";
 import CalendarScreen from "../CalendarScreen";
 import Loading from "../Loading";
+import CreateProfileScreen from "../CreateProfileScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -44,6 +45,10 @@ const Navigation = () => {
           {isAccountVerified ? (
             <Stack.Group>
               <Stack.Screen name="Main" component={MainScreen} />
+              <Stack.Screen
+                name="CreateProfile"
+                component={CreateProfileScreen}
+              />
               <Stack.Screen name="Calendar" component={NotReady} />
               <Stack.Screen name="Message" component={NotReady} />
               <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -64,6 +69,10 @@ const Navigation = () => {
             </Stack.Group>
           ) : (
             <Stack.Group>
+              <Stack.Screen
+                name="CreateProfile"
+                component={CreateProfileScreen}
+              />
               <Stack.Screen name="Landing" component={LandingScreen} />
               <Stack.Screen
                 name="Verification"
