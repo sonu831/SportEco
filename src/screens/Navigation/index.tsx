@@ -45,10 +45,6 @@ const Navigation = () => {
           {isAccountVerified ? (
             <Stack.Group>
               <Stack.Screen name="Main" component={MainScreen} />
-              <Stack.Screen
-                name="CreateProfile"
-                component={CreateProfileScreen}
-              />
               <Stack.Screen name="Calendar" component={NotReady} />
               <Stack.Screen name="Message" component={NotReady} />
               <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -69,10 +65,6 @@ const Navigation = () => {
             </Stack.Group>
           ) : (
             <Stack.Group>
-              <Stack.Screen
-                name="CreateProfile"
-                component={CreateProfileScreen}
-              />
               <Stack.Screen name="Landing" component={LandingScreen} />
               <Stack.Screen
                 name="Verification"
@@ -81,6 +73,7 @@ const Navigation = () => {
               <Stack.Screen name="Loading" component={Loading} />
             </Stack.Group>
           )}
+          <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
           <Stack.Screen name="Confirmation" component={Confirmation} />
         </Stack.Navigator>
 

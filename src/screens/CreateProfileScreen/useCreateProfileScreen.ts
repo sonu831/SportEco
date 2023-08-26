@@ -67,6 +67,12 @@ const useCreateProfileScreen = ({
     if (currentStep < 5) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
+    if (currentStep === 5) {
+      navigation.navigate("Confirmation", {
+        label: "Account verified!",
+        navigateTo: "Main",
+      });
+    }
   };
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
