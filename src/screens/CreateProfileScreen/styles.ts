@@ -60,6 +60,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   w195: { width: 195 },
+  w100: { width: "100%" },
   w60: { width: 60 },
   mr10: { marginRight: 10 },
   mr27: { marginRight: 27 },
@@ -108,6 +109,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   px25: { paddingHorizontal: 25 },
+  pb30: { paddingBottom: 30 },
   uploadedImage: {
     width: 50,
     height: 50,
@@ -116,5 +118,10 @@ export const styles = StyleSheet.create({
   },
   textCapitalize: {
     textTransform: "capitalize",
+  },
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    alignSelf: "center",
   },
 });

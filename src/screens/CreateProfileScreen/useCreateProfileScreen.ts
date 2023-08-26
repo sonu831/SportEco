@@ -69,6 +69,17 @@ const useCreateProfileScreen = ({
     }
   };
 
+  const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
+    if (Array.isArray(request)) {
+      request.forEach(({ key, value }) =>
+        setState((preState) => ({ ...preState, [key]: value }))
+      );
+    } else {
+      const { key, value } = request;
+      setState((preState) => ({ ...preState, [key]: value }));
+    }
+  };
+
   return {
     currentStep,
     uploadImage: () => {},
@@ -76,6 +87,7 @@ const useCreateProfileScreen = ({
     state,
     handleSave,
     handleGoBack,
+    updateState,
   };
 };
 
