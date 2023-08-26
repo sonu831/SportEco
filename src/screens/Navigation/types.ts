@@ -11,6 +11,7 @@ declare global {
 export type RootStackParamList = {
   Home: undefined;
   EditProfile: { isAddPlayer?: boolean; isEdit?: boolean } | undefined;
+  CreateProfile: undefined;
   CommonScreen: { title: string; shouldRefresh?: boolean };
   Landing: undefined;
   Loading: undefined;

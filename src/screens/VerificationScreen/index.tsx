@@ -26,7 +26,7 @@ import {
   CenteredLineWithText,
   PhoneNumberInput,
   SocialButton,
-  TermsAndConditions
+  TermsAndConditions,
 } from "../../components";
 
 const CELL_COUNT = 4;
@@ -51,62 +51,60 @@ const VerificationScreen = ({
 
   const { accountVerified, codeSent, invalidCode, phNum } = state;
 
-  const handleGoogleLogin = () => {}
-  const handleWhatsappLogin = () => {}
+  const handleGoogleLogin = () => {};
+  const handleWhatsappLogin = () => {};
 
-  const loginScreen = <View style={{flex: 1}}>
-    <View style={{flex: 1}}>
-      <ImageBackground source={loginImage} style={styles.loginImageBg} />
-    </View>
-    <View style={{flex: 1.2}}>
-      <ScrollView>
-        <TitleText text={`India's Largest Sports Community`} />
-        <CenteredLineWithText lineText="Log in or Sign up" />
-        <PhoneNumberInput
-          phoneNumber={phNum}
-          onChangePhoneNumber={(phone: string) => {
-          updateState({
-            key: "phNum",
-            value: phone,
-          });
-        }}/>
-        <Button
-          style={{width: '90%', alignSelf: 'center'}}
-          label="Continue"
-          onPress={handleCreateAccount}
-        />
-        <CenteredLineWithText lineText="or" />
-        <View style={styles.socialBtn}>
-          <SocialButton 
-          onPress={handleGoogleLogin}
-          icon={'google'}
+  const loginScreen = (
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <ImageBackground source={loginImage} style={styles.loginImageBg} />
+      </View>
+      <View style={{ flex: 1.2 }}>
+        <ScrollView>
+          <TitleText text={`India's Largest Sports Community`} center />
+          <CenteredLineWithText lineText="Log in or Sign up" />
+          <PhoneNumberInput
+            phoneNumber={phNum}
+            onChangePhoneNumber={(phone: string) => {
+              updateState({
+                key: "phNum",
+                value: phone,
+              });
+            }}
           />
-          <SocialButton 
-          onPress={handleWhatsappLogin}
-          icon={'whatsapp'}
+          <Button
+            style={{ width: "90%", alignSelf: "center" }}
+            label="Continue"
+            onPress={handleCreateAccount}
           />
-        </View>
-        <TermsAndConditions />
-      </ScrollView>
+          <CenteredLineWithText lineText="or" />
+          <View style={styles.socialBtn}>
+            <SocialButton onPress={handleGoogleLogin} icon={"google"} />
+            <SocialButton onPress={handleWhatsappLogin} icon={"whatsapp"} />
+          </View>
+          <TermsAndConditions />
+        </ScrollView>
+      </View>
     </View>
-  </View>;
+  );
 
   return (
     <SafeArea classNames={styles.container}>
-      {codeSent ? <View style={styles.containerView}>
-        <Pressable
-          style={styles.backButton}
-          onPress={() =>
-            navigation.navigate(accountVerified ? "Home" : "Landing")
-          }
-        >
-          <Entypo name="chevron-left" size={20} color={Colors.darkGray} />
-        </Pressable>
-        <View>
-          <View style={styles.logo}>
-            <ImageBackground source={imageBg} style={styles.imageBg}>
-              <Image source={enterCodeImage} />
-            </ImageBackground>
+      {codeSent ? (
+        <View style={styles.containerView}>
+          <Pressable
+            style={styles.backButton}
+            onPress={() =>
+              navigation.navigate(accountVerified ? "Home" : "Landing")
+            }
+          >
+            <Entypo name="chevron-left" size={20} color={Colors.darkGray} />
+          </Pressable>
+          <View>
+            <View style={styles.logo}>
+              <ImageBackground source={imageBg} style={styles.imageBg}>
+                <Image source={enterCodeImage} />
+              </ImageBackground>
               <View>
                 {invalidCode ? (
                   <View style={styles.numContainer}>
@@ -120,7 +118,7 @@ const VerificationScreen = ({
                   </View>
                 )}
               </View>
-          </View>
+            </View>
             <View style={styles.centerContainer}>
               <CodeField
                 ref={validCodeRef}
@@ -177,8 +175,11 @@ const VerificationScreen = ({
                 </TouchableOpacity>
               )}
             </View>
+          </View>
         </View>
-      </View> : loginScreen}
+      ) : (
+        loginScreen
+      )}
     </SafeArea>
   );
 };

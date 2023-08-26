@@ -16,6 +16,7 @@ export const initializeStore = (initialStore: any) => {
 const instance = axios.create({
   baseURL: config.apiUrl,
   withCredentials: true,
+  timeout: 1000,
 });
 
 const requestHandler = async (request: any) => {
@@ -25,6 +26,7 @@ const requestHandler = async (request: any) => {
 
   store.dispatch(showLoader());
   // Sentry.captureException("sport eco request", request);
+  console.log("Api request", request);
   return request;
 };
 
@@ -36,6 +38,7 @@ const responseHandler = (response: any) => {
     storeDataInStorage(StorageKeys.tokenKey, token);
   }
   Sentry.captureException("sport eco response", response);
+  console.log("api response", response);
   return response;
 };
 

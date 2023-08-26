@@ -1,15 +1,25 @@
-import { StyleProp, Text, TouchableOpacity, ViewStyle } from "react-native";
+import {
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  ViewStyle,
+  View,
+} from "react-native";
 import React from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDateTimePicker from "./useDateTimePicker";
 import { Moment } from "moment";
 import { styles } from "./styles";
+import { TextInputComponent } from "../TextInput";
+import { TextInput } from "..";
+import moment from "moment";
 
 type DateTimePickerProps = {
   type: "date" | "time" | "datetime";
   value: Moment;
   onChange: any;
-  formatToShow: string;
+  formatToShow?: string;
+  dateBoxField?: boolean;
   classNames?: StyleProp<ViewStyle>;
 };
 
@@ -19,6 +29,7 @@ const DateTimePicker = ({
   onChange,
   formatToShow,
   classNames,
+  dateBoxField = false,
 }: DateTimePickerProps) => {
   const { state, handleConfirm, handleShowDatePicker, hideDatePicker } =
     useDateTimePicker({ value, onChange });
@@ -27,10 +38,29 @@ const DateTimePicker = ({
   return (
     <>
       <TouchableOpacity
-        style={[styles.w195, styles.timeInputContainer, classNames]}
+        style={[
+          styles.w195,
+          styles.timeInputContainer,
+          classNames,
+          dateBoxField && styles.dateBoxContainer,
+        ]}
         onPress={handleShowDatePicker}
       >
-        <Text>{date?.format(formatToShow)}</Text>
+        {dateBoxField ? (
+          <View style={styles.dateContainer}>
+            <View style={styles.dateWrapper}>
+              <Text>{moment(date).format("D") ?? "Day"}</Text>
+            </View>
+            <View style={styles.dateWrapper}>
+              <Text>{moment(date).format("MMMM") ?? "Month"}</Text>
+            </View>
+            <View style={styles.dateWrapper}>
+              <Text>{moment(date).format("YYYY") ?? "Year"}</Text>
+            </View>
+          </View>
+        ) : (
+          <Text>{date?.format(formatToShow)}</Text>
+        )}
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={showDatePicker}
