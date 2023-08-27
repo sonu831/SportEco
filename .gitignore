@@ -86,3 +86,7 @@ web-build/
 dist/
 
 # @end expo-cli
+
+
+#build_files
+/android/app/src/main/
