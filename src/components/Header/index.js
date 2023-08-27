@@ -7,7 +7,7 @@ const Header = ({ title, rightText, onBackPress }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onBackPress}>
-        <EvilIcons name="arrow-left" size={50} color={Colors.darkGray} />
+        <EvilIcons name="arrow-left" style={styles.backBtn} size={50} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <View>
@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 8,
     backgroundColor: "#fff",
+  },
+  backBtn: {
+    zIndex: 99,
+    color: Colors.darkGray,
   },
   title: {
     fontSize: 18,

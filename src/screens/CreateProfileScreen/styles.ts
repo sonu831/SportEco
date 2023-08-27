@@ -83,15 +83,15 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: "Avenir-Regular",
   },
-  saveBtn: {
+  nextBtn: {
     backgroundColor: Colors.orange,
     width: 64,
-    height: 35,
+    height: 48,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
-  saveBtnText: {
+  nextBtnText: {
     fontWeight: "700",
     color: Colors.white,
     fontFamily: "Avenir-Regular",
