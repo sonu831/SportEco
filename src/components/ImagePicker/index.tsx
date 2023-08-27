@@ -14,7 +14,7 @@ import { styles } from "./styles";
 interface ImagePickerProps {
   icon?: ImageSourcePropType;
   handleImage: any;
-  currentImage: any;
+  currentImage?: any;
   isChooseAvatar?: boolean;
 }
 

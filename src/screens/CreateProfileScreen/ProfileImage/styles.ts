@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
   },
   avatarImage: {
     height: 120,
-    width: 120,
-    alignSelf: "center",
+    justifyContent: "center",
+    alignContent: "center",
   },
   listedAvatarContainer: {
     height: 220,
@@ -32,12 +32,16 @@ export const styles = StyleSheet.create({
   },
   chooseAnAvatarText: {
     color: Colors.gray5,
+    marginTop: 12,
+    marginBottom: 6,
   },
   avatarListImage: {
-    top: 25,
-    left: 32,
     width: 279,
     height: 177,
-    position: "absolute",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    alignContent: "center",
   },
 });
