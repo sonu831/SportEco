@@ -29,7 +29,7 @@ import {
   TermsAndConditions,
 } from "../../components";
 
-const CELL_COUNT = 4;
+const CELL_COUNT = 6;
 
 const VerificationScreen = ({
   navigation,

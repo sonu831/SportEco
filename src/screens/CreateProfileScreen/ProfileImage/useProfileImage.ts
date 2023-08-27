@@ -1,17 +1,22 @@
 import { useState } from "react";
-import group906 from "../../../assets/images/group-906.png";
+import group902 from "../../../assets/images/group902.png";
+import group904 from "../../../assets/images/group904.png";
+import group905 from "../../../assets/images/group905.png";
+import group908 from "../../../assets/images/group908.png";
+import group907 from "../../../assets/images/group907.png";
+import group909 from "../../../assets/images/group909.png";
 
 type AvatarMap = {
   [key: number]: string;
 };
 
 const initialAvatar: AvatarMap = {
-  1: group906,
-  2: group906,
-  3: group906,
-  4: group906,
-  5: group906,
-  6: group906,
+  1: group902,
+  2: group904,
+  3: group905,
+  4: group908,
+  5: group907,
+  6: group909,
 };
 
 const useProfileImage = () => {
