@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Image, TouchableOpacity } from "react-native";
-import group906 from "../../../assets/images/group-906.png";
 import styles from "./styles";
 
 type AvatarProps = {

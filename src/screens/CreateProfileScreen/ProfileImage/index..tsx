@@ -25,7 +25,7 @@ export const ProfileImage = ({ image, uploadImage }) => {
           <AvatarImage
             imageUrl={imageUrl}
             placeholderImage={avatarImage}
-            resizeMode="center"
+            resizeMode="cover"
           />
         </View>
         <Text style={styles.avatarName}>Nitik Jain</Text>
