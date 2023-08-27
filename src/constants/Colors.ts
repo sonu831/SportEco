@@ -6,6 +6,7 @@ export const Colors = {
   gray1: "#F5F5F5",
   gray2: "#45413CB2",
   gray3: "#D9D9D9",
+  gray5: "#878584",
   blue: "#00ADEE",
   shadowGrey: "#cdc7c7",
   red: "#FF0202",
@@ -20,4 +21,6 @@ export const Colors = {
   toggleHead: "#0BD27380",
   calendarDayColor: "#69695D",
   calendarBgColor: "rgba(255, 79, 0, 0.09)",
+  tomato: "#f1592a",
+  darkslategray: "#303030",
 };

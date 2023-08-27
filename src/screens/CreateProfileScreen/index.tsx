@@ -9,7 +9,7 @@ import { styles } from "./styles";
 import useCreateProfileScreen from "./useCreateProfileScreen";
 import { NameFields } from "./nameFields";
 import { GenderField } from "./genderField";
-import { ProfileImage } from "./profileImage";
+import { ProfileImage } from "./ProfileImage/index.";
 import { DOBField } from "./dobField";
 
 const SaveButton = ({ handleSave }) => (
@@ -17,10 +17,10 @@ const SaveButton = ({ handleSave }) => (
     style={[styles.fieldRow, styles.justifyCenter, styles.mv20, styles.footer]}
   >
     <TouchableOpacity
-      style={[styles.saveBtn, styles.w100]}
+      style={[styles.nextBtn, styles.w100]}
       onPress={handleSave}
     >
-      <Text style={styles.saveBtnText}>Save</Text>
+      <Text style={styles.nextBtnText}>Next</Text>
     </TouchableOpacity>
   </View>
 );

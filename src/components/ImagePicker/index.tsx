@@ -14,13 +14,15 @@ import { styles } from "./styles";
 interface ImagePickerProps {
   icon?: ImageSourcePropType;
   handleImage: any;
-  currentImage: any;
+  currentImage?: any;
+  isChooseAvatar?: boolean;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
   currentImage,
   icon,
   handleImage,
+  isChooseAvatar = false,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { pickImage } = useImagePicker({ handleImage });
@@ -33,14 +35,25 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
     handleImage("");
   };
 
+  const renderImagePlaceholder = () => {
+    if (currentImage) {
+      return <Image source={{ uri: currentImage }} style={styles.image} />;
+    } else if (isChooseAvatar) {
+      return (
+        <View style={styles.uploadPhoto}>
+          <Text style={[styles.uploadPhoto1, styles.uploadPhoto1Typo]}>
+            Upload Photo
+          </Text>
+        </View>
+      );
+    }
+    return <Image source={icon || userProfile} />;
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleSelectImage}>
-        {!!currentImage ? (
-          <Image source={{ uri: currentImage }} style={styles.image} />
-        ) : (
-          <Image source={icon || userProfile} />
-        )}
+        {renderImagePlaceholder()}
       </TouchableOpacity>
       <Modal visible={showModal} animationType="slide" transparent>
         <View style={styles.modalContainer}>

@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { FontFamily, FontSize } from "../../assets/fonts/fonts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -46,5 +48,21 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  uploadPhoto: {
+    borderRadius: 24,
+    backgroundColor: Colors.darkslategray,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    alignItems: "center",
+  },
+  uploadPhoto1Typo: {
+    fontSize: FontSize.size_base,
+    textAlign: "center",
+    fontFamily: FontFamily.workSansMedium,
+    fontWeight: "500",
+  },
+  uploadPhoto1: {
+    color: Colors.white,
   },
 });
