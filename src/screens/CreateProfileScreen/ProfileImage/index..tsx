@@ -1,16 +1,19 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { styles } from "./styles";
-import group910 from "../../../assets/images/group-910.png";
-import group906 from "../../../assets/images/group-906.png";
 import { CenteredLineWithText, TitleText } from "../../../components";
 import ImagePicker from "../../../components/ImagePicker";
 import AvatarImage from "../../../components/AvatarImage";
 import useProfileImage from "./useProfileImage";
 
 export const ProfileImage = ({ image, uploadImage }) => {
-  const { initialAvatar, avatarImage, handleAvatarClick, handleUploadImage } =
-    useProfileImage();
+  const {
+    imageUrl,
+    initialAvatar,
+    avatarImage,
+    handleAvatarClick,
+    handleUploadImage,
+  } = useProfileImage();
   return (
     <View style={styles.container}>
       <TitleText
@@ -19,9 +22,12 @@ export const ProfileImage = ({ image, uploadImage }) => {
       />
       <View style={styles.profileAvatarContainer}>
         <View style={styles.avatarImage}>
-          <AvatarImage placeholderImage={group906} resizeMode="center" />
+          <AvatarImage
+            imageUrl={imageUrl}
+            placeholderImage={avatarImage}
+            resizeMode="center"
+          />
         </View>
-        {/* <Image source={group906} style={styles.avatarImage} resizeMode="center" /> */}
         <Text style={styles.avatarName}>Nitik Jain</Text>
       </View>
       <View style={styles.listedAvatarContainer}>
@@ -30,10 +36,12 @@ export const ProfileImage = ({ image, uploadImage }) => {
           {Object.entries(initialAvatar).map(([key, image]) => (
             <AvatarImage
               key={key}
+              item={key}
               placeholderImage={image}
               resizeMode="cover"
               height={80}
               width={80}
+              onClick={handleAvatarClick}
               customStyle={{
                 borderWidth: image ? 0 : 1, // set the border width
                 borderColor: "black", // set the border color to black
@@ -41,11 +49,6 @@ export const ProfileImage = ({ image, uploadImage }) => {
             />
           ))}
         </View>
-        {/* <Image
-        source={group910}
-        style={styles.avatarListImage}
-        resizeMode="cover"
-      /> */}
       </View>
       <CenteredLineWithText lineText="or" />
       <ImagePicker isChooseAvatar handleImage={handleUploadImage} />

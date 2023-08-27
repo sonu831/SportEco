@@ -44,7 +44,6 @@ const StateCityFields = ({
 );
 
 const RenderStep = ({ currentStep, ...props }) => {
-  console.log("currentStep RenderStep", currentStep);
   switch (currentStep) {
     case StepsEnum.NameDetails:
       return <NameFields {...props} />;

@@ -44,7 +44,6 @@ const useCreateProfileScreen = ({
 }) => {
   const isAddPlayer = false;
   const isEdit = false;
-  console.log("redirected to create profile");
   const dispatch = useDispatch<AppDispatch>();
   const [response, setResponse] = useState<any>(null);
   const [state, setState] = useState<InitialState>(initialState);

@@ -27,7 +27,6 @@ export const fetchPrograms = createAsyncThunk(
       .get(endpoints.fetchPrograms)
       .then((res) => res.data)
       .catch((err) => {
-        console.log("err", err);
         rejectWithValue(err);
       });
   }
@@ -44,7 +43,6 @@ export const deleteProgram = createAsyncThunk(
       })
       .then((res) => res.data)
       .catch((err) => {
-        console.log("err", err);
         rejectWithValue(err);
       });
   }
