@@ -1,12 +1,14 @@
 import { Alert } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
 
 interface UseImagePickerProps {
   handleImage?: (uri: string) => void;
 }
 
 const useImagePicker = ({ handleImage }: UseImagePickerProps) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
     const permission =
@@ -33,10 +35,13 @@ const useImagePicker = ({ handleImage }: UseImagePickerProps) => {
 
     if (!!result?.assets?.length) {
       handleImage?.(result.assets[0].uri);
+      setShowModal(false);
     }
   };
 
   return {
+    showModal,
+    setShowModal,
     pickImage,
   };
 };

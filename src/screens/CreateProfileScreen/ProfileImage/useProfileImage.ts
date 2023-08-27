@@ -2,7 +2,7 @@ import { useState } from "react";
 import group906 from "../../../assets/images/group-906.png";
 
 type AvatarMap = {
-  [key: number]: number;
+  [key: number]: string;
 };
 
 const initialAvatar: AvatarMap = {
@@ -16,18 +16,23 @@ const initialAvatar: AvatarMap = {
 
 const useProfileImage = () => {
   // State to manage the currently selected avatar.
-  const [avatarImage, setAvatarImage] = useState<number | undefined>();
+  const [avatarImage, setAvatarImage] = useState<string>(initialAvatar[1]);
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
 
   // Function to handle the avatar selection.
-  const handleAvatarClick = (imageCounter: number = 1) => {
-    setAvatarImage(initialAvatar[imageCounter]);
+  const handleAvatarClick = (item: any) => {
+    const imageIndex = item?.item || 1; //initialAvatar[item?.item || 1];
+    setAvatarImage(initialAvatar[imageIndex]);
   };
 
-  const handleUploadImage = () => {
+  const handleUploadImage = (image: string) => {
     // Implementation for uploading image
+    console.log("handleUploadImage", image);
+    setImageUrl(image);
   };
 
   return {
+    imageUrl,
     initialAvatar,
     avatarImage,
     handleAvatarClick,
