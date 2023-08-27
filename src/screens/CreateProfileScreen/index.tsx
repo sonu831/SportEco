@@ -38,8 +38,9 @@ const StateCityFields = ({
   selectedCity,
   updateState,
 }) => (
-  <View style={[styles.fieldRow, styles.py16]}>
-    <Text style={styles.fieldRowLabel}>StateCityFields</Text>
+  <View style={[styles.fieldColumn, styles.py16]}>
+    <Text style={styles.fieldRowLabel}>State and City</Text>
+    <Text style={styles.fieldRowLabel}>Changes are in Progress</Text>
   </View>
 );
 
