@@ -9,7 +9,7 @@ import { styles } from "./styles";
 import useCreateProfileScreen from "./useCreateProfileScreen";
 import { NameFields } from "./nameFields";
 import { GenderField } from "./genderField";
-import { ProfileImage } from "./ProfileImage/profileImage";
+import { ProfileImage } from "./ProfileImage/index.";
 import { DOBField } from "./dobField";
 
 const SaveButton = ({ handleSave }) => (
