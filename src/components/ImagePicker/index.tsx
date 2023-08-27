@@ -24,8 +24,9 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
   handleImage,
   isChooseAvatar = false,
 }) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const { pickImage } = useImagePicker({ handleImage });
+  const { pickImage, setShowModal, showModal } = useImagePicker({
+    handleImage,
+  });
 
   const handleSelectImage = () => {
     setShowModal(!showModal);
