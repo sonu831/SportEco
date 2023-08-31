@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: Colors.white,
   },
-  py16: { paddingVertical: 16 },
+  py16: { padding: 10 },
   flex: { display: "flex", flexDirection: "row", alignItems: "center" },
   backButton: {
     backgroundColor: Colors.lightOrange,

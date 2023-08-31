@@ -11,6 +11,10 @@ import { NameFields } from "./nameFields";
 import { GenderField } from "./genderField";
 import { ProfileImage } from "./ProfileImage/index.";
 import { DOBField } from "./dobField";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Colors } from "../../constants/Colors";
+
+navigator.geolocation = require('@react-native-community/geolocation');
 
 const SaveButton = ({ handleSave }) => (
   <View
@@ -38,9 +42,69 @@ const StateCityFields = ({
   selectedCity,
   updateState,
 }) => (
-  <View style={[styles.fieldColumn, styles.py16]}>
-    <Text style={styles.fieldRowLabel}>State and City</Text>
-    <Text style={styles.fieldRowLabel}>Changes are in Progress</Text>
+  <View style={styles.py16}>
+    <Text style={[styles.fieldRowLabel, { fontSize: 16, fontWeight: 'bold', marginBottom: 8 }]}>Select Your City.</Text>
+    <Text style={styles.fieldRowLabel}>Help us discover the sports around.</Text>
+    <View style={{ width: '100%', padding: 5, height: '100%' }}>
+      <GooglePlacesAutocomplete
+        placeholder='Search'
+        returnKeyType={'default'}
+        fetchDetails={true}
+        currentLocation={true}
+        isRowScrollable={true}
+        keepResultsAfterBlur={false}
+        enablePoweredByContainer={false}
+        styles={{
+          textInputContainer: {
+            marginTop: 0,
+          },
+          textInput: {
+            height: 45,
+            color: 'black',
+            fontSize: 16,
+            backgroundColor: Colors.white,
+            borderWidth: 0.5,
+            borderColor: Colors.gray,
+            borderRadius: 10
+          },
+          predefinedPlacesDescription: {
+            color: '#1faadb',
+          },
+          listView: {
+            position: 'relative',
+            zIndex: 3,
+            marginTop: 0,
+            padding: 0
+          },
+          row: {
+            backgroundColor: '#FFFFFF',
+            height: 50,
+            flexDirection: 'row',
+          },
+          separator: {
+            height: 0.5,
+            backgroundColor: '#c8c7cc',
+          },
+          description: {},
+          loader: {
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            height: 20,
+          },
+        }}
+        onPress={(data, details) => {
+          // 'details' is provided when fetchDetails = true
+          // console.warn(details);
+        }}
+        query={{
+          key: 'Your Api Key',
+          language: 'en',
+          components: 'country:us'
+        }}
+
+      />
+    </View>
+
   </View>
 );
 
