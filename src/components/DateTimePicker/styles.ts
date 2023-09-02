@@ -21,6 +21,9 @@ export const styles = StyleSheet.create({
     padding: 10,
     width: 80,
   },
+  monthDateWrapper: {
+    width: 120,
+  },
   dateContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
