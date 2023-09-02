@@ -9,7 +9,7 @@ export const DOBField = ({ dobDate, dobMonth, dobYear, updateState }) => (
   <View style={[styles.fieldColumn]}>
     <TitleText
       text={`What's Your Date Of Birth?`}
-      subtext="Let's mark your sports journey with your birthdate!"
+      subtext="This helps us personalize your experience."
       style={styles.pb30}
     />
     <DateTimePicker

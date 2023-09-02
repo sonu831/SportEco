@@ -52,8 +52,8 @@ const VerificationScreen = ({
 
   const { accountVerified, codeSent, invalidCode, phNum } = state;
 
-  const handleGoogleLogin = () => { };
-  const handleWhatsappLogin = () => { };
+  const handleGoogleLogin = () => {};
+  const handleWhatsappLogin = () => {};
 
   const loginScreen = (
     <View style={{ flex: 1 }}>
@@ -117,7 +117,9 @@ const VerificationScreen = ({
                   <>
                     <View style={{ height: 40 }} />
                     <View style={styles.numContainer}>
-                      <Text style={styles.send}>We have sent a verification code to </Text>
+                      <Text style={styles.send}>
+                        Verification code sent to{" "}
+                      </Text>
                       <Text style={styles.num}>{phNum}</Text>
                     </View>
                   </>
@@ -150,7 +152,9 @@ const VerificationScreen = ({
                 </View>
               ) : (
                 <View style={[styles.resendContainer, styles.mt15]}>
-                  <Text style={styles.resendTextStyle}>Didn't receive code? </Text>
+                  <Text style={styles.resendTextStyle}>
+                    Didn't receive code?{" "}
+                  </Text>
                   <Text style={styles.resendButtonTextStyle}>Resend</Text>
                 </View>
               )}
@@ -162,7 +166,8 @@ const VerificationScreen = ({
                     updateState({
                       key: "invalidCode",
                       value: false,
-                    })}
+                    })
+                  }
                 />
               ) : (
                 <Button

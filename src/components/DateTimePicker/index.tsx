@@ -51,7 +51,7 @@ const DateTimePicker = ({
             <View style={styles.dateWrapper}>
               <Text>{moment(date).format("D") ?? "Day"}</Text>
             </View>
-            <View style={styles.dateWrapper}>
+            <View style={[styles.dateWrapper, styles.monthDateWrapper]}>
               <Text>{moment(date).format("MMMM") ?? "Month"}</Text>
             </View>
             <View style={styles.dateWrapper}>

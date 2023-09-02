@@ -11,10 +11,10 @@ import { NameFields } from "./nameFields";
 import { GenderField } from "./genderField";
 import { ProfileImage } from "./ProfileImage/index.";
 import { DOBField } from "./dobField";
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Colors } from "../../constants/Colors";
 
-navigator.geolocation = require('@react-native-community/geolocation');
+navigator.geolocation = require("@react-native-community/geolocation");
 
 const SaveButton = ({ handleSave }) => (
   <View
@@ -43,12 +43,21 @@ const StateCityFields = ({
   updateState,
 }) => (
   <View style={styles.py16}>
-    <Text style={[styles.fieldRowLabel, { fontSize: 16, fontWeight: 'bold', marginBottom: 8 }]}>Select Your City.</Text>
-    <Text style={styles.fieldRowLabel}>Help us discover the sports around.</Text>
-    <View style={{ width: '100%', padding: 5, height: '100%' }}>
+    <Text
+      style={[
+        styles.fieldRowLabel,
+        { fontSize: 16, fontWeight: "bold", marginBottom: 8 },
+      ]}
+    >
+      Select Your City.
+    </Text>
+    <Text style={styles.fieldRowLabel}>
+      Help us discover the sports around.
+    </Text>
+    <View style={{ width: "100%", padding: 5, height: "100%" }}>
       <GooglePlacesAutocomplete
-        placeholder='Search'
-        returnKeyType={'default'}
+        placeholder="Search"
+        returnKeyType={"default"}
         fetchDetails={true}
         currentLocation={true}
         isRowScrollable={true}
@@ -60,35 +69,35 @@ const StateCityFields = ({
           },
           textInput: {
             height: 45,
-            color: 'black',
+            color: "black",
             fontSize: 16,
             backgroundColor: Colors.white,
             borderWidth: 0.5,
             borderColor: Colors.gray,
-            borderRadius: 10
+            borderRadius: 10,
           },
           predefinedPlacesDescription: {
-            color: '#1faadb',
+            color: "#1faadb",
           },
           listView: {
-            position: 'relative',
+            position: "relative",
             zIndex: 3,
             marginTop: 0,
-            padding: 0
+            padding: 0,
           },
           row: {
-            backgroundColor: '#FFFFFF',
+            backgroundColor: "#FFFFFF",
             height: 50,
-            flexDirection: 'row',
+            flexDirection: "row",
           },
           separator: {
             height: 0.5,
-            backgroundColor: '#c8c7cc',
+            backgroundColor: "#c8c7cc",
           },
           description: {},
           loader: {
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
+            flexDirection: "row",
+            justifyContent: "flex-end",
             height: 20,
           },
         }}
@@ -97,14 +106,12 @@ const StateCityFields = ({
           // console.warn(details);
         }}
         query={{
-          key: 'Your Api Key',
-          language: 'en',
-          components: 'country:us'
+          key: "AIzaSyBJ_BPhmynrxi4V3WcaGKvOXTV4iOSLrt4",
+          language: "en",
+          components: "country:us",
         }}
-
       />
     </View>
-
   </View>
 );
 

@@ -10,7 +10,7 @@ const Header = ({ title, rightText, onBackPress }) => {
         <EvilIcons name="arrow-left" style={styles.backBtn} size={50} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
-      <View>
+      <View style={[rightText == undefined ? styles.rightContainer : null]}>
         <Text style={styles.rightTextStyle}>{rightText}</Text>
       </View>
     </View>
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  rightContainer: {
+    width: 40,
   },
   rightTextStyle: {
     color: "#F1592A",

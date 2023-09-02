@@ -7,6 +7,8 @@ import { AppDispatch } from "../../store";
 import { User } from "../../types/User";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { InitialState, OptionType, StepType } from "./config";
+import { updateUserProfile } from "../../services/users";
+import moment from "moment";
 
 const initialState = {
   fName: "",
@@ -65,6 +67,31 @@ const useCreateProfileScreen = ({
     console.log("render state", currentStep);
     if (currentStep < 5) {
       setCurrentStep((prevStep) => prevStep + 1);
+    }
+    if (currentStep == 5) {
+      const request = {
+        data: {
+          first_name: state.fName,
+          last_name: state.lName,
+          middle_name: state.mName,
+          email: state.email,
+          DOB: {
+            date: moment(state.dobDate).format("D"),
+            month: moment(state.dobDate).format("MMMM"),
+            year: moment(state.dobDate).format("YYYY"),
+          },
+          gender: state.gender,
+          city: state.selectedCity,
+          state: state.selectedState,
+          role: [],
+        },
+      };
+      dispatch(updateUserProfile(request)).then((res) => {
+        // const { data = {} } = res.payload;
+        console.log("========");
+        console.log("=======res ========", res);
+        console.log("========");
+      });
     }
   };
 

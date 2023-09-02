@@ -13,7 +13,7 @@ export const GenderField = ({ updateState }) => {
     <View style={[styles.fieldColumn]}>
       <TitleText
         text={`Select Your Gender.`}
-        subtext="This helps us personalize your experience"
+        subtext="This helps us personalize your experience."
         style={styles.pb30}
       />
       <SelectionComponent
