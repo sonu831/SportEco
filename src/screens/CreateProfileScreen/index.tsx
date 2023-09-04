@@ -56,8 +56,7 @@ const StateCityFields = ({
     </Text>
     <View style={{ width: "100%", padding: 5, height: "100%" }}>
       <GooglePlacesAutocomplete
-        placeholder="Search"
-        returnKeyType={"default"}
+        placeholder="Search destination"
         fetchDetails={true}
         currentLocation={true}
         isRowScrollable={true}
@@ -101,9 +100,9 @@ const StateCityFields = ({
             height: 20,
           },
         }}
-        onPress={(data, details) => {
+        onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          // console.warn(details);
+          console.log(data, details);
         }}
         query={{
           key: "AIzaSyBJ_BPhmynrxi4V3WcaGKvOXTV4iOSLrt4",
