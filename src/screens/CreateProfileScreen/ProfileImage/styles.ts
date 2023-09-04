@@ -44,4 +44,9 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignContent: "center",
   },
+  curveImageBg: {
+    position: 'absolute',
+    width: "100%",
+    height: '71%'
+  }
 });

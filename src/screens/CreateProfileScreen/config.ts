@@ -16,6 +16,7 @@ export enum StepsEnum {
   DateOfBirth = 3,
   SelectCity = 4,
   ProfilePhoto = 5,
+  SelectUserType = 6,
 }
 
 export type InitialState = {

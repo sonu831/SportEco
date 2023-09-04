@@ -21,7 +21,7 @@ const initialState = {
   gender: "",
   selectedCity: "",
   selectedState: "",
-  role: [],
+  roles: [],
   image: "",
   idProof: undefined,
 };
@@ -33,6 +33,7 @@ const steps: StepType[] = [
   { step: 3, title: "Date of Birth" },
   { step: 4, title: "Select City" },
   { step: 5, title: "Profile Photo" },
+  { step: 6, title: "User Type" },
 ];
 
 const useCreateProfileScreen = ({
@@ -65,10 +66,10 @@ const useCreateProfileScreen = ({
   const handleSave = () => {
     // Move to next step
     console.log("render state", currentStep);
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
-    if (currentStep == 5) {
+    if (currentStep == 6) {
       const request = {
         data: {
           first_name: state.fName,
@@ -83,7 +84,7 @@ const useCreateProfileScreen = ({
           gender: state.gender,
           city: state.selectedCity,
           state: state.selectedState,
-          role: [],
+          role: state.roles,
         },
       };
       dispatch(updateUserProfile(request)).then((res) => {
@@ -108,7 +109,7 @@ const useCreateProfileScreen = ({
 
   return {
     currentStep,
-    uploadImage: () => {},
+    uploadImage: () => { },
     userDetails: [],
     state,
     handleSave,
