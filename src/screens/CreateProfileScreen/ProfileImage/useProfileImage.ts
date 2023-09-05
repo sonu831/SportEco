@@ -5,6 +5,9 @@ import group905 from "../../../assets/images/group905.png";
 import group908 from "../../../assets/images/group908.png";
 import group907 from "../../../assets/images/group907.png";
 import group909 from "../../../assets/images/group909.png";
+import { uploadUserProfilePicture } from "../../../services/users";
+import { AppDispatch } from "../../../store";
+import { useDispatch } from "react-redux";
 
 type AvatarMap = {
   [key: number]: string;
@@ -20,6 +23,7 @@ const initialAvatar: AvatarMap = {
 };
 
 const useProfileImage = () => {
+  const dispatch = useDispatch<AppDispatch>();
   // State to manage the currently selected avatar.
   const [avatarImage, setAvatarImage] = useState<string>(initialAvatar[1]);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
@@ -32,6 +36,9 @@ const useProfileImage = () => {
 
   const handleUploadImage = (image: string) => {
     // Implementation for uploading image
+    dispatch(uploadUserProfilePicture(image)).then((res) => {
+      console.log("uploadUserProfilePicture res---->", res)
+    })
     console.log("handleUploadImage", image);
     setImageUrl(image);
   };

@@ -17,7 +17,7 @@ import SelectUserTypes from "./selectUserTypes";
 
 navigator.geolocation = require("@react-native-community/geolocation");
 
-const SaveButton = ({ handleSave }) => (
+const SaveButton = ({ handleSave, currentStep }) => (
   <View
     style={[styles.fieldRow, styles.justifyCenter, styles.mv20, styles.footer]}
   >
@@ -25,7 +25,7 @@ const SaveButton = ({ handleSave }) => (
       style={[styles.nextBtn, styles.w100]}
       onPress={handleSave}
     >
-      <Text style={styles.nextBtnText}>Next</Text>
+      <Text style={styles.nextBtnText}>{currentStep == 6 ? "Finish" : "Next"}</Text>
     </TouchableOpacity>
   </View>
 );
@@ -168,7 +168,7 @@ const CreateProfileScreen = ({
         />
         <RenderStep currentStep={currentStep} {...state} {...{ updateState }} />
       </View>
-      <SaveButton handleSave={handleSave} />
+      <SaveButton handleSave={handleSave} currentStep={currentStep} />
     </SafeArea>
   );
 };

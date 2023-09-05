@@ -92,6 +92,9 @@ const useCreateProfileScreen = ({
         console.log("========");
         console.log("=======res ========", res);
         console.log("========");
+        if (res?.payload?.success) {
+          navigation.navigate('Main')
+        }
       });
     }
   };
