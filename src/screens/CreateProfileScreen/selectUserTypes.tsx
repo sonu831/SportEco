@@ -6,41 +6,40 @@ import UserTypes from '../../components/UserTypes';
 const SelectUserTypes = ({ updateState }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const data = [
+  const userTypes = [
     {
       id: 1,
       name: "Coach",
       img: require('../../assets/images/coach.png'),
-      isShow: false
+      width: '43%'
     },
     {
       id: 2,
       name: "Player",
       img: require('../../assets/images/player.png'),
-      isShow: false
+      width: '43%'
     },
     {
       id: 3,
       name: "Parent",
       img: require('../../assets/images/parent.png'),
-      isShow: false
-    }
+      width: '93%'
+    },
   ];
-  const addUsers = (user) => {
-    const index = selectedUsers.find((e) => e.id == user.id);
+
+  const toggleUserType = (user) => {
+    const index = selectedUsers.findIndex((e) => e.id === user.id);
     if (index > -1) {
-      const filter = selectedUsers.filter((e) => e.id != user.id);
-      updateState({ key: "roles", values: filter })
-      setSelectedUsers(filter);
-      data[index].isShow = !user.isShow
-
+      const updatedUsers = selectedUsers.filter((e) => e.id !== user.id);
+      updateState({ key: "roles", values: updatedUsers });
+      setSelectedUsers(updatedUsers);
     } else {
-      updateState({ key: "roles", values: [...selectedUsers, user] })
-      setSelectedUsers([...selectedUsers, user]);
-
+      const updatedUsers = [...selectedUsers, user];
+      updateState({ key: "roles", values: updatedUsers });
+      setSelectedUsers(updatedUsers);
     }
-
   };
+
   return (
     <View style={styles.container}>
       <TitleText
@@ -55,25 +54,22 @@ const SelectUserTypes = ({ updateState }) => {
           justifyContent: "center"
         }}
       >
-        {data.map((item, index) => {
-          const isSelected = selectedUsers.findIndex((e) => e.id == item.id);
-          return (
-            <UserTypes
-              key={index.toString()}
-              isCheck={item.isShow}
-              width="43%"
-              name={item.name}
-              image={item.img}
-              onPress={() => addUsers(item)}
-            />
-          );
-        })}
+        {userTypes.map((item) => (
+          <UserTypes
+            key={item.id.toString()}
+            isCheck={selectedUsers.some((user) => user.id === item.id)}
+            width={item.width}
+            name={item.name}
+            image={item.img}
+            onPress={() => toggleUserType(item)}
+          />
+        ))}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default SelectUserTypes
+export default SelectUserTypes;
 
 const styles = StyleSheet.create({
   container: {
