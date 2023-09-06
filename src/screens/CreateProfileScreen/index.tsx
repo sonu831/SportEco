@@ -13,10 +13,11 @@ import { ProfileImage } from "./ProfileImage/index.";
 import { DOBField } from "./dobField";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Colors } from "../../constants/Colors";
+import SelectUserTypes from "./selectUserTypes";
 
 navigator.geolocation = require("@react-native-community/geolocation");
 
-const SaveButton = ({ handleSave }) => (
+const SaveButton = ({ handleSave, currentStep }) => (
   <View
     style={[styles.fieldRow, styles.justifyCenter, styles.mv20, styles.footer]}
   >
@@ -24,7 +25,7 @@ const SaveButton = ({ handleSave }) => (
       style={[styles.nextBtn, styles.w100]}
       onPress={handleSave}
     >
-      <Text style={styles.nextBtnText}>Next</Text>
+      <Text style={styles.nextBtnText}>{currentStep == 6 ? "Finish" : "Next"}</Text>
     </TouchableOpacity>
   </View>
 );
@@ -54,7 +55,7 @@ const StateCityFields = ({
     <Text style={styles.fieldRowLabel}>
       Help us discover the sports around.
     </Text>
-    <View style={{ width: "100%", padding: 5, height: "100%" }}>
+    <View style={styles.searchView}>
       <GooglePlacesAutocomplete
         placeholder="Search destination"
         fetchDetails={true}
@@ -105,7 +106,7 @@ const StateCityFields = ({
           console.log(data, details);
         }}
         query={{
-          key: "AIzaSyBJ_BPhmynrxi4V3WcaGKvOXTV4iOSLrt4",
+          key: "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM",
           language: "en",
           components: "country:us",
         }}
@@ -126,6 +127,8 @@ const RenderStep = ({ currentStep, ...props }) => {
       return <StateCityFields {...props} />;
     case StepsEnum.ProfilePhoto:
       return <ProfileImage {...props} />;
+    case StepsEnum.SelectUserType:
+      return <SelectUserTypes {...props} />
     default:
       return null;
   }
@@ -161,11 +164,11 @@ const CreateProfileScreen = ({
         <Header
           title="Create Profile"
           onBackPress={handleGoBack}
-          rightText={`Step ${currentStep}/${StepsEnum.ProfilePhoto}`}
+          rightText={`Step ${currentStep}/${StepsEnum.SelectUserType}`}
         />
         <RenderStep currentStep={currentStep} {...state} {...{ updateState }} />
       </View>
-      <SaveButton handleSave={handleSave} />
+      <SaveButton handleSave={handleSave} currentStep={currentStep} />
     </SafeArea>
   );
 };

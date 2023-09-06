@@ -124,4 +124,10 @@ export const styles = StyleSheet.create({
     bottom: 0,
     alignSelf: "center",
   },
+  searchView: {
+    width: "100%",
+    padding: 5,
+    height: "100%",
+    paddingVertical: 20
+  }
 });
