@@ -71,9 +71,7 @@ const EditProfile = ({
           </Pressable>
           <View>
             <Text style={styles.headingText}>
-              {isAddPlayer
-                ? `${isEdit ? "Edit" : "Add"} Player`
-                : "Update your profile"}
+              {isEdit ? "Edit Profile" : "My Profile"}
             </Text>
           </View>
         </View>

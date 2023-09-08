@@ -29,9 +29,9 @@ const MainScreen = ({ navigation }: RootBottomTabProps<"Main">) => {
           <Text style={styles.heading}>Upcoming Events</Text>
           <TouchableOpacity
             style={styles.viewMore}
-            onPress={() => navigation.navigate("Events")}
+            onPress={() => navigation.navigate("EditProfile")}
           >
-            <Text style={styles.viewMoreText}>View All Events</Text>
+            <Text style={styles.viewMoreText}>Edit Profile</Text>
             <AntDesign name="eyeo" size={16} color={Colors.lightOrange1} />
           </TouchableOpacity>
         </View>
