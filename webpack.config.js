@@ -12,7 +12,7 @@ const compileNodeModules = [
 ].map(moduleName => path.resolve(appDirectory, `node_modules/${moduleName}`));
 
 const babelLoaderConfiguration = {
-  test: /\.js$|tsx?$/,
+  test: /\.(js|jsx|ts|tsx)$/,
   // Add every directory that needs to be compiled by Babel during the build.
   include: [
     path.resolve(__dirname, 'index.web.js'), // Entry to your application
@@ -20,6 +20,7 @@ const babelLoaderConfiguration = {
     path.resolve(__dirname, 'src'),
     ...compileNodeModules,
   ],
+  exclude: /node_modules/,
   use: {
     loader: 'babel-loader',
     options: {
@@ -37,6 +38,16 @@ const svgLoaderConfiguration = {
       loader: '@svgr/webpack',
     },
   ],
+};
+
+const assetLoaderConfiguration =  {
+  test: /\.(ttf|eot|woff|woff2)$/,
+  use: {
+    loader: 'file-loader',
+    options: {
+      name: 'fonts/[name].[ext]', // Output path for the font files
+    },
+  },
 };
 
 const imageLoaderConfiguration = {
@@ -69,6 +80,7 @@ module.exports = {
       babelLoaderConfiguration,
       imageLoaderConfiguration,
       svgLoaderConfiguration,
+      assetLoaderConfiguration
     ],
   },
   plugins: [
