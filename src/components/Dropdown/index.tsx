@@ -16,6 +16,7 @@ type CustomDropdownProps = {
   containerStyle?: StyleProp<ViewStyle>;
   isPlaceholderHidden?: boolean;
   placeholder?: string;
+  disable?: boolean;
 };
 
 const RenderItem = (item: any, value: any) => (
@@ -44,6 +45,7 @@ const CustomDropdown = ({
   containerStyle,
   isPlaceholderHidden = false,
   placeholder = "Select",
+  disable = false,
 }: CustomDropdownProps) => (
   <Dropdown
     data={options}
@@ -59,6 +61,7 @@ const CustomDropdown = ({
     placeholder={
       isPlaceholderHidden ? "" : placeholder ? placeholder : "Select"
     }
+    disable={disable}
   />
 );
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../../constants/Colors";
-import { FontSize } from "../../../assets/fonts/fonts";
+import { Colors } from "../../constants/Colors";
+import { FontSize } from "../../assets/fonts/fonts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -45,8 +45,8 @@ export const styles = StyleSheet.create({
     alignContent: "center",
   },
   curveImageBg: {
-    position: 'absolute',
+    position: "absolute",
     width: "100%",
-    height: '71%'
-  }
+    height: "71%",
+  },
 });

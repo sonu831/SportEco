@@ -27,35 +27,50 @@ import {
   updatePlayerProfile,
 } from "../../services/players";
 
+import group902 from "../../assets/images/group902.png";
+import group904 from "../../assets/images/group904.png";
+import group905 from "../../assets/images/group905.png";
+import group908 from "../../assets/images/group908.png";
+import group907 from "../../assets/images/group907.png";
+import group909 from "../../assets/images/group909.png";
+
+type AvatarMap = {
+  [key: number]: string;
+};
+
+const initialAvatar: AvatarMap = {
+  1: group902,
+  2: group904,
+  3: group905,
+  4: group908,
+  5: group907,
+  6: group909,
+};
+
 type InitialState = {
   fName: string;
   lName: string;
   mName: string;
-  email: string;
-  dobMonth: string;
-  dobDate: string;
-  dobYear: string;
   gender: string;
   selectedCity: string;
   selectedState: string;
   role: string[];
   image: string;
   idProof?: FileUploadResponse;
+  phNum: string;
 };
 
 const initialState = {
   fName: "",
   lName: "",
   mName: "",
-  email: "",
-  dobMonth: "",
   dobDate: "",
-  dobYear: "",
   gender: "",
   selectedCity: "",
   selectedState: "",
+  phNum: "",
   role: [],
-  image: "",
+  image: undefined,
   idProof: undefined,
 };
 
@@ -76,8 +91,7 @@ const useEditProfile = ({
   route: RouteProp<RootStackParamList, "EditProfile">;
 }) => {
   const isAddPlayer = route?.params?.isAddPlayer || false;
-  const isEdit = route?.params?.isEdit || false;
-
+  const [avatarImage, setAvatarImage] = useState<string>(initialAvatar[1]);
   const dispatch = useDispatch<AppDispatch>();
   const [response, setResponse] = useState<any>(null);
   const userDetails: Partial<User> = useSelector(userDetails$);
@@ -85,8 +99,11 @@ const useEditProfile = ({
   const citiesByState: OptionType[] = useSelector(citiesByState$);
   const playerDetails: Partial<User> = useSelector(playerDetails$);
   const [state, setState] = useState<InitialState>(initialState);
+  const [isEdit, setIsEdit] = useState<Boolean>(route?.params?.isEdit || false);
 
   const { selectedState } = state;
+
+  console.log("userDetails", userDetails);
 
   const handleGoBack = () => navigation.goBack();
 
@@ -99,6 +116,10 @@ const useEditProfile = ({
       const { key, value } = request;
       setState((preState) => ({ ...preState, [key]: value }));
     }
+  };
+
+  const toggleProfileEditMode = () => {
+    setIsEdit((prevState) => !prevState);
   };
 
   const uploadImage = useCallback((image: string) => {
@@ -138,9 +159,8 @@ const useEditProfile = ({
   }, []);
 
   useEffect(() => {
-    if (isEdit) {
+    if (!isEdit) {
       const {
-        email,
         gender,
         role,
         state,
@@ -148,10 +168,10 @@ const useEditProfile = ({
         first_name,
         last_name,
         middle_name,
-      } = isAddPlayer ? playerDetails : userDetails;
+        contact_no,
+      } = userDetails;
 
       updateState([
-        { key: "email", value: email || "" },
         { key: "fName", value: first_name || "" },
         { key: "lName", value: last_name || "" },
         { key: "mName", value: middle_name || "" },
@@ -159,6 +179,7 @@ const useEditProfile = ({
         { key: "role", value: role || [] },
         { key: "selectedState", value: state || "" },
         { key: "selectedCity", value: city || "" },
+        { key: "phNum", value: contact_no || "" },
       ]);
     }
   }, [userDetails]);
@@ -244,6 +265,7 @@ const useEditProfile = ({
 
   useEffect(() => {
     dispatch(getAllStates());
+    dispatch(fetchUserById());
   }, []);
 
   useEffect(() => {
@@ -253,6 +275,7 @@ const useEditProfile = ({
   }, [selectedState]);
 
   return {
+    avatarImage,
     uploadImage,
     userDetails,
     updateState,
@@ -265,6 +288,7 @@ const useEditProfile = ({
     isEdit,
     countryStates,
     citiesByState,
+    toggleProfileEditMode,
   };
 };
 

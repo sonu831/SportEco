@@ -9,7 +9,7 @@ import { styles } from "./styles";
 import useCreateProfileScreen from "./useCreateProfileScreen";
 import { NameFields } from "./nameFields";
 import { GenderField } from "./genderField";
-import { ProfileImage } from "./ProfileImage/index.";
+import { ProfileImage } from "../../components/ProfileImage";
 import { DOBField } from "./dobField";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Colors } from "../../constants/Colors";
@@ -25,7 +25,9 @@ const SaveButton = ({ handleSave, currentStep }) => (
       style={[styles.nextBtn, styles.w100]}
       onPress={handleSave}
     >
-      <Text style={styles.nextBtnText}>{currentStep == 6 ? "Finish" : "Next"}</Text>
+      <Text style={styles.nextBtnText}>
+        {currentStep == 6 ? "Finish" : "Next"}
+      </Text>
     </TouchableOpacity>
   </View>
 );
@@ -128,7 +130,7 @@ const RenderStep = ({ currentStep, ...props }) => {
     case StepsEnum.ProfilePhoto:
       return <ProfileImage {...props} />;
     case StepsEnum.SelectUserType:
-      return <SelectUserTypes {...props} />
+      return <SelectUserTypes {...props} />;
     default:
       return null;
   }

@@ -1,21 +1,31 @@
 import React, { Fragment } from "react";
 import { View, Text, ImageBackground } from "react-native";
 // components
-import { CenteredLineWithText, TitleText } from "../../../components";
-import ImagePicker from "../../../components/ImagePicker";
-import AvatarImage from "../../../components/AvatarImage";
+import { TitleText, CenteredLineWithText } from "../../components";
+import ImagePicker from "../ImagePicker";
+import AvatarImage from "../AvatarImage";
 import useProfileImage from "./useProfileImage";
 // assets
-import curveBackground from "../../../assets/images/curve.png"
+import curveBackground from "../../assets/images/curve.png";
 // style
 import { styles } from "./styles";
 
 export const ProfileImage = ({ image, uploadImage }) => {
-  const { imageUrl, initialAvatar, avatarImage, handleAvatarClick, handleUploadImage } = useProfileImage(); // var
+  const {
+    imageUrl,
+    initialAvatar,
+    avatarImage,
+    handleAvatarClick,
+    handleUploadImage,
+  } = useProfileImage(); // var
   // UI
   return (
     <Fragment>
-      <ImageBackground source={curveBackground} style={styles.curveImageBg} resizeMode="stretch" />
+      <ImageBackground
+        source={curveBackground}
+        style={styles.curveImageBg}
+        resizeMode="stretch"
+      />
       <View style={styles.container}>
         <TitleText
           text="Choose Your Avatar!"

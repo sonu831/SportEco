@@ -5,7 +5,12 @@ import { Entypo } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
-export const PhoneNumberInput = ({ phoneNumber, onChangePhoneNumber }) => {
+export const PhoneNumberInput = ({
+  phoneNumber,
+  onChangePhoneNumber,
+  isEditProfile,
+  editable = true,
+}) => {
   const [countryCode, setCountryCode] = useState("IN"); // Store the selected country code
   const [countryCodeInput, setCountryCodeInput] = useState("91");
 
@@ -27,7 +32,13 @@ export const PhoneNumberInput = ({ phoneNumber, onChangePhoneNumber }) => {
         />
         <Entypo name={"chevron-down"} size={16} />
       </View>
-      <View style={styles.inputContainer}>
+      <View
+        style={
+          isEditProfile
+            ? styles.inputContainerEditProfile
+            : styles.inputContainer
+        }
+      >
         <View style={styles.countryCodeContainer}>
           <Text style={styles.countryCodeText}>{`+${
             countryCodeInput ?? "1"
@@ -39,6 +50,7 @@ export const PhoneNumberInput = ({ phoneNumber, onChangePhoneNumber }) => {
           keyboardType="phone-pad"
           value={phoneNumber}
           onChangeText={onChangePhoneNumber}
+          editable={editable}
         />
       </View>
     </View>

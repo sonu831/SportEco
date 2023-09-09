@@ -1,9 +1,8 @@
 import React from "react";
+
 import {
   Text,
   View,
-  SafeAreaView,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -20,11 +19,17 @@ import {
   MONTH_OPTIONS,
   ROLE_OPTIONS,
 } from "../../constants/EditProfile";
+import Header from "../../components/Header";
 import CustomDropdown from "../../components/Dropdown";
 import { RootStackScreenProps } from "../Navigation/types";
 import ImagePicker from "../../components/ImagePicker";
 import FilePicker from "../../components/FilePicker";
 import SafeArea from "../../components/SafeArea";
+import AvatarImage from "../../components/AvatarImage";
+import { TextInputComponent } from "../../components/TextInput";
+import { PhoneNumberInput } from "../../components";
+import DateTimePicker from "../../components/DateTimePicker";
+import moment from "moment";
 
 const EditProfile = ({
   navigation,
@@ -42,256 +47,198 @@ const EditProfile = ({
     isEdit,
     countryStates,
     citiesByState,
+    avatarImage,
+    toggleProfileEditMode,
   } = useEditProfile({ navigation, route });
   const {
     fName,
     lName,
-    mName,
-    email,
-    dobDate,
-    dobMonth,
-    dobYear,
     role,
     gender,
     selectedCity,
     selectedState,
+    dobDate,
     image,
     idProof,
+    phNum,
   } = state;
 
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
 
+  const SaveButton = ({ handleSave }) => (
+    <View
+      style={[
+        styles.fieldRow,
+        styles.justifyCenter,
+        styles.saveBtn,
+        styles.footer,
+      ]}
+    >
+      <TouchableOpacity
+        style={[styles.nextBtn, styles.w100]}
+        onPress={handleSave}
+      >
+        <Text style={styles.nextBtnText}>Save</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <SafeArea classNames={styles.safeView}>
       <ScrollView>
-        <View style={[styles.containerView, styles.flex]}>
-          <Pressable style={styles.backButton} onPress={handleGoBack}>
-            <Entypo name="chevron-left" size={20} color={Colors.darkGray} />
-          </Pressable>
-          <View>
-            <Text style={styles.headingText}>
-              {isAddPlayer
-                ? `${isEdit ? "Edit" : "Add"} Player`
-                : "Update your profile"}
-            </Text>
-          </View>
-        </View>
         <View style={styles.containerView}>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <Text style={styles.fieldRowLabel}>Photo</Text>
-            <View style={styles.uploadImage}>
-              {!!image ? (
-                <Image source={{ uri: image }} style={styles.uploadedImage} />
-              ) : (
-                <ImagePicker currentImage={image} handleImage={uploadImage} />
-              )}
+          <View>
+            <Header
+              title={isEdit ? "Edit Profile" : "My Profile"}
+              onBackPress={handleGoBack}
+              isEditProfile
+              onEditModeClick={toggleProfileEditMode}
+            />
+          </View>
+          <View style={styles.profileAvatarContainer}>
+            <View style={styles.avatarImage}>
+              <AvatarImage
+                imageUrl={image}
+                placeholderImage={avatarImage}
+                resizeMode="cover"
+              />
             </View>
           </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>Name</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <View style={[styles.flex, styles.w195]}>
-              <TextInput
+
+          <View>
+            <View style={[styles.fieldCol, styles.py16]}>
+              <TextInputComponent
                 value={fName}
                 onChangeText={(newName) =>
                   updateState({ key: "fName", value: newName })
                 }
-                style={[styles.fieldInput, styles.mr10]}
+                style={styles.fieldInput}
                 placeholder="First Name"
+                editable={isEdit}
               />
-              <TextInput
+              <TextInputComponent
                 value={lName}
                 onChangeText={(newName) =>
                   updateState({ key: "lName", value: newName })
                 }
                 style={styles.fieldInput}
                 placeholder="Last Name"
+                editable={isEdit}
               />
             </View>
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <Text style={styles.fieldRowLabel}>
-              {isAddPlayer ? "Phone Number" : `Middle Name`}
-            </Text>
-            <TextInput
-              value={mName}
-              onChangeText={(newName) =>
-                updateState({ key: "mName", value: newName })
-              }
-              style={[styles.fieldInput, styles.w195]}
-              placeholder="Middle Name"
-            />
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>E-mail ID</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <TextInput
-              value={email}
-              onChangeText={(newName) =>
-                updateState({ key: "email", value: newName })
-              }
-              style={[styles.fieldInput, styles.w195]}
-              placeholder="E-mail ID"
-            />
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>Date of Brith</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <View style={[styles.flex, styles.w195]}>
-              <View style={styles.mr10}>
-                <CustomDropdown
-                  options={dateOptions}
-                  value={dobDate}
-                  onChange={(item) => {
-                    updateState({ key: "dobDate", value: item.value });
-                  }}
-                  containerStyle={styles.w60}
-                  isPlaceholderHidden={true}
-                />
-              </View>
-              <View style={styles.mr10}>
-                <CustomDropdown
-                  options={monthOptions}
-                  value={dobMonth}
-                  onChange={(item) => {
-                    updateState({ key: "dobMonth", value: item.value });
-                  }}
-                  containerStyle={styles.w60}
-                  isPlaceholderHidden={true}
-                />
-              </View>
-              <TextInput
-                value={dobYear}
-                onChangeText={(newName) =>
-                  updateState({ key: "dobYear", value: newName })
-                }
-                style={[styles.fieldInput, styles.w60]}
-              />
-            </View>
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>Gender</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <CustomDropdown
-              options={GENDER_OPTIONS}
-              value={gender}
-              onChange={(item) => {
-                updateState({ key: "gender", value: item.value });
-              }}
-            />
-          </View>
-          <View style={[styles.fieldRow, styles.py16]}>
-            <View style={styles.flex}>
-              <Text style={styles.fieldRowLabel}>State</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-            <CustomDropdown
-              options={countryStates}
-              value={selectedState}
-              onChange={(item) => {
-                updateState({ key: "selectedState", value: item.value });
-              }}
-            />
-          </View>
-          {citiesByState?.length > 0 && (
             <View style={[styles.fieldRow, styles.py16]}>
-              <View style={styles.flex}>
-                <Text style={styles.fieldRowLabel}>City</Text>
-                <Text style={styles.required}>*</Text>
-              </View>
-              <CustomDropdown
-                options={citiesByState}
-                value={selectedCity}
-                onChange={(item) => {
-                  updateState({ key: "selectedCity", value: item.value });
+              <PhoneNumberInput
+                phoneNumber={phNum}
+                onChangePhoneNumber={(phone: string) => {
+                  updateState({
+                    key: "phNum",
+                    value: phone,
+                  });
                 }}
+                isEditProfile
+                editable={isEdit}
               />
             </View>
-          )}
-          {!isAddPlayer && (
-            <View style={[styles.py16, styles.fieldColumn]}>
-              <Text style={styles.fieldRowLabel}>I am a...</Text>
-              <View style={[styles.fieldRow, styles.mt21]}>
-                {ROLE_OPTIONS.map((roleOption, i) => (
-                  <TouchableOpacity
-                    key={i}
-                    style={[
-                      styles.category,
-                      i !== ROLE_OPTIONS.length - 1 && styles.mr27,
-                      role.includes(roleOption) && styles.categorySelected,
-                    ]}
-                    onPress={() => {
-                      if (role.includes(roleOption)) {
-                        updateState({
-                          key: "role",
-                          value: role.filter((e) => e !== roleOption),
-                        });
-                      } else {
-                        updateState({
-                          key: "role",
-                          value: [...role, roleOption],
-                        });
-                      }
-                    }}
-                  >
-                    <Text
-                      style={[
-                        styles.textCapitalize,
-                        role.includes(roleOption) &&
-                          styles.categorySelectedText,
-                      ]}
-                    >
-                      {roleOption}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-              <TouchableOpacity
-                style={[styles.alignEnd, styles.mt10]}
-                onPress={() =>
+            <View style={[styles.fieldRow, styles.py16]}>
+              <DateTimePicker
+                type="date"
+                value={dobDate}
+                onChange={(value: any) =>
                   updateState({
-                    key: "role",
-                    value: ROLE_OPTIONS,
+                    key: "dobDate",
+                    value: moment(value),
                   })
                 }
-              >
-                <Text style={styles.selectAll}>Select All</Text>
-              </TouchableOpacity>
+                dateBoxField
+                disabled={isEdit}
+              />
             </View>
-          )}
-          {isAddPlayer && (
-            <View style={[styles.flex, styles.py16, styles.px25]}>
-              <View>
-                <View style={styles.flex}>
-                  <Text style={styles.fieldRowLabel}>ID Proof</Text>
-                  <Text style={styles.required}>*</Text>
-                </View>
-                <Text>{`(Aadhar Card)`}</Text>
-              </View>
+            <View style={[styles.fieldRow, styles.py16]}>
+              <CustomDropdown
+                placeholder="Gender"
+                options={GENDER_OPTIONS}
+                value={gender}
+                onChange={(item) => {
+                  updateState({ key: "gender", value: item.value });
+                }}
+                containerStyle={styles.genderDropdown}
+                disable={!isEdit}
+              />
+            </View>
 
-              <View style={styles.uploadIcon}>
-                {idProof?.mimeType ? (
-                  <Image source={uploadSuccessIcon} />
-                ) : (
-                  <FilePicker handleUpload={handleUploadID} />
-                )}
+            {/* {!isAddPlayer && (
+              <View style={[styles.py16, styles.fieldColumn]}>
+                <Text style={styles.fieldRowLabel}>I am a...</Text>
+                <View style={[styles.fieldRow, styles.mt21]}>
+                  {ROLE_OPTIONS.map((roleOption, i) => (
+                    <TouchableOpacity
+                      key={i}
+                      style={[
+                        styles.category,
+                        i !== ROLE_OPTIONS.length - 1 && styles.mr27,
+                        role.includes(roleOption) && styles.categorySelected,
+                      ]}
+                      onPress={() => {
+                        if (role.includes(roleOption)) {
+                          updateState({
+                            key: "role",
+                            value: role.filter((e) => e !== roleOption),
+                          });
+                        } else {
+                          updateState({
+                            key: "role",
+                            value: [...role, roleOption],
+                          });
+                        }
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.textCapitalize,
+                          role.includes(roleOption) &&
+                            styles.categorySelectedText,
+                        ]}
+                      >
+                        {roleOption}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+                <TouchableOpacity
+                  style={[styles.alignEnd, styles.mt10]}
+                  onPress={() =>
+                    updateState({
+                      key: "role",
+                      value: ROLE_OPTIONS,
+                    })
+                  }
+                >
+                  <Text style={styles.selectAll}>Select All</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-          )}
-          <View style={[styles.fieldRow, styles.justifyCenter, styles.mv20]}>
-            <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
-              <Text style={styles.saveBtnText}>Save</Text>
-            </TouchableOpacity>
+            )}
+            {isAddPlayer && (
+              <View style={[styles.flex, styles.py16, styles.px25]}>
+                <View>
+                  <View style={styles.flex}>
+                    <Text style={styles.fieldRowLabel}>ID Proof</Text>
+                    <Text style={styles.required}>*</Text>
+                  </View>
+                  <Text>{`(Aadhar Card)`}</Text>
+                </View>
+
+                <View style={styles.uploadIcon}>
+                  {idProof?.mimeType ? (
+                    <Image source={uploadSuccessIcon} />
+                  ) : (
+                    <FilePicker handleUpload={handleUploadID} />
+                  )}
+                </View>
+              </View>
+            )} */}
           </View>
+          <SaveButton handleSave={handleSave} />
         </View>
       </ScrollView>
     </SafeArea>
