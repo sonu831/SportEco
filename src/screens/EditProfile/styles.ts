@@ -1,6 +1,8 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 import Layout from "../../constants/Layout";
+import { color } from "react-native-elements/dist/helpers";
+import { colors } from "react-native-elements";
 
 const { window } = Layout;
 
@@ -11,9 +13,8 @@ export const styles = StyleSheet.create({
   },
   containerView: {
     paddingHorizontal: 16,
-    backgroundColor: Colors.white,
   },
-  py16: { paddingVertical: 16 },
+  py16: { padding: 10 },
   flex: { display: "flex", flexDirection: "row", alignItems: "center" },
   backButton: {
     backgroundColor: Colors.lightOrange,
@@ -37,6 +38,10 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 25,
   },
+  fieldCol: {
+    flexDirection: "column",
+    paddingHorizontal: 25,
+  },
   justifyCenter: { justifyContent: "center" },
   fieldColumn: { flexDirection: "column", paddingHorizontal: 25 },
   fieldRowLabel: {
@@ -53,13 +58,13 @@ export const styles = StyleSheet.create({
     color: Colors.red,
   },
   fieldInput: {
-    backgroundColor: Colors.gray1,
-    width: 95,
-    height: 35,
+    borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+    borderColor: Colors.gray5,
   },
   w195: { width: 195 },
+  w100: { width: "100%" },
   w60: { width: 60 },
   mr10: { marginRight: 10 },
   mr27: { marginRight: 27 },
@@ -82,15 +87,15 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: "Avenir-Regular",
   },
-  saveBtn: {
+  nextBtn: {
     backgroundColor: Colors.orange,
     width: 64,
-    height: 35,
+    height: 48,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
-  saveBtnText: {
+  nextBtnText: {
     fontWeight: "700",
     color: Colors.white,
     fontFamily: "Avenir-Regular",
@@ -108,6 +113,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   px25: { paddingHorizontal: 25 },
+  pb30: { paddingBottom: 30 },
   uploadedImage: {
     width: 50,
     height: 50,
@@ -116,5 +122,34 @@ export const styles = StyleSheet.create({
   },
   textCapitalize: {
     textTransform: "capitalize",
+  },
+  footer: {
+    bottom: 0,
+    alignSelf: "center",
+  },
+  searchView: {
+    width: "100%",
+    padding: 5,
+    height: "100%",
+    paddingVertical: 20,
+  },
+  profileAvatarContainer: {
+    paddingHorizontal: 25,
+    alignItems: "center",
+    height: 150,
+  },
+  avatarImage: {
+    height: 120,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  genderDropdown: {
+    width: "100%",
+    height: 45,
+    backgroundColor: color.white,
+    borderColor: Colors.gray5,
+  },
+  saveBtn: {
+    marginTop: 20,
   },
 });

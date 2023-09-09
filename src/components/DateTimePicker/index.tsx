@@ -21,6 +21,7 @@ type DateTimePickerProps = {
   formatToShow?: string;
   dateBoxField?: boolean;
   classNames?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 };
 
 const DateTimePicker = ({
@@ -30,6 +31,7 @@ const DateTimePicker = ({
   formatToShow,
   classNames,
   dateBoxField = false,
+  disabled = false,
 }: DateTimePickerProps) => {
   const { state, handleConfirm, handleShowDatePicker, hideDatePicker } =
     useDateTimePicker({ value, onChange });
@@ -44,7 +46,7 @@ const DateTimePicker = ({
           classNames,
           dateBoxField && styles.dateBoxContainer,
         ]}
-        onPress={handleShowDatePicker}
+        onPress={disabled ? handleShowDatePicker : () => {}}
       >
         {dateBoxField ? (
           <View style={styles.dateContainer}>

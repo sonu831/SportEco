@@ -1,13 +1,13 @@
 import { useState } from "react";
-import group902 from "../../../assets/images/group902.png";
-import group904 from "../../../assets/images/group904.png";
-import group905 from "../../../assets/images/group905.png";
-import group908 from "../../../assets/images/group908.png";
-import group907 from "../../../assets/images/group907.png";
-import group909 from "../../../assets/images/group909.png";
-import { uploadUserProfilePicture } from "../../../services/users";
-import { AppDispatch } from "../../../store";
+import { uploadUserProfilePicture } from "../../services/users";
+import { AppDispatch } from "../../store";
 import { useDispatch } from "react-redux";
+import group902 from "../../assets/images/group902.png";
+import group904 from "../../assets/images/group904.png";
+import group905 from "../../assets/images/group905.png";
+import group908 from "../../assets/images/group908.png";
+import group907 from "../../assets/images/group907.png";
+import group909 from "../../assets/images/group909.png";
 
 type AvatarMap = {
   [key: number]: string;
@@ -37,8 +37,8 @@ const useProfileImage = () => {
   const handleUploadImage = (image: string) => {
     // Implementation for uploading image
     dispatch(uploadUserProfilePicture(image)).then((res) => {
-      console.log("uploadUserProfilePicture res---->", res)
-    })
+      console.log("uploadUserProfilePicture res---->", res);
+    });
     console.log("handleUploadImage", image);
     setImageUrl(image);
   };
