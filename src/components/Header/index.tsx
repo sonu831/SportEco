@@ -8,7 +8,7 @@ import headerCheck from "../../assets/images/header-check.png";
 type HeaderProps = {
   title: string;
   rightText?: string;
-  onBackPress: () => void;
+  onBackPress?: () => void;
   onEditModeClick?: () => void;
   isEditProfile?: boolean;
   isEdit?: boolean;

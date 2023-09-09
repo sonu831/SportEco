@@ -58,6 +58,7 @@ type InitialState = {
   image: string;
   idProof?: FileUploadResponse;
   phNum: string;
+  dobDate: string;
 };
 
 const initialState = {
@@ -99,7 +100,7 @@ const useEditProfile = ({
   const citiesByState: OptionType[] = useSelector(citiesByState$);
   const playerDetails: Partial<User> = useSelector(playerDetails$);
   const [state, setState] = useState<InitialState>(initialState);
-  const [isEdit, setIsEdit] = useState<Boolean>(route?.params?.isEdit || false);
+  const [isEdit, setIsEdit] = useState<boolean>(route?.params?.isEdit || false);
 
   const { selectedState } = state;
 
@@ -186,7 +187,6 @@ const useEditProfile = ({
 
   const handleSave = () => {
     const {
-      email,
       fName,
       lName,
       mName,
@@ -194,9 +194,7 @@ const useEditProfile = ({
       role,
       selectedState: userState,
       selectedCity,
-      dobMonth,
       dobDate,
-      dobYear,
       image,
     } = state;
 
@@ -206,10 +204,7 @@ const useEditProfile = ({
       ...(isAddPlayer ? { contact_no: mName } : { middle_name: mName }),
       DOB: {
         date: dobDate,
-        month: dobMonth,
-        year: dobYear,
       },
-      email: email?.toLowerCase(),
       gender: gender,
       city: selectedCity,
       state: userState,

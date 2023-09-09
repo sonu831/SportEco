@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Text,
   View,
@@ -143,7 +142,7 @@ const EditProfile = ({
             <View style={[styles.fieldRow, styles.py16]}>
               <DateTimePicker
                 type="date"
-                value={dobDate}
+                value={moment(dobDate)}
                 onChange={(value: any) =>
                   updateState({
                     key: "dobDate",

@@ -1,7 +1,9 @@
 {
   "name": "sport-eco",
   "version": "1.0.0",
+  "main": "./index.js",
   "scripts": {
+    "start:web": "react-scripts start",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "native:android": "react-native run-android",
@@ -61,8 +63,9 @@
     "react-native-switch": "^1.5.1",
     "react-native-toast-message": "^2.1.5",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.9",
+    "react-native-web": "^0.19.8",
     "react-redux": "^8.0.5",
+    "react-scripts": "^5.0.1",
     "sentry-expo": "~6.0.0",
     "xdate": "^0.8.2"
   },
@@ -77,5 +80,17 @@
     "react-test-renderer": "18.1.0",
     "typescript": "^4.6.3"
   },
-  "private": true
+  "private": true,
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

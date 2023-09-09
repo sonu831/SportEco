@@ -1,3 +1,4 @@
+import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { BottomTabBar } from "../../constants/BottomTabBar";
 import { useNavigation } from "@react-navigation/native";

@@ -38,7 +38,7 @@ export const fetchPlayerById = createAsyncThunk(
   "fetchPlayerById",
   async (id: string, { rejectWithValue }) => {
     return axios
-      .get(endpoints.fetchPlayerById(id))
+      .get(endpoints.fetchPlayers)
       .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);

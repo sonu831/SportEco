@@ -11,7 +11,7 @@ type AvatarProps = {
   resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
   customStyle?: any;
   onClick?: (imageInfo: {
-    item: number;
+    item: number | string;
     imageUrl?: string;
     placeholderImage?: any;
   }) => void;

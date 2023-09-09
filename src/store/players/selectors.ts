@@ -6,6 +6,7 @@ const player$ = (s: RootState) => s[PlayerSlice.name];
 
 export const players$ = createSelector(
   [player$],
+  // @ts-ignore
   (players) => players.players?.data || []
 );
 

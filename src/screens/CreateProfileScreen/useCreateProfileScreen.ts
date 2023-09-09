@@ -49,6 +49,7 @@ const useCreateProfileScreen = ({
   const isEdit = false;
   const dispatch = useDispatch<AppDispatch>();
   const [response, setResponse] = useState<any>(null);
+  // @ts-ignore
   const [state, setState] = useState<InitialState>(initialState);
 
   // 3. Add a new state to track current step
@@ -84,7 +85,7 @@ const useCreateProfileScreen = ({
           gender: state.gender,
           city: state.selectedCity,
           state: state.selectedState,
-          role: state.roles,
+          role: state.role,
         },
       };
       dispatch(updateUserProfile(request)).then((res) => {
@@ -93,7 +94,7 @@ const useCreateProfileScreen = ({
         console.log("=======res ========", res);
         console.log("========");
         if (res?.payload?.success) {
-          navigation.navigate('Main')
+          navigation.navigate("Main");
         }
       });
     }
@@ -112,7 +113,7 @@ const useCreateProfileScreen = ({
 
   return {
     currentStep,
-    uploadImage: () => { },
+    uploadImage: () => {},
     userDetails: [],
     state,
     handleSave,

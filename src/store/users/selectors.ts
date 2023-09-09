@@ -7,6 +7,7 @@ const users$ = (s: RootState) => s[UserSlice.name];
 
 export const userDetails$ = createSelector(
   [users$],
+  // @ts-ignore
   (users) => users.user?.data || {}
 );
 
@@ -23,6 +24,7 @@ export const isLoginVerified$ = createSelector(
 export const countryState$ = createSelector(
   [users$],
   (users) =>
+    // @ts-ignore
     users.states?.data?.states?.map((i) => ({
       label: i.name,
       value: i.name,
@@ -32,6 +34,7 @@ export const countryState$ = createSelector(
 export const citiesByState$ = createSelector(
   [users$],
   (users) =>
+    // @ts-ignore
     users.cities?.data?.map((i) => ({
       value: i,
       label: i,

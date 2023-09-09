@@ -15,6 +15,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { Colors } from "../../constants/Colors";
 import SelectUserTypes from "./selectUserTypes";
 
+// @ts-ignore
 navigator.geolocation = require("@react-native-community/geolocation");
 
 const SaveButton = ({ handleSave, currentStep }) => (
@@ -120,16 +121,22 @@ const StateCityFields = ({
 const RenderStep = ({ currentStep, ...props }) => {
   switch (currentStep) {
     case StepsEnum.NameDetails:
+      // @ts-ignore
       return <NameFields {...props} />;
     case StepsEnum.Gender:
+      // @ts-ignore
       return <GenderField {...props} />;
     case StepsEnum.DateOfBirth:
+      // @ts-ignore
       return <DOBField {...props} />;
     case StepsEnum.SelectCity:
+      // @ts-ignore
       return <StateCityFields {...props} />;
     case StepsEnum.ProfilePhoto:
+      // @ts-ignore
       return <ProfileImage {...props} />;
     case StepsEnum.SelectUserType:
+      // @ts-ignore
       return <SelectUserTypes {...props} />;
     default:
       return null;

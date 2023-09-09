@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-import { View, TextInput, Text } from "react-native";
-import CountryPicker from "react-native-country-picker-modal";
+import { View, TextInput, Text, StyleProp, ViewStyle } from "react-native";
+import CountryPicker, { CountryCode } from "react-native-country-picker-modal";
 import { Entypo } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
-export const PhoneNumberInput = ({
+type PhoneNumberInputProps = {
+  phoneNumber: string;
+  onChangePhoneNumber: (text: string) => void;
+  isEditProfile?: boolean;
+  editable?: boolean;
+};
+
+export const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   phoneNumber,
   onChangePhoneNumber,
-  isEditProfile,
+  isEditProfile = false, // Assigning default value for optional prop
   editable = true,
 }) => {
-  const [countryCode, setCountryCode] = useState("IN"); // Store the selected country code
-  const [countryCodeInput, setCountryCodeInput] = useState("91");
+  const [countryCode, setCountryCode] = useState<CountryCode>("IN"); // Store the selected country code
+  const [countryCodeInput, setCountryCodeInput] = useState<string>("91");
 
-  const selectCountry = (country) => {
+  const selectCountry = (country: {
+    cca2: CountryCode;
+    callingCode: string[];
+  }) => {
     setCountryCode(country.cca2);
     setCountryCodeInput(country.callingCode[0]);
   };

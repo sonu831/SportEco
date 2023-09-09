@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Text,
   Pressable,
@@ -72,6 +73,7 @@ const VerificationScreen = ({
                 value: phone,
               });
             }}
+            isEditProfile={false}
           />
           <Button
             style={{ width: "90%", alignSelf: "center" }}
