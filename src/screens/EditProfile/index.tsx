@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  ImageBackground,
+  Alert,
 } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
 import uploadSuccessIcon from "../../assets/images/upload-success.png";
@@ -27,9 +29,14 @@ import FilePicker from "../../components/FilePicker";
 import SafeArea from "../../components/SafeArea";
 import AvatarImage from "../../components/AvatarImage";
 import { TextInputComponent } from "../../components/TextInput";
-import { PhoneNumberInput } from "../../components";
+import { CenteredLineWithText, PhoneNumberInput } from "../../components";
 import DateTimePicker from "../../components/DateTimePicker";
 import moment from "moment";
+import UserTypes from "../../components/UserTypes";
+import headerEdit from "../../assets/images/header-edit.png";
+
+// assets
+import curveBackground from "../../assets/images/curve.png"
 
 const EditProfile = ({
   navigation,
@@ -65,7 +72,8 @@ const EditProfile = ({
 
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
-
+  const goToAvatarScreen = () => navigation.navigate('ChangeAvatar')
+  const [selectedUsers, setSelectedUsers] = useState(role);
   const SaveButton = ({ handleSave }) => (
     <View
       style={[
@@ -83,30 +91,65 @@ const EditProfile = ({
       </TouchableOpacity>
     </View>
   );
-
+  const userTypes = [
+    {
+      id: 1,
+      name: "Coach",
+      img: require('../../assets/images/coach.png'),
+      width: '43%'
+    },
+    {
+      id: 2,
+      name: "Player",
+      img: require('../../assets/images/player.png'),
+      width: '43%'
+    },
+    {
+      id: 3,
+      name: "Parent",
+      img: require('../../assets/images/parent.png'),
+      width: '43%'
+    },
+  ];
+  const toggleUserType = (user) => {
+    const index = selectedUsers.findIndex((e) => e.id === user.id);
+    if (index > -1) {
+      const updatedUsers = selectedUsers.filter((e) => e.id !== user.id);
+      updateState({ key: "roles", values: updatedUsers });
+      setSelectedUsers(updatedUsers);
+    } else {
+      const updatedUsers = [...selectedUsers, user];
+      updateState({ key: "roles", values: updatedUsers });
+      setSelectedUsers(updatedUsers);
+    }
+  };
   return (
     <SafeArea classNames={styles.safeView}>
       <ScrollView>
         <View style={styles.containerView}>
-          <View>
-            <Header
-              title={isEdit ? "Edit Profile" : "My Profile"}
-              onBackPress={handleGoBack}
-              isEditProfile
-              onEditModeClick={toggleProfileEditMode}
-            />
-          </View>
+          <Header
+            title={isEdit ? "Edit Profile" : "My Profile"}
+            onBackPress={handleGoBack}
+            isEditProfile
+            onEditModeClick={toggleProfileEditMode}
+            isEdit={isEdit}
+          />
           <View style={styles.profileAvatarContainer}>
+            {/* <ImageBackground source={curveBackground} style={styles.curveImageBg} resizeMode="stretch" /> */}
             <View style={styles.avatarImage}>
               <AvatarImage
                 imageUrl={image}
                 placeholderImage={avatarImage}
                 resizeMode="cover"
+                isEdit={isEdit}
+              // onClick={handleUploadID}
               />
             </View>
           </View>
-
-          <View>
+          {isEdit && <View style={{ position: 'absolute', bottom: 0, right: 0, left: 70, top: 130 }}>
+            <ImagePicker isChooseAvatar={false} handleImage={() => { }} icon={headerEdit} showAvatar={goToAvatarScreen} />
+          </View>}
+          <View style={{ paddingHorizontal: 0 }}>
             <View style={[styles.fieldCol, styles.py16]}>
               <TextInputComponent
                 value={fName}
@@ -237,7 +280,22 @@ const EditProfile = ({
                 </View>
               </View>
             )} */}
+            <CenteredLineWithText lineText="My Profile" />
+            <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 30 }}>
+              {userTypes.map((item) => (
+                <UserTypes
+                  key={item.id.toString()}
+                  isCheck={selectedUsers.some((user) => user?.id === item?.id)}
+                  width={'32%'}
+                  height={120}
+                  name={item.name}
+                  image={item.img}
+                  onPress={() => toggleUserType(item)}
+                />
+              ))}
+            </View>
           </View>
+
           <SaveButton handleSave={handleSave} />
         </View>
       </ScrollView>

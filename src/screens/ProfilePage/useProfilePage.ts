@@ -53,8 +53,7 @@ const useProfilePage = ({
 
   const handleGoBack = () => navigation.goBack();
 
-  const handleEditBtn = () =>
-    navigation.navigate("EditProfile", { isEdit: true, isAddPlayer: isPlayer });
+  const handleEditBtn = () => navigation.navigate("MyAccount");
 
   const handlePlayerDeletion = () => {
     dispatch(deletePlayer({ id: playerDetails?._id })).then((res) => {

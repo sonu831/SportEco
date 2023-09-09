@@ -8,23 +8,24 @@ const UserTypes = ({
   isCheck = false,
   width = '30%',
   image,
-  onPress = () => {},
+  onPress = () => { },
+  height = 160
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-        style={[ styles.card, { width: width, borderColor: isCheck ? Colors.orange : Colors.black} ]}
+      style={[styles.card, { width: width, borderColor: isCheck ? Colors.orange : Colors.black, height: height }]}
     >
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={image} style={{ width: 50, height: 50 }} />
         <Text>{name}</Text>
       </View>
       <Icon
-        style={{position: 'absolute', top: 10, right: 10}}
-          name={isCheck ? 'check-square' : 'square'}
-          size={20}
-          color={isCheck ? Colors.orange : Colors.black}
-        />
+        style={{ position: 'absolute', top: 10, right: 10 }}
+        name={isCheck ? 'check-square' : 'square'}
+        size={20}
+        color={isCheck ? Colors.orange : Colors.black}
+      />
 
     </TouchableOpacity>
   );
@@ -33,17 +34,16 @@ const UserTypes = ({
 export default UserTypes;
 
 const styles = StyleSheet.create({
-    card: {
-        height: 160,
-        flexDirection: 'row',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 0,
-        margin: 10,
-        padding: 10,
-        borderRadius: 10,
-        borderWidth: 1,
-      }
+  card: {
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 0,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+  }
 })

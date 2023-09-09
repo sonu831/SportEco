@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     height: window.height,
   },
   containerView: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 0,
   },
   py16: { padding: 10 },
   flex: { display: "flex", flexDirection: "row", alignItems: "center" },
@@ -151,5 +151,10 @@ export const styles = StyleSheet.create({
   },
   saveBtn: {
     marginTop: 20,
+  },
+  curveImageBg: {
+    position: 'absolute',
+    width: "100%",
+    height: 190
   },
 });

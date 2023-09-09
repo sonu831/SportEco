@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import styles from "./styles";
+import headerEdit from "../../assets/images/header-edit.png";
 
 type AvatarProps = {
   item?: string;
