@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": false,
+    "isolatedModules": false,
+    "strict": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false
+  },
+  "include": ["*.ts", "*.tsx", "*.d.ts"],
+  "extends": "@tsconfig/react-native/tsconfig.json"
+}
