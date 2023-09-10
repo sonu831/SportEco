@@ -36,7 +36,7 @@ import UserTypes from "../../components/UserTypes";
 import headerEdit from "../../assets/images/header-edit.png";
 
 // assets
-import curveBackground from "../../assets/images/curve.png"
+import curveBackground from "../../assets/images/curve.png";
 
 const EditProfile = ({
   navigation,
@@ -72,7 +72,7 @@ const EditProfile = ({
 
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
-  const goToAvatarScreen = () => navigation.navigate('ChangeAvatar')
+  const goToAvatarScreen = () => navigation.navigate("ChangeAvatar");
   const [selectedUsers, setSelectedUsers] = useState(role);
   const SaveButton = ({ handleSave }) => (
     <View
@@ -95,20 +95,20 @@ const EditProfile = ({
     {
       id: 1,
       name: "Coach",
-      img: require('../../assets/images/coach.png'),
-      width: '43%'
+      img: require("../../assets/images/coach.png"),
+      width: "43%",
     },
     {
       id: 2,
       name: "Player",
-      img: require('../../assets/images/player.png'),
-      width: '43%'
+      img: require("../../assets/images/player.png"),
+      width: "43%",
     },
     {
       id: 3,
       name: "Parent",
-      img: require('../../assets/images/parent.png'),
-      width: '43%'
+      img: require("../../assets/images/parent.png"),
+      width: "43%",
     },
   ];
   const toggleUserType = (user) => {
@@ -142,13 +142,28 @@ const EditProfile = ({
                 placeholderImage={avatarImage}
                 resizeMode="cover"
                 isEdit={isEdit}
-              // onClick={handleUploadID}
+                // onClick={handleUploadID}
               />
             </View>
           </View>
-          {isEdit && <View style={{ position: 'absolute', bottom: 0, right: 0, left: 70, top: 130 }}>
-            <ImagePicker isChooseAvatar={false} handleImage={() => { }} icon={headerEdit} showAvatar={goToAvatarScreen} />
-          </View>}
+          {isEdit && (
+            <View
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                left: 70,
+                top: 130,
+              }}
+            >
+              <ImagePicker
+                isChooseAvatar={false}
+                handleImage={() => {}}
+                icon={headerEdit}
+                showAvatar={goToAvatarScreen}
+              />
+            </View>
+          )}
           <View style={{ paddingHorizontal: 0 }}>
             <View style={[styles.fieldCol, styles.py16]}>
               <TextInputComponent
@@ -194,7 +209,7 @@ const EditProfile = ({
                   })
                 }
                 dateBoxField
-                disabled={isEdit}
+                disabled={!isEdit}
               />
             </View>
             <View style={[styles.fieldRow, styles.py16]}>
@@ -281,12 +296,18 @@ const EditProfile = ({
               </View>
             )} */}
             <CenteredLineWithText lineText="My Profile" />
-            <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 30 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingHorizontal: 30,
+              }}
+            >
               {userTypes.map((item) => (
                 <UserTypes
                   key={item.id.toString()}
                   isCheck={selectedUsers.some((user) => user?.id === item?.id)}
-                  width={'32%'}
+                  width={"32%"}
                   height={120}
                   name={item.name}
                   image={item.img}

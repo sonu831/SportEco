@@ -11,6 +11,7 @@ import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
+import { fetchUserById, getAllStates } from "../../services/users";
 
 type InitialState = {
   showConfirmation: boolean;
@@ -61,6 +62,10 @@ const useMyAccount = ({
 
     // Reset the app state or navigate to the login page
   };
+
+  useEffect(() => {
+    dispatch(fetchUserById());
+  }, []);
 
   const handleEditBtn = () => navigation.navigate("MyAccount");
   return {

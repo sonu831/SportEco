@@ -265,7 +265,6 @@ const useEditProfile = ({
 
   useEffect(() => {
     dispatch(getAllStates());
-    dispatch(fetchUserById());
   }, []);
 
   useEffect(() => {
