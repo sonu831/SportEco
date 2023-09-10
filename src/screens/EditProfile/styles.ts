@@ -124,7 +124,7 @@ export const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   footer: {
-    bottom: 0,
+    bottom: 10,
     alignSelf: "center",
   },
   searchView: {
