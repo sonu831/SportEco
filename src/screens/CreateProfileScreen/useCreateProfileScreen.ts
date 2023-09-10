@@ -21,7 +21,7 @@ const initialState = {
   gender: "",
   selectedCity: "",
   selectedState: "",
-  roles: [],
+  role: [],
   image: "",
   idProof: undefined,
 };
@@ -65,7 +65,7 @@ const useCreateProfileScreen = ({
   // Adjust the save function
   const handleSave = () => {
     // Move to next step
-    console.log("render state", currentStep);
+    console.log("render state==========23", state);
     if (currentStep < 6) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
@@ -84,7 +84,7 @@ const useCreateProfileScreen = ({
           gender: state.gender,
           city: state.selectedCity,
           state: state.selectedState,
-          role: state.roles,
+          role: state.role,
         },
       };
       dispatch(updateUserProfile(request)).then((res) => {
@@ -93,7 +93,7 @@ const useCreateProfileScreen = ({
         console.log("=======res ========", res);
         console.log("========");
         if (res?.payload?.success) {
-          navigation.navigate('Main')
+          navigation.navigate("Main");
         }
       });
     }
@@ -112,7 +112,7 @@ const useCreateProfileScreen = ({
 
   return {
     currentStep,
-    uploadImage: () => { },
+    uploadImage: () => {},
     userDetails: [],
     state,
     handleSave,

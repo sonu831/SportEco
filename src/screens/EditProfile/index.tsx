@@ -115,11 +115,11 @@ const EditProfile = ({
     const index = selectedUsers.findIndex((e) => e.id === user.id);
     if (index > -1) {
       const updatedUsers = selectedUsers.filter((e) => e.id !== user.id);
-      updateState({ key: "roles", values: updatedUsers });
+      updateState({ key: "role", value: updatedUsers.map((a: any) => a.name) });
       setSelectedUsers(updatedUsers);
     } else {
       const updatedUsers = [...selectedUsers, user];
-      updateState({ key: "roles", values: updatedUsers });
+      updateState({ key: "role", value: updatedUsers.map((a: any) => a.name) });
       setSelectedUsers(updatedUsers);
     }
   };
@@ -312,7 +312,11 @@ const EditProfile = ({
               {userTypes.map((item) => (
                 <UserTypes
                   key={item.id.toString()}
-                  isCheck={selectedUsers.some((user) => user?.id === item?.id)}
+                  isCheck={
+                    selectedUsers.length
+                      ? selectedUsers.some((user) => user?.id === item?.id)
+                      : role.some((r) => r === item.name)
+                  }
                   width={"32%"}
                   height={120}
                   name={item.name}
