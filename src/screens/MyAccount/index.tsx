@@ -73,7 +73,7 @@ const MyAccount = ({
             <Text
               style={[styles.username, { fontSize: 16, fontWeight: "300" }]}
             >
-              {first_name + last_name}
+              {first_name + " " + last_name}
             </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("EditProfile")}
