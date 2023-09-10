@@ -106,6 +106,7 @@ const StateCityFields = ({
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           console.log(data, details);
+          updateState({ city: data.description });
         }}
         query={{
           key: "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM",

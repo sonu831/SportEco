@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   containerView: {
     paddingHorizontal: 0,
   },
-  py16: { padding: 10 },
+  py16: { padding: 8 },
   flex: { display: "flex", flexDirection: "row", alignItems: "center" },
   backButton: {
     backgroundColor: Colors.lightOrange,
@@ -153,8 +153,8 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   curveImageBg: {
-    position: 'absolute',
+    position: "absolute",
     width: "100%",
-    height: 190
+    height: 190,
   },
 });

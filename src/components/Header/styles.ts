@@ -21,15 +21,19 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   rightContainer: {
-    width: 40,
+    width: 60,
+    alignItems: "flex-end",
   },
   rightTextStyle: {
     color: "#F1592A",
   },
   leftContainer: {
-    width: 30,
+    width: 60,
   },
   editBackground: {
     backgroundColor: Colors.headerBackgroundEditProfile,
+  },
+  createProfileBackground: {
+    backgroundColor: Colors.headerBackgroundCreateProfile,
   },
 });

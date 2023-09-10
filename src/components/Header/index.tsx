@@ -12,6 +12,7 @@ type HeaderProps = {
   onEditModeClick?: () => void;
   isEditProfile?: boolean;
   isEdit?: boolean;
+  isCreateProfile?: boolean;
   isMyAccount?: boolean;
 };
 
@@ -23,16 +24,23 @@ const Header: FC<HeaderProps> = ({
   isEdit,
   isMyAccount = false,
   onEditModeClick,
+  isCreateProfile = false,
 }) => {
   return (
     <View
-      style={[styles.container, isMyAccount ? styles.editBackground : null]}
+      style={[
+        styles.container,
+        isCreateProfile ? styles.createProfileBackground : null,
+        isMyAccount ? styles.editBackground : null,
+      ]}
     >
-      <TouchableOpacity onPress={onBackPress}>
-        <EvilIcons name="arrow-left" style={styles.backBtn} size={50} />
-      </TouchableOpacity>
+      <View style={styles.leftContainer}>
+        <TouchableOpacity onPress={onBackPress}>
+          <EvilIcons name="arrow-left" style={styles.backBtn} size={50} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>{title}</Text>
-      <View style={rightText ? styles.rightContainer : styles.leftContainer}>
+      <View style={styles.rightContainer}>
         {rightText && <Text style={styles.rightTextStyle}>{rightText}</Text>}
         {isEditProfile && (
           <TouchableOpacity onPress={onEditModeClick}>

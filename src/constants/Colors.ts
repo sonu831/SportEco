@@ -24,4 +24,5 @@ export const Colors = {
   tomato: "#f1592a",
   darkslategray: "#303030",
   headerBackgroundEditProfile: "#FBF1D8",
+  headerBackgroundCreateProfile: "rgba(247, 192, 181, 0.1)",
 };
