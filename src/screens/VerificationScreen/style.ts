@@ -26,8 +26,8 @@ export const customStyle = ({ window }: { window: any }) =>
       alignItems: "center",
     },
     loginImageBg: {
-      height: '100%',
-      width: '100%',
+      height: "100%",
+      width: "100%",
     },
     title: {
       width: 284,
@@ -116,7 +116,7 @@ export const customStyle = ({ window }: { window: any }) =>
       color: Colors.darkGray,
     },
     resendButtonTextStyle: {
-      color: Colors.red
+      color: Colors.red,
     },
     incorrect: {
       height: 19,
@@ -137,7 +137,7 @@ export const customStyle = ({ window }: { window: any }) =>
       color: Colors.darkGray,
       marginBottom: 29,
       marginLeft: 5,
-      textDecorationLine: 'underline'
+      textDecorationLine: "underline",
     },
     centerContainer: {
       justifyContent: "center",
@@ -212,9 +212,19 @@ export const customStyle = ({ window }: { window: any }) =>
       opacity: 0.5,
     },
     socialBtn: {
-      flexDirection: 'row',
-      width: '25%',
-      justifyContent: 'space-around',
-      alignSelf: 'center'
-    }
+      flexDirection: "row",
+      width: "25%",
+      justifyContent: "space-around",
+      alignSelf: "center",
+    },
+    termsConditions: {},
+    continueBtn: {
+      display: "flex",
+      alignContent: "center",
+      height: 130,
+      justifyContent: "center",
+      paddingLeft: 25,
+      paddingRight: 25,
+      backgroundColor: Colors.blue1,
+    },
   });

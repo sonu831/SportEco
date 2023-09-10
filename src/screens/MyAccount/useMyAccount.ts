@@ -9,55 +9,68 @@ import { deletePlayer } from "../../services/players";
 import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
 
 type InitialState = {
-    showConfirmation: boolean;
+  showConfirmation: boolean;
 };
 
 const initialState = {
-    showConfirmation: false,
+  showConfirmation: false,
 };
 
 const useMyAccount = ({
-    navigation,
-    route,
+  navigation,
+  route,
 }: {
-    navigation: NativeStackNavigationProp<
-        RootStackParamList,
-        keyof RootStackParamList,
-        undefined
-    >;
-    route: RouteProp<RootStackParamList, "MyAccount">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    keyof RootStackParamList,
+    undefined
+  >;
+  route: RouteProp<RootStackParamList, "MyAccount">;
 }) => {
-    const dispatch = useDispatch<AppDispatch>();
-    const userDetails = useSelector(userDetails$);
-    const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
-    const [state, setState] = useState<Partial<InitialState>>(initialState);
+  const dispatch = useDispatch<AppDispatch>();
+  const userDetails = useSelector(userDetails$);
+  const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
+  const [state, setState] = useState<Partial<InitialState>>(initialState);
 
-    const { showConfirmation } = state;
+  const { showConfirmation } = state;
 
-    const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
-        if (Array.isArray(request)) {
-            request.forEach(({ key, value }) =>
-                setState((preState) => ({ ...preState, [key]: value }))
-            );
-        } else {
-            const { key, value } = request;
-            setState((preState) => ({ ...preState, [key]: value }));
-        }
-    };
+  const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
+    if (Array.isArray(request)) {
+      request.forEach(({ key, value }) =>
+        setState((preState) => ({ ...preState, [key]: value }))
+      );
+    } else {
+      const { key, value } = request;
+      setState((preState) => ({ ...preState, [key]: value }));
+    }
+  };
 
-    const handleGoBack = () => navigation.goBack();
+  const handleGoBack = () => navigation.goBack();
 
-    const handleEditBtn = () => navigation.navigate("MyAccount");
-    return {
-        userDetails,
-        handleGoBack,
-        handleEditBtn,
-        updateState,
-        state,
-    };
+  const handleLogout = () => {
+    // Clear local storage data (e.g., AsyncStorage, SecureStore)
+    AsyncStorage.clear().then(() => {
+      dispatch(setIsVerified(false));
+      dispatch(setIsLoginVerified(false));
+      navigation.navigate("Verification");
+    });
+
+    // Reset the app state or navigate to the login page
+  };
+
+  const handleEditBtn = () => navigation.navigate("MyAccount");
+  return {
+    userDetails,
+    handleGoBack,
+    handleEditBtn,
+    updateState,
+    handleLogout,
+    state,
+  };
 };
 
-export default useMyAccount
+export default useMyAccount;
