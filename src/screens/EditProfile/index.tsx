@@ -36,7 +36,7 @@ import UserTypes from "../../components/UserTypes";
 import headerEdit from "../../assets/images/header-edit.png";
 
 // assets
-import curveBackground from "../../assets/images/curve.png";
+import curveBackground from "../../assets/images/editProfileBG.png";
 
 const EditProfile = ({
   navigation,
@@ -133,6 +133,12 @@ const EditProfile = ({
             isEditProfile
             onEditModeClick={toggleProfileEditMode}
             isEdit={isEdit}
+            isMyAccount
+          />
+          <ImageBackground
+            source={curveBackground}
+            style={styles.curveImageBg}
+            resizeMode="stretch"
           />
           <View style={styles.profileAvatarContainer}>
             {/* <ImageBackground source={curveBackground} style={styles.curveImageBg} resizeMode="stretch" /> */}

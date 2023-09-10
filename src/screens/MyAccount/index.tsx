@@ -15,7 +15,7 @@ import dummyUser from "../../assets/images/dummy-user.png";
 import SafeArea from "../../components/SafeArea";
 import Header from "../../components/Header";
 // assets
-import curveBackground from "../../assets/images/curve.png";
+import curveBackground from "../../assets/images/editProfileBG.png";
 import { CenteredLineWithText } from "../../components";
 // style
 import { styles } from "./styles";
@@ -54,7 +54,7 @@ const MyAccount = ({
     <SafeArea classNames={styles.container}>
       <ScrollView>
         <View style={styles.containerView}>
-          <Header title={"My Account"} onBackPress={handleGoBack} />
+          <Header title={"My Account"} onBackPress={handleGoBack} isMyAccount />
           <ImageBackground
             source={curveBackground}
             style={styles.curveImageBg}

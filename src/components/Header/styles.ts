@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 8,
     backgroundColor: "#fff",
+    zIndex: 10,
   },
   backBtn: {
     zIndex: 99,
@@ -27,5 +28,8 @@ export const styles = StyleSheet.create({
   },
   leftContainer: {
     width: 30,
+  },
+  editBackground: {
+    backgroundColor: Colors.headerBackgroundEditProfile,
   },
 });

@@ -23,4 +23,5 @@ export const Colors = {
   calendarBgColor: "rgba(255, 79, 0, 0.09)",
   tomato: "#f1592a",
   darkslategray: "#303030",
+  headerBackgroundEditProfile: "#FBF1D8",
 };
