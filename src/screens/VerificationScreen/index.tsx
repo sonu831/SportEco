@@ -1,21 +1,7 @@
-import {
-  Text,
-  Pressable,
-  SafeAreaView,
-  View,
-  Image,
-  ImageBackground,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import Entypo from "react-native-vector-icons/Entypo";
-import { Colors } from "../../constants/Colors";
-import { Input } from "react-native-elements";
-import imageBg from "../../assets/images/image_bg.png";
-import enterNumberImage from "../../assets/images/enter_number.png";
+import React from "react";
+import { Text, View, ImageBackground, ScrollView } from "react-native";
 import loginImage from "../../assets/images/loginImage.png";
 // import accountVerifiedImage from "../../assets/images/account_verified.png";
-import enterCodeImage from "../../assets/images/enter_code.png";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 import { useVerificationScreen } from "./useVerificationScreen";
 import { RootStackScreenProps } from "../Navigation/types";
@@ -25,7 +11,6 @@ import {
   TitleText,
   CenteredLineWithText,
   PhoneNumberInput,
-  SocialButton,
   TermsAndConditions,
 } from "../../components";
 import Header from "../../components/Header";
@@ -60,31 +45,34 @@ const VerificationScreen = ({
       <View style={{ flex: 1 }}>
         <ImageBackground source={loginImage} style={styles.loginImageBg} />
       </View>
-      <View style={{ flex: 1.2 }}>
-        <ScrollView>
-          <TitleText text={`India's Largest Sports Community`} center />
-          <CenteredLineWithText lineText="Log in or Sign up" />
-          <PhoneNumberInput
-            phoneNumber={phNum}
-            onChangePhoneNumber={(phone: string) => {
-              updateState({
-                key: "phNum",
-                value: phone,
-              });
-            }}
-          />
-          <Button
-            style={{ width: "90%", alignSelf: "center" }}
-            label="Continue"
-            onPress={handleCreateAccount}
-          />
-          <CenteredLineWithText lineText="or" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "space-between",
+        }}
+      >
+        <TitleText text={`India's Largest Sports Community`} center />
+        <CenteredLineWithText lineText="Log in or Sign up" />
+        <PhoneNumberInput
+          phoneNumber={phNum}
+          onChangePhoneNumber={(phone: string) => {
+            updateState({
+              key: "phNum",
+              value: phone,
+            });
+          }}
+        />
+        <View style={styles.continueBtn}>
+          <Button label="Continue" onPress={handleCreateAccount} />
+        </View>
+        {/* <CenteredLineWithText lineText="or" />
           <View style={styles.socialBtn}>
             <SocialButton onPress={handleGoogleLogin} icon={"google"} />
             <SocialButton onPress={handleWhatsappLogin} icon={"whatsapp"} />
-          </View>
-          <TermsAndConditions />
-        </ScrollView>
+          </View> */}
+      </View>
+      <View>
+        <TermsAndConditions />
       </View>
     </View>
   );

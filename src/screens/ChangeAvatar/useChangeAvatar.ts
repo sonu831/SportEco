@@ -18,7 +18,7 @@ const initialState = {
   showConfirmation: false,
 };
 
-const useProfilePage = ({
+const useChangeAvatar = ({
   navigation,
   route,
 }: {
@@ -27,7 +27,7 @@ const useProfilePage = ({
     keyof RootStackParamList,
     undefined
   >;
-  route: RouteProp<RootStackParamList, "Profile">;
+  route: RouteProp<RootStackParamList, "ChangeAvatar">;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userDetails = useSelector(userDetails$);
@@ -36,55 +36,18 @@ const useProfilePage = ({
 
   const { showConfirmation } = state;
 
-  const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
-    if (Array.isArray(request)) {
-      request.forEach(({ key, value }) =>
-        setState((preState) => ({ ...preState, [key]: value }))
-      );
-    } else {
-      const { key, value } = request;
-      setState((preState) => ({ ...preState, [key]: value }));
-    }
+  const handleGoBack = () => {
+    console.log("handle back on vatar");
+    navigation.goBack();
   };
 
-  const isPlayer = route.params?.player || false;
-
-  const dataToShow = !!isPlayer ? playerDetails : userDetails;
-
-  const handleGoBack = () => navigation.goBack();
-
-  const handleEditBtn = () => navigation.navigate("MyAccount");
-
-  const handlePlayerDeletion = () => {
-    dispatch(deletePlayer({ id: playerDetails?._id })).then((res) => {
-      if (!!res) {
-        updateState({
-          key: "showConfirmation",
-          value: !showConfirmation,
-        });
-
-        navigation.navigate("Confirmation", {
-          label: "Deleted !",
-          navigateTo: "CommonScreen",
-          navigateOption: {
-            title: "Players",
-            shouldRefresh: true,
-          },
-        });
-      }
-    });
-  };
-
+  const handleEditBtn = () => navigation.navigate("ChangeAvatar");
   return {
     userDetails,
     handleGoBack,
-    dataToShow,
-    showPlayerDetails: isPlayer,
-    handlePlayerDeletion,
     handleEditBtn,
-    updateState,
     state,
   };
 };
 
-export default useProfilePage;
+export default useChangeAvatar;

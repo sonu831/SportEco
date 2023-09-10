@@ -99,7 +99,8 @@ const useEditProfile = ({
   const citiesByState: OptionType[] = useSelector(citiesByState$);
   const playerDetails: Partial<User> = useSelector(playerDetails$);
   const [state, setState] = useState<InitialState>(initialState);
-  const [isEdit, setIsEdit] = useState<Boolean>(route?.params?.isEdit || false);
+  const [isEdit, setIsEdit] = useState<boolean>(route?.params?.isEdit || false);
+  const [isChangeInput, setIsChangeInput] = useState<boolean>(false);
 
   const { selectedState } = state;
 
@@ -116,6 +117,7 @@ const useEditProfile = ({
       const { key, value } = request;
       setState((preState) => ({ ...preState, [key]: value }));
     }
+    setIsChangeInput(true);
   };
 
   const toggleProfileEditMode = () => {
@@ -261,11 +263,17 @@ const useEditProfile = ({
         );
       });
     }
+    setIsChangeInput(false);
   };
 
   useEffect(() => {
+    if (isChangeInput && !isEdit) {
+      handleSave();
+    }
+  }, [isEdit]);
+
+  useEffect(() => {
     dispatch(getAllStates());
-    dispatch(fetchUserById());
   }, []);
 
   useEffect(() => {

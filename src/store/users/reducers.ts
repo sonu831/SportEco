@@ -51,7 +51,6 @@ export const UserSlice = createSlice({
         s.states = a.payload;
       })
       .addCase(getSelectedCityByState.fulfilled, (s, a) => {
-        debugger;
         s.cities = a.payload;
       });
   },

@@ -9,6 +9,9 @@ import { deletePlayer } from "../../services/players";
 import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
+import { fetchUserById, getAllStates } from "../../services/users";
 
 type InitialState = {
   showConfirmation: boolean;
@@ -18,7 +21,7 @@ const initialState = {
   showConfirmation: false,
 };
 
-const useProfilePage = ({
+const useMyAccount = ({
   navigation,
   route,
 }: {
@@ -27,7 +30,7 @@ const useProfilePage = ({
     keyof RootStackParamList,
     undefined
   >;
-  route: RouteProp<RootStackParamList, "Profile">;
+  route: RouteProp<RootStackParamList, "MyAccount">;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userDetails = useSelector(userDetails$);
@@ -47,44 +50,32 @@ const useProfilePage = ({
     }
   };
 
-  const isPlayer = route.params?.player || false;
-
-  const dataToShow = !!isPlayer ? playerDetails : userDetails;
-
   const handleGoBack = () => navigation.goBack();
 
-  const handleEditBtn = () => navigation.navigate("MyAccount");
-
-  const handlePlayerDeletion = () => {
-    dispatch(deletePlayer({ id: playerDetails?._id })).then((res) => {
-      if (!!res) {
-        updateState({
-          key: "showConfirmation",
-          value: !showConfirmation,
-        });
-
-        navigation.navigate("Confirmation", {
-          label: "Deleted !",
-          navigateTo: "CommonScreen",
-          navigateOption: {
-            title: "Players",
-            shouldRefresh: true,
-          },
-        });
-      }
+  const handleLogout = () => {
+    // Clear local storage data (e.g., AsyncStorage, SecureStore)
+    AsyncStorage.clear().then(() => {
+      dispatch(setIsVerified(false));
+      dispatch(setIsLoginVerified(false));
+      navigation.navigate("Verification");
     });
+
+    // Reset the app state or navigate to the login page
   };
 
+  useEffect(() => {
+    dispatch(fetchUserById());
+  }, []);
+
+  const handleEditBtn = () => navigation.navigate("MyAccount");
   return {
     userDetails,
     handleGoBack,
-    dataToShow,
-    showPlayerDetails: isPlayer,
-    handlePlayerDeletion,
     handleEditBtn,
     updateState,
+    handleLogout,
     state,
   };
 };
 
-export default useProfilePage;
+export default useMyAccount;

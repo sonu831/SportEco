@@ -25,4 +25,7 @@ export const styles = StyleSheet.create({
   rightTextStyle: {
     color: "#F1592A",
   },
+  leftContainer: {
+    width: 30,
+  },
 });

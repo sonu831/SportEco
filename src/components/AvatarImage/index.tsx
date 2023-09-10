@@ -15,6 +15,7 @@ type AvatarProps = {
     imageUrl?: string;
     placeholderImage?: any;
   }) => void;
+  isEdit?: boolean;
 };
 
 const AvatarImage = ({
@@ -26,6 +27,7 @@ const AvatarImage = ({
   customStyle,
   onClick,
   item,
+  isEdit = false,
 }: AvatarProps) => {
   return (
     <TouchableOpacity
