@@ -1,9 +1,9 @@
 import moment from "moment";
 
 export const GENDER_OPTIONS = [
-  { label: "Male", value: "M" },
-  { label: "Female", value: "F" },
-  { label: "Other", value: "O" },
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+  { label: "Other", value: "Other" },
 ];
 
 export const CITY_OPTIONS = [

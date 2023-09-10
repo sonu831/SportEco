@@ -106,6 +106,7 @@ const StateCityFields = ({
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           console.log(data, details);
+          updateState({ city: data.description });
         }}
         query={{
           key: "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM",
@@ -167,7 +168,6 @@ const CreateProfileScreen = ({
           title="Create Profile"
           onBackPress={handleGoBack}
           rightText={`Step ${currentStep}/${StepsEnum.SelectUserType}`}
-          isCreateProfile={currentStep === StepsEnum.ProfilePhoto || false}
         />
         <RenderStep currentStep={currentStep} {...state} {...{ updateState }} />
       </View>

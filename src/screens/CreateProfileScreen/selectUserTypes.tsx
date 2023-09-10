@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { TitleText } from '../../components'
-import UserTypes from '../../components/UserTypes';
+import { StyleSheet, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TitleText } from "../../components";
+import UserTypes from "../../components/UserTypes";
 
 const SelectUserTypes = ({ updateState }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -10,34 +10,49 @@ const SelectUserTypes = ({ updateState }) => {
     {
       id: 1,
       name: "Coach",
-      img: require('../../assets/images/coach.png'),
-      width: '43%'
+      img: require("../../assets/images/coach.png"),
+      width: "43%",
     },
     {
       id: 2,
       name: "Player",
-      img: require('../../assets/images/player.png'),
-      width: '43%'
+      img: require("../../assets/images/player.png"),
+      width: "43%",
     },
     {
       id: 3,
       name: "Parent",
-      img: require('../../assets/images/parent.png'),
-      width: '93%'
+      img: require("../../assets/images/parent.png"),
+      width: "93%",
     },
   ];
 
+  useEffect(() => {
+    console.log(
+      "selectedUsers.map((a: any) => a.name)",
+      selectedUsers.map((a: any) => a.name)
+    );
+    updateState({
+      key: "role",
+      value: selectedUsers.map((a: any) => a.name),
+    });
+  }, [selectedUsers]);
+
   const toggleUserType = (user) => {
-    const index = selectedUsers.findIndex((e) => e.id === user.id);
-    if (index > -1) {
-      const updatedUsers = selectedUsers.filter((e) => e.id !== user.id);
-      updateState({ key: "roles", values: updatedUsers });
-      setSelectedUsers(updatedUsers);
-    } else {
-      const updatedUsers = [...selectedUsers, user];
-      updateState({ key: "roles", values: updatedUsers });
-      setSelectedUsers(updatedUsers);
-    }
+    setSelectedUsers((prevSelectedUsers) => {
+      const index = prevSelectedUsers.findIndex((e) => e.id === user.id);
+
+      if (index > -1) {
+        // User is already selected, so remove them from the list
+        const updatedUsers = prevSelectedUsers.filter((e) => e.id !== user.id);
+
+        return updatedUsers;
+      } else {
+        // User is not selected, so add them to the list
+        const updatedUsers = [...prevSelectedUsers, user];
+        return updatedUsers;
+      }
+    });
   };
 
   return (
@@ -51,7 +66,7 @@ const SelectUserTypes = ({ updateState }) => {
         style={{
           flexDirection: "row",
           flexWrap: "wrap",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         {userTypes.map((item) => (
@@ -73,9 +88,9 @@ export default SelectUserTypes;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
   pb30: {
-    paddingBottom: 30
+    paddingBottom: 30,
   },
-})
+});
