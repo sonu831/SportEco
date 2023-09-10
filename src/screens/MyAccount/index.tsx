@@ -92,7 +92,7 @@ const MyAccount = ({
               >
                 View Full Profile
               </Text>
-              <AntDesign name="right" />
+              <AntDesign name="right" style={{ marginTop: 3 }} />
             </TouchableOpacity>
             <View style={{ height: 10 }} />
           </View>
