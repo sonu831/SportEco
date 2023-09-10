@@ -10,42 +10,44 @@ import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
 
-
 type InitialState = {
-    showConfirmation: boolean;
+  showConfirmation: boolean;
 };
 
 const initialState = {
-    showConfirmation: false,
+  showConfirmation: false,
 };
 
 const useChangeAvatar = ({
-    navigation,
-    route,
+  navigation,
+  route,
 }: {
-    navigation: NativeStackNavigationProp<
-        RootStackParamList,
-        keyof RootStackParamList,
-        undefined
-    >;
-    route: RouteProp<RootStackParamList, "ChangeAvatar">;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    keyof RootStackParamList,
+    undefined
+  >;
+  route: RouteProp<RootStackParamList, "ChangeAvatar">;
 }) => {
-    const dispatch = useDispatch<AppDispatch>();
-    const userDetails = useSelector(userDetails$);
-    const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
-    const [state, setState] = useState<Partial<InitialState>>(initialState);
+  const dispatch = useDispatch<AppDispatch>();
+  const userDetails = useSelector(userDetails$);
+  const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
+  const [state, setState] = useState<Partial<InitialState>>(initialState);
 
-    const { showConfirmation } = state;
+  const { showConfirmation } = state;
 
-    const handleGoBack = () => navigation.goBack();
+  const handleGoBack = () => {
+    console.log("handle back on vatar");
+    navigation.goBack();
+  };
 
-    const handleEditBtn = () => navigation.navigate("ChangeAvatar");
-    return {
-        userDetails,
-        handleGoBack,
-        handleEditBtn,
-        state,
-    };
+  const handleEditBtn = () => navigation.navigate("ChangeAvatar");
+  return {
+    userDetails,
+    handleGoBack,
+    handleEditBtn,
+    state,
+  };
 };
 
-export default useChangeAvatar
+export default useChangeAvatar;

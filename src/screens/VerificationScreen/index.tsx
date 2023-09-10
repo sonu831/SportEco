@@ -45,28 +45,31 @@ const VerificationScreen = ({
       <View style={{ flex: 1 }}>
         <ImageBackground source={loginImage} style={styles.loginImageBg} />
       </View>
-      <View style={{ flex: 1 }}>
-        <ScrollView>
-          <TitleText text={`India's Largest Sports Community`} center />
-          <CenteredLineWithText lineText="Log in or Sign up" />
-          <PhoneNumberInput
-            phoneNumber={phNum}
-            onChangePhoneNumber={(phone: string) => {
-              updateState({
-                key: "phNum",
-                value: phone,
-              });
-            }}
-          />
-          <View style={styles.continueBtn}>
-            <Button label="Continue" onPress={handleCreateAccount} />
-          </View>
-          {/* <CenteredLineWithText lineText="or" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "space-between",
+        }}
+      >
+        <TitleText text={`India's Largest Sports Community`} center />
+        <CenteredLineWithText lineText="Log in or Sign up" />
+        <PhoneNumberInput
+          phoneNumber={phNum}
+          onChangePhoneNumber={(phone: string) => {
+            updateState({
+              key: "phNum",
+              value: phone,
+            });
+          }}
+        />
+        <View style={styles.continueBtn}>
+          <Button label="Continue" onPress={handleCreateAccount} />
+        </View>
+        {/* <CenteredLineWithText lineText="or" />
           <View style={styles.socialBtn}>
             <SocialButton onPress={handleGoogleLogin} icon={"google"} />
             <SocialButton onPress={handleWhatsappLogin} icon={"whatsapp"} />
           </View> */}
-        </ScrollView>
       </View>
       <View>
         <TermsAndConditions />

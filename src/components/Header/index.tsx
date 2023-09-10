@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({
         <EvilIcons name="arrow-left" style={styles.backBtn} size={50} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
-      <View style={rightText ? styles.rightContainer : undefined}>
+      <View style={rightText ? styles.rightContainer : styles.leftContainer}>
         {rightText && <Text style={styles.rightTextStyle}>{rightText}</Text>}
         {isEditProfile && (
           <TouchableOpacity onPress={onEditModeClick}>

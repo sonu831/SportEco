@@ -312,6 +312,7 @@ const EditProfile = ({
                   name={item.name}
                   image={item.img}
                   onPress={() => toggleUserType(item)}
+                  isEdit={isEdit}
                 />
               ))}
             </View>

@@ -222,9 +222,10 @@ export const customStyle = ({ window }: { window: any }) =>
       display: "flex",
       alignContent: "center",
       height: 130,
+      zIndex: 99,
+      backfaceVisibility: "hidden",
       justifyContent: "center",
       paddingLeft: 25,
       paddingRight: 25,
-      backgroundColor: Colors.blue1,
     },
   });
