@@ -167,6 +167,7 @@ const CreateProfileScreen = ({
           title="Create Profile"
           onBackPress={handleGoBack}
           rightText={`Step ${currentStep}/${StepsEnum.SelectUserType}`}
+          isCreateProfile={currentStep === StepsEnum.ProfilePhoto || false}
         />
         <RenderStep currentStep={currentStep} {...state} {...{ updateState }} />
       </View>

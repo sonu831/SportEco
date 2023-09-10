@@ -62,7 +62,7 @@ const VerificationScreen = ({
             });
           }}
         />
-        <View style={styles.continueBtn}>
+        <View style={[styles.continueBtn, { marginVertical: -25 }]}>
           <Button label="Continue" onPress={handleCreateAccount} />
         </View>
         {/* <CenteredLineWithText lineText="or" />
@@ -70,8 +70,6 @@ const VerificationScreen = ({
             <SocialButton onPress={handleGoogleLogin} icon={"google"} />
             <SocialButton onPress={handleWhatsappLogin} icon={"whatsapp"} />
           </View> */}
-      </View>
-      <View>
         <TermsAndConditions />
       </View>
     </View>
