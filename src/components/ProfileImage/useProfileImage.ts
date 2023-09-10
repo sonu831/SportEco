@@ -35,8 +35,11 @@ const useProfileImage = () => {
   };
 
   const handleUploadImage = (image: string) => {
+    const formData = new FormData();
+
+    formData.append("profile_pic", image);
     // Implementation for uploading image
-    dispatch(uploadUserProfilePicture(image)).then((res) => {
+    dispatch(uploadUserProfilePicture(formData)).then((res) => {
       console.log("uploadUserProfilePicture res---->", res);
     });
     console.log("handleUploadImage", image);
