@@ -6,7 +6,7 @@ import { styles } from "./styles";
 const options = [
   { label: "Male", icon: "male" },
   { label: "Female", icon: "female-sharp" },
-  { label: "Other", icon: "male-female" },
+  { label: "Other", icon: "add" },
 ];
 
 export const GenderField = ({ updateState }) => {
