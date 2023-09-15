@@ -48,7 +48,8 @@ export type RootStackParamList = {
   Events: any;
   CalendarScreen: any;
   MyAccount: any;
-  ChangeAvatar: any
+  ChangeAvatar: any;
+  Notification: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

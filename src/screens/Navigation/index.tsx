@@ -30,6 +30,7 @@ import Loading from "../Loading";
 import CreateProfileScreen from "../CreateProfileScreen";
 import MyAccount from "../MyAccount";
 import ChangeAvatar from "../ChangeAvatar";
+import Notifications from "../Notifications/Notifications";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -66,6 +67,7 @@ const Navigation = () => {
               <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
               <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
               <Stack.Screen name="Loading" component={Loading} />
+              <Stack.Screen name="Notification" component={Notifications} />
             </Stack.Group>
           ) : (
             <Stack.Group>
