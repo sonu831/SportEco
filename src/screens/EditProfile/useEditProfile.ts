@@ -171,6 +171,7 @@ const useEditProfile = ({
         last_name,
         middle_name,
         contact_no,
+        profile_pic,
       } = userDetails;
 
       updateState([
@@ -182,6 +183,10 @@ const useEditProfile = ({
         { key: "selectedState", value: state || "" },
         { key: "selectedCity", value: city || "" },
         { key: "phNum", value: contact_no || "" },
+        {
+          key: "image",
+          value: "data:image/png;base64," + profile_pic?.filedata,
+        },
       ]);
     }
   }, [userDetails]);
