@@ -38,6 +38,17 @@ const useProfileImage = () => {
     const formData = new FormData();
 
     formData.append("profile_pic", image);
+      if (image != '') {
+        const imageName = image.path.slice(
+          image.path.lastIndexOf('/'),
+          image.path.length,
+        );
+        formData.append('profile_pic', {
+          name: imageName,
+          type: image.mime,
+          uri: image.path,
+        });
+      }
     // Implementation for uploading image
     dispatch(uploadUserProfilePicture(formData)).then((res) => {
       console.log("uploadUserProfilePicture res---->", res);
