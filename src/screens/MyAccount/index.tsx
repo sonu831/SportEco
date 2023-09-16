@@ -34,7 +34,8 @@ const MyAccount = ({
     route,
   }); // var
   const userDetails: Partial<User> = useSelector(userDetails$); // var
-  const { first_name, last_name } = userDetails; // var
+  const { first_name, last_name, profile_pic } = userDetails; // var
+  const base64Image = "data:image/png;base64," + profile_pic.filedata;
   const arr = [
     {
       id: 0,
@@ -68,7 +69,7 @@ const MyAccount = ({
                 borderWidth: 3,
               }}
             >
-              <Image source={dummyUser} style={styles.avatar} />
+              <Image source={{ uri: base64Image }} style={styles.avatar} />
             </TouchableOpacity>
             <Text
               style={[styles.username, { fontSize: 16, fontWeight: "300" }]}
