@@ -111,7 +111,7 @@ const StateCityFields = ({
         query={{
           key: "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM",
           language: "en",
-          components: "country:us",
+          components: "country:in",
         }}
       />
     </View>
