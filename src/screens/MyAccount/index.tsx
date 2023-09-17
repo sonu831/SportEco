@@ -35,7 +35,7 @@ const MyAccount = ({
   }); // var
   const userDetails: Partial<User> = useSelector(userDetails$); // var
   const { first_name, last_name, profile_pic } = userDetails; // var
-  const base64Image = "data:image/png;base64," + profile_pic.filedata;
+  const base64Image = "data:image/png;base64," + profile_pic?.filedata;
   const arr = [
     {
       id: 0,
@@ -103,6 +103,7 @@ const MyAccount = ({
               <View style={styles.toogleSwitch}>
                 {arr.map((item) => (
                   <TouchableOpacity
+                    // onPress={() => setSelectedTab(item)}
                     onPress={() => setSelectedTab(item)}
                     style={{
                       width: "33%",
@@ -133,16 +134,18 @@ const MyAccount = ({
               </View>
             </View>
             <View style={{ height: 10 }} />
-            <CardItem Title={"Notification Settings"} onPress={() => null} />
-            <CardItem Title={"Help"} onPress={() => null} />
-            <CardItem Title={"About Us"} onPress={() => null} />
-            <CardItem Title={"Policies"} onPress={() => null} />
+            <CardItem Title={"Players"} onPress={() => navigation.navigate('Players')} padding={18} />
+            <CardItem Title={"Notification Settings"} onPress={() => null} padding={18} />
+            <CardItem Title={"Help"} onPress={() => null} padding={18} />
+            <CardItem Title={"About Us"} onPress={() => null} padding={18} />
+            <CardItem Title={"Policies"} onPress={() => null} padding={18} />
             <CardItem
               Title={"Log Out"}
               onPress={handleLogout}
               borderColor={Colors.red}
               titleColor={Colors.red}
               rightIconColor={Colors.red}
+              padding={18}
             />
           </View>
         </View>

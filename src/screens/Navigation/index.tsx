@@ -31,6 +31,8 @@ import CreateProfileScreen from "../CreateProfileScreen";
 import MyAccount from "../MyAccount";
 import ChangeAvatar from "../ChangeAvatar";
 import Notifications from "../Notifications/Notifications";
+import Players from "../Players/Players";
+import CreatePlayer from "../Players/CreatePlayer";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -81,6 +83,8 @@ const Navigation = () => {
           )}
           <Stack.Screen name="Confirmation" component={Confirmation} />
           <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
+          <Stack.Screen name="Players" component={Players} />
+          <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
         </Stack.Navigator>
 
         {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />}
