@@ -38,7 +38,7 @@ const useProfileImage = () => {
     const formData = new FormData();
 
     formData.append("profile_pic", {
-      uri: image.uri,
+      uri: image,
       name: "profile_pic", // You can change the name as needed
       type: "image/jpeg", // Adjust the type based on your image format
     });
