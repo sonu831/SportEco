@@ -75,7 +75,9 @@ export const uploadUserProfilePicture = createAsyncThunk(
   "uploadUserProfilePicture",
   async (request: any, { rejectWithValue }) => {
     return axios
-      .post(endpoints.uploadUserProfileImage, request?.formData)
+      .post(endpoints.uploadUserProfileImage, request, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);
