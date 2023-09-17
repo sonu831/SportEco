@@ -35,7 +35,9 @@ const MyAccount = ({
   }); // var
   const userDetails: Partial<User> = useSelector(userDetails$); // var
   const { first_name, last_name, profile_pic } = userDetails; // var
-  const base64Image = "data:image/png;base64," + profile_pic.filedata;
+  const base64Image = profile_pic?.filedata
+    ? "data:image/png;base64," + profile_pic.filedata
+    : "";
   const arr = [
     {
       id: 0,
