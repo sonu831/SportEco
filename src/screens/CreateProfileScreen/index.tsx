@@ -17,13 +17,18 @@ import SelectUserTypes from "./selectUserTypes";
 
 navigator.geolocation = require("@react-native-community/geolocation");
 
-const SaveButton = ({ handleSave, currentStep }) => (
+const SaveButton = ({ handleSave, currentStep, disabled = false }) => (
   <View
     style={[styles.fieldRow, styles.justifyCenter, styles.mv20, styles.footer]}
   >
     <TouchableOpacity
-      style={[styles.nextBtn, styles.w100]}
+      style={[
+        styles.nextBtn,
+        styles.w100,
+        disabled && { backgroundColor: "#d3d3d3" },
+      ]}
       onPress={handleSave}
+      disabled={disabled}
     >
       <Text style={styles.nextBtnText}>
         {currentStep == 6 ? "Finish" : "Next"}
@@ -105,8 +110,10 @@ const StateCityFields = ({
         }}
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          console.log(data, details);
-          updateState({ city: data.description });
+          updateState({
+            key: "selectedCity",
+            value: data.description,
+          });
         }}
         query={{
           key: "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM",
@@ -158,8 +165,29 @@ const CreateProfileScreen = ({
     idProof,
   } = state;
 
+  console.log("state=====166", state);
+
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
+
+  const isDisabled = () => {
+    switch (currentStep) {
+      case StepsEnum.NameDetails:
+        return !fName || !lName;
+      case StepsEnum.Gender:
+        return !gender;
+      case StepsEnum.DateOfBirth:
+        return !dobDate;
+      case StepsEnum.SelectCity:
+        return !selectedCity;
+      case StepsEnum.ProfilePhoto:
+        return !image;
+      case StepsEnum.SelectUserType:
+        return !role.length;
+      default:
+        return false;
+    }
+  };
 
   return (
     <SafeArea classNames={styles.safeView}>
@@ -171,7 +199,11 @@ const CreateProfileScreen = ({
         />
         <RenderStep currentStep={currentStep} {...state} {...{ updateState }} />
       </View>
-      <SaveButton handleSave={handleSave} currentStep={currentStep} />
+      <SaveButton
+        handleSave={handleSave}
+        currentStep={currentStep}
+        disabled={isDisabled()}
+      />
     </SafeArea>
   );
 };

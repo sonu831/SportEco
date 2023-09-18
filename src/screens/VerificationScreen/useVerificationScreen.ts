@@ -18,6 +18,7 @@ import { UpdateStateRequest } from "../../types/UpdateState";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
 import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
+import { setToast } from "../../store/Toast/reducers";
 
 const CELL_COUNT = 4;
 const { window } = Layout;
@@ -116,10 +117,14 @@ export const useVerificationScreen = ({
     });
   };
 
-  const navigateToConfirmation = (isUserExist: boolean) => {
+  const navigateToScreen = (isUserExist: boolean) => {
     dispatch(setIsVerified(true));
     dispatch(setIsLoginVerified(true));
     console.log("finalk redirect to CreateProfile");
+    if (isUserExist) {
+      navigation.navigate("Main");
+      return;
+    }
     navigation.navigate("CreateProfile");
   };
 
@@ -139,18 +144,15 @@ export const useVerificationScreen = ({
           const isUserExist = res.payload.redirecttodashboard;
 
           if (isUserExist)
-            dispatch(fetchUserById()).then(() =>
-              navigateToConfirmation(isUserExist)
-            );
-          else navigateToConfirmation(isUserExist);
+            dispatch(fetchUserById()).then(() => navigateToScreen(isUserExist));
+          else navigateToScreen(false);
         })
         .catch(() => {
-          navigateToConfirmation(false);
-        })
-        .finally(() => {
-          navigateToConfirmation(false);
+          setToast({
+            type: "error",
+            message: "Something went wrong",
+          });
         });
-      //navigateToConfirmation(true);
     } else {
       updateState({
         key: "invalidCode",

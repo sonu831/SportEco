@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { View, Text, ImageBackground } from "react-native";
 // components
 import { TitleText, CenteredLineWithText } from "../../components";
@@ -10,7 +10,13 @@ import curveBackground from "../../assets/images/curve.png";
 // style
 import { styles } from "./styles";
 
-export const ProfileImage = ({ image, uploadImage }) => {
+export const ProfileImage = ({
+  image,
+  uploadImage,
+  updateState,
+  fName,
+  lName,
+}) => {
   const {
     imageUrl,
     initialAvatar,
@@ -18,6 +24,13 @@ export const ProfileImage = ({ image, uploadImage }) => {
     handleAvatarClick,
     handleUploadImage,
   } = useProfileImage(); // var
+
+  useEffect(() => {
+    updateState({
+      key: "image",
+      value: imageUrl ?? avatarImage,
+    });
+  }, [imageUrl, avatarImage]);
   // UI
   return (
     <Fragment>
@@ -39,7 +52,7 @@ export const ProfileImage = ({ image, uploadImage }) => {
               resizeMode="cover"
             />
           </View>
-          <Text style={styles.avatarName}>Nitik Jain</Text>
+          <Text style={styles.avatarName}>{`${fName} ${lName}`}</Text>
         </View>
         <View style={styles.listedAvatarContainer}>
           <Text style={styles.chooseAnAvatarText}>Choose an avatar</Text>

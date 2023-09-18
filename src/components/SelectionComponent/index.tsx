@@ -21,7 +21,11 @@ export const SelectionComponent = ({ options, onSelect }) => {
               selectedOption === option.label && styles.selectedOption,
             ]}
           >
-            <Ionicons name={option.icon} size={100} />
+            <Ionicons
+              name={option.icon}
+              size={100}
+              color={selectedOption === option.label ? "#000" : "#d3d3d3"}
+            />
           </TouchableOpacity>
           <Text style={styles.optionText}>{option.label}</Text>
         </View>
