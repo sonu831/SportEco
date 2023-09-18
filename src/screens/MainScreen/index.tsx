@@ -111,7 +111,7 @@ const MainScreen = ({ navigation }) => {
   const gotoService = (item) => { //Function: To handle Bathes Screens
     switch (item.name) {
       case "Players":
-        return navigation.navigate("Players")
+        break
       case "Batches":
         return navigation.navigate("Batches")
       case "Venues":
