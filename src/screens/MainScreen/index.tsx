@@ -78,11 +78,13 @@
 
 // export default MainScreen;
 
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
+import Octicons from "react-native-vector-icons/Octicons";
+import MyText from "../../components/MyText";
 
 const MainScreen = ({ navigation }) => {
   const gotoNotification = () => navigation.navigate("Notification");
@@ -106,91 +108,203 @@ const MainScreen = ({ navigation }) => {
     },
   ];
   const carouselData = [1, 2, 3, 4, 5];
+  const gotoService = (item) => { //Function: To handle Bathes Screens
+    switch (item.name) {
+      case "Players":
+        return navigation.navigate("Players")
+      case "Batches":
+        return navigation.navigate("Batches")
+      case "Venues":
+        break
+      default:
+        break;
+    }
+  }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} showsVerticalScrollIndicator={false}>
       <HomeHeader
         notificationPress={gotoNotification}
         accountPress={gotoMyAccount}
       />
-      <View style={styles.mainView}>
-        <ViewAllTitle title={"Upcoming Events"} />
-      </View>
-      <FlatList
-        horizontal
-        pagingEnabled
-        data={carouselData}
-        style={{}}
-        renderItem={({ item, index }) => {
-          return (
-            <Image
-              source={require("../../assets/images/carousel.png")}
-              style={{
-                alignSelf: "center",
-                marginHorizontal: 20,
-              }}
-            />
-          );
-        }}
-      />
-      <View style={styles.mainView}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View style={{ borderWidth: 0.2, width: "30%" }} />
-          <Text
-            style={{ marginHorizontal: 10, fontSize: 16, fontWeight: "800" }}
-          >
-            Manage
-          </Text>
-          <View style={{ borderWidth: 0.2, width: "30%" }} />
+      <ScrollView>
+        <View style={styles.mainView}>
+          <ViewAllTitle title={"Upcoming Events"} />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginVertical: 10,
-          }}
-        >
-          {data.map((item, index) => {
+        <FlatList
+          horizontal
+          pagingEnabled
+          nestedScrollEnabled
+          data={carouselData}
+          style={{}}
+          renderItem={({ item, index }) => {
             return (
-              <TouchableOpacity>
-                <Image source={item.url} style={{}} />
-                <Text
+              <View
+                style={{
+                  height: 150,
+                  width: Dimensions.get("screen").width - 40,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                }}
+              >
+                {[1, 2, 3, 4].map((e, i) => {
+                  return (
+                    <Image
+                      key={i.toString()}
+                      source={{
+                        uri: "https://www.freecodecamp.org/news/content/images/2022/09/jonatan-pie-3l3RwQdHRHg-unsplash.jpg",
+                      }}
+                      style={{
+                        position: "absolute",
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: 15,
+                      }}
+                    />
+                  );
+                })}
+
+                <View
                   style={{
-                    marginTop: 10,
-                    fontWeight: "500",
+                    padding: 20,
                   }}
                 >
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
+                  <MyText
+                    text="Basketball League Finals"
+                    fontFamily="BOLD"
+                    fontsize={16}
+                    color={"#fff"}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginVertical: 5,
+                    }}
+                  >
+                    <Feather name="clock" color={"#fff"} />
+                    <MyText text=" 10:30 AM" fontsize={12} color={"#fff"} />
+                    <View style={{ width: "5%" }} />
+                    <Feather name="calendar" color={"#fff"} />
+                    <MyText text=" 12th August" fontsize={12} color={"#fff"} />
+                  </View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Feather name="map-pin" color={"#fff"} />
+                    <MyText text=" Koramangala" fontsize={12} color={"#fff"} />
+                  </View>
+                  <Feather
+                    name="arrow-right-circle"
+                    size={30}
+                    style={{
+                      alignSelf: "flex-end",
+                    }}
+                    color={"#fff"}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Octicons
+                      name="dot"
+                      color={"#fff"}
+                      size={14}
+                      style={{ marginHorizontal: 2 }}
+                    />
+                    <Octicons
+                      name="dot"
+                      color={"#fff"}
+                      size={14}
+                      style={{ marginHorizontal: 2 }}
+                    />
+                    <Octicons
+                      name="dot-fill"
+                      color={"#fff"}
+                      size={14}
+                      style={{ marginHorizontal: 2 }}
+                    />
+                    <Octicons
+                      name="dot"
+                      color={"#fff"}
+                      size={14}
+                      style={{ marginHorizontal: 2 }}
+                    />
+                    <Octicons
+                      name="dot"
+                      color={"#fff"}
+                      size={14}
+                      style={{ marginHorizontal: 2 }}
+                    />
+                  </View>
+                </View>
+              </View>
             );
-          })}
-        </View>
-
-        <Text
-          style={{
-            fontWeight: "bold",
-            fontSize: 18,
           }}
-        >
-          My Tasks
-        </Text>
-        <TaskCard
-          title={"Attendance"}
-          subText={"Record player attendance"}
-          Icon={<Feather name="check" color={"#000"} size={24} />}
+          keyExtractor={(item, index) => index.toString()}
         />
-        <TaskCard
-          title={"Evaluation"}
-          subText={"Record player progress"}
-          Icon={<Feather name="trending-up" color={"#000"} size={24} />}
-        />
-      </View>
+        <View style={styles.mainView}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ borderWidth: 0.2, width: "30%" }} />
+            <Text
+              style={{ marginHorizontal: 10, fontSize: 16, fontWeight: "800" }}
+            >
+              Manage
+            </Text>
+            <View style={{ borderWidth: 0.2, width: "30%" }} />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginVertical: 10,
+            }}
+          >
+            {data.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  key={index.toString()}
+                  onPress={() => gotoService(item)}
+                >
+                  <Image source={item.url} style={{}} />
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontWeight: "500",
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
+          >
+            My Tasks
+          </Text>
+          <TaskCard
+            title={"Attendance"}
+            subText={"Record player attendance"}
+            Icon={<Feather name="check" color={"#000"} size={24} />}
+          />
+          <TaskCard
+            title={"Evaluation"}
+            subText={"Record player progress"}
+            Icon={<Feather name="trending-up" color={"#000"} size={24} />}
+          />
+        </View>
+      </ScrollView>
     </View>
   )
 }

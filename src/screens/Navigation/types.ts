@@ -52,6 +52,11 @@ export type RootStackParamList = {
   Notification: any;
   Players: any;
   CreatePlayer: any;
+  Batches: any;
+  BatchInfo: any;
+  CreateBatch: any;
+  EditBatchInfo: any;
+  AddRemovePlayer: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

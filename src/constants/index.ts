@@ -15,3 +15,7 @@ export const mockVenue = [
     address: "abc road, xyz",
   },
 ];
+
+import * as Fonts from './Fonts'
+
+export { Fonts } 

@@ -5,4 +5,7 @@ export { PhoneNumberInput } from "./PhoneNumberInput";
 export { SocialButton } from "./SocialButton";
 export { TextInputComponent as TextInput } from "./TextInput";
 export { SelectionComponent } from "./SelectionComponent";
-export { FAB } from './FAB/index'
+export { FAB } from './FAB/index';
+export { MyButton } from './MyButton/index';
+export { SearchBox } from './SearchBox/index';
+export { MyHeader } from './MyHeader/index';

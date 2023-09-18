@@ -134,7 +134,6 @@ const MyAccount = ({
               </View>
             </View>
             <View style={{ height: 10 }} />
-            <CardItem Title={"Players"} onPress={() => navigation.navigate('Players')} padding={18} />
             <CardItem Title={"Notification Settings"} onPress={() => null} padding={18} />
             <CardItem Title={"Help"} onPress={() => null} padding={18} />
             <CardItem Title={"About Us"} onPress={() => null} padding={18} />

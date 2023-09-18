@@ -145,7 +145,7 @@ export const customStyle = ({ window }: { window: any }) =>
     },
     codeFiledRoot: {
       marginTop: 20,
-      width: 250,
+      width: 310,
     },
     cell: {
       justifyContent: "center",
