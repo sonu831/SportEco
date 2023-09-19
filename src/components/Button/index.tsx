@@ -11,6 +11,7 @@ import {
 import { styles } from "./styles";
 import { Entypo } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
+import MyText from "../MyText";
 
 type ButtonProps = {
   label: string;
@@ -41,14 +42,19 @@ const Button = ({
       onPress={onPress}
     >
       <View style={styles.flexRow}>
-        <Text
+        {/* <Text
           style={[
             styles.btnText,
             isSubmitButton ? styles.textWhite : styles.textOrange,
           ]}
         >
           {label}
-        </Text>
+        </Text> */}
+        <MyText text={label}
+          style={[
+            styles.btnText,
+            isSubmitButton ? styles.textWhite : styles.textOrange,
+          ]} fontFamily="SEMIBOLD" />
         {icon && (
           <Entypo name={icon} size={16} color={iconColor || Colors.white} />
         )}

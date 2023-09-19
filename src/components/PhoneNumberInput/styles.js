@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
   },
   countryFlagContainer: {
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 8,
     borderColor: "#ccc",
-    height: 60,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -20,12 +20,12 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 5,
-    width: "70%",
+    borderRadius: 8,
+    width: "62%",
+    paddingLeft: 10
   },
   inputContainerEditProfile: {
-    marginLeft: 10,
+    marginLeft: 2,
     flexDirection: "row",
     borderWidth: 1,
     borderColor: "#ccc",
@@ -34,11 +34,10 @@ export const styles = StyleSheet.create({
     width: "80%",
   },
   phoneNumberInput: {
-    marginLeft: 10,
     flex: 1,
     borderWidth: 0,
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 4,
   },
   countryCodeContainer: {
     justifyContent: "center",
@@ -46,6 +45,6 @@ export const styles = StyleSheet.create({
   },
   countryCodeText: {
     fontSize: 16,
-    fontWeight: "bold",
+    marginLeft: 5
   },
 });

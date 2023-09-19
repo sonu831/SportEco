@@ -57,6 +57,9 @@ export type RootStackParamList = {
   CreateBatch: any;
   EditBatchInfo: any;
   AddRemovePlayer: any;
+  PlayerProfile: any;
+  EditPlayerProfile: any;
+  UpdatePlayerProfile: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

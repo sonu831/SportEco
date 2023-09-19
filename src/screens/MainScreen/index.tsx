@@ -111,6 +111,7 @@ const MainScreen = ({ navigation }) => {
   const gotoService = (item) => { //Function: To handle Bathes Screens
     switch (item.name) {
       case "Players":
+        return navigation.navigate("Players")
         break
       case "Batches":
         return navigation.navigate("Batches")
@@ -121,12 +122,12 @@ const MainScreen = ({ navigation }) => {
     }
   }
   return (
-    <View style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
       <HomeHeader
         notificationPress={gotoNotification}
         accountPress={gotoMyAccount}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.mainView}>
           <ViewAllTitle title={"Upcoming Events"} />
         </View>

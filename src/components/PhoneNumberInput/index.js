@@ -4,6 +4,8 @@ import CountryPicker from "react-native-country-picker-modal";
 import { Entypo } from "@expo/vector-icons";
 
 import { styles } from "./styles";
+import { Colors } from "../../constants/Colors";
+import MyText from "../MyText";
 
 export const PhoneNumberInput = ({
   phoneNumber,
@@ -29,8 +31,9 @@ export const PhoneNumberInput = ({
           withCallingCode
           onSelect={selectCountry}
           countryCode={countryCode}
+          containerButtonStyle={{ paddingHorizontal: 5 }}
         />
-        <Entypo name={"chevron-down"} size={16} />
+        <Entypo name={"chevron-down"} size={16} color={Colors.gray} style={{ paddingRight: 5 }} />
       </View>
       <View
         style={
@@ -40,9 +43,8 @@ export const PhoneNumberInput = ({
         }
       >
         <View style={styles.countryCodeContainer}>
-          <Text style={styles.countryCodeText}>{`+${
-            countryCodeInput ?? "1"
-          }`}</Text>
+          <MyText style={styles.countryCodeText} text={`+${countryCodeInput ?? "1"
+            }`} fontFamily='MEDIUM' />
         </View>
         <TextInput
           style={styles.phoneNumberInput}

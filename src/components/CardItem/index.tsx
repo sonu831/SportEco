@@ -5,6 +5,7 @@ import { Colors } from '../../constants/Colors';
 
 const CardItem = ({
     Title,
+    subTitle,
     Icon,
     isImage,
     onPress = () => { },
@@ -32,7 +33,10 @@ const CardItem = ({
                     style={{ height: 50, width: 50 }}
                 />}
                 {Icon}
-                <Text style={{ color: titleColor, marginLeft: 10 }}>{Title}</Text>
+                <View>
+                    <Text style={{ color: titleColor, marginLeft: 10, fontWeight: 'bold' }}>{Title}</Text>
+                    {subTitle && (<Text style={{ color: titleColor, marginLeft: 10, }}>{subTitle}</Text>)}
+                </View>
             </View>
             <AntDesign name="right" color={rightIconColor} />
         </TouchableOpacity>

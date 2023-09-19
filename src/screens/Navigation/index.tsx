@@ -37,8 +37,10 @@ import Batches from '../Batches/Batches/Batches';
 import BatchInfo from '../Batches/BatchInfo/BatchInfo';
 import CreateBatch from '../Batches/CreateBatch/CreateBatch';
 import EditBatchInfo from '../Batches/EditBatchInfo/EditBatchInfo';
-import AddRemovePlayer from '../Batches/AddRemovePlayer/AddRemovePlayer'
-
+import AddRemovePlayer from '../Batches/AddRemovePlayer/AddRemovePlayer';
+import PlayerProfile from '../Players/PlayerProfile'
+import EditPlayerProfile from "../Players/EditPlayerProfile";
+import UpdatePlayerProfile from "../Players/UpdatePlayerProfile"
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
@@ -79,6 +81,7 @@ const Navigation = () => {
               <Stack.Screen name="BatchInfo" component={BatchInfo} />
               <Stack.Screen name="CreateBatch" component={CreateBatch} />
               <Stack.Screen name="EditBatchInfo" component={EditBatchInfo} />
+              <Stack.Screen name="UpdatePlayerProfile" component={UpdatePlayerProfile} />
             </Stack.Group>
           ) : (
             <Stack.Group>
@@ -95,6 +98,8 @@ const Navigation = () => {
           <Stack.Screen name="Players" component={Players} />
           <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
           <Stack.Screen name="AddRemovePlayer" component={AddRemovePlayer} />
+          <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
+          <Stack.Screen name="EditPlayerProfile" component={EditPlayerProfile} />
         </Stack.Navigator>
 
         {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />}
