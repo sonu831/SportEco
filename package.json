@@ -2,7 +2,8 @@
   "name": "sport-eco",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "react-native run-android",
+    "start:expo": "expo start --dev-client",
     "android": "expo run:android",
     "native:android": "react-native run-android",
     "native:start": "react-native start --reset-cache",
