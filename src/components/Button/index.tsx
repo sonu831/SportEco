@@ -20,6 +20,7 @@ type ButtonProps = {
   iconColor?: string | OpaqueColorValue | undefined;
   style?: StyleProp<ViewStyle>;
   type?: "submit" | "cancel";
+  disabled?: boolean;
 };
 
 const Button = ({
@@ -29,6 +30,7 @@ const Button = ({
   style,
   iconColor,
   type = "submit",
+  disabled,
 }: ButtonProps) => {
   const isSubmitButton = type === "submit";
 
@@ -38,8 +40,10 @@ const Button = ({
         styles.btn,
         style,
         isSubmitButton ? styles.bgOrange : styles.bgWhite,
+        disabled && { backgroundColor: "#d3d3d3", borderColor: "#d3d3d3" },
       ]}
       onPress={onPress}
+      disabled={disabled}
     >
       <View style={styles.flexRow}>
         {/* <Text
@@ -50,11 +54,14 @@ const Button = ({
         >
           {label}
         </Text> */}
-        <MyText text={label}
+        <MyText
+          text={label}
           style={[
             styles.btnText,
             isSubmitButton ? styles.textWhite : styles.textOrange,
-          ]} fontFamily="SEMIBOLD" />
+          ]}
+          fontFamily="SEMIBOLD"
+        />
         {icon && (
           <Entypo name={icon} size={16} color={iconColor || Colors.white} />
         )}
