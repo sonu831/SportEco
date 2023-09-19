@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import Header from '../../components/Header'
-import SearchBar from '../../components/SearchBar';
+import Header from '../../components/MyHeader'
+import SearchBar from '../../components/SearchBox';
 import CardItem from '../../components/CardItem';
 import FAB from '../../components/FAB';
 import { Colors } from '../../constants/Colors';

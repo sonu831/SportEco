@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Header from '../../components/MyHeader'
 import Feather from "react-native-vector-icons/Feather";
@@ -9,8 +9,8 @@ import { CenteredLineWithText, PhoneNumberInput, SelectionComponent } from '../.
 import { Colors } from '../../constants/Colors';
 
 
-const CreatePlayer = ({ navigation }) => {
-    const gotoPlayerProfile = () => navigation.navigate('PlayerProfile')
+const EditPlayerProfile = ({ navigation }) => {
+    const gotoUpdatePlayerProfile = () => navigation.navigate('UpdatePlayerProfile')
     const options = [
         { label: "Male", icon: "male" },
         { label: "Female", icon: "female-sharp" },
@@ -30,10 +30,8 @@ const CreatePlayer = ({ navigation }) => {
             <Header
                 title='Create Player'
                 hasActionIcon
-                actionBtnPress={gotoPlayerProfile}
-                ActionIcon={<Feather name="check" size={18} color={"#fff"}
-
-                />}
+                actionBtnPress={gotoUpdatePlayerProfile}
+                ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
                 backgroundColor={"#FBF1D8"}
             />
             <View
@@ -112,7 +110,7 @@ const CreatePlayer = ({ navigation }) => {
         </View>
     )
 }
-export default CreatePlayer
+export default EditPlayerProfile
 
 const styles = StyleSheet.create({
     container: {

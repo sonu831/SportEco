@@ -19,7 +19,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
 import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
 
-const CELL_COUNT = 4;
+const CELL_COUNT = 6;
 const { window } = Layout;
 
 type InitialStateType = {
@@ -156,7 +156,7 @@ export const useVerificationScreen = ({
         key: "invalidCode",
         value: true,
       });
-      setValidationCode("");
+      // setValidationCode("");
     }
   };
 

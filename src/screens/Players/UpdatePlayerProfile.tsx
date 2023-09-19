@@ -9,7 +9,7 @@ import { CenteredLineWithText, PhoneNumberInput, SelectionComponent } from '../.
 import { Colors } from '../../constants/Colors';
 
 
-const CreatePlayer = ({ navigation }) => {
+const UpdatePlayerProfile = ({ navigation }) => {
     const gotoPlayerProfile = () => navigation.navigate('PlayerProfile')
     const options = [
         { label: "Male", icon: "male" },
@@ -112,7 +112,7 @@ const CreatePlayer = ({ navigation }) => {
         </View>
     )
 }
-export default CreatePlayer
+export default UpdatePlayerProfile
 
 const styles = StyleSheet.create({
     container: {

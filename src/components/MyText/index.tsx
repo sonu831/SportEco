@@ -29,6 +29,7 @@ interface textProps {
     | "REGULAR"
     | "SEMIBOLD"
     | "THIN";
+    center?: boolean;
 }
 const MyText: React.FC<textProps> = ({
     text,
@@ -37,6 +38,7 @@ const MyText: React.FC<textProps> = ({
     color,
     style,
     fontFamily = "REGULAR",
+    center = false
 }) => {
     const getFontFamily = (): string => {
         const propsFontFamilies: string[] = [
@@ -65,7 +67,7 @@ const MyText: React.FC<textProps> = ({
             fontFamily: getFontFamily(),
         },
     });
-    return <Text style={[styles.textStyle, style]}>{text}</Text>;
+    return <Text style={[styles.textStyle, style, center && { textAlign: "center" }]}>{text}</Text>;
 };
 
 export default MyText;
