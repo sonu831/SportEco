@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, View, ImageBackground, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import loginImage from "../../assets/images/loginImage.png";
 // import accountVerifiedImage from "../../assets/images/account_verified.png";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
@@ -38,8 +44,8 @@ const VerificationScreen = ({
 
   const { accountVerified, codeSent, invalidCode, phNum } = state;
 
-  const handleGoogleLogin = () => { };
-  const handleWhatsappLogin = () => { };
+  const handleGoogleLogin = () => {};
+  const handleWhatsappLogin = () => {};
 
   const loginScreen = (
     <View style={{ flex: 1 }}>
@@ -80,12 +86,23 @@ const VerificationScreen = ({
     <SafeArea classNames={styles.container}>
       {codeSent ? (
         <>
-          <Header title={"OTP Verification"} onBackPress={() => navigation.goBack()} />
+          <Header
+            title={"OTP Verification"}
+            onBackPress={() => {
+              updateState({
+                key: "codeSent",
+                value: false,
+              });
+            }}
+          />
           <View style={styles.containerView}>
             <>
               <View style={{ height: 40 }} />
               <View style={styles.numContainer}>
-                <MyText style={styles.send} text={" Verification code sent to"} />
+                <MyText
+                  style={styles.send}
+                  text={" Verification code sent to"}
+                />
                 <MyText style={styles.num} text={phNum} fontFamily="BOLD" />
               </View>
             </>
@@ -102,7 +119,11 @@ const VerificationScreen = ({
                 renderCell={({ index, symbol, isFocused }) => (
                   <Text
                     key={index}
-                    style={[styles.cell, isFocused && styles.focusCell, invalidCode && styles.inValidOtp]}
+                    style={[
+                      styles.cell,
+                      isFocused && styles.focusCell,
+                      invalidCode && styles.inValidOtp,
+                    ]}
                     onLayout={getCellOnLayoutHandler(index)}
                   >
                     {symbol || (isFocused ? <Cursor /> : null)}
@@ -110,35 +131,45 @@ const VerificationScreen = ({
                 )}
               />
               <View style={[styles.resendContainer, styles.mt15]}>
-                <MyText style={styles.resendTextStyle} text="Didn't receive the code? " />
-                <MyText style={styles.resendButtonTextStyle} text="Resend" center={true} fontWeight="600" />
+                <MyText
+                  style={styles.resendTextStyle}
+                  text="Didn't receive the code? "
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    handleCreateAccount();
+                    updateState({
+                      key: "invalidCode",
+                      value: false,
+                    });
+                  }}
+                >
+                  <MyText
+                    style={styles.resendButtonTextStyle}
+                    text="Resend"
+                    center={true}
+                    fontWeight="600"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
-          <View style={{ height: '10%' }} />
-          {invalidCode ?
+          {invalidCode ? (
             <View style={styles.numContainer}>
-              <MyText style={styles.incorrect} text={"Invalid or incorrect OTP."} />
-            </View> : null}
-          <View style={{ justifyContent: 'flex-end', flex: 1 }}>
-            {invalidCode ? (
-              <Button
-                style={{ width: "90%", alignSelf: "center" }}
-                label="Resend Code"
-                onPress={() =>
-                  updateState({
-                    key: "invalidCode",
-                    value: false,
-                  })
-                }
+              <MyText
+                style={styles.incorrect}
+                text={"Invalid or incorrect OTP."}
               />
-            ) : (
-              <Button
-                style={{ width: "90%", alignSelf: "center", marginBottom: 10 }}
-                label="Verify"
-                onPress={handleOTPValidation}
-              />
-              // <TouchableOpacity
+            </View>
+          ) : null}
+          <View style={{ justifyContent: "flex-end", flex: 1 }}>
+            <Button
+              style={{ width: "90%", alignSelf: "center", marginBottom: 10 }}
+              label="Verify"
+              onPress={handleOTPValidation}
+              disabled={invalidCode || validationCode.length !== CELL_COUNT}
+            />
+            {/* // <TouchableOpacity
               //   style={[
               //     styles.createBtn,
               //     validationCode.length !== 6 && styles.disabledBtn,
@@ -148,8 +179,7 @@ const VerificationScreen = ({
               //   <Text style={styles.buttonText}>
               //     Verify and create account
               //   </Text>
-              // </TouchableOpacity>
-            )}
+              // </TouchableOpacity> */}
           </View>
         </>
       ) : (
