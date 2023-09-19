@@ -1,0 +1,9 @@
+export const BLACK = "mrt-black";
+export const BOLD = "mrt-bold";
+export const EXTRA_BOLD = "mrt-xbold";
+export const EXTRA_LIGHT = "mrt-xlight";
+export const LIGHT = "mrt-light";
+export const MEDIUM = "mrt-mid";
+export const REGULAR = "mrt-reg";
+export const SEMIBOLD = "mrt-semibold";
+export const THIN = "mrt-thin";
