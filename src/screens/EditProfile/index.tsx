@@ -216,6 +216,7 @@ const EditProfile = ({
                 }
                 dateBoxField
                 disabled={!isEdit}
+                classNames={styles.containerView}
               />
             </View>
             <View style={[styles.fieldRow, styles.py16]}>
