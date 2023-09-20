@@ -307,7 +307,7 @@ const EditProfile = ({
               style={{
                 flexDirection: "row",
                 justifyContent: "center",
-                paddingHorizontal: 30,
+                paddingHorizontal: 40,
               }}
             >
               {userTypes.map((item) => (
