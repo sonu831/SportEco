@@ -23,7 +23,9 @@ export const PhoneNumberInput = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.countryFlagContainer}>
+      <View
+        style={[styles.countryFlagContainer, isEditProfile && { height: 60 }]}
+      >
         <CountryPicker
           withFilter
           withFlag
@@ -33,7 +35,12 @@ export const PhoneNumberInput = ({
           countryCode={countryCode}
           containerButtonStyle={{ paddingHorizontal: 5 }}
         />
-        <Entypo name={"chevron-down"} size={16} color={Colors.gray} style={{ paddingRight: 5 }} />
+        <Entypo
+          name={"chevron-down"}
+          size={16}
+          color={Colors.gray}
+          style={{ paddingRight: 5 }}
+        />
       </View>
       <View
         style={
@@ -43,8 +50,11 @@ export const PhoneNumberInput = ({
         }
       >
         <View style={styles.countryCodeContainer}>
-          <MyText style={styles.countryCodeText} text={`+${countryCodeInput ?? "1"
-            }`} fontFamily='MEDIUM' />
+          <MyText
+            style={styles.countryCodeText}
+            text={`+${countryCodeInput ?? "1"}`}
+            fontFamily="MEDIUM"
+          />
         </View>
         <TextInput
           style={styles.phoneNumberInput}

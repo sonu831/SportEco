@@ -216,6 +216,7 @@ const EditProfile = ({
                 }
                 dateBoxField
                 disabled={!isEdit}
+                classNames={styles.containerView}
               />
             </View>
             <View style={[styles.fieldRow, styles.py16]}>
@@ -306,7 +307,7 @@ const EditProfile = ({
               style={{
                 flexDirection: "row",
                 justifyContent: "center",
-                paddingHorizontal: 30,
+                paddingHorizontal: 40,
               }}
             >
               {userTypes.map((item) => (
