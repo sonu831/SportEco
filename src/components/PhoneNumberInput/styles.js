@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 8,
     width: "62%",
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   inputContainerEditProfile: {
     marginLeft: 2,
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 5,
-    width: "80%",
+    width: "76%",
   },
   phoneNumberInput: {
     flex: 1,
@@ -45,6 +45,6 @@ export const styles = StyleSheet.create({
   },
   countryCodeText: {
     fontSize: 16,
-    marginLeft: 5
+    marginLeft: 5,
   },
 });
