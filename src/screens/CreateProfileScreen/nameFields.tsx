@@ -7,7 +7,7 @@ export const NameFields = ({ fName, lName, updateState }) => (
   <View style={[styles.fieldColumn]}>
     <TitleText
       text={`What's Your Name?`}
-      subtext="Let's Kick things off by creating a profile!"
+      subtext="Kick things off by creating a profile!"
       style={styles.pb30}
     />
     <TextInput
@@ -19,6 +19,7 @@ export const NameFields = ({ fName, lName, updateState }) => (
           value: fName,
         })
       }
+      borderRadius={10}
     />
     <TextInput
       placeholder="Last Name"
@@ -29,6 +30,7 @@ export const NameFields = ({ fName, lName, updateState }) => (
           value: lName,
         })
       }
+      borderRadius={10}
     />
   </View>
 );

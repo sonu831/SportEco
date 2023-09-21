@@ -58,7 +58,7 @@ const SelectUserTypes = ({ updateState }) => {
   return (
     <View style={styles.container}>
       <TitleText
-        text={`Select Your Profiles!.`}
+        text={`Select Your Profiles.`}
         subtext="What defines you best? (Select all that apply)"
         style={styles.pb30}
       />
@@ -67,6 +67,7 @@ const SelectUserTypes = ({ updateState }) => {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
+          // backgroundColor: 'pink',
         }}
       >
         {userTypes.map((item) => (
@@ -88,9 +89,10 @@ export default SelectUserTypes;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 25,
+    paddingHorizontal: 13,
   },
   pb30: {
-    paddingBottom: 30,
+    paddingLeft: 15,
+    paddingBottom: 35,
   },
 });

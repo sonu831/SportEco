@@ -7,7 +7,20 @@ export const TextInputComponent = ({
   onChangeText,
   style,
   editable,
+  borderRadius = 5
 }) => {
+  const styles = StyleSheet.create({
+    container: {
+      marginBottom: 15,
+    },
+    input: {
+      borderColor: "#ccc",
+      borderWidth: 1,
+      borderRadius: borderRadius,
+      padding: 10,
+      paddingLeft: 15
+    },
+  });
   return (
     <View style={styles.container}>
       <TextInput
@@ -20,15 +33,3 @@ export const TextInputComponent = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 15,
-  },
-  input: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
-});

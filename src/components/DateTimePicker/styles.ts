@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.gray1,
-    padding: 10,
+    // padding: 10,
     borderRadius: 10,
   },
   dateBoxContainer: {
@@ -16,13 +16,13 @@ export const styles = StyleSheet.create({
   },
   dateWrapper: {
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     borderColor: "#ccc",
-    padding: 10,
-    width: 80,
+    padding: 15,
+    width: 75,
   },
   monthDateWrapper: {
-    width: 120,
+    width: 130,
   },
   dateContainer: {
     flexDirection: "row",
