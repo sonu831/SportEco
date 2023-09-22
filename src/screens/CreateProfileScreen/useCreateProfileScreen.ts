@@ -93,7 +93,7 @@ const useCreateProfileScreen = ({
         console.log("=======res ========", res);
         console.log("========");
         if (res?.payload?.success) {
-          navigation.navigate("Main");
+          navigation.navigate("BottomTabNavigation");
         }
       });
     }
@@ -112,7 +112,7 @@ const useCreateProfileScreen = ({
 
   return {
     currentStep,
-    uploadImage: () => {},
+    uploadImage: () => { },
     userDetails: [],
     state,
     handleSave,

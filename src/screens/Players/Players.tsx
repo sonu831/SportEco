@@ -6,6 +6,7 @@ import CardItem from "../../components/CardItem";
 import FAB from "../../components/FAB";
 import { Colors } from "../../constants/Colors";
 import usePlayers from "./usePlayers";
+import MyText from "../../components/MyText";
 
 const Players = ({ navigation }) => {
   const {
@@ -16,8 +17,8 @@ const Players = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Manage" />
       <View style={styles.mainView}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Players.</Text>
-        <Text style={{ marginVertical: 10 }}>List of all your players.</Text>
+        <MyText text="Players." fontFamily="BOLD" fontsize={24} />
+        <MyText text="List of all your players." fontFamily="LIGHT" fontsize={15} />
         {playersData.length > 0 ? (
           <View>
             <SearchBar />

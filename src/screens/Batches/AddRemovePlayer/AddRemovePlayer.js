@@ -15,6 +15,7 @@ import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchBox from "../../../components/SearchBox";
 import MyButton from "../../../components/MyButton";
+import MyText from "../../../components/MyText";
 
 const AddRemovePlayer = () => {
   const [selectedPlayers, setSelectedPlayers] = React.useState([]);
@@ -167,15 +168,7 @@ const PlayerCard = ({
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <Text
-          style={{
-            marginLeft: 10,
-            fontWeight: "bold",
-            fontSize: 16,
-          }}
-        >
-          {playerName}
-        </Text>
+        <MyText text={playerName} fontFamily="MEDIUM" fontsize={16} style={{ marginLeft: 10 }} />
       </View>
       {hasRemoveBtn ? (
         <Feather name="x-circle" size={24} color={"grey"} />

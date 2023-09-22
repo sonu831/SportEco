@@ -100,9 +100,10 @@ const Navigation = () => {
           <Stack.Screen name="AddRemovePlayer" component={AddRemovePlayer} />
           <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
           <Stack.Screen name="EditPlayerProfile" component={EditPlayerProfile} />
+          <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
         </Stack.Navigator>
 
-        {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />}
+        {/* {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />} */}
       </NavigationContainer>
       <Toast />
     </>

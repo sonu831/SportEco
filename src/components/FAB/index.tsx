@@ -4,7 +4,7 @@ import React from "react";
 import Feather from "react-native-vector-icons/Feather";
 
 const FAB = ({
-    Icon = <Feather name="plus" color={"#fff"} size={24} />,
+    Icon = <Feather name="plus" color={"#fff"} size={35} />,
     onPress = () => { },
 }) => {
     return (

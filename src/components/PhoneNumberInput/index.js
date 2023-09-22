@@ -12,6 +12,7 @@ export const PhoneNumberInput = ({
   onChangePhoneNumber,
   isEditProfile,
   editable = true,
+  inputContainerWidth = "62%",
 }) => {
   const [countryCode, setCountryCode] = useState("IN"); // Store the selected country code
   const [countryCodeInput, setCountryCodeInput] = useState("91");
@@ -46,7 +47,15 @@ export const PhoneNumberInput = ({
         style={
           isEditProfile
             ? styles.inputContainerEditProfile
-            : styles.inputContainer
+            : {
+              marginLeft: 10,
+              flexDirection: "row",
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 8,
+              width: inputContainerWidth,
+              paddingLeft: 10,
+            }
         }
       >
         <View style={styles.countryCodeContainer}>
