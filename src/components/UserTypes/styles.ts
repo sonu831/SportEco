@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 0,
     margin: 10,
-    padding: 10,
-    borderRadius: 10,
+    padding: 0,
+    borderRadius: 15,
     borderWidth: 1,
   },
 });

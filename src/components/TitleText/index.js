@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subtext: {
-    fontSize: 14,
+    fontSize: 15,
     color: "#888",
     fontFamily: 'BOLD'
   },
@@ -25,7 +25,7 @@ export const TitleText = ({
   return (
     <View style={[style && style]}>
       <MyText style={[styles.h2, center && { textAlign: "center" }]} text={text} fontFamily='BOLD' />
-      {subtext && <Text style={styles.subtext}>{subtext}</Text>}
+      {subtext && <MyText style={styles.subtext} text={subtext} />}
     </View>
   );
 };

@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 25,
   },
   justifyCenter: { justifyContent: "center" },
-  fieldColumn: { flexDirection: "column", paddingHorizontal: 25 },
+  fieldColumn: { paddingHorizontal: 25 },
   fieldRowLabel: {
     fontSize: 14,
     fontFamily: "Avenir-Regular",
