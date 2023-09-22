@@ -10,6 +10,7 @@ export const endpoints = {
 
   // Players
   fetchPlayers: `/api/player/listofplayers`,
+  fetchPlayerById: `/api/player/getplayerdetailbyid`,
   addPlayer: `/api/player/addplayerprofile`,
   updatePlayerProfile: `api/player/updateplayerprofile`,
   uploadPlayerProfileImage: `/api/player/playerprofilepicupload`,
