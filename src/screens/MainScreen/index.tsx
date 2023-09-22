@@ -85,6 +85,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Octicons from "react-native-vector-icons/Octicons";
 import MyText from "../../components/MyText";
+import { Colors } from "../../constants/Colors";
 
 const MainScreen = ({ navigation }) => {
   const gotoNotification = () => navigation.navigate("Notification");
@@ -252,11 +253,7 @@ const MainScreen = ({ navigation }) => {
             }}
           >
             <View style={{ borderWidth: 0.2, width: "30%" }} />
-            <Text
-              style={{ marginHorizontal: 10, fontSize: 16, fontWeight: "800" }}
-            >
-              Manage
-            </Text>
+            <MyText text={"Manage"} fontFamily="REGULAR" fontsize={16} style={{ marginHorizontal: 10 }} />
             <View style={{ borderWidth: 0.2, width: "30%" }} />
           </View>
           <View
@@ -271,29 +268,15 @@ const MainScreen = ({ navigation }) => {
                 <TouchableOpacity
                   key={index.toString()}
                   onPress={() => gotoService(item)}
+                  style={{ paddingHorizontal: 10 }}
                 >
                   <Image source={item.url} style={{}} />
-                  <Text
-                    style={{
-                      marginTop: 10,
-                      fontWeight: "500",
-                    }}
-                  >
-                    {item.name}
-                  </Text>
+                  <MyText text={item.name} fontFamily="REGULAR" fontsize={14} center={true} style={{ marginTop: 5 }} />
                 </TouchableOpacity>
               );
             })}
           </View>
-
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 18,
-            }}
-          >
-            My Tasks
-          </Text>
+          <MyText text={"My Tasks"} fontFamily="BOLD" fontsize={18} style={{ marginTop: 25 }} />
           <TaskCard
             title={"Attendance"}
             subText={"Record player attendance"}
@@ -334,9 +317,7 @@ const HomeHeader = ({
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Feather name="map-pin" size={24} color={"#fff"} />
-          <Text style={{ color: "#fff", fontSize: 18, marginHorizontal: 10 }}>
-            Bengaluru
-          </Text>
+          <MyText text="Bengaluru" fontFamily="REGULAR" color={Colors.white} fontsize={18} style={{ marginHorizontal: 10 }} />
           <AntDesign name="down" size={14} color={"#fff"} />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -374,7 +355,7 @@ const HomeHeader = ({
   );
 };
 
-const ViewAllTitle = ({ title, viewAllText = "view all" }) => {
+const ViewAllTitle = ({ title, viewAllText = "View all" }) => {
   return (
     <View
       style={{
@@ -383,29 +364,14 @@ const ViewAllTitle = ({ title, viewAllText = "view all" }) => {
         alignItems: "center",
       }}
     >
-      <Text
-        style={{
-          fontWeight: "bold",
-          fontSize: 18,
-        }}
-      >
-        {title}
-      </Text>
+      <MyText text={title} fontsize={18} fontFamily="BOLD" />
       <TouchableOpacity
         style={{
           flexDirection: "row",
           alignItems: "center",
         }}
       >
-        <Text
-          style={{
-            fontWeight: "700",
-            color: "red",
-            marginRight: 5,
-          }}
-        >
-          {viewAllText}
-        </Text>
+        <MyText text={viewAllText} fontsize={16} fontFamily="REGULAR" style={{ marginRight: 5 }} color={Colors.red} />
         <AntDesign name="right" color={"red"} />
       </TouchableOpacity>
     </View>
@@ -447,18 +413,12 @@ const TaskCard = ({ Icon, title, subText }) => {
           {Icon}
         </View>
         <View style={{ marginLeft: 20 }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-            }}
-          >
-            {title}
-          </Text>
-          <Text>{subText}</Text>
+          <MyText text={title} fontFamily="MEDIUM" />
+          <MyText text={subText} fontFamily="REGULAR" color={Colors.gray} fontsize={12} />
         </View>
       </View>
 
-      <AntDesign name="right" />
+      <AntDesign name="right" style={{ marginRight: 5 }} />
     </View>
   );
 };

@@ -6,6 +6,8 @@ import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FAB from "../../../components/FAB/index";
 import SearchBox from "../../../components/SearchBox";
+import MyText from "../../../components/MyText";
+import { Colors } from "../../../constants/Colors";
 
 const BatchInfo = ({ navigation }) => {
   const gotoEditBatchInfo = () => navigation.navigate("EditBatchInfo");
@@ -19,14 +21,10 @@ const BatchInfo = ({ navigation }) => {
         ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
       />
       <View style={styles.mainView}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          Morning Senior Batch
-        </Text>
-        <Text style={{ marginVertical: 10 }}>
-          Tennis players of age group 8-12. Focus is on developing fundamental
+        <MyText text="Morning Senior Batch" fontsize={24} fontFamily="BOLD" />
+        <MyText text="Tennis players of age group 8-12. Focus is on developing fundamental
           tennis skills, promoting teamwork, and fostering their passion for the
-          game.
-        </Text>
+          game." fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
         {playersData.length > 0 ? (
           <View>
             <SearchBox />
@@ -73,6 +71,7 @@ const BatchMemberCard = () => {
         padding: 10,
         borderRadius: 15,
         marginVertical: 10,
+        borderColor: Colors.gray
       }}
     >
       <View
@@ -85,18 +84,9 @@ const BatchMemberCard = () => {
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <Text
-          style={{
-            marginLeft: 10,
-            fontWeight: "bold",
-            fontSize: 16,
-          }}
-        >
-          John Wick
-        </Text>
+        <MyText text="John Wick" fontsize={16} fontFamily="MEDIUM" style={{ marginLeft: 12 }} />
       </View>
-
-      <AntDesign name="right" size={16} />
+      <AntDesign name="right" size={16} style={{ marginRight: 5 }} />
     </TouchableOpacity>
   );
 };

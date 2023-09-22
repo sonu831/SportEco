@@ -66,7 +66,7 @@ const PlayerProfile = ({ navigation, route }) => {
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end" }}>
         <MyButton
-          title="Delete Batch"
+          title="Delete Player"
           width={"90%"}
           alignSelf="center"
           backgroundColor={"#303030"}

@@ -5,6 +5,7 @@ import Header from "../../../components/MyHeader";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-paper";
 import MyButton from "../../../components/MyButton";
+import MyText from "../../../components/MyText";
 
 const EditBatchInfo = ({ navigation }) => {
   const [batchName, setBatchName] = React.useState("Morning Senior Batch");
@@ -22,12 +23,9 @@ const EditBatchInfo = ({ navigation }) => {
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
       />
       <View style={styles.mainView}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          Edit Batch Details.
-        </Text>
-        <Text style={{ marginVertical: 10 }}>
-          Edit the name & description of this batch.
-        </Text>
+        <MyText text="Edit Batch Details." fontFamily="BOLD" fontsize={24} />
+        <MyText text="Edit the name & description of this batch." fontFamily="REGULAR" />
+        <View style={{ height: '12%' }} />
         <TextInput
           mode="outlined"
           label="Batch Name"

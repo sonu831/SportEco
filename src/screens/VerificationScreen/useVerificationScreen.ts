@@ -122,7 +122,7 @@ export const useVerificationScreen = ({
     dispatch(setIsLoginVerified(true));
     console.log("finalk redirect to CreateProfile");
     if (isUserExist) {
-      navigation.navigate("Main");
+      navigation.navigate("BottomTabNavigation");
       return;
     }
     navigation.navigate("CreateProfile");

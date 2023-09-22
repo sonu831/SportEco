@@ -9,6 +9,7 @@ import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import MyText from "../MyText";
 interface headerProps {
   title: string;
   hasActionIcon?: boolean;
@@ -21,7 +22,7 @@ const Header: React.FC<headerProps> = ({
   hasActionIcon,
   backgroundColor,
   isActionBtnDisabled,
-  actionBtnPress = () => {},
+  actionBtnPress = () => { },
   ActionIcon = <AntDesign name="delete" size={20} color={"#fff"} />,
 }) => {
   const navigation = useNavigation();
@@ -41,19 +42,13 @@ const Header: React.FC<headerProps> = ({
         style={{
           backgroundColor: "#FFF",
           borderRadius: 100,
+          marginLeft: 10
         }}
         onPress={goBack}
       >
         <Feather name="arrow-left-circle" size={30} />
       </TouchableOpacity>
-      <Text
-        style={{
-          fontSize: 20,
-          fontWeight: "800",
-        }}
-      >
-        {title}
-      </Text>
+      <MyText text={title} fontsize={20} fontFamily="BOLD" />
       {hasActionIcon ? (
         <TouchableOpacity
           onPress={actionBtnPress}

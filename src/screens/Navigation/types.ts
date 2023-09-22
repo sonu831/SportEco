@@ -60,6 +60,7 @@ export type RootStackParamList = {
   PlayerProfile: any;
   EditPlayerProfile: any;
   UpdatePlayerProfile: any;
+  BottomTabNavigation: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
