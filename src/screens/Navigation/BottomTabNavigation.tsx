@@ -20,19 +20,21 @@
 
 // export default BottomTabNavigation;
 
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Foundation from "react-native-vector-icons/Foundation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
-import MainScreen from '../MainScreen';
+import MainScreen from "../MainScreen";
+import Players from "../Players/Players";
 
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
-      screenOptions={{
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -41,10 +43,10 @@ const BottomTabNavigation = () => {
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
         },
-      }}
+      })}
     >
       <Tab.Screen
-        name="MainScreen"
+        name="Main"
         component={MainScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -151,13 +153,20 @@ const BottomTabNavigation = () => {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Players"
+        component={Players}
+        options={{
+          tabBarStyle: { display: "none" },
+        }}
+      /> */}
     </Tab.Navigator>
   );
-}
+};
 
-export default BottomTabNavigation
+export default BottomTabNavigation;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
 
 function Chat() {
   return (

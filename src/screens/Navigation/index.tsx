@@ -56,6 +56,10 @@ const Navigation = () => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {isAccountVerified ? (
             <Stack.Group>
+              <Stack.Screen
+                name="BottomTabNavigation"
+                component={BottomTabNavigation}
+              />
               <Stack.Screen name="Main" component={MainScreen} />
               <Stack.Screen name="Calendar" component={NotReady} />
               <Stack.Screen name="Message" component={NotReady} />
@@ -85,6 +89,21 @@ const Navigation = () => {
                 name="UpdatePlayerProfile"
                 component={UpdatePlayerProfile}
               />
+              <Stack.Screen
+                name="CreateProfile"
+                component={CreateProfileScreen}
+              />
+              <Stack.Screen name="Players" component={Players} />
+              <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
+              <Stack.Screen
+                name="AddRemovePlayer"
+                component={AddRemovePlayer}
+              />
+              <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
+              <Stack.Screen
+                name="EditPlayerProfile"
+                component={EditPlayerProfile}
+              />
             </Stack.Group>
           ) : (
             <Stack.Group>
@@ -97,21 +116,7 @@ const Navigation = () => {
             </Stack.Group>
           )}
           <Stack.Screen name="Confirmation" component={Confirmation} />
-          <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
-          <Stack.Screen name="Players" component={Players} />
-          <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
-          <Stack.Screen name="AddRemovePlayer" component={AddRemovePlayer} />
-          <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
-          <Stack.Screen
-            name="EditPlayerProfile"
-            component={EditPlayerProfile}
-          />
-          <Stack.Screen
-            name="BottomTabNavigation"
-            component={BottomTabNavigation}
-          />
         </Stack.Navigator>
-
         {/* {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />} */}
       </NavigationContainer>
       <Toast />
