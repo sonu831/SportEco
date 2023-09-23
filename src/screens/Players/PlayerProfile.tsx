@@ -57,11 +57,13 @@ const PlayerProfile = ({ navigation, route }) => {
           Title={"Attendance"}
           subTitle={"Player attendance history"}
           isImage={true}
+          imageSource={require("../../assets/images/groupAttendance.png")}
         />
         <CardItem
           Title={"Evaluation"}
           subTitle={"Player perfomance progress "}
           isImage={true}
+          imageSource={require("../../assets/images/groupEvaluation.png")}
         />
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end" }}>
