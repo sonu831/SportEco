@@ -85,6 +85,7 @@ const useCreateProfileScreen = ({
           city: state.selectedCity,
           state: state.selectedState,
           role: state.role,
+          avatarimage: state.image,
         },
       };
       dispatch(updateUserProfile(request)).then((res) => {
@@ -112,7 +113,7 @@ const useCreateProfileScreen = ({
 
   return {
     currentStep,
-    uploadImage: () => { },
+    uploadImage: () => {},
     userDetails: [],
     state,
     handleSave,
