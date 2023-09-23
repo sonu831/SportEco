@@ -39,7 +39,7 @@ const Players = ({ navigation }) => {
         ) : (
           <View
             style={{
-              height: "75%",
+              marginTop: "50%",
               width: "100%",
               justifyContent: "center",
               alignItems: "center",

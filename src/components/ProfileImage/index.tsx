@@ -26,11 +26,12 @@ export const ProfileImage = ({
   } = useProfileImage(); // var
 
   useEffect(() => {
-    updateState({
-      key: "image",
-      value: imageUrl ?? avatarImage,
-    });
-  }, [imageUrl, avatarImage]);
+    updateState &&
+      updateState({
+        key: "image",
+        value: avatarImage,
+      });
+  }, [avatarImage]);
   // UI
   return (
     <Fragment>

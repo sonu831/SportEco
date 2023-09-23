@@ -24,6 +24,7 @@ import { colors } from "react-native-elements";
 import CardItem from "../../components/CardItem";
 import { useSelector } from "react-redux";
 import { userDetails$ } from "../../store/users/selectors";
+import AvatarImage from "../../components/AvatarImage";
 
 const MyAccount = ({
   navigation,
@@ -35,7 +36,10 @@ const MyAccount = ({
   }); // var
   const userDetails: Partial<User> = useSelector(userDetails$); // var
   const { first_name, last_name, profile_pic } = userDetails; // var
-  const base64Image = "data:image/png;base64," + profile_pic?.filedata;
+  const base64Image = profile_pic?.filedata
+    ? "data:image/png;base64," + profile_pic?.filedata
+    : null;
+
   const arr = [
     {
       id: 0,
@@ -69,7 +73,12 @@ const MyAccount = ({
                 borderWidth: 3,
               }}
             >
-              <Image source={{ uri: base64Image }} style={styles.avatar} />
+              <AvatarImage
+                imageUrl={base64Image}
+                placeholderImage={state.avatarImage}
+                resizeMode="cover"
+              />
+              {/* <Image source={{ uri: base64Image }} style={styles.avatar} /> */}
             </TouchableOpacity>
             <Text
               style={[styles.username, { fontSize: 16, fontWeight: "300" }]}
@@ -134,7 +143,11 @@ const MyAccount = ({
               </View>
             </View>
             <View style={{ height: 10 }} />
-            <CardItem Title={"Notification Settings"} onPress={() => null} padding={18} />
+            <CardItem
+              Title={"Notification Settings"}
+              onPress={() => null}
+              padding={18}
+            />
             <CardItem Title={"Help"} onPress={() => null} padding={18} />
             <CardItem Title={"About Us"} onPress={() => null} padding={18} />
             <CardItem Title={"Policies"} onPress={() => null} padding={18} />

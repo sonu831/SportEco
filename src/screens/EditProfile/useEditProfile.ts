@@ -33,6 +33,7 @@ import group905 from "../../assets/images/group905.png";
 import group908 from "../../assets/images/group908.png";
 import group907 from "../../assets/images/group907.png";
 import group909 from "../../assets/images/group909.png";
+import { findIndexByValue } from "../../utils/methods";
 
 type AvatarMap = {
   [key: number]: string;
@@ -58,6 +59,8 @@ type InitialState = {
   image: string;
   idProof?: FileUploadResponse;
   phNum: string;
+  avatarImage: any;
+  dobDate: any;
 };
 
 const initialState = {
@@ -105,6 +108,13 @@ const useEditProfile = ({
   const { selectedState } = state;
 
   console.log("userDetails", userDetails);
+
+  useEffect(() => {
+    if (userDetails?.avatarimage) {
+      const index = findIndexByValue(initialAvatar, userDetails?.avatarimage);
+      setAvatarImage(initialAvatar[index]);
+    }
+  }, [userDetails?.avatarimage]);
 
   const handleGoBack = () => navigation.goBack();
 
@@ -172,6 +182,7 @@ const useEditProfile = ({
         middle_name,
         contact_no,
         profile_pic,
+        DOB,
       } = userDetails;
 
       updateState([
@@ -185,8 +196,11 @@ const useEditProfile = ({
         { key: "phNum", value: contact_no || "" },
         {
           key: "image",
-          value: "data:image/png;base64," + profile_pic?.filedata,
+          value: profile_pic?.filedata
+            ? "data:image/png;base64," + profile_pic?.filedata
+            : null,
         },
+        { key: "dobDate", value: DOB?.date },
       ]);
     }
   }, [userDetails]);
@@ -220,6 +234,7 @@ const useEditProfile = ({
       gender: gender,
       city: selectedCity,
       state: userState,
+      avatarimage: avatarImage,
       ...(!isAddPlayer && { role: role }),
     };
 
@@ -287,6 +302,22 @@ const useEditProfile = ({
     }
   }, [selectedState]);
 
+  const handleUploadImage = (image: string) => {
+    const formData = new FormData();
+
+    formData.append("profile_pic", {
+      uri: image,
+      name: "profile_pic", // You can change the name as needed
+      type: "image/jpeg", // Adjust the type based on your image format
+    });
+    // Implementation for uploading image
+    dispatch(uploadUserProfilePicture(formData)).then((res) => {
+      console.log("uploadUserProfilePicture res---->", res);
+    });
+    console.log("handleUploadImage", image);
+    updateState({ key: "image", value: image });
+  };
+
   return {
     avatarImage,
     uploadImage,
@@ -302,6 +333,7 @@ const useEditProfile = ({
     countryStates,
     citiesByState,
     toggleProfileEditMode,
+    handleUploadImage,
   };
 };
 
