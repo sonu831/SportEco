@@ -28,4 +28,4 @@ jobs:
         run: yarn install
 
       - name: 🚀 Build and Release the App For Prod
-        run: eas build -p android --profile production
+        run: eas build -p android --profile preview
