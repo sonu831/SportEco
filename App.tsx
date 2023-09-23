@@ -12,7 +12,7 @@ import { initializeStore } from "./src/services/utils/axios";
 Sentry.init({
   dsn: "https://49ddde955e544dbfb13a2d3b4a6ccbd6@o4504739695689728.ingest.sentry.io/4504739706699776",
   enableInExpoDevelopment: false,
-  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  debug: false, // If `true`,   Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 });
 
 import ErrorBoundary from "./src/screens/ErrorBoundary";
