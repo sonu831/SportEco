@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import React from "react";
 import Header from "../../components/MyHeader";
 import SearchBar from "../../components/SearchBox";
@@ -16,9 +16,13 @@ const Players = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Manage" />
-      <View style={styles.mainView}>
+      <ScrollView style={styles.mainView}>
         <MyText text="Players." fontFamily="BOLD" fontsize={24} />
-        <MyText text="List of all your players." fontFamily="LIGHT" fontsize={15} />
+        <MyText
+          text="List of all your players."
+          fontFamily="LIGHT"
+          fontsize={15}
+        />
         {playersData.length > 0 ? (
           <View>
             <SearchBar />
@@ -52,7 +56,7 @@ const Players = ({ navigation }) => {
             </Text>
           </View>
         )}
-      </View>
+      </ScrollView>
       <FAB onPress={goToCreatePlayer} />
     </View>
   );
