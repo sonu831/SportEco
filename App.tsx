@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import Navigation from "./src/screens/Navigation";
 import { Provider } from "react-redux";
 import { store } from "./src/store";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { initializeStore } from "./src/services/utils/axios";
-import * as Updates from "expo-updates";
 
 import ErrorBoundary from "./src/screens/ErrorBoundary";
+import { OtaUpdater } from "./OtaUpdater";
+import { StatusBar } from "expo-status-bar";
+import { PaperProvider } from "react-native-paper";
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
@@ -38,41 +40,15 @@ const App = () => {
     }
   }, [isLoaded]);
 
-  async function onFetchUpdateAsync() {
-    try {
-      const update = await Updates.checkForUpdateAsync();
-
-      if (update.isAvailable) {
-        await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
-      }
-    } catch (error) {
-      alert(`Error fetching latest Expo update: ${error}`);
-    }
-  }
-
-  useEffect(() => {
-    // Check if the environment is production before running this effect
-    if (process.env.NODE_ENV === "production") {
-      const updateInterval = setInterval(() => {
-        onFetchUpdateAsync();
-      }, 8000);
-
-      return () => {
-        clearInterval(updateInterval);
-      };
-    }
-  }, []);
-
-  if (!isLoaded) {
-    return null;
-  }
-
   return (
     <ErrorBoundary>
       <Provider store={store}>
         <SafeAreaProvider style={styles.container} onLayout={handleOnLayout}>
-          <Navigation />
+          <PaperProvider>
+            {Platform.OS !== "web" && <OtaUpdater />}
+            <StatusBar />
+            <Navigation />
+          </PaperProvider>
         </SafeAreaProvider>
       </Provider>
     </ErrorBoundary>
