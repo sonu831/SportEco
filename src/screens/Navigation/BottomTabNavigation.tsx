@@ -27,13 +27,14 @@ import Foundation from "react-native-vector-icons/Foundation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import MainScreen from "../MainScreen";
+import Players from "../Players/Players";
 
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -42,7 +43,7 @@ const BottomTabNavigation = () => {
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
         },
-      }}
+      })}
     >
       <Tab.Screen
         name="Main"
@@ -152,6 +153,13 @@ const BottomTabNavigation = () => {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Players"
+        component={Players}
+        options={{
+          tabBarStyle: { display: "none" },
+        }}
+      /> */}
     </Tab.Navigator>
   );
 };
