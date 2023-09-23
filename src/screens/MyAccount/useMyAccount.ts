@@ -12,13 +12,35 @@ import { UpdateStateRequest } from "../../types/UpdateState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
 import { fetchUserById, getAllStates } from "../../services/users";
+import group902 from "../../assets/images/group902.png";
+import group904 from "../../assets/images/group904.png";
+import group905 from "../../assets/images/group905.png";
+import group908 from "../../assets/images/group908.png";
+import group907 from "../../assets/images/group907.png";
+import group909 from "../../assets/images/group909.png";
+import { findIndexByValue } from "../../utils/methods";
+
+type AvatarMap = {
+  [key: number]: string;
+};
+
+const initialAvatar: AvatarMap = {
+  1: group902,
+  2: group904,
+  3: group905,
+  4: group908,
+  5: group907,
+  6: group909,
+};
 
 type InitialState = {
   showConfirmation: boolean;
+  avatarImage?: number;
 };
 
 const initialState = {
   showConfirmation: false,
+  avatarImage: null,
 };
 
 const useMyAccount = ({
@@ -38,6 +60,16 @@ const useMyAccount = ({
   const [state, setState] = useState<Partial<InitialState>>(initialState);
 
   const { showConfirmation } = state;
+
+  useEffect(() => {
+    if (userDetails?.avatarimage) {
+      const index = findIndexByValue(initialAvatar, userDetails?.avatarimage);
+      updateState({
+        key: "avatarImage",
+        value: initialAvatar[index],
+      });
+    }
+  }, [userDetails?.avatarimage]);
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
     if (Array.isArray(request)) {
