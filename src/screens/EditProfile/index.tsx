@@ -56,6 +56,7 @@ const EditProfile = ({
     citiesByState,
     avatarImage,
     toggleProfileEditMode,
+    handleUploadImage,
   } = useEditProfile({ navigation, route });
   const {
     fName,
@@ -69,6 +70,9 @@ const EditProfile = ({
     idProof,
     phNum,
   } = state;
+
+  console.log("avatarImage", avatarImage);
+  console.log("state", state);
 
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
@@ -144,8 +148,8 @@ const EditProfile = ({
             {/* <ImageBackground source={curveBackground} style={styles.curveImageBg} resizeMode="stretch" /> */}
             <View style={styles.avatarImage}>
               <AvatarImage
-                imageUrl={image}
                 placeholderImage={avatarImage}
+                imageUrl={state?.image ?? null}
                 resizeMode="cover"
                 isEdit={isEdit}
                 // onClick={handleUploadID}
@@ -164,7 +168,7 @@ const EditProfile = ({
             >
               <ImagePicker
                 isChooseAvatar={false}
-                handleImage={() => {}}
+                handleImage={handleUploadImage}
                 icon={headerEdit}
                 showAvatar={goToAvatarScreen}
               />
