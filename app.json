@@ -17,9 +17,7 @@
       "url": "https://u.expo.dev/6930d49f-aeb6-4662-8062-9bd59a9b961d",
       "username": "sport-eco"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "sport.eco"
@@ -30,9 +28,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "sport.eco",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
