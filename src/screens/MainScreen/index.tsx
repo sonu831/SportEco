@@ -1,91 +1,19 @@
-// import React from "react";
-// import { Text, View, TouchableOpacity, ScrollView, Image } from "react-native";
-// import AntDesign from "react-native-vector-icons/AntDesign";
-// import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-// import { styles } from "./styles";
-// import useMainScreen from "./useMainScreen";
-// import { Colors } from "../../constants/Colors";
-// import SearchBar from "../../components/SearchBar";
-// import moment from "moment";
-// import { tabs, dummyEvent } from "../../constants/MainScreen";
-// import { RootBottomTabProps } from "../Navigation/types";
-// import SafeArea from "../../components/SafeArea";
-
-// const MainScreen = ({ navigation }: RootBottomTabProps<"Main">) => {
-//   const { updateState } = useMainScreen();
-
-//   return (
-//     <SafeArea classNames={styles.safeArea}>
-//       <ScrollView style={styles.mainContainer}>
-//         <TouchableOpacity style={styles.menuIconContainer}>
-//           <MaterialIcons name="menu" size={30} color="black" />
-//         </TouchableOpacity>
-//         <SearchBar
-//           onChange={(searchString: string) =>
-//             updateState({ key: "searchedText", value: searchString })
-//           }
-//         />
-//         <View style={styles.headingContainer}>
-//           <Text style={styles.heading}>Upcoming Events</Text>
-//           <TouchableOpacity
-//             style={styles.viewMore}
-//             onPress={() => navigation.navigate("MyAccount")}
-//           >
-//             <Text style={styles.viewMoreText}>My Account</Text>
-//             <AntDesign name="eyeo" size={16} color={Colors.lightOrange1} />
-//           </TouchableOpacity>
-//         </View>
-
-//         <ScrollView
-//           horizontal={true}
-//           contentContainerStyle={styles.scrollView}
-//           showsHorizontalScrollIndicator={false}
-//         >
-//           {dummyEvent.map((event, eventIndex) => (
-//             <View key={eventIndex} style={styles.eventContainer}>
-//               <Text style={styles.eventHeading}>{event.title}</Text>
-//               <Text style={styles.eventDateTime}>
-//                 {moment(event.startTime).format("DD MMM, dddd")}
-//               </Text>
-//               <Text style={[styles.eventDateTime, styles.mt11]}>{`${moment(
-//                 event.startTime
-//               ).format("HH:MM A")} - ${moment(event.endTime).format(
-//                 "HH:MM A"
-//               )}`}</Text>
-//             </View>
-//           ))}
-//         </ScrollView>
-//         <View style={styles.navigator}>
-//           {tabs.map((tab, tabIndex) => (
-//             <TouchableOpacity
-//               key={tabIndex}
-//               style={[styles.navigatorItem, tabIndex % 2 === 0 && styles.mr42]}
-//               onPress={() =>
-//                 navigation.navigate("CommonScreen", {
-//                   title: tab.title,
-//                 })
-//               }
-//             >
-//               <Image source={tab.icon} />
-//               <Text style={styles.navigatorItemText}>{tab.title}</Text>
-//             </TouchableOpacity>
-//           ))}
-//         </View>
-//       </ScrollView>
-//     </SafeArea>
-//   );
-// };
-
-// export default MainScreen;
-
-import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Dimensions, ScrollView } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import Feather from "react-native-vector-icons/Feather";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
 import Octicons from "react-native-vector-icons/Octicons";
 import MyText from "../../components/MyText";
-import { Colors } from "../../constants/Colors";
+import TaskCard from "./TaskCard";
+import HomeHeader from "./HomeHeader";
+import ViewAllTitle from "./ViewAllTitle";
 
 const MainScreen = ({ navigation }) => {
   const gotoNotification = () => navigation.navigate("Notification");
@@ -109,19 +37,20 @@ const MainScreen = ({ navigation }) => {
     },
   ];
   const carouselData = [1, 2, 3, 4, 5];
-  const gotoService = (item) => { //Function: To handle Bathes Screens
+  const gotoService = (item) => {
+    //Function: To handle Bathes Screens
     switch (item.name) {
       case "Players":
-        return navigation.navigate("Players")
-        break
+        return navigation.navigate("Players");
+        break;
       case "Batches":
-        return navigation.navigate("Batches")
+        return navigation.navigate("Batches");
       case "Venues":
-        break
+        break;
       default:
         break;
     }
-  }
+  };
   return (
     <View style={styles.container}>
       <HomeHeader
@@ -253,7 +182,12 @@ const MainScreen = ({ navigation }) => {
             }}
           >
             <View style={{ borderWidth: 0.2, width: "30%" }} />
-            <MyText text={"Manage"} fontFamily="REGULAR" fontsize={16} style={{ marginHorizontal: 10 }} />
+            <MyText
+              text={"Manage"}
+              fontFamily="REGULAR"
+              fontsize={16}
+              style={{ marginHorizontal: 10 }}
+            />
             <View style={{ borderWidth: 0.2, width: "30%" }} />
           </View>
           <View
@@ -271,12 +205,23 @@ const MainScreen = ({ navigation }) => {
                   style={{ paddingHorizontal: 10 }}
                 >
                   <Image source={item.url} style={{}} />
-                  <MyText text={item.name} fontFamily="REGULAR" fontsize={14} center={true} style={{ marginTop: 5 }} />
+                  <MyText
+                    text={item.name}
+                    fontFamily="REGULAR"
+                    fontsize={14}
+                    center={true}
+                    style={{ marginTop: 5 }}
+                  />
                 </TouchableOpacity>
               );
             })}
           </View>
-          <MyText text={"My Tasks"} fontFamily="BOLD" fontsize={18} style={{ marginTop: 25 }} />
+          <MyText
+            text={"My Tasks"}
+            fontFamily="BOLD"
+            fontsize={18}
+            style={{ marginTop: 25 }}
+          />
           <TaskCard
             title={"Attendance"}
             subText={"Record player attendance"}
@@ -290,138 +235,10 @@ const MainScreen = ({ navigation }) => {
         </View>
       </ScrollView>
     </View>
-  )
-}
-
-export default MainScreen
-
-const HomeHeader = ({
-  accountPress = () => { },
-  notificationPress = () => { },
-}) => {
-  return (
-    <View
-      style={{
-        backgroundColor: "#F1592A",
-        paddingTop: 20,
-        padding: 20,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginTop: 10,
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Feather name="map-pin" size={24} color={"#fff"} />
-          <MyText text="Bengaluru" fontFamily="REGULAR" color={Colors.white} fontsize={18} style={{ marginHorizontal: 10 }} />
-          <AntDesign name="down" size={14} color={"#fff"} />
-        </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity onPress={notificationPress}>
-            <Feather name="bell" size={24} color={"#fff"} />
-          </TouchableOpacity>
-          <View style={{ width: 20 }} />
-          <TouchableOpacity onPress={accountPress}>
-            <EvilIcons name="user" size={40} color={"#fff"} />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          marginTop: 10,
-          padding: 10,
-          borderRadius: 10,
-        }}
-      >
-        <AntDesign name="search1" size={24} />
-        <Text
-          style={{
-            marginLeft: 10,
-            fontSize: 16,
-            color: "#878584",
-          }}
-        >
-          Search
-        </Text>
-      </TouchableOpacity>
-    </View>
   );
 };
 
-const ViewAllTitle = ({ title, viewAllText = "View all" }) => {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <MyText text={title} fontsize={18} fontFamily="BOLD" />
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <MyText text={viewAllText} fontsize={16} fontFamily="REGULAR" style={{ marginRight: 5 }} color={Colors.red} />
-        <AntDesign name="right" color={"red"} />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const TaskCard = ({ Icon, title, subText }) => {
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginVertical: 10,
-        backgroundColor: "#fff",
-        borderRadius: 15,
-        borderWidth: 0.5,
-        borderColor: "grey",
-        padding: 10,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            height: 40,
-            width: 40,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#fff",
-            borderRadius: 15,
-            borderWidth: 0.5,
-            borderColor: "grey",
-          }}
-        >
-          {Icon}
-        </View>
-        <View style={{ marginLeft: 20 }}>
-          <MyText text={title} fontFamily="MEDIUM" />
-          <MyText text={subText} fontFamily="REGULAR" color={Colors.gray} fontsize={12} />
-        </View>
-      </View>
-
-      <AntDesign name="right" style={{ marginRight: 5 }} />
-    </View>
-  );
-};
+export default MainScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -431,4 +248,4 @@ const styles = StyleSheet.create({
   mainView: {
     padding: 20,
   },
-})
+});
