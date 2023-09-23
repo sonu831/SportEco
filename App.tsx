@@ -27,9 +27,9 @@ const App = () => {
   initializeStore(store);
 
   const errorHandler = (error: Error, stackTrace: string) => {
-    Sentry.Native.captureException(
-      `Error Boundary error - ${error} stackTrace- ${stackTrace}`
-    );
+    // Sentry.Native.captureException(
+    //   `Error Boundary error - ${error} stackTrace- ${stackTrace}`
+    // );
   };
 
   const handleOnLayout = useCallback(async () => {
@@ -52,13 +52,16 @@ const App = () => {
   }
 
   useEffect(() => {
-    const updateInterval = setInterval(() => {
-      onFetchUpdateAsync();
-    }, 120000);
+    // Check if the environment is production before running this effect
+    if (process.env.NODE_ENV === "production") {
+      const updateInterval = setInterval(() => {
+        onFetchUpdateAsync();
+      }, 8000);
 
-    return () => {
-      clearInterval(updateInterval);
-    };
+      return () => {
+        clearInterval(updateInterval);
+      };
+    }
   }, []);
 
   if (!isLoaded) {
