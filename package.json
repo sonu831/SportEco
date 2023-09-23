@@ -64,6 +64,7 @@
     "react-native-screens": "~3.18.0",
     "react-native-switch": "^1.5.1",
     "react-native-toast-message": "^2.1.5",
+    "react-native-use-timestamp": "^3.0.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.9",
     "react-redux": "^8.0.5",

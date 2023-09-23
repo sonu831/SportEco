@@ -11257,6 +11257,13 @@ react-native-toast-message@^2.1.5:
   resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.6.tgz#322827c66901fa22cb3db614c7383cc717f5bbe2"
   integrity sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng==
 
+react-native-use-timestamp@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-use-timestamp/-/react-native-use-timestamp-3.0.0.tgz#69bab3b6d2b2bf2ce1f1189bbe03924c26719e9f"
+  integrity sha512-8LGzIcoVDnJqNLbLOvmGf9BGS8R5U6TnckC39qciYeXdiPL3LdyDGF1tS9Jln6h4C3bB7Wc5zTkt0n46KJYbCQ==
+  dependencies:
+    use-timestamp "^1.0.0"
+
 react-native-vector-icons@^9.2.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-9.2.0.tgz#3c0c82e95defd274d56363cbe8fead8d53167ebd"
@@ -13387,6 +13394,11 @@ use-sync-external-store@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+
+use-timestamp@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-timestamp/-/use-timestamp-1.0.0.tgz#7cbc6c29f9bc49f36f948150c41143491474f8df"
+  integrity sha512-6Qr29TPdsOWYiMaPPnslsV8TFG/E8rAWAz0R0JJB7GM9ULaePqQZ+vAphnHFKI74a53NDyaCnGPhiH0V7Z9bCg==
 
 use@^3.1.0:
   version "3.1.1"
