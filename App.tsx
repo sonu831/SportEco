@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import * as Sentry from "sentry-expo";
+import React, { useCallback, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
 import Navigation from "./src/screens/Navigation";
@@ -8,12 +7,7 @@ import { store } from "./src/store";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { initializeStore } from "./src/services/utils/axios";
-
-Sentry.init({
-  dsn: "https://49ddde955e544dbfb13a2d3b4a6ccbd6@o4504739695689728.ingest.sentry.io/4504739706699776",
-  enableInExpoDevelopment: false,
-  debug: false, // If `true`,   Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-});
+import * as Updates from "expo-updates";
 
 import ErrorBoundary from "./src/screens/ErrorBoundary";
 SplashScreen.preventAutoHideAsync();
@@ -31,19 +25,49 @@ const App = () => {
     "mrt-thin": require("./src/assets/fonts/WorkSans-Thin.ttf"),
   });
   initializeStore(store);
+
   const errorHandler = (error: Error, stackTrace: string) => {
-    Sentry.Native.captureException(
-      `Error Boundary error - ${error} stackTrace- ${stackTrace}`
-    );
+    // Sentry.Native.captureException(
+    //   `Error Boundary error - ${error} stackTrace- ${stackTrace}`
+    // );
   };
+
   const handleOnLayout = useCallback(async () => {
     if (isLoaded) {
-      await SplashScreen.hideAsync(); //hide the splashscreen
+      await SplashScreen.hideAsync();
     }
   }, [isLoaded]);
+
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
+  useEffect(() => {
+    // Check if the environment is production before running this effect
+    if (process.env.NODE_ENV === "production") {
+      const updateInterval = setInterval(() => {
+        onFetchUpdateAsync();
+      }, 8000);
+
+      return () => {
+        clearInterval(updateInterval);
+      };
+    }
+  }, []);
+
   if (!isLoaded) {
     return null;
   }
+
   return (
     <ErrorBoundary>
       <Provider store={store}>

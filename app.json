@@ -13,11 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/6930d49f-aeb6-4662-8062-9bd59a9b961d",
+      "username": "sport-eco"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "sport.eco"
@@ -28,16 +28,14 @@
         "backgroundColor": "#ffffff"
       },
       "package": "sport.eco",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "6930d49f-aeb6-4662-8062-9bd59a9b961d"
+        "projectId": "61bfb066-e659-447c-a791-3c6cc8613820"
       }
     },
     "plugins": [
@@ -45,6 +43,12 @@
         "expo-image-picker",
         {
           "photosPermission": "The app needs to access your photos."
+        }
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "sport-eco"
         }
       ],
       "sentry-expo"
@@ -60,6 +64,8 @@
           }
         }
       ]
-    }
+    },
+    "runtimeVersion": "1.0.0",
+    "owner": "sport-eco"
   }
 }
