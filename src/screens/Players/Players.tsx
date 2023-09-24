@@ -8,10 +8,10 @@ import { Colors } from "../../constants/Colors";
 import usePlayers from "./usePlayers";
 import MyText from "../../components/MyText";
 
-const Players = ({ navigation }) => {
+const Players = ({ navigation, route }) => {
   const {
     state: { playerList: playersData },
-  } = usePlayers({ navigation });
+  } = usePlayers({ navigation, route });
   const goToCreatePlayer = () => navigation.navigate("CreatePlayer");
   return (
     <View style={styles.container}>

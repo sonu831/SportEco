@@ -13,14 +13,7 @@ import {
 import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setIsLoginVerified, setIsVerified } from "../../store/users/reducers";
-import { fetchUserById, getAllStates } from "../../services/users";
-
-type InitialState = {
-  showConfirmation: boolean;
-  playerList: any[];
-};
+import { HandleDeletePlayerFunction, InitialState, PlayerData } from "./config";
 
 const initialState = {
   showConfirmation: false,
@@ -36,20 +29,20 @@ const usePlayers = ({
     keyof RootStackParamList,
     undefined
   >;
-  route: RouteProp<RootStackParamList, "MyAccount">;
+  route: RouteProp<RootStackParamList, "Players">;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const userDetails = useSelector(userDetails$);
   const playerDetails: Partial<PlayerDefinition> = useSelector(playerDetails$);
   const [state, setState] = useState<Partial<InitialState>>(initialState);
-  const [playerProfileResponse, setPlayerProfileResponse] = useState<any>({});
+  const [playerProfileResponse, setPlayerProfileResponse] =
+    useState<PlayerData>();
 
   const { showConfirmation } = state;
 
   useEffect(() => {
     if (!route?.params?.id) return;
     dispatch(fetchPlayerById(route.params.id)).then((res) => {
-      console.log("=====res=====", res?.payload?.data);
       setPlayerProfileResponse(res?.payload?.data);
     });
   }, []);
@@ -67,6 +60,13 @@ const usePlayers = ({
 
   const handleGoBack = () => navigation.goBack();
 
+  const handleDeletePlayer: HandleDeletePlayerFunction = () => {
+    if (!route?.params?.id) return;
+    dispatch(deletePlayer(route.params.id)).then((res) => {
+      navigation?.navigate("Players");
+    });
+  };
+
   useEffect(() => {
     dispatch(fetchPlayers()).then((res) =>
       updateState({ key: "playerList", value: res?.payload?.data ?? [] })
@@ -81,6 +81,7 @@ const usePlayers = ({
     updateState,
     state,
     playerProfileResponse,
+    handleDeletePlayer,
   };
 };
 
