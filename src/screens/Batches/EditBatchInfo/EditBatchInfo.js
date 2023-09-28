@@ -6,6 +6,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-paper";
 import MyButton from "../../../components/MyButton";
 import MyText from "../../../components/MyText";
+import { Colors } from "../../../constants/Colors";
 
 const EditBatchInfo = ({ navigation }) => {
   const [batchName, setBatchName] = React.useState("Morning Senior Batch");
@@ -33,6 +34,12 @@ const EditBatchInfo = ({ navigation }) => {
           activeOutlineColor="grey"
           placeholderTextColor={"#000"}
           value={batchName}
+          style={{
+            borderBottomWidth: 0,
+            borderColor: "grey",
+            backgroundColor: 'white',
+            color: Colors.black2
+          }}
           onChangeText={(text) => setBatchName(text)}
         />
         <View style={{ height: "10%" }} />
@@ -47,6 +54,8 @@ const EditBatchInfo = ({ navigation }) => {
           style={{
             borderBottomWidth: 0,
             borderColor: "grey",
+            backgroundColor: 'white',
+            color: Colors.black2
           }}
           onChangeText={(text) => setBatchDesc(text)}
         />

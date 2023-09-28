@@ -16,26 +16,41 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchBox from "../../../components/SearchBox";
 import MyButton from "../../../components/MyButton";
 import MyText from "../../../components/MyText";
+import useBatches from "../useBatches";
+import { addPlayersInBatch } from "../../../services/batches";
+import { useDispatch } from "react-redux";
 
-const AddRemovePlayer = () => {
+const AddRemovePlayer = ({ navigation, route }) => {
+  const goToBacthesScreen = () => navigation.navigate("Batches");
+  const dispatch = useDispatch<import("../../../store").AppDispatch>();
+  const { playersList } = useBatches({ navigation, route }); // var
   const [selectedPlayers, setSelectedPlayers] = React.useState([]);
-  const allPlayer = [
-    { id: 1, name: "John Wick" },
-    { id: 2, name: "Tom Carter" },
-    { id: 3, name: "Peter Quill" },
-    { id: 4, name: "Bob Vance" },
-    { id: 5, name: "Pam Beesly" },
-  ];
   const currentParticipants = [
     { id: 1, name: "Miles Morales" },
     { id: 2, name: "Gwen Stacy" },
     { id: 3, name: "May Parker" },
   ];
+
+  const handleAddPlayerInBatch = () => {
+    const request = {
+      batch_id: route.params.batch_Id,
+      players: [
+        {
+          playerid: "6512f1f92feb5c05bb8c8624",
+          name: "vishal"
+        }
+      ]
+    };
+    dispatch(addPlayersInBatch(request)).then((res) => {
+      // const resData = res.payload?.data;
+      goToBacthesScreen();
+    });
+  }
   //function : imp func
-  const saveDeletePlayer = (item) => {
-    const isAlready = selectedPlayers.findIndex((e) => e.id == item.id);
+  const saveDeletePlayer = (item: any) => {
+    const isAlready = selectedPlayers.findIndex((e) => e._id == item._id);
     if (isAlready > -1) {
-      const filteredData = selectedPlayers.filter((e) => e.id != item.id);
+      const filteredData = selectedPlayers.filter((e) => e._id != item._id);
       setSelectedPlayers(filteredData);
     } else {
       setSelectedPlayers([...selectedPlayers, item]);
@@ -47,7 +62,9 @@ const AddRemovePlayer = () => {
       <Header
         title="Add Player"
         hasActionIcon
+        actionBtnPress={handleAddPlayerInBatch}
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
+        isActionBtnDisabled={!selectedPlayers}
       />
       <ScrollView
         style={styles.mainView}
@@ -55,18 +72,20 @@ const AddRemovePlayer = () => {
           paddingBottom: "10%",
         }}
       >
-        {allPlayer.length > 0 ? (
+        {playersList.length > 0 ? (
           <View>
             <SearchBox />
             <FlatList
-              data={allPlayer}
+              data={playersList}
               renderItem={({ item, index }) => {
                 const isSelected = selectedPlayers.findIndex(
-                  (e) => e.id == item.id
+                  (e) => e._id == item._id
                 );
+                console.log("isSelected", isSelected);
                 return (
                   <PlayerCard
-                    playerName={item.name}
+                    playerName={item.first_name}
+                    lastName={item.last_name}
                     isSelected={isSelected > -1 ? true : false}
                     onPress={() => saveDeletePlayer(item)}
                   />
@@ -140,6 +159,7 @@ export default AddRemovePlayer;
 
 const PlayerCard = ({
   playerName,
+  lastName,
   isSelected,
   hasRemoveBtn,
   onPress = () => { },
@@ -168,7 +188,7 @@ const PlayerCard = ({
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <MyText text={playerName} fontFamily="MEDIUM" fontsize={16} style={{ marginLeft: 10 }} />
+        <MyText text={playerName + lastName} fontFamily="MEDIUM" fontsize={16} style={{ marginLeft: 10 }} />
       </View>
       {hasRemoveBtn ? (
         <Feather name="x-circle" size={24} color={"grey"} />

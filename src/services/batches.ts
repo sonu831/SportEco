@@ -7,7 +7,7 @@ export const addBatch = createAsyncThunk(
   async (request: { [key: string]: any }, { rejectWithValue }) => {
     return axios
       .post(endpoints.addBatch, request)
-      .then((res) => res.data)
+      .then((res) => console.log("ress", res))
       .catch((err) => {
         rejectWithValue(err);
       });
