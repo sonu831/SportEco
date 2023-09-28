@@ -66,6 +66,22 @@ export const deletePlayer = createAsyncThunk(
   }
 );
 
+export const searchPlayer = createAsyncThunk(
+  "searchPlayer",
+  async (request: any, { rejectWithValue }) => {
+    return axios
+      .get(endpoints.searchPlayer, {
+        headers: {
+          keyword: request,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
+
 export const uploadPlayerProfilePicture = createAsyncThunk(
   "uploadPlayerProfilePicture",
   async (request: any, { rejectWithValue }) => {
