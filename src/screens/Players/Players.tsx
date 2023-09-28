@@ -11,6 +11,7 @@ import MyText from "../../components/MyText";
 const Players = ({ navigation, route }) => {
   const {
     state: { playerList: playersData },
+    onChangeSearchBar,
   } = usePlayers({ navigation, route });
   const goToCreatePlayer = () => navigation.navigate("CreatePlayer");
   return (
@@ -23,18 +24,20 @@ const Players = ({ navigation, route }) => {
           fontFamily="LIGHT"
           fontsize={15}
         />
-        {playersData.length > 0 ? (
+        {playersData?.length > 0 ? (
           <View>
-            <SearchBar />
-            {playersData?.map((item) => (
-              <CardItem
-                Title={`${item.first_name} ${item.last_name}`}
-                isImage={true}
-                onPress={() =>
-                  navigation.navigate("PlayerProfile", { id: item._id })
-                }
-              />
-            ))}
+            <SearchBar onChange={onChangeSearchBar} />
+            {JSON.parse(JSON.stringify(playersData))
+              .reverse()
+              ?.map((item) => (
+                <CardItem
+                  Title={`${item.first_name} ${item.last_name}`}
+                  isImage={true}
+                  onPress={() =>
+                    navigation.navigate("PlayerProfile", { id: item._id })
+                  }
+                />
+              ))}
           </View>
         ) : (
           <View
