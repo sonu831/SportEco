@@ -8,11 +8,13 @@ import FAB from "../../../components/FAB/index";
 import SearchBox from "../../../components/SearchBox";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
+import { useRoute } from "@react-navigation/native";
 
 const BatchInfo = ({ navigation }) => {
+  const route = useRoute();
+  let batchInfo = route?.params?.batchInfo
   const gotoEditBatchInfo = () => navigation.navigate("EditBatchInfo");
-
-  const playersData = [1, 2, 3];
+  const goToAddRemovePlayer = (item) => navigation.navigate('AddRemovePlayer', { batch_Id: item?._id })
   return (
     <View style={styles.container}>
       <Header
@@ -21,16 +23,21 @@ const BatchInfo = ({ navigation }) => {
         ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
       />
       <View style={styles.mainView}>
-        <MyText text="Morning Senior Batch" fontsize={24} fontFamily="BOLD" />
-        <MyText text="Tennis players of age group 8-12. Focus is on developing fundamental
-          tennis skills, promoting teamwork, and fostering their passion for the
-          game." fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
-        {playersData.length > 0 ? (
+        <MyText text={batchInfo?.batch_name} fontsize={24} fontFamily="BOLD" />
+        <MyText text={batchInfo?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
+        {batchInfo?.players.length > 0 ? (
           <View>
             <SearchBox />
-            <BatchMemberCard />
-            <BatchMemberCard />
-            <BatchMemberCard />
+            {
+              batchInfo?.players.map((item, index) => {
+                return (
+                  <BatchMemberCard
+                    batchMemberInfo={item}
+                    batchMemberIndex={index}
+                  />
+                )
+              })
+            }
           </View>
         ) : (
           <View
@@ -48,21 +55,24 @@ const BatchInfo = ({ navigation }) => {
                 letterSpacing: 2,
               }}
             >
-              No Players Found
+              No Batches Found
             </Text>
           </View>
         )}
       </View>
-      <FAB />
+      <FAB
+        onPress={() => goToAddRemovePlayer(batchInfo)}
+      />
     </View>
   );
 };
 
 export default BatchInfo;
 
-const BatchMemberCard = () => {
+const BatchMemberCard = ({ batchMemberInfo, batchMemberIndex }) => {
   return (
     <TouchableOpacity
+      key={batchMemberIndex}
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
@@ -84,7 +94,7 @@ const BatchMemberCard = () => {
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <MyText text="John Wick" fontsize={16} fontFamily="MEDIUM" style={{ marginLeft: 12 }} />
+        <MyText text={batchMemberInfo?.name} fontsize={16} fontFamily="MEDIUM" style={{ marginLeft: 12 }} />
       </View>
       <AntDesign name="right" size={16} style={{ marginRight: 5 }} />
     </TouchableOpacity>

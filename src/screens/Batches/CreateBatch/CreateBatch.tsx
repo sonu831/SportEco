@@ -6,15 +6,35 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-paper";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
-const CreateBatch = () => {
-  const [batchName, setBatchName] = React.useState("");
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { addBatch } from "../../../services/batches";
+
+const CreateBatch = ({ navigation }) => {
+  const goToBacthesScreen = () => navigation.navigate("Batches");
+  const [batchName, setBatchName] = React.useState(""); // useState
   const [batchDescription, setBatchDescription] = React.useState("")
+  const dispatch = useDispatch<AppDispatch>();
+  const handleCreateBatch = () => {
+    const request = {
+      batch_name: batchName,
+      batch_desc: batchDescription
+    };
+    dispatch(addBatch(request)).then((res) => {
+      // const resData = res.payload?.data;
+      setBatchName("")
+      setBatchDescription("")
+      goToBacthesScreen();
+    });
+  }
   return (
     <View style={styles.container}>
       <Header
         title="Create Batch"
         hasActionIcon
+        actionBtnPress={handleCreateBatch}
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
+        isActionBtnDisabled={!batchName || !batchDescription}
       />
       <View style={styles.mainView}>
         <MyText text={"Enter Batch Details."} fontsize={24} fontFamily="BOLD" />
@@ -23,17 +43,23 @@ const CreateBatch = () => {
         <TextInput
           mode="outlined"
           label="Batch Name"
-          placeholder="Morning Senior Batch"
+          placeholder="Enter Batch Name"
           activeOutlineColor="grey"
           placeholderTextColor={"#000"}
           value={batchName}
           onChangeText={(text) => setBatchName(text)}
+          style={{
+            borderBottomWidth: 0,
+            borderColor: "grey",
+            backgroundColor: 'white',
+            color: Colors.black2
+          }}
         />
         <View style={{ height: "10%" }} />
         <TextInput
           mode="outlined"
-          label="Batch Description"
-          placeholder="Tennis players of age group 8-12. Focus is on developing fundamental tennis skills, promoting teamwork, and fo..."
+          label="Enter Batch Description"
+          placeholder="Enter Batch Description"
           value={batchDescription}
           multiline
           placeholderTextColor={"#000"}
@@ -41,6 +67,8 @@ const CreateBatch = () => {
           style={{
             borderBottomWidth: 0,
             borderColor: "grey",
+            backgroundColor: 'white',
+            color: Colors.black2
           }}
           onChangeText={(text) => setBatchDescription(text)}
         />
