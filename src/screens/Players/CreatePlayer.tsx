@@ -21,10 +21,15 @@ import { addPlayer } from "../../services/players";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import usePlayers from "./usePlayers";
 
-const CreatePlayer = ({ navigation }) => {
-  const gotoPlayerProfile = (id: string) =>
-    navigation.navigate("PlayerProfile", { id });
+const CreatePlayer = ({ navigation, route }) => {
+  const { playerProfileResponse, handleDeletePlayer } = usePlayers({
+    navigation,
+    route,
+  });
+
+  const gotoPlayerProfile = (id: string) => navigation.replace("Players");
   const options = [
     { label: "Male", icon: "male" },
     { label: "Female", icon: "female-sharp" },
@@ -67,7 +72,7 @@ const CreatePlayer = ({ navigation }) => {
   const handleConfirm = (date) => {
     setDatePickerVisibility(false);
     setSelectedDate(date);
-    setDob(date ? date.toISOString().split('T')[0] : '');
+    setDob(date ? date.toISOString().split("T")[0] : "");
   };
 
   const showDatePicker = () => {
@@ -88,7 +93,11 @@ const CreatePlayer = ({ navigation }) => {
           ActionIcon={<Feather name="check" size={18} color={"#fff"} />}
           backgroundColor={"#E8E8E8"}
           isActionBtnDisabled={
-            !firstName || !lastName || !selectedDate || !selectedOption || !phoneNumber
+            !firstName ||
+            !lastName ||
+            !selectedDate ||
+            !selectedOption ||
+            !phoneNumber
           }
         />
         <View
@@ -107,7 +116,7 @@ const CreatePlayer = ({ navigation }) => {
               borderColor: Colors.darkslategray,
               borderRadius: 100,
               width: 90,
-              height: 90
+              height: 90,
             }}
           />
         </View>
@@ -137,7 +146,7 @@ const CreatePlayer = ({ navigation }) => {
             onChangePhoneNumber={(phone: string) => {
               setPhoneNumber(phone);
             }}
-            inputContainerWidth={'73%'}
+            inputContainerWidth={"73%"}
           />
           <View style={{ height: "3%" }} />
           <TextInput
@@ -146,7 +155,7 @@ const CreatePlayer = ({ navigation }) => {
             placeholder="Date of Birth"
             activeOutlineColor="grey"
             placeholderTextColor={"#000"}
-            value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
+            value={selectedDate ? selectedDate.toISOString().split("T")[0] : ""}
             onChangeText={(text) => setDob(text)}
             onPressIn={showDatePicker}
           />
@@ -218,8 +227,8 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     marginHorizontal: 5,
     height: 100,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   selectedOption: {
     borderColor: "#000",

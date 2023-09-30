@@ -9,6 +9,7 @@ import {
   deletePlayer,
   fetchPlayerById,
   fetchPlayers,
+  searchPlayer,
 } from "../../services/players";
 import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
@@ -67,6 +68,12 @@ const usePlayers = ({
     });
   };
 
+  const onChangeSearchBar = (e: string) => {
+    dispatch(searchPlayer(e)).then((res) => {
+      updateState({ key: "playerList", value: res?.payload?.data ?? [] });
+    });
+  };
+
   useEffect(() => {
     dispatch(fetchPlayers()).then((res) =>
       updateState({ key: "playerList", value: res?.payload?.data ?? [] })
@@ -82,6 +89,7 @@ const usePlayers = ({
     state,
     playerProfileResponse,
     handleDeletePlayer,
+    onChangeSearchBar,
   };
 };
 

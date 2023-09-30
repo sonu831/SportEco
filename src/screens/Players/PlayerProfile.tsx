@@ -17,7 +17,7 @@ const PlayerProfile = ({ navigation, route }) => {
   const { first_name = "", last_name = "" } = playerProfileResponse || {};
 
   const goToEditPlayerProfile = () => {
-    navigation.navigate("EditPlayerProfile");
+    navigation.navigate("EditPlayerProfile", { data: playerProfileResponse });
   };
 
   return (

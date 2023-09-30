@@ -15,6 +15,7 @@ export const endpoints = {
   updatePlayerProfile: `api/player/updateplayerprofile`,
   uploadPlayerProfileImage: `/api/player/playerprofilepicupload`,
   deletePlayer: `api/player/deleteplayerbyid`,
+  searchPlayer: `api/player/searchplayers`,
 
   // Batches
   addBatch: `api/batch/addbatch`,
