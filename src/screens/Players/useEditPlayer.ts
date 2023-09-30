@@ -1,4 +1,3 @@
-* ASCII text, with CRLF line terminators
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 import { RootStackParamList } from "../Navigation/types";
@@ -142,4 +141,3 @@ export const useEditPlayer = ({
     editUpdateProfile,
   };
 };
-
