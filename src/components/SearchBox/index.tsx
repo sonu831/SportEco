@@ -3,7 +3,7 @@ import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Colors } from "../../constants/Colors";
 
-const SearchBox = ({ onChange }: any) => {
+const SearchBox = ({ onChange, style }: any) => {
   return (
     <View
       style={{
@@ -14,6 +14,7 @@ const SearchBox = ({ onChange }: any) => {
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 15,
+        ...style
       }}
     >
       <AntDesign name="search1" style={{ marginRight: 10 }} size={20} />

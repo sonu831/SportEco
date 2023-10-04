@@ -7,39 +7,66 @@ import { TextInput } from "react-native-paper";
 import MyButton from '../../../components/MyButton'
 import { styles } from './CreateVenueStyle'
 import { Colors } from '../../../constants/Colors';
+import MyText from '../../../components/MyText';
+import useImagePicker from "../../../components/ImagePicker/useImagePicker";
 
-const CreateVenue = () => {
+const CreateVenue = ({ navigation, handleImage, currentImage }) => {
+    const goToChooseLocation = () => navigation.navigate('ChooseLocation')
     const [venueName, setVenueName] = useState('')
     const [sport, setSport] = useState('')
     const [courtName, setCourtName] = useState('')
     const [venueDescription, setVenueDescription] = useState('')
-
+    const [image, setImage] = useState("")
+    const { pickImage } = useImagePicker({ handleImage })
+    const handleImageRemove = () => {
+        handleImage("");
+    };
+    const renderImagePlaceholder = () => {
+        if (currentImage) {
+            return (
+                <View>
+                    <TouchableOpacity>
+                        <Image source={{ uri: handleImage }} style={styles.imageStyle} />
+                    </TouchableOpacity>
+                    <MyText text='Add Images' style={{ paddingTop: 8 }} />
+                    <TouchableOpacity
+                        style={{
+                            position: "absolute",
+                            top: 20,
+                            left: 20,
+                            zIndex: 100,
+                        }}
+                        onPress={() => handleImageRemove()}
+                    >
+                        <AntDesign name="delete" color={"#fff"} size={26} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            position: "absolute",
+                            top: 20,
+                            right: 20,
+                            zIndex: 100,
+                        }}
+                    >
+                        <AntDesign name="pluscircleo" color={"#fff"} size={26} />
+                    </TouchableOpacity>
+                </View>
+            )
+        } else if (!handleImage) {
+            return (
+                <View style={styles.imagePickerStyle}>
+                    <TouchableOpacity onPress={() => pickImage("library")}>
+                        <Image source={require("../../../assets/images/addImage.png")} />
+                    </TouchableOpacity>
+                    <MyText text='Add Images' />
+                </View>
+            );
+        }
+    };
     return (
         <View style={styles.container}>
             <Header title="Create Venue" />
-            <TouchableOpacity onPress={() => { }}>
-                {/* <Image source={require("../../../assets/images/Image.png")} /> */}
-                <TouchableOpacity
-                    style={{
-                        position: "absolute",
-                        top: 20,
-                        left: 20,
-                        zIndex: 100,
-                    }}
-                >
-                    <AntDesign name="delete" color={"#fff"} size={26} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={{
-                        position: "absolute",
-                        top: 20,
-                        right: 20,
-                        zIndex: 100,
-                    }}
-                >
-                    <AntDesign name="pluscircleo" color={"#fff"} size={26} />
-                </TouchableOpacity>
-            </TouchableOpacity>
+            {renderImagePlaceholder()}
             <View style={styles.mainView}>
                 <TextInput
                     mode="outlined"
@@ -126,7 +153,7 @@ const CreateVenue = () => {
                             style={{ marginRight: 10 }}
                         />
                     }
-                    onPress={() => { }}
+                    onPress={() => goToChooseLocation()}
                 />
             </View>
         </View>
