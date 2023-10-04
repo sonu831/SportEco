@@ -42,11 +42,10 @@ const MainScreen = ({ navigation }) => {
     switch (item.name) {
       case "Players":
         return navigation.navigate("Players");
-        break;
       case "Batches":
         return navigation.navigate("Batches");
       case "Venues":
-        break;
+        return navigation.navigate("Venues");
       default:
         break;
     }

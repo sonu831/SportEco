@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Venues = () => {
+const ChooseLocation = () => {
     return (
         <View>
-            <Text>Venues</Text>
+            <Text>ChooseLocation</Text>
         </View>
     )
 }
 
-export default Venues
+export default ChooseLocation
 
 const styles = StyleSheet.create({})
