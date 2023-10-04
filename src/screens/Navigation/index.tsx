@@ -41,6 +41,12 @@ import AddRemovePlayer from "../Batches/AddRemovePlayer/AddRemovePlayer";
 import PlayerProfile from "../Players/PlayerProfile";
 import EditPlayerProfile from "../Players/EditPlayerProfile";
 import UpdatePlayerProfile from "../Players/UpdatePlayerProfile";
+import Venues from '../Venue/Venues/Venues'
+import VenueDetails from "../Venue/VenueDetails/VenueDetails";
+import ChooseLocation from '../Venue/ChooseLocation/ChooseLocation'
+import CreateVenue from '../Venue/CreateVenue/CreateVenue'
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
@@ -51,75 +57,81 @@ const Navigation = () => {
 
   return (
     <>
-      <NavigationContainer>
-        <Spinner visible={isLoading} />
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {isAccountVerified ? (
-            <Stack.Group>
-              <Stack.Screen
-                name="BottomTabNavigation"
-                component={BottomTabNavigation}
-              />
-              <Stack.Screen name="Main" component={MainScreen} />
-              <Stack.Screen name="Calendar" component={NotReady} />
-              <Stack.Screen name="Message" component={NotReady} />
-              <Stack.Screen name="Profile" component={ProfileScreen} />
-              <Stack.Screen name="MyAccount" component={MyAccount} />
-              <Stack.Screen name="ChangeAvatar" component={ChangeAvatar} />
-              <Stack.Screen name="EditProfile" component={EditProfile} />
-              <Stack.Screen name="CommonScreen" component={CommonScreen} />
-              <Stack.Screen name="AddBatch" component={AddBatch} />
-              <Stack.Screen name="AddProgram" component={AddProgram} />
-              <Stack.Screen name="AddSession" component={AddSession} />
-              <Stack.Screen name="BatchScreen" component={BatchScreen} />
-              <Stack.Screen name="SelectPlayer" component={SelectPlayer} />
-              <Stack.Screen name="AddVenue" component={AddVenue} />
-              <Stack.Screen name="VenueDetail" component={VenueDetail} />
-              <Stack.Screen name="Events" component={Events} />
-              <Stack.Screen name="AddEvents" component={AddEvents} />
-              <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
-              <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
-              <Stack.Screen name="Loading" component={Loading} />
-              <Stack.Screen name="Notification" component={Notifications} />
-              <Stack.Screen name="Batches" component={Batches} />
-              <Stack.Screen name="BatchInfo" component={BatchInfo} />
-              <Stack.Screen name="CreateBatch" component={CreateBatch} />
-              <Stack.Screen name="EditBatchInfo" component={EditBatchInfo} />
-              <Stack.Screen
-                name="UpdatePlayerProfile"
-                component={UpdatePlayerProfile}
-              />
-              <Stack.Screen
-                name="CreateProfile"
-                component={CreateProfileScreen}
-              />
-              <Stack.Screen name="Players" component={Players} />
-              <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
-              <Stack.Screen
-                name="AddRemovePlayer"
-                component={AddRemovePlayer}
-              />
-              <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
-              <Stack.Screen
-                name="EditPlayerProfile"
-                component={EditPlayerProfile}
-              />
-            </Stack.Group>
-          ) : (
-            <Stack.Group>
-              <Stack.Screen name="Landing" component={LandingScreen} />
-              <Stack.Screen
-                name="Verification"
-                component={VerificationScreen}
-              />
-              <Stack.Screen name="Loading" component={Loading} />
-            </Stack.Group>
-          )}
-          <Stack.Screen name="Confirmation" component={Confirmation} />
-        </Stack.Navigator>
-        {/* {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />} */}
-      </NavigationContainer>
-      <Toast />
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <NavigationContainer>
+          <Spinner visible={isLoading} />
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {isAccountVerified ? (
+              <Stack.Group>
+                <Stack.Screen
+                  name="BottomTabNavigation"
+                  component={BottomTabNavigation}
+                />
+                <Stack.Screen name="Main" component={MainScreen} />
+                <Stack.Screen name="Calendar" component={NotReady} />
+                <Stack.Screen name="Message" component={NotReady} />
+                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen name="MyAccount" component={MyAccount} />
+                <Stack.Screen name="ChangeAvatar" component={ChangeAvatar} />
+                <Stack.Screen name="EditProfile" component={EditProfile} />
+                <Stack.Screen name="CommonScreen" component={CommonScreen} />
+                <Stack.Screen name="AddBatch" component={AddBatch} />
+                <Stack.Screen name="AddProgram" component={AddProgram} />
+                <Stack.Screen name="AddSession" component={AddSession} />
+                <Stack.Screen name="BatchScreen" component={BatchScreen} />
+                <Stack.Screen name="SelectPlayer" component={SelectPlayer} />
+                <Stack.Screen name="AddVenue" component={AddVenue} />
+                <Stack.Screen name="VenueDetail" component={VenueDetail} />
+                <Stack.Screen name="Events" component={Events} />
+                <Stack.Screen name="AddEvents" component={AddEvents} />
+                <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+                <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
+                <Stack.Screen name="Loading" component={Loading} />
+                <Stack.Screen name="Notification" component={Notifications} />
+                <Stack.Screen name="Batches" component={Batches} />
+                <Stack.Screen name="BatchInfo" component={BatchInfo} />
+                <Stack.Screen name="CreateBatch" component={CreateBatch} />
+                <Stack.Screen name="EditBatchInfo" component={EditBatchInfo} />
+                <Stack.Screen name="Venues" component={Venues} />
+                <Stack.Screen name="VenueDetails" component={VenueDetails} />
+                <Stack.Screen name="CreateVenue" component={CreateVenue} />
+                <Stack.Screen
+                  name="UpdatePlayerProfile"
+                  component={UpdatePlayerProfile}
+                />
+                <Stack.Screen
+                  name="CreateProfile"
+                  component={CreateProfileScreen}
+                />
+                <Stack.Screen name="Players" component={Players} />
+                <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
+                <Stack.Screen
+                  name="AddRemovePlayer"
+                  component={AddRemovePlayer}
+                />
+                <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
+                <Stack.Screen
+                  name="EditPlayerProfile"
+                  component={EditPlayerProfile}
+                />
+                <Stack.Screen name="ChooseLocation" component={ChooseLocation} />
+              </Stack.Group>
+            ) : (
+              <Stack.Group>
+                <Stack.Screen name="Landing" component={LandingScreen} />
+                <Stack.Screen
+                  name="Verification"
+                  component={VerificationScreen}
+                />
+                <Stack.Screen name="Loading" component={Loading} />
+              </Stack.Group>
+            )}
+            <Stack.Screen name="Confirmation" component={Confirmation} />
+          </Stack.Navigator>
+          {/* {!!isAccountVerified && !isLoginVerified && <BottomTabNavigation />} */}
+        </NavigationContainer>
+        <Toast />
+      </SafeAreaView>
     </>
   );
 };
