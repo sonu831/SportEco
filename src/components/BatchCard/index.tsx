@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import MyText from '../MyText';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -33,7 +33,7 @@ const BatchCard = ({
                 }}
             >
                 <View style={{ backgroundColor: Colors.gray3, padding: 8, borderRadius: 6 }}>
-                    <Ionicons name="basketball-outline" size={24} />
+                    <Image source={require('../../assets/images/Icon_badminton.png')} style={{ width: 30, height: 30 }} />
                 </View>
                 <View style={{ marginLeft: 12 }}>
                     <MyText text={bacthItem?.batch_name} fontFamily="SEMIBOLD" />
