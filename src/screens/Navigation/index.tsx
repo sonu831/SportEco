@@ -46,6 +46,12 @@ import VenueDetails from "../Venue/VenueDetails/VenueDetails";
 import ChooseLocation from '../Venue/ChooseLocation/ChooseLocation'
 import CreateVenue from '../Venue/CreateVenue/CreateVenue'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Programs from "../Programs/Programs/Programs";
+import CreatePrograms from "../Programs/CreatePrograms/CreatePrograms";
+import CreateSession from "../Programs/CreateSession/CreateSession";
+import CreateProgramDetails from "../Programs/CreatedProgramDetails/CreatedProgramDetails";
+import SessionDetails from "../Programs/SessionDetails/SessionDetails";
+import EditSession from "../Programs/EditSession/EditSession";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -95,6 +101,12 @@ const Navigation = () => {
                 <Stack.Screen name="Venues" component={Venues} />
                 <Stack.Screen name="VenueDetails" component={VenueDetails} />
                 <Stack.Screen name="CreateVenue" component={CreateVenue} />
+                <Stack.Screen name="Programs" component={Programs} />
+                <Stack.Screen name="CreatePrograms" component={CreatePrograms} />
+                <Stack.Screen name="CreateSession" component={CreateSession} />
+                <Stack.Screen name="CreateProgramDetails" component={CreateProgramDetails} />
+                <Stack.Screen name="SessionDetails" component={SessionDetails} />
+                <Stack.Screen name="EditSession" component={EditSession} />
                 <Stack.Screen
                   name="UpdatePlayerProfile"
                   component={UpdatePlayerProfile}

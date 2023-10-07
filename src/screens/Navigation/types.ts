@@ -65,6 +65,12 @@ export type RootStackParamList = {
   VenueDetails: any;
   ChooseLocation: any;
   CreateVenue: any;
+  Programs: any;
+  CreatePrograms: any;
+  CreateSession: any;
+  CreateProgramDetails: any;
+  SessionDetails: any;
+  EditSession: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

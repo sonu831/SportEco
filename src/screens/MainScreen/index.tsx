@@ -46,6 +46,8 @@ const MainScreen = ({ navigation }) => {
         return navigation.navigate("Batches");
       case "Venues":
         return navigation.navigate("Venues");
+      case "Program":
+        return navigation.navigate("Programs");
       default:
         break;
     }
