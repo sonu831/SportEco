@@ -11,7 +11,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "publish:android": "eas build -p android --profile preview",
-    "publish:prod": "eas build -p android profile production"
+    "publish:prod": "eas build -p android profile production",
+    "android-build-warnings": "cd android && ./gradlew build --warning-mode all"
   },
   "jest": {
     "preset": "jest-expo"
