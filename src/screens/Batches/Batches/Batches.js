@@ -10,8 +10,7 @@ import useBatches from "../useBatches";
 import BatchCard from "../../../components/BatchCard";
 
 const Batches = ({ navigation, route }) => {
-  const { state: { batchList: batchData } } = useBatches({ navigation, route }); // var
-  console.log("state", route);
+  const { state: { batchList: batchData }, onChangeSearchBar } = useBatches({ navigation, route }); // var
   const gotoCreateBatch = () => navigation.navigate("CreateBatch"); // var
   const gotoBatchInfo = (item) => navigation.navigate("BatchInfo", { batchInfo: item }); // var
   //UI
@@ -21,25 +20,23 @@ const Batches = ({ navigation, route }) => {
       <View style={styles.mainView}>
         <MyText text="Batches." fontFamily="BOLD" fontsize={25} />
         <MyText text="List of all your batches." fontFamily="SEMIBOLD" fontsize={14} color={Colors.gray} />
+        <SearchBox onChange={onChangeSearchBar} />
         {batchData.length > 0 ? (
-          <View>
-            <SearchBox />
-            <FlatList
-              data={batchData}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => {
-                return (
-                  <BatchCard
-                    bacthItem={item}
-                    bacthIndex={index}
-                    onPress={() => gotoBatchInfo(item)}
-                  />
-                )
-              }}
-              showsHorizontalScrollIndicator={true}
-              contentContainerStyle={{ flexGrow: 1 }}
-            />
-          </View>
+          <FlatList
+            data={batchData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => {
+              return (
+                <BatchCard
+                  bacthItem={item}
+                  bacthIndex={index}
+                  onPress={() => gotoBatchInfo(item)}
+                />
+              )
+            }}
+            showsHorizontalScrollIndicator={true}
+            contentContainerStyle={{ flexGrow: 1 }}
+          />
         ) : (
           <View
             style={{

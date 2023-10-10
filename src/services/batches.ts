@@ -102,3 +102,19 @@ export const deletePlayerFromBatch = createAsyncThunk(
       });
   }
 );
+
+export const searchBatch = createAsyncThunk(
+  "searchbatch",
+  async (request: any, { rejectWithValue }) => {
+    return axios
+      .get(endpoints.searchBatch, {
+        headers: {
+          keyword: request,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err)
+      })
+  }
+)

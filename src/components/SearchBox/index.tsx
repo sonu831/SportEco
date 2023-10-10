@@ -14,6 +14,7 @@ const SearchBox = ({ onChange, style }: any) => {
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 15,
+        height: 50,
         ...style
       }}
     >
@@ -22,6 +23,7 @@ const SearchBox = ({ onChange, style }: any) => {
         placeholder="Search"
         placeholderTextColor={Colors.gray}
         onChangeText={onChange}
+        style={{ width: '90%' }}
       />
     </View>
   );
