@@ -25,6 +25,7 @@ export const endpoints = {
   addPlayerInBatch: `api/batch/addplayerinbatch`,
   deletePlayerFromBatch: `api/batch/removeplayerinbatch`,
   fetchBatchList: `api/batch/listofbatches`,
+  searchBatch: `/api/batch/searchbatch`,
 
   // Venues
   listOfVenue: `api/venue/listofvenue`,

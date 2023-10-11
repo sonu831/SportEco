@@ -6,7 +6,7 @@ import { RootStackParamList } from "../Navigation/types";
 import { RouteProp } from "@react-navigation/native";
 import { AppDispatch } from "../../store";
 import { BatchData, InitialState, } from "./config";
-import { fetchBatchById, fetchBatches } from "../../services/batches";
+import { fetchBatchById, fetchBatches, searchBatch } from "../../services/batches";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { fetchPlayers } from "../../services/players";
 
@@ -58,13 +58,19 @@ const useBatches = ({
             updateState({ key: "batchList", value: res?.payload?.data ?? [] })
         );
     }, [dispatch]);
+    const onChangeSearchBar = (e: string) => {
+        dispatch(searchBatch(e)).then((res) => {
+            updateState({ key: "batchList", value: res?.payload?.data ?? [] });
+        });
+    };
     return {
         updateState,
         state,
         batchProfileResponse,
         handleGoBack,
         handleEditBtn,
-        playersList
+        playersList,
+        onChangeSearchBar
     }
 }
 
