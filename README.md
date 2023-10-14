@@ -15,6 +15,7 @@ Before you start, make sure you have the following tools installed on your syste
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
 - [Git](https://git-scm.com/)
 
+
 ### Installation
 
 1. Clone the repository to your local machine using Git:
