@@ -1,5 +1,5 @@
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../../components/MyHeader'
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
@@ -10,14 +10,37 @@ import { TextInput } from "react-native-paper";
 import { CenteredLineWithText } from '../../../components';
 import MyButton from "../../../components/MyButton";
 import { useRoute } from "@react-navigation/native";
+import { addPrograms } from '../../../services/programs';
+import { AppDispatch } from '../../../store';
+import { useDispatch } from 'react-redux';
 
 
 const CreatePrograms = ({ navigation }) => {
     const route = useRoute();
-    const goToAddSessionScreen = () => navigation.navigate('CreateSession')
-    const goToCreateProgramDetails = (programName: string, programDescription: string) => navigation.navigate('CreateProgramDetails', { programName: programName, programDescription: programDescription })
+    const dispatch = useDispatch<AppDispatch>();
     const [programName, setProgramName] = useState(route?.params?.editProgramName ? route?.params?.editProgramName : '')
     const [programDescription, setProgramDescription] = useState(route?.params?.editProgramDescription ? route?.params?.editProgramDescription : '')
+    const [programId, setProgramId] = useState("")
+    useEffect(() => {
+        if (programId) {
+            navigation.navigate('CreateSession', { programId: programId });
+        }
+    }, [programId]);
+    const handleCreaterProgram = () => { //Funtion:Api Function to create program
+        const request = {
+            name: programName,
+            description: programDescription,
+        };
+        dispatch(addPrograms({ data: request })).then((res) => {
+            setProgramId(res?.payload?.data?._id)
+            // goToProgramListScreen()
+            // goToCreateProgramDetails(programName, programDescription)
+        }).catch((error) => {
+            console.error("Error occurred while adding program:", error);
+        })
+    };
+    const goToCreateProgramDetails = (programName: string, programDescription: string) => navigation.navigate('CreateProgramDetails', { programName: programName, programDescription: programDescription })
+    const goToProgramListScreen = () => navigation.navigate('Programs')
     const currentSessions = [
         { id: 1, name: "Badminton League", time: "02 hours 30 min" },
         { id: 2, name: "Badminton League", time: "02 hours 30 min" },
@@ -28,7 +51,7 @@ const CreatePrograms = ({ navigation }) => {
             <Header
                 title={route?.params?.editProgramName.length > 0 ? "Edit Program" : "Create Program"}
                 hasActionIcon
-                actionBtnPress={() => goToCreateProgramDetails(programName, programDescription)}
+                actionBtnPress={handleCreaterProgram}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
                 isActionBtnDisabled={!programName || !programDescription}
             />
@@ -86,7 +109,7 @@ const CreatePrograms = ({ navigation }) => {
                 alignSelf="center"
                 title={route?.params?.editProgramName.length > 0 ? "Delete Program" : "Add Sessions"}
                 backgroundColor={route?.params?.editProgramName.length ? Colors.darkGray : Colors.orange}
-                onPress={() => goToAddSessionScreen()}
+                onPress={() => handleCreaterProgram()}
             />
         </View>
     )

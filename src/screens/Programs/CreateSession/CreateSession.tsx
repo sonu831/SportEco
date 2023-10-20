@@ -9,17 +9,43 @@ import { Colors } from '../../../constants/Colors';
 import { TextInput } from "react-native-paper";
 import { CenteredLineWithText } from '../../../components';
 import MyButton from "../../../components/MyButton";
+import { AppDispatch } from '../../../store';
+import { useDispatch } from 'react-redux';
+import { addSessionInProgram } from '../../../services/programs';
 
-const CreateSession = ({ navigation }) => {
+const CreateSession = ({ navigation, route }) => {
+    const { programId } = route.params
+    console.log("programId---s---", programId);
+
+    const goToProgramsScreen = () => navigation.navigate('Programs')
+    const dispatch = useDispatch<AppDispatch>();
     const [sessionName, setSessionName] = useState('')
     const [sessionDescription, setSessionDescription] = useState('')
     const [sessionDuration, setSessionDuration] = useState('')
+    const handleCreaterSession = () => { // Function: to create session
+        const request = {
+            program_id: programId,
+            sessions: [
+                {
+                    name: sessionName,
+                    description: sessionDescription,
+                    duration: sessionDuration,
+                }
+            ]
+        };
+        console.log("request", request)
+        dispatch(addSessionInProgram({ data: request })).then((res) => {
+            console.log("handleCreaterSession res", res);
+            goToProgramsScreen()
+            // goToCreateProgramDetails(programName, programDescription)
+        });
+    };
     return (
         <View style={styles.container}>
             <Header
                 title="Create Session"
                 hasActionIcon
-                actionBtnPress={() => { }}
+                actionBtnPress={handleCreaterSession}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
                 isActionBtnDisabled={!sessionName || !sessionDescription || !sessionDuration}
             />
@@ -66,6 +92,7 @@ const CreateSession = ({ navigation }) => {
                     placeholder="Session Duration"
                     value={sessionDuration}
                     multiline
+                    keyboardType='numeric'
                     placeholderTextColor={"#000"}
                     activeOutlineColor="grey"
                     style={{

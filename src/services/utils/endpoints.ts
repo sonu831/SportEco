@@ -35,7 +35,9 @@ export const endpoints = {
 
   // Programs
   addPrograms: `api/program/addprogram`,
-  fetchPrograms: `api/program/listofprograms`,
+  fetchPrograms: `api/program/listofprogram`,
   deleteProgram: `api/program/deleteprogrambyid`,
   updateProgram: `api/program/updateprogram`,
+  addSessionInProgram: `api/program/addsessioninprogram`,
+  getProgromDataById: `/api/program/getprogramdatabyid`
 };

@@ -25,7 +25,9 @@ export const fetchPrograms = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     return axios
       .get(endpoints.fetchPrograms)
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .catch((err) => {
         rejectWithValue(err);
       });
@@ -70,3 +72,43 @@ export const updateProgram = createAsyncThunk(
       });
   }
 );
+
+type AddSessionInProgramProps = {
+  data: { [key: string]: any };
+  id: string | undefined;
+};
+
+export const addSessionInProgram = createAsyncThunk(
+  "addSessionInProgram",
+  async (request: AddSessionInProgramProps, { rejectWithValue }) => {
+    const { data, id } = request;
+
+    return axios
+      .post(endpoints.addSessionInProgram, data, {
+        headers: {
+          program_id: id,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+)
+
+export const getProgromDataById = createAsyncThunk(
+  "getProgromDataById",
+  async (id: string, { rejectWithValue }) => {
+    console.log("ididid", id);
+    return axios
+      .get(endpoints.getProgromDataById, {
+        headers: {
+          program_id: id,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+)

@@ -36,8 +36,8 @@ const BatchCard = ({
                     <Image source={require('../../assets/images/Icon_badminton.png')} style={{ width: 30, height: 30 }} />
                 </View>
                 <View style={{ marginLeft: 12 }}>
-                    <MyText text={bacthItem?.batch_name} fontFamily="SEMIBOLD" />
-                    <MyText text={bacthItem?.players.length} fontFamily="REGULAR" color={Colors.gray2} />
+                    <MyText text={bacthItem?.name} fontFamily="SEMIBOLD" />
+                    <MyText text={bacthItem?.sessions.length} fontFamily="REGULAR" color={Colors.gray2} />
                 </View>
             </View>
             <AntDesign name="right" style={{ marginRight: 5 }} />
