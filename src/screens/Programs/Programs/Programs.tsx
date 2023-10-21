@@ -24,7 +24,7 @@ const Programs = ({ navigation, route }) => {
                 <MyText text="Programs." fontFamily="BOLD" fontsize={25} />
                 <MyText text="List of all your programs." fontFamily="SEMIBOLD" fontsize={14} color={Colors.gray} />
                 {
-                    programData?.length > 0 ?
+                    programData && programData.length > 0 ?
                         <>
                             <SearchBox />
                             <FlatList
@@ -33,7 +33,8 @@ const Programs = ({ navigation, route }) => {
                                 renderItem={({ item, index }) => {
                                     return (
                                         <BatchCard
-                                            bacthItem={item}
+                                            bathName={item?.name}
+                                            batchSubData={item?.sessions.length}
                                             bacthIndex={index}
                                             onPress={() => goToProgramDetails(item?._id)}
                                         />
