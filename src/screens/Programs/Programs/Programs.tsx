@@ -1,42 +1,31 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, ScrollView, Text, View } from 'react-native'
 import React from 'react'
-import { styles } from './ProgramsStyle'
+// component
 import Header from '../../../components/MyHeader'
 import MyText from '../../../components/MyText'
-import { Colors } from '../../../constants/Colors'
 import SearchBox from '../../../components/SearchBox'
 import BatchCard from '../../../components/BatchCard'
 import FAB from '../../../components/FAB'
+// constants
+import { Colors } from '../../../constants/Colors'
+// usePrograms
+import usePrograms from '../usePrograms'
+// style
+import { styles } from './ProgramsStyle'
 
-
-const Programs = ({ navigation }) => {
-    const goToCreatePrograms = () => navigation.navigate('CreatePrograms')
-    let programData = [
-        {
-            id: 0,
-            batch_name: "Badminton Drill Routine",
-            players: [1]
-        },
-        {
-            id: 1,
-            batch_name: "Badminton Drill Routine",
-            players: [1, 2]
-        },
-        {
-            id: 2,
-            batch_name: "Badminton Drill Routine",
-            players: [1, 2, 3, 4, 5]
-        }
-    ]
+const Programs = ({ navigation, route }) => {
+    const { state: { programList: programData } } = usePrograms({ navigation, route }); // var
+    const goToCreatePrograms = () => navigation.navigate('CreatePrograms') // var
+    const goToProgramDetails = (programId) => navigation.navigate('CreateProgramDetails', { programId: programId })
     return (
         <View style={styles.container}>
             <Header title='Manage' />
-            <View style={styles.mainView}>
+            <ScrollView style={styles.mainView}>
                 <MyText text="Programs." fontFamily="BOLD" fontsize={25} />
                 <MyText text="List of all your programs." fontFamily="SEMIBOLD" fontsize={14} color={Colors.gray} />
                 {
-                    programData.length > 0 ?
-                        <View>
+                    programData?.length > 0 ?
+                        <>
                             <SearchBox />
                             <FlatList
                                 data={programData}
@@ -46,35 +35,21 @@ const Programs = ({ navigation }) => {
                                         <BatchCard
                                             bacthItem={item}
                                             bacthIndex={index}
-                                        // onPress={() => gotoBatchInfo(item)}
+                                            onPress={() => goToProgramDetails(item?._id)}
                                         />
                                     )
                                 }}
                                 showsHorizontalScrollIndicator={true}
                                 contentContainerStyle={{ flexGrow: 1 }}
                             />
-                        </View>
+                        </>
                         :
-                        <View
-                            style={{
-                                height: "75%",
-                                width: "100%",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
+                        <View style={styles.noDataFound}>
                             <Image source={require("../../../assets/images/manage_2.png")} />
-                            <Text
-                                style={{
-                                    color: "grey",
-                                    letterSpacing: 2,
-                                }}
-                            >
-                                No Batches Found
-                            </Text>
+                            <MyText text=' No Programs Found' color={Colors.gray} />
                         </View>
                 }
-            </View>
+            </ScrollView>
             <FAB onPress={() => goToCreatePrograms()} />
         </View>
     )
