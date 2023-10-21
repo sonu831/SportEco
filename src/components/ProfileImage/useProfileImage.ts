@@ -43,9 +43,7 @@ const useProfileImage = () => {
       type: "image/jpeg", // Adjust the type based on your image format
     });
     // Implementation for uploading image
-    dispatch(uploadUserProfilePicture(formData)).then((res) => {
-      console.log("uploadUserProfilePicture res---->", res);
-    });
+    dispatch(uploadUserProfilePicture(formData)).then((res) => {});
     console.log("handleUploadImage", image);
     setImageUrl(image);
   };

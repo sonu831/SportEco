@@ -56,7 +56,6 @@ const useCreateProfileScreen = ({
 
   const handleGoBack = () => {
     // Move to next step
-    console.log("render state", currentStep);
     if (currentStep > 1) {
       setCurrentStep((prevStep) => prevStep - 1);
     }
@@ -65,7 +64,6 @@ const useCreateProfileScreen = ({
   // Adjust the save function
   const handleSave = () => {
     // Move to next step
-    console.log("render state==========23", state);
     if (currentStep < 6) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
@@ -90,9 +88,6 @@ const useCreateProfileScreen = ({
       };
       dispatch(updateUserProfile(request)).then((res) => {
         // const { data = {} } = res.payload;
-        console.log("========");
-        console.log("=======res ========", res);
-        console.log("========");
         if (res?.payload?.success) {
           navigation.navigate("BottomTabNavigation");
         }

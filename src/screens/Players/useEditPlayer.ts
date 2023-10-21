@@ -108,7 +108,6 @@ export const useEditPlayer = ({
       };
       dispatch(updatePlayerProfile({ data: request, playerId: playerId })).then(
         (res) => {
-          console.log("res", res);
           navigation.replace("PlayerProfile", { id: res?.payload?.data?._id });
         }
       );

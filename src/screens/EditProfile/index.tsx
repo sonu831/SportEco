@@ -71,9 +71,6 @@ const EditProfile = ({
     phNum,
   } = state;
 
-  console.log("avatarImage", avatarImage);
-  console.log("state", state);
-
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
   const goToAvatarScreen = () => navigation.navigate("ChangeAvatar");
@@ -235,77 +232,6 @@ const EditProfile = ({
                 disable={!isEdit}
               />
             </View>
-
-            {/* {!isAddPlayer && (
-              <View style={[styles.py16, styles.fieldColumn]}>
-                <Text style={styles.fieldRowLabel}>I am a...</Text>
-                <View style={[styles.fieldRow, styles.mt21]}>
-                  {ROLE_OPTIONS.map((roleOption, i) => (
-                    <TouchableOpacity
-                      key={i}
-                      style={[
-                        styles.category,
-                        i !== ROLE_OPTIONS.length - 1 && styles.mr27,
-                        role.includes(roleOption) && styles.categorySelected,
-                      ]}
-                      onPress={() => {
-                        if (role.includes(roleOption)) {
-                          updateState({
-                            key: "role",
-                            value: role.filter((e) => e !== roleOption),
-                          });
-                        } else {
-                          updateState({
-                            key: "role",
-                            value: [...role, roleOption],
-                          });
-                        }
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.textCapitalize,
-                          role.includes(roleOption) &&
-                            styles.categorySelectedText,
-                        ]}
-                      >
-                        {roleOption}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <TouchableOpacity
-                  style={[styles.alignEnd, styles.mt10]}
-                  onPress={() =>
-                    updateState({
-                      key: "role",
-                      value: ROLE_OPTIONS,
-                    })
-                  }
-                >
-                  <Text style={styles.selectAll}>Select All</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-            {isAddPlayer && (
-              <View style={[styles.flex, styles.py16, styles.px25]}>
-                <View>
-                  <View style={styles.flex}>
-                    <Text style={styles.fieldRowLabel}>ID Proof</Text>
-                    <Text style={styles.required}>*</Text>
-                  </View>
-                  <Text>{`(Aadhar Card)`}</Text>
-                </View>
-
-                <View style={styles.uploadIcon}>
-                  {idProof?.mimeType ? (
-                    <Image source={uploadSuccessIcon} />
-                  ) : (
-                    <FilePicker handleUpload={handleUploadID} />
-                  )}
-                </View>
-              </View>
-            )} */}
             <CenteredLineWithText lineText="My Profile" />
             <View
               style={{

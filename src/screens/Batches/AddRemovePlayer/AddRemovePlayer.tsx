@@ -37,15 +37,15 @@ const AddRemovePlayer = ({ navigation, route }) => {
       players: [
         {
           playerid: "6512f1f92feb5c05bb8c8624",
-          name: "vishal"
-        }
-      ]
+          name: "vishal",
+        },
+      ],
     };
     dispatch(addPlayersInBatch(request)).then((res) => {
       // const resData = res.payload?.data;
       goToBacthesScreen();
     });
-  }
+  };
   //function : imp func
   const saveDeletePlayer = (item: any) => {
     const isAlready = selectedPlayers.findIndex((e) => e._id == item._id);
@@ -81,7 +81,6 @@ const AddRemovePlayer = ({ navigation, route }) => {
                 const isSelected = selectedPlayers.findIndex(
                   (e) => e._id == item._id
                 );
-                console.log("isSelected", isSelected);
                 return (
                   <PlayerCard
                     playerName={item.first_name}
@@ -162,7 +161,7 @@ const PlayerCard = ({
   lastName,
   isSelected,
   hasRemoveBtn,
-  onPress = () => { },
+  onPress = () => {},
 }) => {
   return (
     <TouchableOpacity
@@ -188,7 +187,12 @@ const PlayerCard = ({
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <MyText text={playerName + lastName} fontFamily="MEDIUM" fontsize={16} style={{ marginLeft: 10 }} />
+        <MyText
+          text={playerName + lastName}
+          fontFamily="MEDIUM"
+          fontsize={16}
+          style={{ marginLeft: 10 }}
+        />
       </View>
       {hasRemoveBtn ? (
         <Feather name="x-circle" size={24} color={"grey"} />

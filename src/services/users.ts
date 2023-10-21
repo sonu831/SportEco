@@ -65,7 +65,6 @@ export const fetchUserById = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
-        console.log("err", err);
         rejectWithValue(err);
       });
   }

@@ -107,8 +107,6 @@ const useEditProfile = ({
 
   const { selectedState } = state;
 
-  console.log("userDetails", userDetails);
-
   useEffect(() => {
     if (userDetails?.avatarimage) {
       const index = findIndexByValue(initialAvatar, userDetails?.avatarimage);
@@ -163,7 +161,6 @@ const useEditProfile = ({
   }, []);
 
   const handleUploadID = useCallback((file: any) => {
-    console.log("file", file);
     updateState({
       key: "idProof",
       value: file,
@@ -314,7 +311,6 @@ const useEditProfile = ({
     dispatch(uploadUserProfilePicture(formData)).then((res) => {
       console.log("uploadUserProfilePicture res---->", res);
     });
-    console.log("handleUploadImage", image);
     updateState({ key: "image", value: image });
   };
 

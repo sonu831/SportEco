@@ -138,7 +138,6 @@ export const useVerificationScreen = ({
       };
       span.finish(); // Remember that only finished spans will be sent with the transaction
       transaction.finish(); // Finishing the transaction will send it to Sentry
-      console.log("verify and create");
       dispatch(validateOtp(request))
         .then((res) => {
           const isUserExist = res.payload.redirecttodashboard;
