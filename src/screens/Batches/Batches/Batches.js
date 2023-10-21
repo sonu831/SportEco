@@ -14,6 +14,7 @@ const Batches = ({ navigation, route }) => {
   const gotoCreateBatch = () => navigation.navigate("CreateBatch"); // var
   const gotoBatchInfo = (item) => navigation.navigate("BatchInfo", { batchInfo: item }); // var
   //UI
+
   return (
     <View style={styles.container}>
       <Header title="Manage" />
@@ -21,7 +22,7 @@ const Batches = ({ navigation, route }) => {
         <MyText text="Batches." fontFamily="BOLD" fontsize={25} />
         <MyText text="List of all your batches." fontFamily="SEMIBOLD" fontsize={14} color={Colors.gray} />
         <SearchBox onChange={onChangeSearchBar} />
-        {batchData.length > 0 ? (
+        {batchData && batchData.length > 0 ? (
           <FlatList
             data={batchData}
             keyExtractor={(item, index) => index.toString()}
@@ -39,12 +40,7 @@ const Batches = ({ navigation, route }) => {
           />
         ) : (
           <View
-            style={{
-              height: "75%",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            style={styles.dataNoFoundStyle}
           >
             <Image source={require("../../../assets/images/manage_2.png")} />
             <Text
