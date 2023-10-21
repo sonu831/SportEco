@@ -14,7 +14,6 @@ const Batches = ({ navigation, route }) => {
   const gotoCreateBatch = () => navigation.navigate("CreateBatch"); // var
   const gotoBatchInfo = (item) => navigation.navigate("BatchInfo", { batchInfo: item }); // var
   //UI
-
   return (
     <View style={styles.container}>
       <Header title="Manage" />
@@ -29,7 +28,8 @@ const Batches = ({ navigation, route }) => {
             renderItem={({ item, index }) => {
               return (
                 <BatchCard
-                  bacthItem={item}
+                  bathName={item?.batch_name}
+                  batchSubData={item?.players.length}
                   bacthIndex={index}
                   onPress={() => gotoBatchInfo(item)}
                 />
