@@ -8,4 +8,10 @@ export const styles = StyleSheet.create({
   mainView: {
     padding: 20,
   },
+  dataNoFoundStyle: {
+    height: "75%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
