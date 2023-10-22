@@ -102,7 +102,7 @@ export const updatePlayerProfile = createAsyncThunk(
   "updatePlayerProfile",
   async (request: any, { rejectWithValue }) => {
     return axios
-      .post(endpoints.updatePlayerProfile, request.data, {
+      .post(endpoints.updatePlayerProfile, request.player, {
         headers: {
           playerid: request.playerId,
         },

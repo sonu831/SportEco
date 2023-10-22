@@ -63,7 +63,7 @@ const usePlayers = ({
 
   const handleDeletePlayer: HandleDeletePlayerFunction = () => {
     if (!route?.params?.id) return;
-    dispatch(deletePlayer(route.params.id)).then((res) => {
+    dispatch(deletePlayer({ id: route.params.id })).then((res) => {
       navigation?.navigate("Players");
     });
   };

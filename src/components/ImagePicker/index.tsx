@@ -16,7 +16,7 @@ interface ImagePickerProps {
   handleImage: any;
   currentImage?: any;
   isChooseAvatar?: boolean;
-  showAvatar?: any
+  showAvatar?: any;
 }
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
@@ -24,7 +24,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
   icon,
   handleImage,
   isChooseAvatar = false,
-  showAvatar = () => { },
+  showAvatar = () => {},
 }) => {
   const { pickImage, setShowModal, showModal } = useImagePicker({
     handleImage,
@@ -61,15 +61,11 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       <Modal visible={showModal} animationType="slide" transparent>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {
-              showAvatar &&
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={showAvatar}
-              >
+            {showAvatar && (
+              <TouchableOpacity style={styles.modalButton} onPress={showAvatar}>
                 <Text style={styles.modalButtonText}>Change Avatar</Text>
               </TouchableOpacity>
-            }
+            )}
             <TouchableOpacity
               style={styles.modalButton}
               onPress={() => pickImage("camera")}

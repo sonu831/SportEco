@@ -14,11 +14,18 @@ const PlayerProfile = ({ navigation, route }) => {
     route,
   });
 
-  const { first_name = "", last_name = "" } = playerProfileResponse || {};
+  const { first_name = "", last_name = "", _id } = playerProfileResponse || {};
 
   const goToEditPlayerProfile = () => {
-    navigation.navigate("EditPlayerProfile", { data: playerProfileResponse });
+    console.log("sendingplayer");
+    navigation.navigate("PlayerProfileManager", {
+      isEdit: true,
+      playerId: _id,
+      playerData: playerProfileResponse,
+    });
   };
+
+  console.log("player_id", _id);
 
   return (
     <View style={styles.container}>
