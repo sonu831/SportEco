@@ -18,6 +18,35 @@ const instance = axios.create({
   withCredentials: true,
   timeout: 1000,
 });
+const logApiRequest = (request) => {
+  // Log the Request Headers
+  console.log("Request Headers:", request.headers);
+
+  // Check and Log the Request Payload if available
+  if (request?.data) {
+    console.log("Request Payload:", request.data);
+  }
+
+  // // Extract and Log the Request Params
+  // const requestURL = new URL(request?.baseURL + request?.url);
+  // const requestParams = new URLSearchParams(requestURL.search);
+  // if (requestParams && Array.from(requestParams.entries()).length > 0) {
+  //   console.log("Request Params:", Object.fromEntries(requestParams));
+  // } else {
+  //   console.log("Request Params: None");
+  // }
+};
+
+const logApiResponse = (response) => {
+  console.log("Response Status Code:", response.status);
+
+  // Checking for errors
+  if (response.data && !response.data.success) {
+    console.log("Response Error Message:", response.data.message);
+  }
+
+  console.log("Response Data:", response.data.data);
+};
 
 const requestHandler = async (request: any) => {
   const token = await fetchFromStorage(StorageKeys.tokenKey);
@@ -27,6 +56,7 @@ const requestHandler = async (request: any) => {
   store.dispatch(showLoader());
   // Sentry.captureException("sport eco request", request);
   console.log("Api request", request);
+  //logApiRequest(request);
   return request;
 };
 
@@ -37,8 +67,9 @@ const responseHandler = (response: any) => {
     const token = response.headers.token;
     storeDataInStorage(StorageKeys.tokenKey, token);
   }
-  Sentry.captureException("sport eco response", response);
-  console.log("api response", response);
+  //Sentry.captureException("sport eco response", response);
+  //console.log("api response", response);
+  logApiResponse(response);
   return response;
 };
 

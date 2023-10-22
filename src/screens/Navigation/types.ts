@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
+    interface RootParamList extends RootStackParamList {}
   }
 }
 
@@ -21,15 +21,15 @@ export type RootStackParamList = {
   Calendar: undefined;
   Message: undefined;
   AddBatch:
-  | {
-    isEdit?: boolean;
-  }
-  | any;
+    | {
+        isEdit?: boolean;
+      }
+    | any;
   AddProgram:
-  | {
-    isEdit?: boolean;
-  }
-  | any;
+    | {
+        isEdit?: boolean;
+      }
+    | any;
   SelectPlayer: any;
   AddSession: any;
   AddEvents: any;
@@ -39,27 +39,28 @@ export type RootStackParamList = {
   VenueDetail: any;
   Profile: { player?: boolean } | undefined;
   Confirmation:
-  | {
-    label?: string;
-    navigateTo?: keyof RootStackParamList;
-    navigateOption?: any;
-    isNewUser?: boolean;
-  }
-  | undefined;
+    | {
+        label?: string;
+        navigateTo?: keyof RootStackParamList;
+        navigateOption?: any;
+        isNewUser?: boolean;
+      }
+    | undefined;
   Events: any;
   CalendarScreen: any;
   MyAccount: any;
   ChangeAvatar: any;
   Notification: any;
   Players: any;
-  CreatePlayer: any;
+  PlayerProfileManager:
+    | { playerId?: string; isEdit?: boolean; playerData: any }
+    | any;
   Batches: any;
   BatchInfo: any;
   CreateBatch: any;
   EditBatchInfo: any;
   AddRemovePlayer: any;
   PlayerProfile: any;
-  EditPlayerProfile: any;
   UpdatePlayerProfile: any;
   Venues: any;
   VenueDetails: any;

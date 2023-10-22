@@ -32,26 +32,25 @@ import MyAccount from "../MyAccount";
 import ChangeAvatar from "../ChangeAvatar";
 import Notifications from "../Notifications/Notifications";
 import Players from "../Players/Players";
-import CreatePlayer from "../Players/CreatePlayer";
 import Batches from "../Batches/Batches/Batches";
 import BatchInfo from "../Batches/BatchInfo/BatchInfo";
 import CreateBatch from "../Batches/CreateBatch/CreateBatch";
 import EditBatchInfo from "../Batches/EditBatchInfo/EditBatchInfo";
 import AddRemovePlayer from "../Batches/AddRemovePlayer/AddRemovePlayer";
 import PlayerProfile from "../Players/PlayerProfile";
-import EditPlayerProfile from "../Players/EditPlayerProfile";
 import UpdatePlayerProfile from "../Players/UpdatePlayerProfile";
-import Venues from '../Venue/Venues/Venues'
+import Venues from "../Venue/Venues/Venues";
 import VenueDetails from "../Venue/VenueDetails/VenueDetails";
-import ChooseLocation from '../Venue/ChooseLocation/ChooseLocation'
-import CreateVenue from '../Venue/CreateVenue/CreateVenue'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import ChooseLocation from "../Venue/ChooseLocation/ChooseLocation";
+import CreateVenue from "../Venue/CreateVenue/CreateVenue";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Programs from "../Programs/Programs/Programs";
 import CreatePrograms from "../Programs/CreatePrograms/CreatePrograms";
 import CreateSession from "../Programs/CreateSession/CreateSession";
 import CreateProgramDetails from "../Programs/CreatedProgramDetails/CreatedProgramDetails";
 import SessionDetails from "../Programs/SessionDetails/SessionDetails";
 import EditSession from "../Programs/EditSession/EditSession";
+import PlayerProfileManager from "../Players/PlayerProfileManager";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -63,7 +62,7 @@ const Navigation = () => {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
         <NavigationContainer>
           <Spinner visible={isLoading} />
           <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -90,8 +89,14 @@ const Navigation = () => {
                 <Stack.Screen name="VenueDetail" component={VenueDetail} />
                 <Stack.Screen name="Events" component={Events} />
                 <Stack.Screen name="AddEvents" component={AddEvents} />
-                <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
-                <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
+                <Stack.Screen
+                  name="ProgramDetails"
+                  component={ProgramDetails}
+                />
+                <Stack.Screen
+                  name="CalendarScreen"
+                  component={CalendarScreen}
+                />
                 <Stack.Screen name="Loading" component={Loading} />
                 <Stack.Screen name="Notification" component={Notifications} />
                 <Stack.Screen name="Batches" component={Batches} />
@@ -102,10 +107,19 @@ const Navigation = () => {
                 <Stack.Screen name="VenueDetails" component={VenueDetails} />
                 <Stack.Screen name="CreateVenue" component={CreateVenue} />
                 <Stack.Screen name="Programs" component={Programs} />
-                <Stack.Screen name="CreatePrograms" component={CreatePrograms} />
+                <Stack.Screen
+                  name="CreatePrograms"
+                  component={CreatePrograms}
+                />
                 <Stack.Screen name="CreateSession" component={CreateSession} />
-                <Stack.Screen name="CreateProgramDetails" component={CreateProgramDetails} />
-                <Stack.Screen name="SessionDetails" component={SessionDetails} />
+                <Stack.Screen
+                  name="CreateProgramDetails"
+                  component={CreateProgramDetails}
+                />
+                <Stack.Screen
+                  name="SessionDetails"
+                  component={SessionDetails}
+                />
                 <Stack.Screen name="EditSession" component={EditSession} />
                 <Stack.Screen
                   name="UpdatePlayerProfile"
@@ -116,17 +130,19 @@ const Navigation = () => {
                   component={CreateProfileScreen}
                 />
                 <Stack.Screen name="Players" component={Players} />
-                <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
+                <Stack.Screen
+                  name="PlayerProfileManager"
+                  component={PlayerProfileManager}
+                />
                 <Stack.Screen
                   name="AddRemovePlayer"
                   component={AddRemovePlayer}
                 />
                 <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
                 <Stack.Screen
-                  name="EditPlayerProfile"
-                  component={EditPlayerProfile}
+                  name="ChooseLocation"
+                  component={ChooseLocation}
                 />
-                <Stack.Screen name="ChooseLocation" component={ChooseLocation} />
               </Stack.Group>
             ) : (
               <Stack.Group>
