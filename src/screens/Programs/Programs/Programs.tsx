@@ -41,7 +41,7 @@ const Programs = ({ navigation, route }) => {
                                     )
                                 }}
                                 showsHorizontalScrollIndicator={true}
-                                contentContainerStyle={{ flexGrow: 1 }}
+                                contentContainerStyle={{ flexGrow: 1, marginBottom: 20 }}
                             />
                         </>
                         :

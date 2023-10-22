@@ -10,7 +10,6 @@ export const addPrograms = createAsyncThunk(
   "addPrograms",
   async (request: AddProgramProps, { rejectWithValue }) => {
     const { data } = request;
-
     return axios
       .post(endpoints.addPrograms, data)
       .then((res) => res.data)

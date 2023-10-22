@@ -6,6 +6,7 @@ import {
     DimensionValue,
 } from "react-native";
 import React, { useCallback } from "react";
+import { Colors } from "../../constants/Colors";
 interface buttonProps {
     title: string;
     height: DimensionValue;
@@ -13,6 +14,7 @@ interface buttonProps {
     width: DimensionValue;
     marginVertical: DimensionValue;
     onPress: void;
+    disabled: boolean;
     alignSelf:
     | "auto"
     | "center"
@@ -28,6 +30,7 @@ const MyButton: React.FC<buttonProps> = ({
     width = "100%",
     marginVertical = 10,
     alignSelf = "auto",
+    disabled: disabled,
     onPress = () => { },
 }) => {
     const handlePress = useCallback(() => {
@@ -39,13 +42,14 @@ const MyButton: React.FC<buttonProps> = ({
             style={{
                 height: height,
                 width: width,
-                backgroundColor: backgroundColor,
+                backgroundColor: disabled ? Colors.gray : backgroundColor,
                 marginVertical: marginVertical,
                 alignSelf: alignSelf,
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",
             }}
+            disabled={disabled}
         >
             <Text
                 style={{

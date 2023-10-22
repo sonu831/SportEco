@@ -33,6 +33,8 @@ const CreateProgramDetails = ({ navigation }) => {
             console.error("Error occurred while getProgramDetails:", error);
         })
     };
+    console.log("programDetails", programDetails);
+
     return (
         <View style={styles.container}>
             <Header
@@ -54,7 +56,7 @@ const CreateProgramDetails = ({ navigation }) => {
                             playerName={item.name}
                             playerTime={item.duration}
                             hasRemoveBtn={true}
-                            onPress={() => navigation.navigate('SessionDetails', { sessionName: item.name, sessionDescription: item.time })}
+                            onPress={() => navigation.navigate('SessionDetails', { sessionName: item?.name, sessionDuration: item?.duration, sessionDescription: item?.description })}
                         />
                     );
                 })}
