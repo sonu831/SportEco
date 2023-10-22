@@ -13,7 +13,7 @@ const Players = ({ navigation, route }) => {
     state: { playerList: playersData },
     onChangeSearchBar,
   } = usePlayers({ navigation, route });
-  const goToCreatePlayer = () => navigation.navigate("CreatePlayer");
+  const goToCreatePlayer = () => navigation.navigate("PlayerProfileManager");
   return (
     <View style={styles.container}>
       <Header title="Manage" />
@@ -31,6 +31,7 @@ const Players = ({ navigation, route }) => {
               .reverse()
               ?.map((item) => (
                 <CardItem
+                  key={`player-key-${item.first_name} ${item.last_name}`}
                   Title={`${item.first_name} ${item.last_name}`}
                   isImage={true}
                   onPress={() =>
