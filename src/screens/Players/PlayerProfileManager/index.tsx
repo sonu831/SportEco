@@ -47,7 +47,7 @@ const PlayerProfileManager = ({ navigation, route }) => {
           actionBtnPress={handlePlayer}
           ActionIcon={<Feather name="check" size={18} color={"#fff"} />}
           backgroundColor={"#E8E8E8"}
-          isActionBtnDisabled={!isEdit}
+          isActionBtnDisabled={false}
         />
         <View style={styles.headerBG}>
           <View style={styles.avatarImage}>

@@ -41,13 +41,6 @@ const usePlayers = ({
 
   const { showConfirmation } = state;
 
-  useEffect(() => {
-    if (!route?.params?.id) return;
-    dispatch(fetchPlayerById(route.params.id)).then((res) => {
-      setPlayerProfileResponse(res?.payload?.data);
-    });
-  }, []);
-
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
     if (Array.isArray(request)) {
       request.forEach(({ key, value }) =>
@@ -64,7 +57,9 @@ const usePlayers = ({
   const handleDeletePlayer: HandleDeletePlayerFunction = () => {
     if (!route?.params?.id) return;
     dispatch(deletePlayer({ id: route.params.id })).then((res) => {
-      navigation?.navigate("Players");
+      navigation?.navigate("Players", {
+        isPlayerDeleted: true,
+      });
     });
   };
 
@@ -74,11 +69,24 @@ const usePlayers = ({
     });
   };
 
-  useEffect(() => {
+  const fetchPlayerList = (isPlayerDeleted = false) => {
     dispatch(fetchPlayers()).then((res) =>
       updateState({ key: "playerList", value: res?.payload?.data ?? [] })
     );
-  }, [dispatch]);
+  };
+
+  useEffect(() => {
+    if (!route?.params?.id) return;
+    dispatch(fetchPlayerById(route.params.id)).then((res) => {
+      setPlayerProfileResponse(res?.payload?.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.isPlayerDeleted) {
+      fetchPlayerList(route.params?.isPlayerDeleted);
+    } else fetchPlayerList();
+  }, [route.params]);
 
   const handleEditBtn = () => navigation.navigate("MyAccount");
   return {
