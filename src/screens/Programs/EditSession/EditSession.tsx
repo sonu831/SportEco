@@ -12,7 +12,7 @@ const EditSession = () => {
     const route = useRoute();
     const [sessionName, setSessionName] = useState(route?.params?.editSessionName ? route?.params?.editSessionName : '')
     const [sessionDescription, setSessionDescription] = useState(route?.params?.editSessionDes ? route?.params?.editSessionDes : '')
-    const [sessionDuration, setSessionDuration] = useState('')
+    const [sessionDuration, setSessionDuration] = useState(route?.params?.editDuration ? route?.params?.editDuration : "")
     return (
         <View style={styles.container}>
             <Header

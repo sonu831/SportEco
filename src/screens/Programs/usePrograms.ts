@@ -33,13 +33,9 @@ const usePrograms = ({
     const [programList, setProgramList] = useState([])
     const handleGoBack = () => navigation.goBack();  // Function : Navigation
     const handleEditBtn = () => navigation.navigate("MyAccount");  // Function : Navigation
-
-    // useEffect(() => { // useEffect: To fetch the baches list
-    //     dispatch(fetchPrograms()).then((res) =>
-    //         updateState({ key: "programList", value: res?.payload?.data ?? [] }),
-    //     );
-    // }, [dispatch]);
-
+    useEffect(() => {
+        refetchPrograms();
+    }, []);
     const refetchPrograms = () => {
         // Call the function to refetch programs data
         dispatch(fetchPrograms()).then((res) => {
@@ -47,11 +43,6 @@ const usePrograms = ({
             updateState({ key: "programList", value: res?.payload?.data ?? [] });
         });
     };
-
-    useEffect(() => {
-        refetchPrograms();
-    }, []);
-
     const updateState = (request: UpdateStateRequest<keyof InitialState>) => {  // Function: To Update the state
         if (Array.isArray(request)) {
             request.forEach(({ key, value }) =>

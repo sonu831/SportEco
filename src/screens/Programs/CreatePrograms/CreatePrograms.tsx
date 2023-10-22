@@ -13,6 +13,8 @@ import { useRoute } from "@react-navigation/native";
 import { addPrograms } from '../../../services/programs';
 import { AppDispatch } from '../../../store';
 import { useDispatch } from 'react-redux';
+import { setToast } from '../../../store/Toast/reducers';
+import CustomToast from '../../../components/Toast';
 
 
 const CreatePrograms = ({ navigation }) => {
@@ -23,7 +25,7 @@ const CreatePrograms = ({ navigation }) => {
     const [programId, setProgramId] = useState("")
     useEffect(() => {
         if (programId) {
-            navigation.navigate('CreateSession', { programId: programId });
+            navigation.replace('CreateProgramDetails', { programId: programId, programName: programName });
         }
     }, [programId]);
     const handleCreaterProgram = () => { //Funtion:Api Function to create program
@@ -32,7 +34,14 @@ const CreatePrograms = ({ navigation }) => {
             description: programDescription,
         };
         dispatch(addPrograms({ data: request })).then((res) => {
-            setProgramId(res?.payload?.data?._id)
+            if (res?.payload?.success) {
+                setProgramId(res?.payload?.data?._id)
+            } else {
+                setToast({
+                    type: "error",
+                    message: res?.payload?.data?.message,
+                });
+            }
             // goToProgramListScreen()
             // goToCreateProgramDetails(programName, programDescription)
         }).catch((error) => {
@@ -58,7 +67,7 @@ const CreatePrograms = ({ navigation }) => {
             <View style={styles.mainView}>
                 <MyText text={"Enter Program Details."} fontsize={24} fontFamily="BOLD" />
                 <MyText text={"Give a unique name & description to this program"} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
-                <View style={{ height: '3%' }} />
+                <View style={{ height: '10%' }} />
                 <TextInput
                     mode="outlined"
                     label="Program Name"
@@ -93,24 +102,17 @@ const CreatePrograms = ({ navigation }) => {
                 />
                 <View style={{ height: "3%" }} />
                 <CenteredLineWithText lineText={"Sessions"} />
-                {currentSessions.map((item, index) => {
-                    return (
-                        <PlayerCard
-                            key={index.toString()}
-                            playerName={item.name}
-                            playerTime={item.time}
-                            hasRemoveBtn={true}
-                        />
-                    );
-                })}
             </View>
-            <MyButton
-                width={"90%"}
-                alignSelf="center"
-                title={route?.params?.editProgramName.length > 0 ? "Delete Program" : "Add Sessions"}
-                backgroundColor={route?.params?.editProgramName.length ? Colors.darkGray : Colors.orange}
-                onPress={() => handleCreaterProgram()}
-            />
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                <MyButton
+                    width={"90%"}
+                    disabled={true}
+                    alignSelf="center"
+                    title={route?.params?.editProgramName.length > 0 ? "Delete Program" : "Add Sessions"}
+                    backgroundColor={route?.params?.editProgramName.length ? Colors.darkGray : Colors.orange}
+                    onPress={() => handleCreaterProgram()}
+                />
+            </View>
         </View>
     )
 }

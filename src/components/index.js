@@ -9,3 +9,4 @@ export { FAB } from './FAB/index';
 export { MyButton } from './MyButton/index';
 export { SearchBox } from './SearchBox/index';
 export { MyHeader } from './MyHeader/index';
+export { WarningModal } from './WarningModal/index'
