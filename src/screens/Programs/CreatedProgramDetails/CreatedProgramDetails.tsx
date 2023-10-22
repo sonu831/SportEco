@@ -14,9 +14,9 @@ import { useDispatch } from 'react-redux';
 
 const CreateProgramDetails = ({ navigation }) => {
     const route = useRoute();
-    const { programId } = route?.params
+    const { programId, programName } = route?.params
     const dispatch = useDispatch<AppDispatch>();
-    const goToCreateProgramsScreen = () => navigation.navigate('CreatePrograms', { editProgramName: programName, editProgramDescription: programDescription })
+    const goToCreateProgramsScreen = (programDiscription) => navigation.navigate('CreatePrograms', { editProgramName: programName, editProgramDescription: programDiscription })
     const [programDetails, setProgramDetails] = useState("")
     const currentSessions = [
         { id: 1, name: "Badminton League", time: "02 hours 30 min" },
@@ -33,18 +33,16 @@ const CreateProgramDetails = ({ navigation }) => {
             console.error("Error occurred while getProgramDetails:", error);
         })
     };
-    console.log("programDetails", programDetails);
-
     return (
         <View style={styles.container}>
             <Header
                 title=""
                 hasActionIcon
-                actionBtnPress={() => goToCreateProgramsScreen()}
+                actionBtnPress={() => goToCreateProgramsScreen(programDetails?.description)}
                 ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
             />
             <View style={styles.mainView}>
-                {/* <MyText text={programName ? programName : ''} fontsize={24} fontFamily="BOLD" /> */}
+                <MyText text={programName ? programName : ''} fontsize={24} fontFamily="BOLD" />
                 <MyText text={programDetails ? programDetails?.description : ''} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <View style={{ height: '5%' }} />
                 <SearchBox />

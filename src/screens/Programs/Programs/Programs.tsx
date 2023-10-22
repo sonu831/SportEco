@@ -16,7 +16,7 @@ import { styles } from './ProgramsStyle'
 const Programs = ({ navigation, route }) => {
     const { state: { programList: programData } } = usePrograms({ navigation, route }); // var
     const goToCreatePrograms = () => navigation.navigate('CreatePrograms') // var
-    const goToProgramDetails = (programId) => navigation.navigate('CreateProgramDetails', { programId: programId })
+    const goToProgramDetails = (programId, programName) => navigation.navigate('CreateProgramDetails', { programId: programId, programName: programName })
     return (
         <View style={styles.container}>
             <Header title='Manage' />
@@ -36,7 +36,7 @@ const Programs = ({ navigation, route }) => {
                                             bathName={item?.name}
                                             batchSubData={item?.sessions.length}
                                             bacthIndex={index}
-                                            onPress={() => goToProgramDetails(item?._id)}
+                                            onPress={() => goToProgramDetails(item?._id, item?.name)}
                                         />
                                     )
                                 }}
