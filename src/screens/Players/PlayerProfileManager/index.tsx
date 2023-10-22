@@ -35,7 +35,8 @@ const PlayerProfileManager = ({ navigation, route }) => {
     selectedOption,
     phoneNumber,
     isDatePickerVisible,
-    imageUrl,
+    profilePic,
+    avatarImage,
   } = playerDetailsState;
 
   return (
@@ -52,7 +53,7 @@ const PlayerProfileManager = ({ navigation, route }) => {
         <View style={styles.headerBG}>
           <View style={styles.avatarImage}>
             <AvatarImage
-              imageUrl={imageUrl}
+              imageUrl={profilePic || avatarImage}
               placeholderImage={group10}
               resizeMode="cover"
               isEdit={true}
