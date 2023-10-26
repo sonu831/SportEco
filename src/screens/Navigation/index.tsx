@@ -16,7 +16,7 @@ import NotReady from "../NotReady";
 import AddBatch from "../AddBatch";
 import SelectPlayer from "../SelectPlayers";
 import BatchScreen from "../BatchDetails";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Toast from "../../components/Toast";
 import AddProgram from "../AddProgram";
 import AddSession from "../AddSession";
@@ -51,14 +51,60 @@ import CreateProgramDetails from "../Programs/CreatedProgramDetails/CreatedProgr
 import SessionDetails from "../Programs/SessionDetails/SessionDetails";
 import EditSession from "../Programs/EditSession/EditSession";
 import PlayerProfileManager from "../Players/PlayerProfileManager";
+import NetInfo from "@react-native-community/netinfo";
+import MyText from "../../components/MyText";
+import { Colors } from "../../constants/Colors";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   const { isLoading, appReady, isAccountVerified, isLoginVerified } =
     useNavigation();
+  const [isConnected, setIsConnected] = React.useState(true);
+
+  React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleTryAgain = async () => {
+    try {
+      // Check the network status again
+      const netInfoState = await NetInfo.fetch();
+      if (netInfoState.isConnected) {
+        // Internet connection is available, you can perform necessary actions here.
+        // For example, you might want to re-fetch data, reload components, etc.
+        // For demonstration, let's just reload the entire app.
+        window.location.reload();
+      } else {
+        // Internet connection is still not available.
+        // You can show a message to the user or perform further actions as needed.
+        console.log("Still no internet connection. Please check your network.");
+      }
+    } catch (error) {
+      // Handle errors if any occurred during the process.
+      console.error("Error occurred while checking internet connection:", error);
+    }
+  };
 
   if (!appReady) return <View />;
+
+  // If there's no internet connection, display a message
+  if (!isConnected) {
+    return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <MyText text="Could not connect to the internet." />
+      <MyText text="Please check your network." />
+      <TouchableOpacity onPress={handleTryAgain}>
+        <MyText text="Try Again" style={{ marginTop: 10 }} fontWeight="bold" color={Colors.orange} />
+      </TouchableOpacity>
+    </View>;
+  }
 
   return (
     <>
