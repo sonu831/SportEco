@@ -20,6 +20,26 @@ export const addPlayer = createAsyncThunk(
   }
 );
 
+export const addPlayerWithPic = createAsyncThunk(
+  "addPlayer",
+  async (request: AddPlayerProps, { rejectWithValue }) => {
+    const { data } = request;
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    return axios
+      .post(endpoints.addPlayerWithPic, data, config)
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
+
 export const fetchPlayers = createAsyncThunk(
   "fetchPlayers",
   async (_, { rejectWithValue }) => {
@@ -105,6 +125,7 @@ export const updatePlayerProfile = createAsyncThunk(
       .post(endpoints.updatePlayerProfile, request.player, {
         headers: {
           playerid: request.playerId,
+          "Content-Type": "multipart/form-data", // Setting content type for FormData
         },
       })
       .then((res) => res.data)

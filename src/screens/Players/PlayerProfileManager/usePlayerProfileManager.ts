@@ -112,31 +112,68 @@ const usePlayerProfileManager = ({
     });
   };
 
+  // const handlePlayer = () => {
+  //   const request = {
+  //     first_name: firstName,
+  //     last_name: lastName,
+  //     dbo: dob,
+  //     gender: selectedOption,
+  //     phonenumber: phoneNumber,
+  //     avatarimage: avatarImage,
+  //     profile_pic: profilePic,
+  //   };
+  //   if (isEdit) {
+  //     console.log("editplayerpayload", request, playerId);
+  //     dispatch(
+  //       updatePlayerProfile({ player: request, playerId: playerId })
+  //     ).then((res) => {
+  //       navigation.replace("Players");
+  //     });
+  //   } else {
+  //     console.log("add player request", request);
+  //     dispatch(addPlayer({ data: request })).then((res) => {
+  //       if (res.payload?.data?._id) {
+  //         navigation.replace("Players");
+  //       }
+  //     });
+  //   }
+  // };
+
   const handlePlayer = () => {
-    const request = {
-      first_name: firstName,
-      last_name: lastName,
-      dbo: dob,
-      gender: selectedOption,
-      phonenumber: phoneNumber,
-      avatarimage: avatarImage,
-      profile_pic: profilePic,
-    };
-    if (isEdit) {
-      console.log("editplayerpayload", request, playerId);
-      dispatch(
-        updatePlayerProfile({ player: request, playerId: playerId })
-      ).then((res) => {
-        navigation.replace("Players");
+    const formData = new FormData();
+
+    formData.append("first_name", firstName);
+    formData.append("last_name", lastName);
+    formData.append("dbo", dob);
+    formData.append("gender", selectedOption);
+    formData.append("phonenumber", phoneNumber);
+
+    if (profilePic) {
+      formData.append("profile_pic", {
+        uri: profilePic,
+        type: "image/jpeg",
+        name: "profile.jpg",
       });
     } else {
-      console.log("add player request", request);
-      dispatch(addPlayer({ data: request })).then((res) => {
+      formData.append("avatarimage", avatarImage || "10");
+    }
+
+    const logPayload = isEdit ? "editplayerpayload" : "add player request";
+    console.log(logPayload, formData);
+
+    const action = isEdit
+      ? updatePlayerProfile({ player: formData, playerId })
+      : addPlayer({ data: formData });
+
+    dispatch(action)
+      .then((res) => {
         if (res.payload?.data?._id) {
           navigation.replace("Players");
         }
+      })
+      .catch((error) => {
+        console.error("logPlayerError", error);
       });
-    }
   };
 
   const updateState = (request: { key: keyof InitialState; value: any }) => {
@@ -147,16 +184,6 @@ const usePlayerProfileManager = ({
   const handleEditBtn = () => navigation.navigate("MyAccount");
 
   const handleUploadImage = (image: string) => {
-    const formData = new FormData();
-
-    formData.append("profile_pic", {
-      uri: image,
-      name: "profile_pic", // You can change the name as needed
-      type: "image/jpeg", // Adjust the type based on your image format
-    });
-    // Implementation for uploading image
-    dispatch(uploadUserProfilePicture(formData)).then((res) => {});
-    console.log("handleUploadImage", image);
     setPlayerDetailsState({ ...playerDetailsState, profilePic: image });
   };
 
