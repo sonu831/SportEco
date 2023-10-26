@@ -15,7 +15,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { Colors } from "../../constants/Colors";
 import SelectUserTypes from "./selectUserTypes";
 
-navigator.geolocation = require("@react-native-community/geolocation");
+//navigator.geolocation = require("@react-native-community/geolocation");
 
 const SaveButton = ({ handleSave, currentStep, disabled = false }) => (
   <View
