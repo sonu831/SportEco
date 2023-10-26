@@ -13,24 +13,18 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "enabled": true,
-      "fallbackToCacheTimeout": 30000,
-      "checkAutomatically": "ON_ERROR_RECOVERY",
-      "url": "https://u.expo.dev/61bfb066-e659-447c-a791-3c6cc8613820",
-      "username": "sport-eco"
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "sport.eco"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "sport.eco",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "package": "sport.eco"
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
@@ -66,8 +60,6 @@
           }
         }
       ]
-    },
-    "runtimeVersion": "1.0.0",
-    "owner": "sport-eco"
+    }
   }
 }
