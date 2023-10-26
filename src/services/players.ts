@@ -11,6 +11,20 @@ export const addPlayer = createAsyncThunk(
   async (request: AddPlayerProps, { rejectWithValue }) => {
     const { data } = request;
 
+    return axios
+      .post(endpoints.addPlayer, data)
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
+
+export const addPlayerWithPic = createAsyncThunk(
+  "addPlayer",
+  async (request: AddPlayerProps, { rejectWithValue }) => {
+    const { data } = request;
+
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -18,7 +32,7 @@ export const addPlayer = createAsyncThunk(
     };
 
     return axios
-      .post(endpoints.addPlayer, data, config)
+      .post(endpoints.addPlayerWithPic, data, config)
       .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);
