@@ -12,6 +12,7 @@ export const endpoints = {
   fetchPlayers: `/api/player/listofplayers`,
   fetchPlayerById: `/api/player/getplayerdetailbyid`,
   addPlayer: `/api/player/addplayerprofile`,
+  addPlayerWithPic: `/api/player/addplayerprofilewithpic`,
   updatePlayerProfile: `api/player/updateplayerprofile`,
   uploadPlayerProfileImage: `/api/player/playerprofilepicupload`,
   deletePlayer: `api/player/deleteplayerbyid`,
@@ -39,5 +40,5 @@ export const endpoints = {
   deleteProgram: `api/program/deleteprogrambyid`,
   updateProgram: `api/program/updateprogram`,
   addSessionInProgram: `api/program/addsessioninprogram`,
-  getProgromDataById: `/api/program/getprogramdatabyid`
+  getProgromDataById: `/api/program/getprogramdatabyid`,
 };

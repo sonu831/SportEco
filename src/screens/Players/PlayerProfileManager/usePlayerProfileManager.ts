@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { userDetails$ } from "../../../store/users/selectors";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -9,9 +10,9 @@ import {
   fetchPlayerById,
   fetchPlayers,
   searchPlayer,
-  addPlayer,
   uploadPlayerProfilePicture,
   updatePlayerProfile,
+  addPlayerWithPic,
 } from "../../../services/players";
 import { playerDetails$ } from "../../../store/players/selectors";
 import {
@@ -112,39 +113,12 @@ const usePlayerProfileManager = ({
     });
   };
 
-  // const handlePlayer = () => {
-  //   const request = {
-  //     first_name: firstName,
-  //     last_name: lastName,
-  //     dbo: dob,
-  //     gender: selectedOption,
-  //     phonenumber: phoneNumber,
-  //     avatarimage: avatarImage,
-  //     profile_pic: profilePic,
-  //   };
-  //   if (isEdit) {
-  //     console.log("editplayerpayload", request, playerId);
-  //     dispatch(
-  //       updatePlayerProfile({ player: request, playerId: playerId })
-  //     ).then((res) => {
-  //       navigation.replace("Players");
-  //     });
-  //   } else {
-  //     console.log("add player request", request);
-  //     dispatch(addPlayer({ data: request })).then((res) => {
-  //       if (res.payload?.data?._id) {
-  //         navigation.replace("Players");
-  //       }
-  //     });
-  //   }
-  // };
-
   const handlePlayer = () => {
     const formData = new FormData();
 
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
-    formData.append("dbo", dob);
+    formData.append("dbo", JSON.stringify(dob));
     formData.append("gender", selectedOption);
     formData.append("phonenumber", phoneNumber);
 
@@ -154,26 +128,20 @@ const usePlayerProfileManager = ({
         type: "image/jpeg",
         name: "profile.jpg",
       });
+      // formData.append("profile_pic", profilePic);
     } else {
       formData.append("avatarimage", avatarImage || "10");
     }
 
-    const logPayload = isEdit ? "editplayerpayload" : "add player request";
-    console.log(logPayload, formData);
-
     const action = isEdit
       ? updatePlayerProfile({ player: formData, playerId })
-      : addPlayer({ data: formData });
+      : addPlayerWithPic(formData);
 
-    dispatch(action)
-      .then((res) => {
-        if (res.payload?.data?._id) {
-          navigation.replace("Players");
-        }
-      })
-      .catch((error) => {
-        console.error("logPlayerError", error);
-      });
+    dispatch(action).then((res) => {
+      if (res?.payload?.data?._id) {
+        navigation.replace("Players");
+      }
+    });
   };
 
   const updateState = (request: { key: keyof InitialState; value: any }) => {
@@ -213,7 +181,7 @@ const usePlayerProfileManager = ({
         dbo,
         gender,
       } = route.params.playerData;
-      if (_id && first_name && last_name) {
+      if (!isEmpty(_id)) {
         setPlayerDetailsState((prev) => ({
           ...prev,
           firstName: first_name,
@@ -223,10 +191,10 @@ const usePlayerProfileManager = ({
           profilePic: profile_pic,
           dob: dbo,
           selectedOption: gender,
-          playerId: route.params.playerId,
+          playerId: _id || route.params.playerId,
         }));
+        setIsEdit(true);
       }
-      setIsEdit(true);
     } else {
       setIsEdit(false);
     }
