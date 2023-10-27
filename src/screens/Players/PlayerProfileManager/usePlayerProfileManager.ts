@@ -9,9 +9,9 @@ import {
   fetchPlayerById,
   fetchPlayers,
   searchPlayer,
-  addPlayer,
   uploadPlayerProfilePicture,
   updatePlayerProfile,
+  addPlayerWithPic,
 } from "../../../services/players";
 import { playerDetails$ } from "../../../store/players/selectors";
 import {
@@ -154,26 +154,38 @@ const usePlayerProfileManager = ({
         type: "image/jpeg",
         name: "profile.jpg",
       });
+      // formData.append("profile_pic", profilePic);
     } else {
       formData.append("avatarimage", avatarImage || "10");
     }
+
+    // const formData = {
+    //   first_name: firstName,
+    //   last_name: lastName,
+    //   dbo: dob,
+    //   gender: selectedOption,
+    //   phonenumber: phoneNumber,
+    //   avatarimage: avatarImage || "10",
+    // };
+
+    // // Only add profile_pic to the object if it exists
+    // if (profilePic) {
+    //   formData["profile_pic"] = profilePic;
+    // }
 
     const logPayload = isEdit ? "editplayerpayload" : "add player request";
     console.log(logPayload, formData);
 
     const action = isEdit
       ? updatePlayerProfile({ player: formData, playerId })
-      : addPlayer({ data: formData });
+      : addPlayerWithPic(formData);
 
-    dispatch(action)
-      .then((res) => {
-        if (res.payload?.data?._id) {
-          navigation.replace("Players");
-        }
-      })
-      .catch((error) => {
-        console.error("logPlayerError", error);
-      });
+    dispatch(action).then((res) => {
+      console.log("player reeeee", res);
+      if (res.payload?.data?._id) {
+        navigation.replace("Players");
+      }
+    });
   };
 
   const updateState = (request: { key: keyof InitialState; value: any }) => {

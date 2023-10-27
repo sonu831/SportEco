@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as Sentry from "@sentry/react-native";
 import { hideLoader, showLoader } from "../../store/common/reducers";
 import config from "../../../config";
 import { setToast } from "../../store/Toast/reducers";
@@ -16,8 +15,9 @@ export const initializeStore = (initialStore: any) => {
 const instance = axios.create({
   baseURL: config.apiUrl,
   withCredentials: true,
-  timeout: 1000,
+  timeout: 5000,
 });
+
 const logApiRequest = (request) => {
   // Log the Request Headers
   console.log("Request Headers:", request.headers);
@@ -53,6 +53,14 @@ const requestHandler = async (request: any) => {
 
   request.headers["token"] = token;
 
+  if (request.data instanceof FormData) {
+    request.headers["Content-Type"] = "multipart/form-data";
+    console.log("headers form data", request.headers);
+  } else {
+    // Set the Content-Type header to 'application/json' for all other requests
+    request.headers["Content-Type1"] = "application/json";
+  }
+
   store.dispatch(showLoader());
   // Sentry.captureException("sport eco request", request);
   console.log("Api request", request);
@@ -68,14 +76,15 @@ const responseHandler = (response: any) => {
     storeDataInStorage(StorageKeys.tokenKey, token);
   }
   //Sentry.captureException("sport eco response", response);
-  //console.log("api response", response);
-  logApiResponse(response);
+  console.log("api response", response);
+  //logApiResponse(response);
   return response;
 };
 
 const errorHandler = (error: any) => {
   store.dispatch(hideLoader());
-  if (error.response.status === 401) {
+  console.log("API ERROR", error);
+  if (error?.response?.status === 401) {
     AsyncStorage.clear().then(() => {
       store.dispatch(
         setToast({
@@ -86,7 +95,7 @@ const errorHandler = (error: any) => {
     });
   }
 
-  Sentry.captureException("sport-eco API error", error.response);
+  // Sentry.captureException("sport-eco API error", error.response);
   throw error;
 };
 
