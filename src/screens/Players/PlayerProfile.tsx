@@ -7,6 +7,8 @@ import CardItem from "../../components/CardItem";
 import MyButton from "../../components/MyButton";
 import { Colors } from "../../constants/Colors";
 import usePlayers from "./usePlayers";
+import AvatarImage from "../../components/AvatarImage";
+import group10 from "../../assets/images/group904.png";
 
 const PlayerProfile = ({ navigation, route }) => {
   const { playerProfileResponse, handleDeletePlayer } = usePlayers({
@@ -14,10 +16,14 @@ const PlayerProfile = ({ navigation, route }) => {
     route,
   });
 
-  const { first_name = "", last_name = "", _id } = playerProfileResponse || {};
+  const {
+    first_name = "",
+    last_name = "",
+    _id,
+    profile_pic,
+  } = playerProfileResponse || {};
 
   const goToEditPlayerProfile = () => {
-    console.log("sendingplayer");
     navigation.navigate("PlayerProfileManager", {
       isEdit: true,
       playerId: _id,
@@ -31,10 +37,14 @@ const PlayerProfile = ({ navigation, route }) => {
     <View style={styles.container}>
       <MyHeader title="Player Profile" backgroundColor="#FBF1D8" />
       <View style={styles.profileContainer}>
-        <Image
-          source={require("../../assets/images/group904.png")}
-          style={styles.profileImage}
-        />
+        <View style={styles.profileImage}>
+          <AvatarImage
+            imageUrl={profile_pic}
+            placeholderImage={group10}
+            resizeMode="cover"
+            isEdit={true}
+          />
+        </View>
         <MyText text={`${first_name} ${last_name}`} center fontsize={20} />
         <TouchableOpacity onPress={goToEditPlayerProfile}>
           <Text style={styles.viewProfileText}>
@@ -83,12 +93,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 70,
   },
   profileImage: {
+    marginRight: 10,
     alignSelf: "center",
     width: 100,
     height: 100,
-    borderWidth: 2,
-    borderColor: Colors.darkslategray,
-    borderRadius: 100,
   },
   viewProfileText: {
     textAlign: "center",

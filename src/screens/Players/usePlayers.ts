@@ -15,6 +15,7 @@ import { playerDetails$ } from "../../store/players/selectors";
 import { PlayerDefinition } from "../../types/player";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { HandleDeletePlayerFunction, InitialState, PlayerData } from "./config";
+import { mapResponseToPlayerData } from "./mapper";
 
 const initialState = {
   showConfirmation: false,
@@ -76,10 +77,12 @@ const usePlayers = ({
   };
 
   useEffect(() => {
-    if (!route?.params?.id) return;
-    dispatch(fetchPlayerById(route.params.id)).then((res) => {
-      setPlayerProfileResponse(res?.payload?.data);
-    });
+    if (route?.params?.id)
+      dispatch(fetchPlayerById(route.params.id)).then((res) => {
+        const mapped = mapResponseToPlayerData(res?.payload?.data);
+
+        setPlayerProfileResponse(mapped);
+      });
   }, []);
 
   useEffect(() => {

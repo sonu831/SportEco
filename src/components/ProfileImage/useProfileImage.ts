@@ -43,7 +43,6 @@ const useProfileImage = () => {
     });
     // Implementation for uploading image
     dispatch(uploadUserProfilePicture(formData)).then((res) => {});
-    console.log("handleUploadImage", image);
     setImageUrl(image);
   };
 
