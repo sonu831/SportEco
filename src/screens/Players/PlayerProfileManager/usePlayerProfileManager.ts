@@ -172,16 +172,11 @@ const usePlayerProfileManager = ({
     // if (profilePic) {
     //   formData["profile_pic"] = profilePic;
     // }
-
-    const logPayload = isEdit ? "editplayerpayload" : "add player request";
-    console.log(logPayload, formData);
-
     const action = isEdit
       ? updatePlayerProfile({ player: formData, playerId })
       : addPlayerWithPic(formData);
 
     dispatch(action).then((res) => {
-      console.log("player reeeee", res);
       if (res.payload?.data?._id) {
         navigation.replace("Players");
       }

@@ -28,11 +28,9 @@ export const addPlayerWithPic = createAsyncThunk(
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
-        debugger;
         return res;
       })
       .catch((err) => {
-        debugger;
         rejectWithValue(err);
       });
   }
