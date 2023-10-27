@@ -96,6 +96,7 @@ const errorHandler = (error: any) => {
     });
   }
 
+
   // Sentry.captureException("sport-eco API error", error.response);
   throw error;
 };
