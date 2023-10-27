@@ -31,6 +31,7 @@ export const addPlayerWithPic = createAsyncThunk(
         return res.data;
       })
       .catch((err) => {
+        debugger;
         rejectWithValue(err);
       });
   }
