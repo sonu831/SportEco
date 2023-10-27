@@ -96,7 +96,11 @@ const errorHandler = (error: any) => {
     });
   }
 
+<<<<<<< HEAD
   // Sentry.captureException("sport-eco API error", error.response);
+=======
+  //Sentry.captureException("sport-eco API error", error.response);
+>>>>>>> 33c227e (Upgraded to 49)
   throw error;
 };
 
