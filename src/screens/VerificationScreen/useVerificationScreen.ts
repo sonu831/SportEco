@@ -3,6 +3,7 @@ import {
   registerUser,
   validateOtp,
 } from "./../../services/users";
+// import * as Sentry from "@sentry/react-native";
 import { phNumRegex, mockCode } from "./../../constants/index";
 import { useRef, useState } from "react";
 import {

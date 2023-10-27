@@ -1,4 +1,5 @@
 import axios from "axios";
+//import * as Sentry from "@sentry/react-native";
 import { hideLoader, showLoader } from "../../store/common/reducers";
 import config from "../../../config";
 import { setToast } from "../../store/Toast/reducers";
@@ -95,7 +96,7 @@ const errorHandler = (error: any) => {
     });
   }
 
-  // Sentry.captureException("sport-eco API error", error.response);
+  //Sentry.captureException("sport-eco API error", error.response);
   throw error;
 };
 
