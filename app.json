@@ -15,16 +15,22 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "sport.eco"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "sport.eco"
+      "package": "sport.eco",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
@@ -46,20 +52,7 @@
         {
           "username": "sport-eco"
         }
-      ],
-      "sentry-expo"
-    ],
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "w2c-tech",
-            "project": "react-native",
-            "authToken": "2a6a7923c2a5487c9f23c921e60734e4ecd087e5f5b643818e0adcfb94f961cf"
-          }
-        }
       ]
-    }
+    ]
   }
 }
