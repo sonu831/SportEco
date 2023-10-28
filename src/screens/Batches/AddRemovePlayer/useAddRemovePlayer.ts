@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 // Services
-import { addPlayersInBatch, fetchBatchById } from "../../../services/batches";
+import {
+  addPlayersInBatch,
+  deletePlayerFromBatch,
+  fetchBatchById,
+} from "../../../services/batches";
 import { fetchPlayers } from "../../../services/players";
 
 // Constants
@@ -151,9 +155,20 @@ const useAddRemovePlayer = () => {
 
   const handleCurrentParticipantRemove = (player: PlayerResponse) => {
     // 1. Remove the player from currentParticipantsList
-    setCurrentParticipants((current) =>
-      current.filter((p) => p.playerid !== player.playerid)
-    );
+    const request = {
+      batchId: route.params.batch_Id,
+      playerId: player.playerid,
+    };
+    dispatch(deletePlayerFromBatch(request))
+      .then((res) => {
+        if (res?.payload?.success)
+          setCurrentParticipants((current) =>
+            current.filter((p) => p.playerid !== player.playerid)
+          );
+      })
+      .catch((error) => {
+        console.error("Error adding players to batch:", error);
+      });
   };
 
   // Return values
