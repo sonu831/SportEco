@@ -4,6 +4,9 @@
   },
   "build": {
     "development": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://43.204.36.93:3000"
+      },
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
@@ -29,6 +32,9 @@
       "channel": "preview3"
     },
     "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://43.204.36.93:3000"
+      },
       "ios": {
         "resourceClass": "m1-medium"
       },

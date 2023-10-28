@@ -14,7 +14,7 @@ export const initializeStore = (initialStore: any) => {
 };
 
 const instance = axios.create({
-  baseURL: "http://43.204.36.93:3000",
+  baseURL: config.apiUrl,
   withCredentials: true,
   timeout: 5000,
 });
