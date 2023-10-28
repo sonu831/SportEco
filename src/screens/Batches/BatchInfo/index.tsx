@@ -12,7 +12,8 @@ import { useBatchInfo } from "./useBatchInfo";
 import manageInfo from "../../../assets/images/manage_1.png";
 
 const BatchInfo = ({ navigation }) => {
-  const { gotoEditBatchInfo, goToAddRemovePlayer, batchInfo } = useBatchInfo();
+  const { gotoEditBatchInfo, goToAddRemovePlayer, batchDetails } =
+    useBatchInfo();
   return (
     <View style={styles.container}>
       <Header
@@ -21,17 +22,21 @@ const BatchInfo = ({ navigation }) => {
         ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
       />
       <View style={styles.mainView}>
-        <MyText text={batchInfo?.batch_name} fontsize={24} fontFamily="BOLD" />
         <MyText
-          text={batchInfo?.description}
+          text={batchDetails?.batch_name}
+          fontsize={24}
+          fontFamily="BOLD"
+        />
+        <MyText
+          text={batchDetails?.description}
           fontsize={13}
           fontFamily="REGULAR"
           color={Colors.gray2}
         />
-        {batchInfo?.players.length > 0 ? (
+        {batchDetails?.players.length > 0 ? (
           <View>
             <SearchBox />
-            {batchInfo?.players.map((item, index) => {
+            {batchDetails?.players.map((item, index) => {
               return (
                 <BatchMemberCard
                   batchMemberInfo={item}
@@ -61,7 +66,7 @@ const BatchInfo = ({ navigation }) => {
           </View>
         )}
       </View>
-      <FAB onPress={() => goToAddRemovePlayer(batchInfo)} />
+      <FAB onPress={() => goToAddRemovePlayer(batchDetails)} />
     </View>
   );
 };

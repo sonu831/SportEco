@@ -17,14 +17,11 @@ import PlayerCard from "../../../components/Players/PlayerCard";
 
 const AddRemovePlayer = ({ navigation, route }) => {
   const {
-    playersList,
-    selectedPlayers,
-    setSelectedPlayers,
-    addPlayerToBatch,
-    handlePlayerSelection,
+    handleCurrentParticipantRemove,
+    toggleSelection,
+    remainingParticipants,
     handleAddPlayerInBatch,
-    saveDeletePlayer,
-    currentParticipants,
+    currentParticipantsList,
   } = useAddRemovePlayer();
 
   return (
@@ -34,7 +31,7 @@ const AddRemovePlayer = ({ navigation, route }) => {
         hasActionIcon
         actionBtnPress={handleAddPlayerInBatch}
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
-        isActionBtnDisabled={!selectedPlayers}
+        isActionBtnDisabled={!remainingParticipants}
       />
       <ScrollView
         style={styles.mainView}
@@ -42,21 +39,19 @@ const AddRemovePlayer = ({ navigation, route }) => {
           paddingBottom: "10%",
         }}
       >
-        {playersList?.length > 0 ? (
+        {remainingParticipants?.length || currentParticipantsList.length > 0 ? (
           <View>
             <SearchBox />
             <FlatList
-              data={playersList}
+              data={remainingParticipants}
               renderItem={({ item, index }) => {
-                const isSelected = selectedPlayers.findIndex(
-                  (e) => e._id == item._id
-                );
                 return (
                   <PlayerCard
+                    key={`player-${item._id}`}
                     playerName={item.first_name}
                     lastName={item.last_name}
-                    isSelected={isSelected > -1 ? true : false}
-                    onPress={() => saveDeletePlayer(item)}
+                    isSelected={item.isSelected}
+                    onPress={() => toggleSelection(item)}
                   />
                 );
               }}
@@ -84,15 +79,39 @@ const AddRemovePlayer = ({ navigation, route }) => {
                       </Text>
                       <View style={{ borderWidth: 0.2, width: "30%" }} />
                     </View>
-                    {currentParticipants.map((item, index) => {
-                      return (
-                        <PlayerCard
-                          key={index.toString()}
-                          playerName={item.name}
-                          hasRemoveBtn={true}
-                        />
-                      );
-                    })}
+                    <View>
+                      {currentParticipantsList.length > 0 ? (
+                        currentParticipantsList.map((item, index) => (
+                          <PlayerCard
+                            key={index.toString()}
+                            playerName={item.name}
+                            hasRemoveBtn
+                            onPress={() => handleCurrentParticipantRemove(item)}
+                          />
+                        ))
+                      ) : (
+                        <View
+                          style={{
+                            width: "100%",
+                            alignItems: "center",
+                            height: "250px",
+                            marginTop: "10%",
+                            marginBottom: "10%",
+                          }}
+                        >
+                          <Image
+                            source={require("../../../assets/images/manage_1.png")}
+                          />
+                          <Text
+                            style={{
+                              color: "grey",
+                            }}
+                          >
+                            No Current Participants
+                          </Text>
+                        </View>
+                      )}
+                    </View>
                   </View>
                 );
               }}
@@ -118,7 +137,7 @@ const AddRemovePlayer = ({ navigation, route }) => {
             </Text>
           </View>
         )}
-        <MyButton width={"90%"} title="+  Create Player" alignSelf="center" />
+        <MyButton title="+  Create Player" style={styles.createButton} />
       </ScrollView>
     </View>
   );

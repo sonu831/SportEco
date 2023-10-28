@@ -1,26 +1,51 @@
 import { useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useDispatch } from "react-redux";
+import { fetchBatchById } from "../../../services/batches";
 import type { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../Navigation/types";
+import type { RootStackParamList } from "../../Navigation/types";
+import { Player, BatchDetail } from "./config";
 
 export const useBatchInfo = () => {
-  const route = useRoute<RouteProp<RootStackParamList, "BatchInfo">>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, "BatchInfo">>();
+  const dispatch = useDispatch();
+  const [batchDetails, setBatchDetails] = useState<BatchDetail | null>(null); // Please replace 'BatchType' with actual type
 
-  const batchInfo = route?.params?.batchInfo;
+  useEffect(() => {
+    if (route.params?._id) {
+      fetchBatchInfoById(route.params._id);
+    }
+  }, [route.params?._id]);
 
-  const gotoEditBatchInfo = () => {
-    navigation.navigate("EditBatchInfo", { batchInfo });
+  const fetchBatchInfoById = async (batchId: string) => {
+    try {
+      const response = await dispatch(fetchBatchById(batchId));
+      setBatchDetails(response.payload.data);
+    } catch (error) {
+      console.error("Failed to fetch batch info:", error);
+    }
   };
 
-  const goToAddRemovePlayer = (item) => {
-    navigation.navigate("AddRemovePlayer", { batch_Id: item?._id });
+  const gotoEditBatchInfo = () => {
+    if (batchDetails) {
+      navigation.navigate("EditBatchInfo", { batchInfo: batchDetails });
+    } else {
+      console.error("Batch details are not available");
+    }
+  };
+
+  const goToAddRemovePlayer = () => {
+    if (batchDetails?._id) {
+      navigation.navigate("AddRemovePlayer", { batch_Id: batchDetails._id });
+    } else {
+      console.error("Batch ID is not available");
+    }
   };
 
   return {
-    batchInfo,
+    batchDetails,
     gotoEditBatchInfo,
     goToAddRemovePlayer,
   };
