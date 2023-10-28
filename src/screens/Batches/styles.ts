@@ -9,8 +9,13 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   dataNoFoundStyle: {
-    height: "75%",
+    paddingTop: "50%",
+    height: "100%",
     width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noBatchesText: {
     justifyContent: "center",
     alignItems: "center",
   },

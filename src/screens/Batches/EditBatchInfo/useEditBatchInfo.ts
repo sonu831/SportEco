@@ -33,7 +33,7 @@ export const useEditBatchInfo = () => {
     if (!batchId) return;
     try {
       const res = await dispatch(deleteBatch(batchId)).unwrap();
-      if (res.success) {
+      if (res?.success) {
         navigation.navigate("Batches", { shouldRefresh: true });
       } else {
         console.log("Batch deletion was not successful");

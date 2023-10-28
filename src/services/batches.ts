@@ -44,11 +44,11 @@ export const fetchBatches = createAsyncThunk(
 
 export const fetchBatchById = createAsyncThunk(
   "fetchBatchById",
-  async (request: any, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     return axios
       .get(endpoints.fetchBatchById, {
         headers: {
-          batch_id: request.id,
+          batch_id: id,
         },
       })
       .then((res) => res.data)

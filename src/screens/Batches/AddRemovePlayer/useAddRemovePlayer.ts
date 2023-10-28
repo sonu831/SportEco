@@ -1,25 +1,92 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { addPlayersInBatch } from "../../../services/batches";
+
+// Services
+import { addPlayersInBatch, fetchBatchById } from "../../../services/batches";
 import { fetchPlayers } from "../../../services/players";
+
+// Constants
 import ScreensName from "../../../constants/ScreenNames";
 
+// Interfaces
 interface Player {
+  account_createdAt: string;
+  avatarimage: number;
+  coach_id: string;
+  first_name: string;
+  last_name: string;
+  phonenumber: string;
+  __v: number;
   _id: string;
-  name: string;
+  isSelected: boolean;
 }
 
 interface RouteParams {
   batch_Id: string;
 }
 
+interface PlayerResponse {
+  name: string;
+  playerid: string;
+}
+
+// Custom Hook
 const useAddRemovePlayer = () => {
+  // Hooks
   const navigation = useNavigation();
-  const route = useRoute();
+  const route = useRoute<RouteParams>();
   const dispatch = useDispatch();
-  const [playersList, setPlayersList] = useState<Player[]>([]);
-  const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
+
+  // State
+  const [allPlayers, setAllPlayers] = useState<Player[]>([]);
+  const [currentParticipantsList, setCurrentParticipants] = useState<
+    PlayerResponse[]
+  >([]);
+  const [remainingParticipants, setRemainingParticipants] = useState<Player[]>(
+    []
+  );
+
+  // Effects
+  useEffect(() => {
+    if (route.params?.batch_Id) {
+      fetchBatchInfoById(route.params.batch_Id);
+    }
+  }, [route.params?.batch_Id]);
+
+  useEffect(() => {
+    fetchAllPlayers();
+  }, []);
+
+  useEffect(() => {
+    if (currentParticipantsList?.length && allPlayers?.length) {
+      const currentPlayerIds = currentParticipantsList.map(
+        (player) => player.playerid
+      );
+      const filteredRemainingParticipants = allPlayers.filter(
+        (player) => !currentPlayerIds.includes(player._id)
+      );
+      setRemainingParticipants(filteredRemainingParticipants);
+    }
+  }, [currentParticipantsList, allPlayers]);
+
+  // Methods
+  const fetchBatchInfoById = async (batchId: string) => {
+    try {
+      const response = await dispatch(fetchBatchById(batchId));
+      if (
+        response.payload &&
+        response.payload.data &&
+        Array.isArray(response.payload.data.players)
+      ) {
+        setCurrentParticipants(response.payload.data.players);
+      } else {
+        console.error("Players information is not available in the response");
+      }
+    } catch (error) {
+      console.error("Failed to fetch batch info:", error);
+    }
+  };
 
   const goToBatchesScreen = (shouldRefresh = false) => {
     navigation.navigate(ScreensName.Batches, { shouldRefresh });
@@ -28,87 +95,75 @@ const useAddRemovePlayer = () => {
   const fetchAllPlayers = async () => {
     try {
       const response = await dispatch(fetchPlayers());
-      setPlayersList(response.payload.data);
+      setAllPlayers(response.payload.data);
     } catch (error) {
       console.error("Failed to fetch players:", error);
     }
   };
 
-  const addPlayerToBatch = async () => {
-    const batchId = (route.params as RouteParams).batch_Id;
-    const playersToAdd = selectedPlayers.map((player) => ({
-      playerid: player._id,
-      name: player.name,
-    }));
-    const request = { batch_id: batchId, players: playersToAdd };
-
-    try {
-      await dispatch(addPlayersInBatch(request));
-      goToBatchesScreen(true);
-    } catch (error) {
-      console.error("Failed to add players in batch", error);
-    }
-  };
-
   const handlePlayerSelection = (player: Player) => {
-    const index = selectedPlayers.findIndex((p) => p._id === player._id);
-    if (index > -1) {
-      const updatedPlayers = selectedPlayers.filter(
-        (p) => p._id !== player._id
-      );
-      setSelectedPlayers(updatedPlayers);
-    } else {
-      setSelectedPlayers((prevPlayers) => [...prevPlayers, player]);
-    }
+    const updatedPlayers = remainingParticipants.map((p) =>
+      p._id === player._id ? { ...p, isSelected: !p.isSelected } : p
+    );
+    setRemainingParticipants(updatedPlayers);
   };
 
   const handleAddPlayerInBatch = () => {
-    const request = {
-      batch_id: route.params.batch_Id,
-      players: [
-        {
-          playerid: "6512f1f92feb5c05bb8c8624",
-          name: "vishal",
-        },
-      ],
-    };
-    dispatch(addPlayersInBatch(request)).then((res) => {
-      // const resData = res.payload?.data;
-      goToBatchesScreen(true);
-    });
-  };
+    if (
+      (remainingParticipants?.length || currentParticipantsList?.length) &&
+      route?.params?.batch_Id
+    ) {
+      const selectedRemainingPlayers =
+        remainingParticipants?.filter((player) => player.isSelected) || [];
 
-  const saveDeletePlayer = (item: any) => {
-    debugger;
-    const isAlready = selectedPlayers.findIndex((e) => e._id == item._id);
-    if (isAlready > -1) {
-      const filteredData = selectedPlayers.filter((e) => e._id != item._id);
-      setSelectedPlayers(filteredData);
-    } else {
-      setSelectedPlayers([...selectedPlayers, item]);
+      // Assume that all current participants are to be included
+      const currentPlayers =
+        currentParticipantsList?.map((player) => ({
+          playerid: player._id,
+          name: player.name,
+        })) || [];
+
+      const selectedPlayers = selectedRemainingPlayers.map((player) => ({
+        playerid: player._id,
+        name: `${player.first_name} ${player.last_name}`,
+      }));
+
+      const players = [...currentPlayers, ...selectedPlayers];
+
+      if (players.length > 0) {
+        const request = {
+          batch_id: route.params.batch_Id,
+          players,
+        };
+
+        dispatch(addPlayersInBatch(request))
+          .then(() => {
+            goToBatchesScreen(true);
+          })
+          .catch((error) => {
+            console.error("Error adding players to batch:", error);
+          });
+      } else {
+        console.log("No players selected or found in current participants.");
+      }
     }
   };
 
-  const currentParticipants = [
-    { id: 1, name: "Miles Morales" },
-    { id: 2, name: "Gwen Stacy" },
-    { id: 3, name: "May Parker" },
-  ];
+  const handleCurrentParticipantRemove = (player: PlayerResponse) => {
+    // 1. Remove the player from currentParticipantsList
+    setCurrentParticipants((current) =>
+      current.filter((p) => p.playerid !== player.playerid)
+    );
+  };
 
-  useEffect(() => {
-    fetchAllPlayers();
-  }, []);
-
+  // Return values
   return {
-    currentParticipants,
+    toggleSelection: handlePlayerSelection,
+    remainingParticipants,
+    currentParticipantsList,
     handleAddPlayerInBatch,
     goToBatchesScreen,
-    addPlayerToBatch,
-    handlePlayerSelection,
-    playersList,
-    selectedPlayers,
-    setSelectedPlayers,
-    saveDeletePlayer,
+    handleCurrentParticipantRemove,
   };
 };
 

@@ -43,7 +43,7 @@ const useBatches = ({ navigation, route }: UseBatchesProps) => {
     [navigation]
   );
   const gotoBatchInfo = useCallback(
-    (item) => navigation.navigate("BatchInfo", { batchInfo: item }),
+    (item) => navigation.navigate("BatchInfo", { ...item }),
     [navigation]
   );
 

@@ -6,6 +6,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   mainView: {
+    flex: 1,
     padding: 20,
+  },
+  createButton: {
+    width: "90%",
+    alignSelf: "center",
+    marginBottom: 10,
   },
 });
