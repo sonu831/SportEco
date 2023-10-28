@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/61bfb066-e659-447c-a791-3c6cc8613820"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -53,6 +54,9 @@
           "username": "sport-eco"
         }
       ]
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
   }
 }
