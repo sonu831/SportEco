@@ -1,78 +1,132 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
-import { userDetails$ } from "../../store/users/selectors";
+import { useDispatch } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
 import { RouteProp } from "@react-navigation/native";
 import { AppDispatch } from "../../store";
-import { BatchData, InitialState, } from "./config";
-import { fetchBatchById, fetchBatches, searchBatch } from "../../services/batches";
+import { BatchData, InitialState } from "./config";
+import {
+  fetchBatchById,
+  fetchBatches,
+  searchBatch,
+} from "../../services/batches";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { fetchPlayers } from "../../services/players";
 
 const initialState = {
-    showConfirmation: false,
-    batchList: [],
+  showConfirmation: false,
+  batchList: [],
 };
 
-const useBatches = ({
-    navigation,
-    route
-}: {
-    navigation: NativeStackNavigationProp<
-        RootStackParamList,
-        keyof RootStackParamList,
-        undefined
-    >;
-    route: RouteProp<RootStackParamList, "Batches">;
-}) => {
-    const dispatch = useDispatch<AppDispatch>(); // var
-    const [state, setState] = useState<Partial<InitialState>>(initialState); // useState
-    const [batchProfileResponse, setBatchProfileResponse] = useState<BatchData>();
-    const [playersList, setPlayersList] = useState([])
-    const handleGoBack = () => navigation.goBack();  // Function : Navigation
-    const handleEditBtn = () => navigation.navigate("MyAccount");  // Function : Navigation
-    useEffect(() => { // useEffect : To Fetch batches Data
-        if (!route?.params?.id) return;
-        dispatch(fetchBatchById(route.params.id)).then((res) => {
-            setBatchProfileResponse(res?.payload?.data);
-        });
-    }, []);
-    useEffect(() => {
-        dispatch(fetchPlayers()).then((res) =>
-            setPlayersList(res?.payload?.data)
-        );
-    }, [dispatch]);
-    const updateState = (request: UpdateStateRequest<keyof InitialState>) => {  // Function: To Update the state
-        if (Array.isArray(request)) {
-            request.forEach(({ key, value }) =>
-                setState((preState) => ({ ...preState, [key]: value }))
-            );
-        } else {
-            const { key, value } = request;
-            setState((preState) => ({ ...preState, [key]: value }));
-        }
-    };
-    useEffect(() => { // useEffect: To fetch the baches list
-        dispatch(fetchBatches()).then((res) =>
-            updateState({ key: "batchList", value: res?.payload?.data ?? [] })
-        );
-    }, [dispatch]);
-    const onChangeSearchBar = (e: string) => {
-        dispatch(searchBatch(e)).then((res) => {
-            updateState({ key: "batchList", value: res?.payload?.data ?? [] });
-        });
-    };
-    return {
-        updateState,
-        state,
-        batchProfileResponse,
-        handleGoBack,
-        handleEditBtn,
-        playersList,
-        onChangeSearchBar
-    }
+interface UseBatchesProps {
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    keyof RootStackParamList
+  >;
+  route: RouteProp<RootStackParamList, "Batches">;
 }
 
+const useBatches = ({ navigation, route }: UseBatchesProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [state, setState] = useState<Partial<InitialState>>(initialState);
+  const [batchProfileResponse, setBatchProfileResponse] = useState<BatchData>();
+  const [playersList, setPlayersList] = useState([]);
 
-export default useBatches
+  // Navigation handlers
+  const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
+  const handleEditBtn = useCallback(
+    () => navigation.navigate("MyAccount"),
+    [navigation]
+  );
+  const gotoCreateBatch = useCallback(
+    () => navigation.navigate("CreateBatch"),
+    [navigation]
+  );
+  const gotoBatchInfo = useCallback(
+    (item) => navigation.navigate("BatchInfo", { batchInfo: item }),
+    [navigation]
+  );
+
+  // Data fetchers
+  const fetchBatchList = async () => {
+    try {
+      const response = await dispatch(fetchBatches()).unwrap();
+      updateState({
+        key: "batchList",
+        value: response?.data.length ? response.data : [],
+      });
+    } catch (error) {
+      console.error("Failed to fetch batch list:", error);
+      updateState({ key: "batchList", value: [] });
+    }
+  };
+
+  const fetchBatchProfile = async (id) => {
+    try {
+      const response = await dispatch(fetchBatchById(id)).unwrap();
+      setBatchProfileResponse(response.data);
+    } catch (error) {
+      console.error("Failed to fetch batch profile:", error);
+    }
+  };
+
+  // State updater
+  const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
+    if (Array.isArray(request)) {
+      request.forEach(({ key, value }) =>
+        setState((preState) => ({ ...preState, [key]: value }))
+      );
+    } else {
+      const { key, value } = request;
+      setState((preState) => ({ ...preState, [key]: value }));
+    }
+  };
+
+  // Search handler
+  const onChangeSearchBar = async (query: string) => {
+    try {
+      const response = await dispatch(searchBatch(query)).unwrap();
+      updateState({ key: "batchList", value: response.data || [] });
+    } catch (error) {
+      console.error("Failed to search batches:", error);
+    }
+  };
+
+  // Effects
+  useEffect(() => {
+    fetchBatchList();
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.id) {
+      fetchBatchProfile(route.params.id);
+    }
+  }, [route.params?.id]);
+
+  useEffect(() => {
+    if (route?.params?.shouldRefresh) {
+      fetchBatchList();
+      navigation.setParams({ shouldRefresh: false });
+    }
+  }, [route?.params?.shouldRefresh]);
+
+  useEffect(() => {
+    dispatch(fetchPlayers())
+      .then((res) => setPlayersList(res.payload.data))
+      .catch((error) => console.error("Failed to fetch players:", error));
+  }, [dispatch]);
+
+  // Exposed values and functions
+  return {
+    state,
+    batchProfileResponse,
+    playersList,
+    handleGoBack,
+    handleEditBtn,
+    onChangeSearchBar,
+    gotoCreateBatch,
+    gotoBatchInfo,
+  };
+};
+
+export default useBatches;

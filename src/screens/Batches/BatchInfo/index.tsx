@@ -1,6 +1,6 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import { styles } from "./BatchInfoStyle";
+import { styles } from "./styles";
 import Header from "../../../components/MyHeader";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -8,13 +8,11 @@ import FAB from "../../../components/FAB/index";
 import SearchBox from "../../../components/SearchBox";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
-import { useRoute } from "@react-navigation/native";
+import { useBatchInfo } from "./useBatchInfo";
+import manageInfo from "../../../assets/images/manage_1.png";
 
 const BatchInfo = ({ navigation }) => {
-  const route = useRoute();
-  let batchInfo = route?.params?.batchInfo
-  const gotoEditBatchInfo = () => navigation.navigate("EditBatchInfo");
-  const goToAddRemovePlayer = (item) => navigation.navigate('AddRemovePlayer', { batch_Id: item?._id })
+  const { gotoEditBatchInfo, goToAddRemovePlayer, batchInfo } = useBatchInfo();
   return (
     <View style={styles.container}>
       <Header
@@ -24,20 +22,23 @@ const BatchInfo = ({ navigation }) => {
       />
       <View style={styles.mainView}>
         <MyText text={batchInfo?.batch_name} fontsize={24} fontFamily="BOLD" />
-        <MyText text={batchInfo?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
+        <MyText
+          text={batchInfo?.description}
+          fontsize={13}
+          fontFamily="REGULAR"
+          color={Colors.gray2}
+        />
         {batchInfo?.players.length > 0 ? (
           <View>
             <SearchBox />
-            {
-              batchInfo?.players.map((item, index) => {
-                return (
-                  <BatchMemberCard
-                    batchMemberInfo={item}
-                    batchMemberIndex={index}
-                  />
-                )
-              })
-            }
+            {batchInfo?.players.map((item, index) => {
+              return (
+                <BatchMemberCard
+                  batchMemberInfo={item}
+                  batchMemberIndex={index}
+                />
+              );
+            })}
           </View>
         ) : (
           <View
@@ -48,21 +49,19 @@ const BatchInfo = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Image source={require("../../../assets/images/manage_1.png")} />
+            <Image source={manageInfo} />
             <Text
               style={{
                 color: "grey",
                 letterSpacing: 2,
               }}
             >
-              No Batches Found
+              No Player Found
             </Text>
           </View>
         )}
       </View>
-      <FAB
-        onPress={() => goToAddRemovePlayer(batchInfo)}
-      />
+      <FAB onPress={() => goToAddRemovePlayer(batchInfo)} />
     </View>
   );
 };
@@ -81,7 +80,7 @@ const BatchMemberCard = ({ batchMemberInfo, batchMemberIndex }) => {
         padding: 10,
         borderRadius: 15,
         marginVertical: 10,
-        borderColor: Colors.gray
+        borderColor: Colors.gray,
       }}
     >
       <View
@@ -94,7 +93,12 @@ const BatchMemberCard = ({ batchMemberInfo, batchMemberIndex }) => {
           source={require("../../../assets/images/group904.png")}
           style={{ width: 44, height: 44 }}
         />
-        <MyText text={batchMemberInfo?.name} fontsize={16} fontFamily="MEDIUM" style={{ marginLeft: 12 }} />
+        <MyText
+          text={batchMemberInfo?.name}
+          fontsize={16}
+          fontFamily="MEDIUM"
+          style={{ marginLeft: 12 }}
+        />
       </View>
       <AntDesign name="right" size={16} style={{ marginRight: 5 }} />
     </TouchableOpacity>

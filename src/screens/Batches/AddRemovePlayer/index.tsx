@@ -2,61 +2,31 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   FlatList,
   ScrollView,
   Dimensions,
 } from "react-native";
 import React from "react";
-import { styles } from "./AddRemovePlayerStyle";
+import { styles } from "./styles";
 import Header from "../../../components/MyHeader";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Feather from "react-native-vector-icons/Feather";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchBox from "../../../components/SearchBox";
 import MyButton from "../../../components/MyButton";
-import MyText from "../../../components/MyText";
-import useBatches from "../useBatches";
-import { addPlayersInBatch } from "../../../services/batches";
-import { useDispatch } from "react-redux";
+import useAddRemovePlayer from "./useAddRemovePlayer";
+import PlayerCard from "../../../components/Players/PlayerCard";
 
 const AddRemovePlayer = ({ navigation, route }) => {
-  const goToBacthesScreen = () => navigation.navigate("Batches");
-  const dispatch = useDispatch<import("../../../store").AppDispatch>();
-  const { playersList } = useBatches({ navigation, route }); // var
-  const [selectedPlayers, setSelectedPlayers] = React.useState([]);
-  const currentParticipants = [
-    { id: 1, name: "Miles Morales" },
-    { id: 2, name: "Gwen Stacy" },
-    { id: 3, name: "May Parker" },
-  ];
+  const {
+    playersList,
+    selectedPlayers,
+    setSelectedPlayers,
+    addPlayerToBatch,
+    handlePlayerSelection,
+    handleAddPlayerInBatch,
+    saveDeletePlayer,
+    currentParticipants,
+  } = useAddRemovePlayer();
 
-  const handleAddPlayerInBatch = () => {
-    const request = {
-      batch_id: route.params.batch_Id,
-      players: [
-        {
-          playerid: "6512f1f92feb5c05bb8c8624",
-          name: "vishal",
-        },
-      ],
-    };
-    dispatch(addPlayersInBatch(request)).then((res) => {
-      // const resData = res.payload?.data;
-      goToBacthesScreen();
-    });
-  };
-  //function : imp func
-  const saveDeletePlayer = (item: any) => {
-    const isAlready = selectedPlayers.findIndex((e) => e._id == item._id);
-    if (isAlready > -1) {
-      const filteredData = selectedPlayers.filter((e) => e._id != item._id);
-      setSelectedPlayers(filteredData);
-    } else {
-      setSelectedPlayers([...selectedPlayers, item]);
-    }
-  };
-  //ui
   return (
     <View style={styles.container}>
       <Header
@@ -72,7 +42,7 @@ const AddRemovePlayer = ({ navigation, route }) => {
           paddingBottom: "10%",
         }}
       >
-        {playersList.length > 0 ? (
+        {playersList?.length > 0 ? (
           <View>
             <SearchBox />
             <FlatList
@@ -155,54 +125,3 @@ const AddRemovePlayer = ({ navigation, route }) => {
 };
 
 export default AddRemovePlayer;
-
-const PlayerCard = ({
-  playerName,
-  lastName,
-  isSelected,
-  hasRemoveBtn,
-  onPress = () => {},
-}) => {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderWidth: isSelected ? 1.5 : 0.5,
-        borderColor: isSelected ? "#27AE60" : "grey",
-        padding: 10,
-        borderRadius: 15,
-        marginVertical: 10,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          source={require("../../../assets/images/group904.png")}
-          style={{ width: 44, height: 44 }}
-        />
-        <MyText
-          text={playerName + lastName}
-          fontFamily="MEDIUM"
-          fontsize={16}
-          style={{ marginLeft: 10 }}
-        />
-      </View>
-      {hasRemoveBtn ? (
-        <Feather name="x-circle" size={24} color={"grey"} />
-      ) : (
-        <Ionicons
-          name={isSelected ? "checkbox" : "square-outline"}
-          color={isSelected ? "#27AE60" : "grey"}
-          size={24}
-        />
-      )}
-    </TouchableOpacity>
-  );
-};

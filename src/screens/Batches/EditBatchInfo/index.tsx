@@ -1,20 +1,24 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { styles } from "./EditBatchInfoStyle";
+import { View } from "react-native";
 import Header from "../../../components/MyHeader";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-paper";
 import MyButton from "../../../components/MyButton";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
+import styles from "./styles";
+import { useEditBatchInfo } from "./useEditBatchInfo";
 
-const EditBatchInfo = ({ navigation }) => {
-  const [batchName, setBatchName] = React.useState("Morning Senior Batch");
-  const [batchDesc, setBatchDesc] = React.useState(
-    "Tennis players of age group 8-12. Focus is on developing fundamental tennis skills, promoting teamwork, and fo..."
-  );
-  //function : nav func
-  const gotoAddRemovePlayer = () => navigation.navigate("AddRemovePlayer");
+const EditBatchInfo = () => {
+  const {
+    batchName,
+    setBatchName,
+    batchDesc,
+    setBatchDesc,
+    gotoAddRemovePlayer,
+    handleDeleteBatch,
+  } = useEditBatchInfo();
+
   //UI
   return (
     <View style={styles.container}>
@@ -25,8 +29,11 @@ const EditBatchInfo = ({ navigation }) => {
       />
       <View style={styles.mainView}>
         <MyText text="Edit Batch Details." fontFamily="BOLD" fontsize={24} />
-        <MyText text="Edit the name & description of this batch." fontFamily="REGULAR" />
-        <View style={{ height: '12%' }} />
+        <MyText
+          text="Edit the name & description of this batch."
+          fontFamily="REGULAR"
+        />
+        <View style={{ height: "12%" }} />
         <TextInput
           mode="outlined"
           label="Batch Name"
@@ -37,10 +44,10 @@ const EditBatchInfo = ({ navigation }) => {
           style={{
             borderBottomWidth: 0,
             borderColor: "grey",
-            backgroundColor: 'white',
-            color: Colors.black2
+            backgroundColor: "white",
+            color: Colors.black2,
           }}
-          onChangeText={(text) => setBatchName(text)}
+          onChangeText={setBatchName}
         />
         <View style={{ height: "10%" }} />
         <TextInput
@@ -54,10 +61,10 @@ const EditBatchInfo = ({ navigation }) => {
           style={{
             borderBottomWidth: 0,
             borderColor: "grey",
-            backgroundColor: 'white',
-            color: Colors.black2
+            backgroundColor: "white",
+            color: Colors.black2,
           }}
-          onChangeText={(text) => setBatchDesc(text)}
+          onChangeText={setBatchDesc}
         />
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end" }}>
@@ -72,6 +79,7 @@ const EditBatchInfo = ({ navigation }) => {
           width={"90%"}
           alignSelf="center"
           backgroundColor={"#303030"}
+          onPress={handleDeleteBatch}
         />
       </View>
     </View>
