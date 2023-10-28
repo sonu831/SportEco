@@ -7,6 +7,7 @@ import FAB from "../../components/FAB";
 import { Colors } from "../../constants/Colors";
 import usePlayers from "./usePlayers";
 import MyText from "../../components/MyText";
+import ScreensName from "../../constants/ScreenNames";
 
 const Players = ({ navigation, route }) => {
   const {
@@ -16,7 +17,7 @@ const Players = ({ navigation, route }) => {
   const goToCreatePlayer = () => navigation.navigate("PlayerProfileManager");
   return (
     <View style={styles.container}>
-      <Header title="Manage" />
+      <Header title="Manage" screen={ScreensName.Players} />
       <ScrollView style={styles.mainView}>
         <MyText text="Players." fontFamily="BOLD" fontsize={24} />
         <MyText

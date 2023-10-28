@@ -32,11 +32,11 @@ import MyAccount from "../MyAccount";
 import ChangeAvatar from "../ChangeAvatar";
 import Notifications from "../Notifications/Notifications";
 import Players from "../Players/Players";
-import Batches from "../Batches/Batches/Batches";
-import BatchInfo from "../Batches/BatchInfo/BatchInfo";
-import CreateBatch from "../Batches/CreateBatch/CreateBatch";
-import EditBatchInfo from "../Batches/EditBatchInfo/EditBatchInfo";
-import AddRemovePlayer from "../Batches/AddRemovePlayer/AddRemovePlayer";
+import Batches from "../Batches";
+import BatchInfo from "../Batches/BatchInfo";
+import CreateBatch from "../Batches/CreateBatch";
+import EditBatchInfo from "../Batches/EditBatchInfo";
+import AddRemovePlayer from "../Batches/AddRemovePlayer";
 import PlayerProfile from "../Players/PlayerProfile";
 import UpdatePlayerProfile from "../Players/UpdatePlayerProfile";
 import Venues from "../Venue/Venues/Venues";
@@ -63,7 +63,7 @@ const Navigation = () => {
   const [isConnected, setIsConnected] = React.useState(true);
 
   React.useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(state => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
       setIsConnected(state.isConnected);
     });
 
@@ -89,7 +89,10 @@ const Navigation = () => {
       }
     } catch (error) {
       // Handle errors if any occurred during the process.
-      console.error("Error occurred while checking internet connection:", error);
+      console.error(
+        "Error occurred while checking internet connection:",
+        error
+      );
     }
   };
 
@@ -97,13 +100,20 @@ const Navigation = () => {
 
   // If there's no internet connection, display a message
   if (!isConnected) {
-    return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <MyText text="Could not connect to the internet." />
-      <MyText text="Please check your network." />
-      <TouchableOpacity onPress={handleTryAgain}>
-        <MyText text="Try Again" style={{ marginTop: 10 }} fontWeight="bold" color={Colors.orange} />
-      </TouchableOpacity>
-    </View>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <MyText text="Could not connect to the internet." />
+        <MyText text="Please check your network." />
+        <TouchableOpacity onPress={handleTryAgain}>
+          <MyText
+            text="Try Again"
+            style={{ marginTop: 10 }}
+            fontWeight="bold"
+            color={Colors.orange}
+          />
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   return (

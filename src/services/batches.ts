@@ -7,7 +7,7 @@ export const addBatch = createAsyncThunk(
   async (request: { [key: string]: any }, { rejectWithValue }) => {
     return axios
       .post(endpoints.addBatch, request)
-      .then((res) => console.log("ress", res))
+      .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);
       });
@@ -67,7 +67,9 @@ export const deleteBatch = createAsyncThunk(
           batch_id: id,
         },
       })
-      .then((res) => res.data)
+      .then((res) => {
+        res.data;
+      })
       .catch((err) => {
         rejectWithValue(err);
       });
@@ -114,7 +116,7 @@ export const searchBatch = createAsyncThunk(
       })
       .then((res) => res.data)
       .catch((err) => {
-        rejectWithValue(err)
-      })
+        rejectWithValue(err);
+      });
   }
-)
+);

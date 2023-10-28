@@ -1,50 +1,46 @@
+// components/Header/Header.tsx
+import React from "react";
 import {
   View,
   Text,
   TouchableOpacity,
+  StyleSheet,
   ColorValue,
-  ViewComponent,
 } from "react-native";
-import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import MyText from "../MyText";
-interface headerProps {
+import MyText from "../MyText"; // Please make sure this path is correct
+import ScreensName from "../../constants/ScreenNames"; // Please make sure this path is correct
+import { styles } from "./styles";
+import useHeader from "./useHeader";
+
+interface HeaderProps {
   title: string;
   hasActionIcon?: boolean;
-  backgroundColor: ColorValue;
-  ActionIcon: ViewComponent;
-  actionBtnPress: void;
+  backgroundColor?: ColorValue;
+  ActionIcon?: React.ReactNode;
+  actionBtnPress?: () => void;
+  isActionBtnDisabled?: boolean;
+  screen?: keyof typeof ScreensName;
 }
-const Header: React.FC<headerProps> = ({
+
+const Header: React.FC<HeaderProps> = ({
   title,
-  hasActionIcon,
-  backgroundColor,
-  isActionBtnDisabled,
-  actionBtnPress = () => { },
+  hasActionIcon = false,
+  backgroundColor = "white",
   ActionIcon = <AntDesign name="delete" size={20} color={"#fff"} />,
+  actionBtnPress = () => {},
+  isActionBtnDisabled = false,
+  screen,
 }) => {
-  const navigation = useNavigation();
-  const goBack = () => navigation.goBack();
+  const { goBack } = useHeader();
+
   return (
-    <View
-      style={{
-        paddingTop: 20,
-        padding: 10,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: backgroundColor,
-      }}
-    >
+    <View style={[styles.headerContainer, { backgroundColor }]}>
       <TouchableOpacity
-        style={{
-          backgroundColor: "#FFF",
-          borderRadius: 100,
-          marginLeft: 10
-        }}
-        onPress={goBack}
+        style={styles.goBackButton}
+        onPress={() => goBack(screen)}
       >
         <Feather name="arrow-left-circle" size={30} />
       </TouchableOpacity>
@@ -53,25 +49,15 @@ const Header: React.FC<headerProps> = ({
         <TouchableOpacity
           onPress={actionBtnPress}
           style={[
-            {
-              backgroundColor: "#000",
-              padding: 8,
-              borderRadius: 100,
-            },
-            isActionBtnDisabled && { backgroundColor: "#d3d3d3" },
+            styles.actionButton,
+            isActionBtnDisabled && styles.disabledButton,
           ]}
           disabled={isActionBtnDisabled}
         >
           {ActionIcon}
         </TouchableOpacity>
       ) : (
-        <Text
-          style={{
-            color: "transparent",
-          }}
-        >
-          h
-        </Text>
+        <Text style={styles.placeholderText}>h</Text>
       )}
     </View>
   );
