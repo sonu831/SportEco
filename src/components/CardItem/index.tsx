@@ -4,6 +4,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { Colors } from "../../constants/Colors";
 import { styles } from "./styles";
 import group9 from "../../assets/images/group904.png";
+import AvatarImage from "../AvatarImage";
 
 const CardItem = ({
   Title,
@@ -24,12 +25,18 @@ const CardItem = ({
     >
       <View style={styles.innerContainer}>
         {isImage && (
-          <Image
-            source={imageSource ? imageSource : group9}
-            style={styles.image}
-          />
+          <View style={styles.image}>
+            <AvatarImage
+              height={50}
+              width={50}
+              imageUrl={isImage ? imageSource : ""}
+              placeholderImage={group9}
+              resizeMode="cover"
+              isEdit={false}
+            />
+          </View>
         )}
-
+        {Icon}
         <View>
           <Text style={[styles.title, { color: titleColor }]}>{Title}</Text>
           {subTitle && (
