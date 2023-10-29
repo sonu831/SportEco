@@ -23,3 +23,22 @@ export type InitialState = {
   showConfirmation: boolean;
   playerList: any[];
 };
+
+import { RouteProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import ScreensName from "../../constants/ScreenNames";
+
+export type RootStackParamList = {
+  Players: { id?: string; isPlayerDeleted?: boolean };
+  // Add other screens and their parameters here if necessary
+  MyAccount: undefined; // If MyAccount doesn't require parameters
+};
+
+export type PlayersScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  ScreensName.Players
+>;
+export type PlayersScreenRouteProp = RouteProp<
+  RootStackParamList,
+  ScreensName.Players
+>;

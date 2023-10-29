@@ -27,7 +27,7 @@ import Foundation from "react-native-vector-icons/Foundation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import MainScreen from "../MainScreen";
-import Players from "../Players/Players";
+import Players from "../Players";
 
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
