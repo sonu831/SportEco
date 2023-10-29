@@ -13,8 +13,9 @@ interface buttonProps {
     backgroundColor: ColorValue;
     width: DimensionValue;
     marginVertical: DimensionValue;
-    onPress: void;
+    onPress: () => void;
     disabled: boolean;
+    Icon: React.ReactNode,
     alignSelf:
     | "auto"
     | "center"
@@ -31,6 +32,7 @@ const MyButton: React.FC<buttonProps> = ({
     marginVertical = 10,
     alignSelf = "auto",
     disabled: disabled,
+    Icon,
     onPress = () => { },
 }) => {
     const handlePress = useCallback(() => {

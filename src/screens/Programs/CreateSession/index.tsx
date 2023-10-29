@@ -12,40 +12,24 @@ import MyButton from "../../../components/MyButton";
 import { AppDispatch } from '../../../store';
 import { useDispatch } from 'react-redux';
 import { addSessionInProgram } from '../../../services/programs';
+import { useCreateSession } from './useCreateSession';
 
-const CreateSession = ({ navigation, route }) => {
-    const { programId } = route.params
-    console.log("programId---s---", programId);
-
-    const goToProgramsScreen = () => navigation.navigate('Programs')
-    const dispatch = useDispatch<AppDispatch>();
-    const [sessionName, setSessionName] = useState('')
-    const [sessionDescription, setSessionDescription] = useState('')
-    const [sessionDuration, setSessionDuration] = useState('')
-    const handleCreaterSession = () => { // Function: to create session
-        const request = {
-            program_id: programId,
-            sessions: [
-                {
-                    name: sessionName,
-                    description: sessionDescription,
-                    duration: sessionDuration,
-                }
-            ]
-        };
-        console.log("request", request)
-        dispatch(addSessionInProgram({ data: request })).then((res) => {
-            console.log("handleCreaterSession res", res);
-            goToProgramsScreen()
-            // goToCreateProgramDetails(programName, programDescription)
-        });
-    };
+const CreateSession = () => {
+    const {
+        handleCreateSession,
+        sessionName,
+        sessionDescription,
+        sessionDuration,
+        setSessionName,
+        setSessionDescription,
+        setSessionDuration,
+    } = useCreateSession()
     return (
         <View style={styles.container}>
             <Header
                 title="Create Session"
                 hasActionIcon
-                actionBtnPress={handleCreaterSession}
+                actionBtnPress={handleCreateSession}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
                 isActionBtnDisabled={!sessionName || !sessionDescription || !sessionDuration}
             />
@@ -60,7 +44,7 @@ const CreateSession = ({ navigation, route }) => {
                     activeOutlineColor="grey"
                     placeholderTextColor={"#000"}
                     value={sessionName}
-                    onChangeText={(text) => setSessionName(text)}
+                    onChangeText={setSessionName}
                     style={{
                         borderBottomWidth: 0,
                         borderColor: "grey",
@@ -83,7 +67,7 @@ const CreateSession = ({ navigation, route }) => {
                         backgroundColor: 'white',
                         color: Colors.black2
                     }}
-                    onChangeText={(text) => setSessionDescription(text)}
+                    onChangeText={setSessionDescription}
                 />
                 <View style={{ height: "8%" }} />
                 <TextInput
@@ -101,7 +85,7 @@ const CreateSession = ({ navigation, route }) => {
                         backgroundColor: 'white',
                         color: Colors.black2
                     }}
-                    onChangeText={(text) => setSessionDuration(text)}
+                    onChangeText={setSessionDuration}
                 />
             </View>
         </View>

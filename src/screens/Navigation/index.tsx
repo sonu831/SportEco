@@ -44,10 +44,10 @@ import VenueDetails from "../Venue/VenueDetails/VenueDetails";
 import ChooseLocation from "../Venue/ChooseLocation/ChooseLocation";
 import CreateVenue from "../Venue/CreateVenue/CreateVenue";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Programs from "../Programs/Programs/Programs";
-import CreatePrograms from "../Programs/CreatePrograms/CreatePrograms";
-import CreateSession from "../Programs/CreateSession/CreateSession";
-import CreateProgramDetails from "../Programs/CreatedProgramDetails/CreatedProgramDetails";
+import Programs from "../Programs";
+import CreatePrograms from "../Programs/CreatePrograms";
+import CreateSession from "../Programs/CreateSession";
+import ProgramInfo from "../Programs/ProgramInfo";
 import SessionDetails from "../Programs/SessionDetails/SessionDetails";
 import EditSession from "../Programs/EditSession/EditSession";
 import PlayerProfileManager from "../Players/PlayerProfileManager";
@@ -124,10 +124,7 @@ const Navigation = () => {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {isAccountVerified ? (
               <Stack.Group>
-                <Stack.Screen
-                  name="BottomTabNavigation"
-                  component={BottomTabNavigation}
-                />
+                <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
                 <Stack.Screen name="Main" component={MainScreen} />
                 <Stack.Screen name="Calendar" component={NotReady} />
                 <Stack.Screen name="Message" component={NotReady} />
@@ -145,14 +142,8 @@ const Navigation = () => {
                 <Stack.Screen name="VenueDetail" component={VenueDetail} />
                 <Stack.Screen name="Events" component={Events} />
                 <Stack.Screen name="AddEvents" component={AddEvents} />
-                <Stack.Screen
-                  name="ProgramDetails"
-                  component={ProgramDetails}
-                />
-                <Stack.Screen
-                  name="CalendarScreen"
-                  component={CalendarScreen}
-                />
+                <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+                <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
                 <Stack.Screen name="Loading" component={Loading} />
                 <Stack.Screen name="Notification" component={Notifications} />
                 <Stack.Screen name="Batches" component={Batches} />
@@ -163,15 +154,9 @@ const Navigation = () => {
                 <Stack.Screen name="VenueDetails" component={VenueDetails} />
                 <Stack.Screen name="CreateVenue" component={CreateVenue} />
                 <Stack.Screen name="Programs" component={Programs} />
-                <Stack.Screen
-                  name="CreatePrograms"
-                  component={CreatePrograms}
-                />
+                <Stack.Screen name="CreatePrograms" component={CreatePrograms} />
                 <Stack.Screen name="CreateSession" component={CreateSession} />
-                <Stack.Screen
-                  name="CreateProgramDetails"
-                  component={CreateProgramDetails}
-                />
+                <Stack.Screen name="ProgramInfo" component={ProgramInfo} />
                 <Stack.Screen
                   name="SessionDetails"
                   component={SessionDetails}

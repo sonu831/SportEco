@@ -1,55 +1,35 @@
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, TouchableOpacity, Image } from 'react-native'
+import React from 'react'
+// component
 import Header from '../../../components/MyHeader'
+import MyText from '../../../components/MyText';
+import SearchBox from '../../../components/SearchBox';
+// packages
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MyText from '../../../components/MyText';
-import { Colors } from '../../../constants/Colors';
-import { useRoute } from "@react-navigation/native";
-import SearchBox from '../../../components/SearchBox';
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { getProgromDataById } from '../../../services/programs';
-import { AppDispatch } from '../../../store';
-import { useDispatch } from 'react-redux';
+// custom hook
+import { useProgramInfo } from './useProgramInfo';
+// constants
+import { Colors } from '../../../constants/Colors';
+// styles
+import { styles } from '../style';
 
-const CreateProgramDetails = ({ navigation }) => {
-    const route = useRoute();
-    const { programId, programName } = route?.params
-    const dispatch = useDispatch<AppDispatch>();
-    const goToCreateProgramsScreen = (programDiscription) => navigation.navigate('CreatePrograms', { editProgramName: programName, editProgramDescription: programDiscription })
-    const [programDetails, setProgramDetails] = useState("")
-    const currentSessions = [
-        { id: 1, name: "Badminton League", time: "02 hours 30 min" },
-        { id: 2, name: "Badminton League", time: "02 hours 30 min" },
-        { id: 3, name: "Badminton League", time: '02 hours 30 min' },
-    ];
-    useEffect(() => {
-        getProgramDetails(programId)
-    }, [programId])
-    const getProgramDetails = (programId) => { //Funtion:Api Function to create program
-        dispatch(getProgromDataById(programId)).then((res) => {
-            setProgramDetails(res?.payload?.data)
-        }).catch((error) => {
-            console.error("Error occurred while getProgramDetails:", error);
-        })
-    };
-    console.log("programDetails", programDetails);
-
+const ProgramInfo = ({ navigation }) => {
+    const { programInfo } = useProgramInfo()
     return (
         <View style={styles.container}>
             <Header
                 title=""
                 hasActionIcon
-                actionBtnPress={() => goToCreateProgramsScreen(programDetails?.description)}
+                actionBtnPress={() => { }}
                 ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
             />
             <View style={styles.mainView}>
-                <MyText text={programName ? programName : ''} fontsize={24} fontFamily="BOLD" />
-                <MyText text={programDetails ? programDetails?.description : ''} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
-                <View style={{ height: '5%' }} />
+                <MyText text={programInfo?.name} fontsize={24} fontFamily="BOLD" />
+                <MyText text={programInfo?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <SearchBox />
-                <View style={{ height: '3%' }} />
-                {programDetails && programDetails?.sessions.map((item, index) => {
+                {programInfo && programInfo?.sessions.map((item, index) => {
                     return (
                         <PlayerCard
                             key={index.toString()}
@@ -65,7 +45,7 @@ const CreateProgramDetails = ({ navigation }) => {
     )
 }
 
-export default CreateProgramDetails
+export default ProgramInfo
 
 const PlayerCard = ({
     playerName,
@@ -115,13 +95,3 @@ const PlayerCard = ({
         </TouchableOpacity>
     );
 };
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    mainView: {
-        padding: 20
-    }
-})
