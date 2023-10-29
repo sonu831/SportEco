@@ -17,19 +17,26 @@ const CardItem = ({
   padding = 10,
   imageSource,
 }) => {
+  const renderImage = () => {
+    if (isImage) {
+      // Check if imageSource is a string (could be base64 or a URI)
+      if (typeof imageSource === "string") {
+        return <Image style={styles.image} source={{ uri: imageSource }} />;
+      }
+      // If imageSource is not a string, fallback to the default image
+      return <Image style={styles.image} source={group9} />;
+    }
+    return null;
+  };
+
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.container, { borderColor, padding }]}
     >
       <View style={styles.innerContainer}>
-        {isImage && (
-          <Image
-            source={imageSource ? imageSource : group9}
-            style={styles.image}
-          />
-        )}
-
+        {renderImage()}
+        {Icon}
         <View>
           <Text style={[styles.title, { color: titleColor }]}>{Title}</Text>
           {subTitle && (
