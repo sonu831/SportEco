@@ -26,7 +26,7 @@ const CardItem = ({
       // If imageSource is not a string, fallback to the default image
       return <Image style={styles.image} source={group9} />;
     }
-    return null;
+    return <Image style={styles.image} source={group9} />;
   };
 
   return (

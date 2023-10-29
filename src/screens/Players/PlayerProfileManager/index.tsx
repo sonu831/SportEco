@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Header from "../../../components/MyHeader";
 import Feather from "react-native-vector-icons/Feather";
@@ -14,30 +14,37 @@ import group10 from "../../../assets/images/group904.png";
 import AvatarImage from "../../../components/AvatarImage";
 import ImagePicker from "../../../components/ImagePicker";
 import headerEdit from "../../../assets/images/header-edit.png";
+import { convertToDateObject } from "../../../helper/dateTimeConversion";
+import { genderOptions } from "../../../constants/players";
+import DateTimePicker from "../../../components/DateTimePicker";
+import moment from "moment";
 
-const PlayerProfileManager = ({ navigation, route }) => {
+const PlayerProfileManager = () => {
   const {
-    options,
-    setPlayerDetailsState,
-    playerDetailsState,
+    state,
     handlePlayer,
     handleOptionPress,
     handleToggleDatePicker,
     handleDOBConfirm,
     handleUploadImage,
-    isEdit,
-  } = usePlayerProfileManager({ navigation, route });
+    setState,
+  } = usePlayerProfileManager();
 
   const {
-    firstName,
-    lastName,
-    selectedDate,
-    selectedOption,
-    phoneNumber,
-    isDatePickerVisible,
-    profilePic,
-    avatarImage,
-  } = playerDetailsState;
+    isEdit,
+    PlayerDetails: {
+      firstName,
+      lastName,
+      phoneNumber,
+      selectedOption,
+      avatarImage,
+      dob,
+      profilePic,
+    },
+    showDatePicker,
+  } = state;
+
+  const selectedDate = convertToDateObject(dob);
 
   return (
     <React.Fragment>
@@ -77,9 +84,15 @@ const PlayerProfileManager = ({ navigation, route }) => {
             activeOutlineColor="grey"
             placeholderTextColor={"#000"}
             value={firstName}
-            onChangeText={(text) =>
-              setPlayerDetailsState({ ...playerDetailsState, firstName: text })
-            }
+            onChangeText={(text) => {
+              setState((prevState) => ({
+                ...prevState,
+                PlayerDetails: {
+                  ...prevState.PlayerDetails,
+                  firstName: text,
+                },
+              }));
+            }}
           />
           <View style={{ height: "3%" }} />
           <TextInput
@@ -90,17 +103,26 @@ const PlayerProfileManager = ({ navigation, route }) => {
             placeholderTextColor={"#000"}
             value={lastName}
             onChangeText={(text) =>
-              setPlayerDetailsState({ ...playerDetailsState, lastName: text })
+              setState((prevState) => ({
+                ...prevState,
+                PlayerDetails: {
+                  ...prevState.PlayerDetails,
+                  lastName: text,
+                },
+              }))
             }
           />
           <View style={{ height: "4%" }} />
           <PhoneNumberInput
             phoneNumber={phoneNumber}
             onChangePhoneNumber={(phone: string) => {
-              setPlayerDetailsState({
-                ...playerDetailsState,
-                phoneNumber: phone,
-              });
+              setState((prevState) => ({
+                ...prevState,
+                PlayerDetails: {
+                  ...prevState.PlayerDetails,
+                  phoneNumber: phone,
+                },
+              }));
             }}
             inputContainerWidth={"73%"}
           />
@@ -111,12 +133,10 @@ const PlayerProfileManager = ({ navigation, route }) => {
             placeholder="Date of Birth"
             activeOutlineColor="grey"
             placeholderTextColor={"#000"}
-            value={selectedDate ? selectedDate.toISOString().split("T")[0] : ""}
-            onChangeText={(text) =>
-              setPlayerDetailsState({ ...playerDetailsState, dob: text })
-            }
+            value={selectedDate.format("MM-DD-YYYY")}
             onPressIn={handleToggleDatePicker}
           />
+
           <CenteredLineWithText lineText="Gender" />
           <View
             style={{
@@ -125,7 +145,7 @@ const PlayerProfileManager = ({ navigation, route }) => {
               justifyContent: "center",
             }}
           >
-            {options.map((option, index) => (
+            {genderOptions.map((option, index) => (
               <View key={index}>
                 <TouchableOpacity
                   onPress={() => handleOptionPress(option.label)}
@@ -159,11 +179,11 @@ const PlayerProfileManager = ({ navigation, route }) => {
         </View>
       </View>
       <DateTimePickerModal
-        isVisible={isDatePickerVisible}
+        isVisible={showDatePicker}
         mode="date"
         onConfirm={handleDOBConfirm}
         onCancel={handleToggleDatePicker}
-        date={selectedDate}
+        date={selectedDate.toDate()}
       />
     </React.Fragment>
   );
