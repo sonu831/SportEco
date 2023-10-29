@@ -27,15 +27,6 @@ const logApiRequest = (request) => {
   if (request?.data) {
     console.log("Request Payload:", request.data);
   }
-
-  // // Extract and Log the Request Params
-  // const requestURL = new URL(request?.baseURL + request?.url);
-  // const requestParams = new URLSearchParams(requestURL.search);
-  // if (requestParams && Array.from(requestParams.entries()).length > 0) {
-  //   console.log("Request Params:", Object.fromEntries(requestParams));
-  // } else {
-  //   console.log("Request Params: None");
-  // }
 };
 
 const logApiResponse = (response) => {

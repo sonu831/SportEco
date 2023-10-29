@@ -14,45 +14,42 @@ import group902 from "../../assets/images/manage_1.png";
 const Players = ({ navigation }) => {
   const {
     state: { playerList },
-    onChangeSearchBar,
+    debouncedOnChangeSearchBar,
     goToCreatePlayer,
     goToPlayerProfile,
   } = usePlayers();
 
   const renderPlayersList = () => {
-    if (!playerList || playerList.length === 0) {
-      // Optional: You can return a message or null here if there are no players
-      return (
-        <View style={styles.noPlayersContainer}>
-          <Image source={group902} />
-          <Text style={styles.noPlayersText}>No Players Found</Text>
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <SearchBar onChange={onChangeSearchBar} />
-          {playerList
-            .slice()
-            .reverse()
-            .map((player) => {
-              const { _id, first_name, last_name, profile_pic } = player;
-              const imageSource = profile_pic?.filedata?.length
-                ? `data:image/png;base64,${profile_pic.filedata}`
-                : null;
-              return (
-                <CardItem
-                  key={`player-key-${first_name}-${last_name}`}
-                  Title={`${first_name} ${last_name}`}
-                  onPress={() => goToPlayerProfile(_id)}
-                  isImage={!!imageSource}
-                  imageSource={imageSource}
-                />
-              );
-            })}
-        </View>
-      );
-    }
+    return (
+      <View>
+        <SearchBar onChange={debouncedOnChangeSearchBar} />
+        {!playerList ||
+          (playerList.length === 0 && (
+            <View style={styles.noPlayersContainer}>
+              <Image source={group902} />
+              <Text style={styles.noPlayersText}>No Players Found</Text>
+            </View>
+          ))}
+        {playerList
+          .slice()
+          .reverse()
+          .map((player) => {
+            const { _id, first_name, last_name, profile_pic } = player;
+            const imageSource = profile_pic?.filedata?.length
+              ? `data:image/png;base64,${profile_pic.filedata}`
+              : null;
+            return (
+              <CardItem
+                key={`player-key-${first_name}-${last_name}`}
+                Title={`${first_name} ${last_name}`}
+                onPress={() => goToPlayerProfile(_id)}
+                isImage={!!imageSource}
+                imageSource={imageSource}
+              />
+            );
+          })}
+      </View>
+    );
   };
 
   return (

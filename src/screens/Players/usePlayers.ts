@@ -10,6 +10,7 @@ import {
   PlayersScreenRouteProp,
 } from "./config";
 import ScreensName from "../../constants/ScreenNames";
+import useDebouncedFunction from "../../helper/common";
 
 const initialState: InitialState = {
   showConfirmation: false,
@@ -72,9 +73,21 @@ const usePlayers = () => {
   }, [route.params?.shouldRefresh]);
 
   const onChangeSearchBar = (searchText: string) => {
-    dispatch(searchPlayer(searchText)).then((res) => {
-      updateState({ key: "playerList", value: res.payload?.data || [] });
-    });
+    if (searchText?.length > 1)
+      dispatch(searchPlayer(searchText)).then((res) => {
+        updateState({ key: "playerList", value: res.payload?.data || [] });
+        updateState({
+          key: "isSearchEnable",
+          value: true,
+        });
+      });
+    else {
+      updateState({
+        key: "isSearchEnable",
+        value: false,
+      });
+      handleFetchPlayer();
+    }
   };
 
   const handleGoBack = () => navigation.goBack();
@@ -98,7 +111,7 @@ const usePlayers = () => {
   return {
     goToCreatePlayer,
     state,
-    onChangeSearchBar,
+    debouncedOnChangeSearchBar: useDebouncedFunction(onChangeSearchBar, 300),
     handleGoBack,
     handleEditBtn,
     goToPlayerProfile,

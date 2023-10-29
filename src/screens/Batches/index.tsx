@@ -13,7 +13,7 @@ import manageImg from "../../assets/images/manage_2.png";
 const Batches = ({ navigation, route }) => {
   const {
     state: { batchList: batchData },
-    onChangeSearchBar,
+    debouncedOnChangeSearchBar,
     gotoCreateBatch,
     gotoBatchInfo,
   } = useBatches({ navigation, route });
@@ -45,7 +45,7 @@ const Batches = ({ navigation, route }) => {
           fontsize={14}
           color={Colors.gray}
         />
-        <SearchBox onChange={onChangeSearchBar} />
+        <SearchBox onChange={debouncedOnChangeSearchBar} />
         <FlatList
           data={batchData}
           keyExtractor={(item, index) => index.toString()}

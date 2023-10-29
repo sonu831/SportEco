@@ -96,7 +96,6 @@ const usePlayerProfileManager = () => {
 
   const handlePlayer = () => {
     const formData = new FormData();
-
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
     formData.append("dbo", JSON.stringify(dob));
@@ -139,6 +138,7 @@ const usePlayerProfileManager = () => {
       const playerData = mapResponseToPlayerData(res.payload?.data);
       setState((prev) => ({
         ...prev,
+        isEdit: true,
         PlayerDetails: playerData,
       }));
     });
