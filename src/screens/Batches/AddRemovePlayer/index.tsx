@@ -17,6 +17,7 @@ import PlayerCard from "../../../components/Players/PlayerCard";
 
 const AddRemovePlayer = ({ navigation, route }) => {
   const {
+    allPlayers,
     handleCurrentParticipantRemove,
     toggleSelection,
     remainingParticipants,
@@ -39,7 +40,9 @@ const AddRemovePlayer = ({ navigation, route }) => {
           paddingBottom: "10%",
         }}
       >
-        {remainingParticipants?.length || currentParticipantsList.length > 0 ? (
+        {remainingParticipants?.length ||
+        currentParticipantsList?.length ||
+        allPlayers.length ? (
           <View>
             <SearchBox />
             <FlatList
