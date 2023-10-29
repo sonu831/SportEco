@@ -12,6 +12,7 @@ import {
 } from "../../services/batches";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { fetchPlayers } from "../../services/players";
+import useDebouncedFunction from "../../helper/common";
 
 const initialState = {
   showConfirmation: false,
@@ -123,7 +124,7 @@ const useBatches = ({ navigation, route }: UseBatchesProps) => {
     playersList,
     handleGoBack,
     handleEditBtn,
-    onChangeSearchBar,
+    debouncedOnChangeSearchBar: useDebouncedFunction(onChangeSearchBar, 300),
     gotoCreateBatch,
     gotoBatchInfo,
   };
