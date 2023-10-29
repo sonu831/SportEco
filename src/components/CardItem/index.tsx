@@ -1,13 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React from "react";
+import { Text, TouchableOpacity, View, Image } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Colors } from "../../constants/Colors";
+import { styles } from "./styles";
+import group9 from "../../assets/images/group904.png";
 
 const CardItem = ({
   Title,
   subTitle,
   Icon,
-  isImage,
+  isImage = false,
   onPress = () => {},
   borderColor = Colors.gray3,
   titleColor = Colors.black1,
@@ -18,37 +20,20 @@ const CardItem = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        borderWidth: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: padding,
-        marginVertical: 8,
-        borderRadius: 100 / 6,
-        borderColor: borderColor,
-      }}
+      style={[styles.container, { borderColor, padding }]}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={styles.innerContainer}>
         {isImage && (
           <Image
-            source={
-              imageSource
-                ? imageSource
-                : require("../../assets/images/group904.png")
-            }
-            style={{ height: 50, width: 50 }}
+            source={imageSource ? imageSource : group9}
+            style={styles.image}
           />
         )}
-        {Icon}
+
         <View>
-          <Text
-            style={{ color: titleColor, marginLeft: 10, fontWeight: "bold" }}
-          >
-            {Title}
-          </Text>
+          <Text style={[styles.title, { color: titleColor }]}>{Title}</Text>
           {subTitle && (
-            <Text style={{ color: titleColor, marginLeft: 10 }}>
+            <Text style={[styles.subTitle, { color: titleColor }]}>
               {subTitle}
             </Text>
           )}
@@ -60,5 +45,3 @@ const CardItem = ({
 };
 
 export default CardItem;
-
-const styles = StyleSheet.create({});

@@ -94,7 +94,7 @@ export const deletePlayerFromBatch = createAsyncThunk(
     return axios
       .get(endpoints.deletePlayerFromBatch, {
         headers: {
-          batch_id: request.id,
+          batch_id: request.batchId,
           player_id: request.playerId,
         },
       })

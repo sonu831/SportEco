@@ -31,7 +31,7 @@ import CreateProfileScreen from "../CreateProfileScreen";
 import MyAccount from "../MyAccount";
 import ChangeAvatar from "../ChangeAvatar";
 import Notifications from "../Notifications/Notifications";
-import Players from "../Players/Players";
+import Players from "../Players";
 import Batches from "../Batches";
 import BatchInfo from "../Batches/BatchInfo";
 import CreateBatch from "../Batches/CreateBatch";

@@ -1,14 +1,16 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import MyHeader from "../../components/MyHeader";
-import MyText from "../../components/MyText";
-import CardItem from "../../components/CardItem";
-import MyButton from "../../components/MyButton";
-import { Colors } from "../../constants/Colors";
-import usePlayers from "./usePlayers";
-import AvatarImage from "../../components/AvatarImage";
-import group10 from "../../assets/images/group904.png";
+import MyHeader from "../../../components/MyHeader";
+import MyText from "../../../components/MyText";
+import CardItem from "../../../components/CardItem";
+import MyButton from "../../../components/MyButton";
+import usePlayers from "../usePlayers";
+import AvatarImage from "../../../components/AvatarImage";
+import { styles } from "./styles";
+import group10 from "../../../assets/images/group904.png";
+import groupAttendance from "../../../assets/images/groupAttendance.png";
+import groupEvaluation from "../../../assets/images/groupEvaluation.png";
 
 const PlayerProfile = ({ navigation, route }) => {
   const { playerProfileResponse, handleDeletePlayer } = usePlayers({
@@ -59,13 +61,13 @@ const PlayerProfile = ({ navigation, route }) => {
           Title="Attendance"
           subTitle="Player attendance history"
           isImage={true}
-          imageSource={require("../../assets/images/groupAttendance.png")}
+          imageSource={groupAttendance}
         />
         <CardItem
           Title="Evaluation"
           subTitle="Player performance progress"
           isImage={true}
-          imageSource={require("../../assets/images/groupEvaluation.png")}
+          imageSource={groupEvaluation}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -80,35 +82,5 @@ const PlayerProfile = ({ navigation, route }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  profileContainer: {
-    backgroundColor: "#FBF1D8",
-    padding: 20,
-    borderBottomLeftRadius: 70,
-    borderBottomRightRadius: 70,
-  },
-  profileImage: {
-    marginRight: 10,
-    alignSelf: "center",
-    width: 100,
-    height: 100,
-  },
-  viewProfileText: {
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  mainView: {
-    padding: 20,
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-});
 
 export default PlayerProfile;
