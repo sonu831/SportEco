@@ -1,48 +1,63 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
-import { userDetails$ } from "../../store/users/selectors";
+import { useDispatch } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
+// packages
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
 import { RouteProp } from "@react-navigation/native";
+// redux
 import { AppDispatch } from "../../store";
+// config
 import { InitialState, ProgramData, } from "./config";
-import { fetchBatchById, fetchBatches } from "../../services/batches";
+// types
 import { UpdateStateRequest } from "../../types/UpdateState";
-import { fetchPlayers } from "../../services/players";
+// services
 import { fetchPrograms } from "../../services/programs";
 
 const initialState = {
     showConfirmation: false,
-    batchList: [],
+    programList: [],
 };
-
-const usePrograms = ({
-    navigation,
-    route
-}: {
-    navigation: NativeStackNavigationProp<
-        RootStackParamList,
-        keyof RootStackParamList,
-        undefined
-    >;
-    route: RouteProp<RootStackParamList, "Programs">;
-}) => {
+interface useProgramProps {
+    navigation: NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList>;
+    route: RouteProp<RootStackParamList, "Programs">
+}
+const usePrograms = ({ navigation, route }: useProgramProps) => {
     const dispatch = useDispatch<AppDispatch>(); // var
-    const [state, setState] = useState<Partial<InitialState>>(initialState); // useState
-    const [programProfileResponse, setProgramProfileResponse] = useState<ProgramData>();
-    const [programList, setProgramList] = useState([])
-    const handleGoBack = () => navigation.goBack();  // Function : Navigation
-    const handleEditBtn = () => navigation.navigate("MyAccount");  // Function : Navigation
+    // Navigation Handler
+    const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
+    const handleEditBtn = useCallback(() => navigation.navigate("MyAccount"), [navigation]);
+    const handleCreateProgram = useCallback(() => navigation.navigate('CreatePrograms'), [navigation])
+    const goToProgramInfo = useCallback((item) => navigation.navigate('ProgramInfo', { programInfo: item }), [navigation])
+    // states
+    const [state, setState] = useState<Partial<InitialState>>(initialState);
+    const [programsList, setProgramsList] = useState<ProgramData>();
+    // Data fetchers
+    const refetchPrograms = async () => {
+        try {
+            const response = await dispatch(fetchPrograms())
+            updateState({ key: "programList", value: response?.payload?.data ?? [] });
+        } catch (error) {
+            console.log("Failed to fetch the program List.")
+            updateState({ key: "programList", value: [] });
+        }
+    };
+    // useEffect
     useEffect(() => {
         refetchPrograms();
-    }, []);
-    const refetchPrograms = () => {
-        // Call the function to refetch programs data
-        dispatch(fetchPrograms()).then((res) => {
-            // Update the state with the new programs data
-            updateState({ key: "programList", value: res?.payload?.data ?? [] });
-        });
-    };
+    }, [])
+    useEffect(() => {
+        if (route?.params?.shouldRefresh) {
+            refetchPrograms();
+            navigation.setParams({ shouldRefresh: false });
+        }
+    }, [route?.params?.shouldRefresh]);
+    useEffect(() => {
+        dispatch(fetchPrograms())
+            .then((res) => setProgramsList(res.payload.data))
+            .catch((error) => console.error("Failed to fetch programs:", error));
+    }, [dispatch]);
+
+    // State updater
     const updateState = (request: UpdateStateRequest<keyof InitialState>) => {  // Function: To Update the state
         if (Array.isArray(request)) {
             request.forEach(({ key, value }) =>
@@ -57,11 +72,12 @@ const usePrograms = ({
         refetchPrograms,
         updateState,
         state,
-        programProfileResponse,
+        programsList,
         handleGoBack,
         handleEditBtn,
+        handleCreateProgram,
+        goToProgramInfo
     }
 }
-
 
 export default usePrograms

@@ -31,7 +31,7 @@ enum ScreensName {
   Programs = "Programs",
   CreatePrograms = "CreatePrograms",
   CreateSession = "CreateSession",
-  CreateProgramDetails = "CreateProgramDetails",
+  ProgramInfo = "ProgramInfo",
   SessionDetails = "SessionDetails",
   EditSession = "EditSession",
   UpdatePlayerProfile = "UpdatePlayerProfile",

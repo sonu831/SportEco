@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }
 
@@ -21,15 +21,15 @@ export type RootStackParamList = {
   Calendar: undefined;
   Message: undefined;
   AddBatch:
-    | {
-        isEdit?: boolean;
-      }
-    | any;
+  | {
+    isEdit?: boolean;
+  }
+  | any;
   AddProgram:
-    | {
-        isEdit?: boolean;
-      }
-    | any;
+  | {
+    isEdit?: boolean;
+  }
+  | any;
   SelectPlayer: any;
   AddSession: any;
   AddEvents: any;
@@ -39,13 +39,13 @@ export type RootStackParamList = {
   VenueDetail: any;
   Profile: { player?: boolean } | undefined;
   Confirmation:
-    | {
-        label?: string;
-        navigateTo?: keyof RootStackParamList;
-        navigateOption?: any;
-        isNewUser?: boolean;
-      }
-    | undefined;
+  | {
+    label?: string;
+    navigateTo?: keyof RootStackParamList;
+    navigateOption?: any;
+    isNewUser?: boolean;
+  }
+  | undefined;
   Events: any;
   CalendarScreen: any;
   MyAccount: any;
@@ -53,8 +53,8 @@ export type RootStackParamList = {
   Notification: any;
   Players: any;
   PlayerProfileManager:
-    | { playerId?: string; isEdit?: boolean; playerData: any }
-    | any;
+  | { playerId?: string; isEdit?: boolean; playerData: any }
+  | any;
   Batches: any;
   BatchInfo: any;
   CreateBatch: any;
@@ -69,7 +69,7 @@ export type RootStackParamList = {
   Programs: any;
   CreatePrograms: any;
   CreateSession: any;
-  CreateProgramDetails: any;
+  ProgramInfo: any;
   SessionDetails: any;
   EditSession: any;
 };

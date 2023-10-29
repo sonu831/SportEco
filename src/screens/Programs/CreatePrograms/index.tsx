@@ -1,66 +1,35 @@
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import Header from '../../../components/MyHeader'
+import React from 'react'
+// components
+import Header from '../../../components/MyHeader';
+import MyText from '../../../components/MyText';
+import { CenteredLineWithText } from '../../../components';
+import MyButton from "../../../components/MyButton";
+// constants
+import { Colors } from '../../../constants/Colors';
+// packages
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MyText from '../../../components/MyText';
-import { Colors } from '../../../constants/Colors';
 import { TextInput } from "react-native-paper";
-import { CenteredLineWithText } from '../../../components';
-import MyButton from "../../../components/MyButton";
-import { useRoute } from "@react-navigation/native";
-import { addPrograms } from '../../../services/programs';
-import { AppDispatch } from '../../../store';
-import { useDispatch } from 'react-redux';
-import { setToast } from '../../../store/Toast/reducers';
-import CustomToast from '../../../components/Toast';
+// custom hook
+import { useCreateProgram } from './useCreateProgram';
 
-
-const CreatePrograms = ({ navigation }) => {
-    const route = useRoute();
-    const dispatch = useDispatch<AppDispatch>();
-    const [programName, setProgramName] = useState(route?.params?.editProgramName ? route?.params?.editProgramName : '')
-    const [programDescription, setProgramDescription] = useState(route?.params?.editProgramDescription ? route?.params?.editProgramDescription : '')
-    const [programId, setProgramId] = useState("")
-    useEffect(() => {
-        if (programId) {
-            navigation.replace('CreateProgramDetails', { programId: programId, programName: programName });
-        }
-    }, [programId]);
-    const handleCreaterProgram = () => { //Funtion:Api Function to create program
-        const request = {
-            name: programName,
-            description: programDescription,
-        };
-        dispatch(addPrograms({ data: request })).then((res) => {
-            if (res?.payload?.success) {
-                setProgramId(res?.payload?.data?._id)
-            } else {
-                setToast({
-                    type: "error",
-                    message: res?.payload?.data?.message,
-                });
-            }
-            // goToProgramListScreen()
-            // goToCreateProgramDetails(programName, programDescription)
-        }).catch((error) => {
-            console.error("Error occurred while adding program:", error);
-        })
-    };
-    const goToCreateProgramDetails = (programName: string, programDescription: string) => navigation.navigate('CreateProgramDetails', { programName: programName, programDescription: programDescription })
-    const goToProgramListScreen = () => navigation.navigate('Programs')
-    const currentSessions = [
-        { id: 1, name: "Badminton League", time: "02 hours 30 min" },
-        { id: 2, name: "Badminton League", time: "02 hours 30 min" },
-        { id: 3, name: "Badminton League", time: '02 hours 30 min' },
-    ];
+const CreatePrograms = () => {
+    const {
+        programName,
+        setProgramName,
+        programDescription,
+        setProgramDescription,
+        handleCreateProgram,
+        goToAddSession,
+    } = useCreateProgram()
     return (
         <View style={styles.container}>
             <Header
-                title={route?.params?.editProgramName.length > 0 ? "Edit Program" : "Create Program"}
+                title={"Create Program"}
                 hasActionIcon
-                actionBtnPress={handleCreaterProgram}
+                actionBtnPress={handleCreateProgram}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
                 isActionBtnDisabled={!programName || !programDescription}
             />
@@ -75,7 +44,7 @@ const CreatePrograms = ({ navigation }) => {
                     activeOutlineColor="grey"
                     placeholderTextColor={"#000"}
                     value={programName}
-                    onChangeText={(text) => setProgramName(text)}
+                    onChangeText={setProgramName}
                     style={{
                         borderBottomWidth: 0,
                         borderColor: "grey",
@@ -98,7 +67,7 @@ const CreatePrograms = ({ navigation }) => {
                         backgroundColor: 'white',
                         color: Colors.black2
                     }}
-                    onChangeText={(text) => setProgramDescription(text)}
+                    onChangeText={setProgramDescription}
                 />
                 <View style={{ height: "3%" }} />
                 <CenteredLineWithText lineText={"Sessions"} />
@@ -106,11 +75,12 @@ const CreatePrograms = ({ navigation }) => {
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                 <MyButton
                     width={"90%"}
-                    disabled={true}
+                    disabled={false}
                     alignSelf="center"
-                    title={route?.params?.editProgramName.length > 0 ? "Delete Program" : "Add Sessions"}
-                    backgroundColor={route?.params?.editProgramName.length ? Colors.darkGray : Colors.orange}
-                    onPress={() => handleCreaterProgram()}
+                    title={"Add Session"}
+                    Icon={<AntDesign name="check" size={18} color={"#fff"} />}
+                    backgroundColor={Colors.orange}
+                    onPress={goToAddSession}
                 />
             </View>
         </View>
