@@ -5,35 +5,21 @@ import MyHeader from "../../../components/MyHeader";
 import MyText from "../../../components/MyText";
 import CardItem from "../../../components/CardItem";
 import MyButton from "../../../components/MyButton";
-import usePlayers from "../usePlayers";
 import AvatarImage from "../../../components/AvatarImage";
-import { styles } from "./styles";
 import group10 from "../../../assets/images/group904.png";
 import groupAttendance from "../../../assets/images/groupAttendance.png";
 import groupEvaluation from "../../../assets/images/groupEvaluation.png";
+import usePlayerProfile from "./usePlayerProfile";
+import { styles } from "./styles";
 
 const PlayerProfile = ({ navigation, route }) => {
-  const { playerProfileResponse, handleDeletePlayer } = usePlayers({
-    navigation,
-    route,
-  });
-
   const {
-    first_name = "",
-    last_name = "",
-    _id,
-    profile_pic,
-  } = playerProfileResponse || {};
-
-  const goToEditPlayerProfile = () => {
-    navigation.navigate("PlayerProfileManager", {
-      isEdit: true,
-      playerId: _id,
-      playerData: playerProfileResponse,
-    });
-  };
-
-  console.log("player_id", _id);
+    firstName,
+    lastName,
+    profilePic,
+    goToEditPlayerProfile,
+    handleDeletePlayer,
+  } = usePlayerProfile();
 
   return (
     <View style={styles.container}>
@@ -41,13 +27,13 @@ const PlayerProfile = ({ navigation, route }) => {
       <View style={styles.profileContainer}>
         <View style={styles.profileImage}>
           <AvatarImage
-            imageUrl={profile_pic}
+            imageUrl={profilePic}
             placeholderImage={group10}
             resizeMode="cover"
             isEdit={true}
           />
         </View>
-        <MyText text={`${first_name} ${last_name}`} center fontsize={20} />
+        <MyText text={`${firstName} ${lastName}`} center fontsize={20} />
         <TouchableOpacity onPress={goToEditPlayerProfile}>
           <Text style={styles.viewProfileText}>
             View Full Profile <AntDesign name="right" />

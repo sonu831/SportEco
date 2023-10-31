@@ -1,121 +1,101 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { isEmpty } from "lodash";
-import React, { useEffect, useState } from "react";
-import { userDetails$ } from "../../../store/users/selectors";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../Navigation/types";
-import { RouteProp } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import {
   deletePlayer,
   fetchPlayerById,
-  fetchPlayers,
-  searchPlayer,
-  uploadPlayerProfilePicture,
   updatePlayerProfile,
   addPlayerWithPic,
 } from "../../../services/players";
-import { playerDetails$ } from "../../../store/players/selectors";
 import {
   InitialState,
-  PlayerData,
-  PlayerProfileState,
   HandleDeletePlayerFunction,
+  PlayerProfileManagerRouteProp,
+  PlayerProfileManagerNavigationProp,
 } from "./config";
-import { uploadUserProfilePicture } from "../../../services/users";
+import { AppDispatch } from "../../../store";
+import { UpdateStateRequest } from "../../../types/UpdateState";
+import ScreensName from "../../../constants/ScreenNames";
+import { convertToCustomDateObject } from "../../../helper/dateTimeConversion";
+import { initializePlayer, mapResponseToPlayerData } from "../../../helper";
 
 // Constants and Initial States
-const initialState = {
+const initialState: InitialState = {
   showConfirmation: false,
-  playerList: [],
+  showDatePicker: false,
+  PlayerDetails: initializePlayer(),
+  isEdit: false,
 };
-const options = [
-  { label: "Male", icon: "male" },
-  { label: "Female", icon: "female-sharp" },
-  { label: "Other", icon: "add" },
-];
 
-const usePlayerProfileManager = ({
-  navigation,
-  route,
-}: {
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    keyof RootStackParamList,
-    undefined
-  >;
-  route: RouteProp<RootStackParamList, "Players">;
-}) => {
-  const dispatch = useDispatch();
-  const userDetails = useSelector(userDetails$);
-  const playerDetails = useSelector(playerDetails$);
-  const [state, setState] = useState<Partial<InitialState>>(initialState);
-  const [playerProfileResponse, setPlayerProfileResponse] =
-    useState<PlayerData>();
-  const [playerDetailsState, setPlayerDetailsState] =
-    useState<PlayerProfileState>({
-      playerId: null,
-      firstName: "",
-      lastName: "",
-      dob: { date: "", month: "", year: "" },
-      phoneNumber: "",
-      isDatePickerVisible: false,
-      selectedOption: options[0].label,
-      selectedDate: new Date(),
-      avatarImage: null,
-      profilePic: null,
-    });
-  const [isEdit, setIsEdit] = useState(false);
+const usePlayerProfileManager = () => {
+  const navigation = useNavigation<PlayerProfileManagerNavigationProp>();
+  const route = useRoute<PlayerProfileManagerRouteProp>();
+
+  const [state, setState] = useState<InitialState>(initialState);
+
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
-    firstName,
-    lastName,
-    phoneNumber,
-    selectedOption,
-    avatarImage,
-    dob,
-    playerId,
-    profilePic,
-  } = playerDetailsState;
+    isEdit,
+    PlayerDetails: {
+      firstName,
+      lastName,
+      phoneNumber,
+      selectedOption,
+      avatarImage,
+      dob,
+      playerId,
+      profilePic,
+    },
+  } = state;
 
   // Handlers
   const handleOptionPress = (option) => {
-    setPlayerDetailsState((prev) => ({ ...prev, selectedOption: option }));
+    setState((prev) => ({
+      ...prev,
+      PlayerDetails: {
+        ...prev.PlayerDetails,
+        selectedOption: option,
+      },
+    }));
   };
 
-  const handleDOBConfirm = (date) => {
-    // Extract day, month, and year from the date
-    const day = date.getDate().toString();
-    const month = (date.getMonth() + 1).toString(); // Months are 0-based in JS Date
-    const year = date.getFullYear().toString();
+  const handleDOBConfirm = (selectedDate) => {
+    const day = selectedDate.getDate().toString().padStart(2, "0");
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = selectedDate.getFullYear().toString();
 
-    setPlayerDetailsState((prev) => ({
-      ...prev,
-      isDatePickerVisible: !prev.isDatePickerVisible,
-      selectedDate: date,
-      dob: {
-        date: day,
-        month: month,
-        year: year,
+    setState((prevState) => ({
+      ...prevState,
+      showDatePicker: false,
+      PlayerDetails: {
+        ...prevState.PlayerDetails,
+        dob: { date: day, month, year },
       },
     }));
   };
 
   const handleToggleDatePicker = () => {
-    setPlayerDetailsState((prev) => ({
+    setState((prev) => ({
       ...prev,
-      isDatePickerVisible: !prev.isDatePickerVisible,
+      showDatePicker: !prev.showDatePicker,
     }));
+  };
+
+  const goToPlayersScreen = () => {
+    navigation.replace(ScreensName.Players, { shouldRefresh: true });
   };
 
   const handleDeletePlayer: HandleDeletePlayerFunction = () => {
     if (!route?.params?.id) return;
     dispatch(deletePlayer(route.params.id)).then(() => {
-      navigation.navigate("Players");
+      goToPlayersScreen();
     });
   };
 
   const handlePlayer = () => {
     const formData = new FormData();
-
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
     formData.append("dbo", JSON.stringify(dob));
@@ -138,84 +118,48 @@ const usePlayerProfileManager = ({
       : addPlayerWithPic(formData);
     dispatch(action).then((res) => {
       if (res?.payload?.data?._id) {
-        navigation.replace("Players");
+        goToPlayersScreen();
       }
     });
   };
-
-  const updateState = (request: { key: keyof InitialState; value: any }) => {
-    const { key, value } = request;
-    setState((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleEditBtn = () => navigation.navigate("MyAccount");
 
   const handleUploadImage = (image: string) => {
-    setPlayerDetailsState({ ...playerDetailsState, profilePic: image });
+    setState((prevState) => ({
+      ...prevState,
+      PlayerDetails: {
+        ...prevState.PlayerDetails,
+        profilePic: image,
+      },
+    }));
   };
 
-  // Effects
-  useEffect(() => {
-    if (!route?.params?.id) return;
-    dispatch(fetchPlayerById(route.params.id)).then((res) => {
-      setPlayerProfileResponse(res?.payload?.data);
+  const getPlayerById = (playerId: string) => {
+    dispatch(fetchPlayerById(playerId)).then((res) => {
+      const playerData = mapResponseToPlayerData(res.payload?.data);
+      setState((prev) => ({
+        ...prev,
+        isEdit: true,
+        PlayerDetails: playerData,
+      }));
     });
-  }, []);
-
-  // useEffect(() => {
-  //   dispatch(fetchPlayers()).then((res) => {
-  //     updateState({ key: "playerList", value: res?.payload?.data ?? [] });
-  //   });
-  // }, [dispatch]);
+  };
 
   useEffect(() => {
-    if (route?.params?.isEdit) {
-      const {
-        _id,
-        first_name,
-        last_name,
-        phonenumber,
-        profile_pic,
-        avatarimage,
-        dbo,
-        gender,
-      } = route.params.playerData;
-      if (!isEmpty(_id)) {
-        setPlayerDetailsState((prev) => ({
-          ...prev,
-          firstName: first_name,
-          lastName: last_name,
-          phoneNumber: phonenumber,
-          avatarImage: avatarimage,
-          profilePic: profile_pic,
-          dob: dbo,
-          selectedOption: gender,
-          playerId: _id || route.params.playerId,
-        }));
-        setIsEdit(true);
-      }
-    } else {
-      setIsEdit(false);
+    if (route.params?.isEdit && route.params?.playerId?.length) {
+      getPlayerById(route.params?.playerId);
     }
-  }, []);
+  }, [route.params?.isEdit]);
 
   return {
+    state,
     handleToggleDatePicker,
-    options,
     handleDOBConfirm,
-    playerDetailsState,
-    setPlayerDetailsState,
     handleOptionPress,
     dispatch,
-    userDetails,
-    handleEditBtn,
-    updateState,
-    state,
-    playerProfileResponse,
     handleDeletePlayer,
     handlePlayer,
     handleUploadImage,
-    isEdit,
+    setState,
   };
 };
 

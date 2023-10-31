@@ -6,9 +6,10 @@ import { Colors } from "../../constants/Colors";
 
 type SearchBarProps = {
   onChange: ((text: string) => void) | undefined;
+  value?: string;
 };
 
-const SearchBar = ({ onChange }: SearchBarProps) => {
+const SearchBar = ({ onChange, value }: SearchBarProps) => {
   return (
     <View style={styles.searchSection}>
       <Feather
@@ -19,6 +20,7 @@ const SearchBar = ({ onChange }: SearchBarProps) => {
       />
       <TextInput
         style={styles.input}
+        value={value}
         placeholder="Search"
         onChangeText={onChange}
         underlineColorAndroid="transparent"

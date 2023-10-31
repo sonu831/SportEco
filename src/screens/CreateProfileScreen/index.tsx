@@ -165,8 +165,6 @@ const CreateProfileScreen = ({
     idProof,
   } = state;
 
-  console.log("state=====166", state);
-
   const dateOptions = DATE_OPTIONS();
   const monthOptions = MONTH_OPTIONS();
 

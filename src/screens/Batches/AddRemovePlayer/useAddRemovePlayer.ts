@@ -63,13 +63,14 @@ const useAddRemovePlayer = () => {
   }, []);
 
   useEffect(() => {
-    if (currentParticipantsList?.length && allPlayers?.length) {
+    if (allPlayers?.length) {
       const currentPlayerIds = currentParticipantsList.map(
         (player) => player.playerid
       );
-      const filteredRemainingParticipants = allPlayers.filter(
+      let filteredRemainingParticipants = allPlayers.filter(
         (player) => !currentPlayerIds.includes(player._id)
       );
+      //if (!currentPlayerIds.length) filteredRemainingParticipants = allPlayers;
       setRemainingParticipants(filteredRemainingParticipants);
     }
   }, [currentParticipantsList, allPlayers]);
@@ -173,6 +174,7 @@ const useAddRemovePlayer = () => {
 
   // Return values
   return {
+    allPlayers,
     toggleSelection: handlePlayerSelection,
     remainingParticipants,
     currentParticipantsList,

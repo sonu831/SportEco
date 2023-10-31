@@ -1,63 +1,47 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AppDispatch } from "../../store";
-import { userDetails$ } from "../../store/users/selectors";
-import { playerDetails$ } from "../../store/players/selectors";
-import {
-  deletePlayer,
-  fetchPlayerById,
-  fetchPlayers,
-  searchPlayer,
-} from "../../services/players";
+import { fetchPlayers, searchPlayer } from "../../services/players";
 import { UpdateStateRequest } from "../../types/UpdateState";
-import { mapResponseToPlayerData } from "./mapper";
 import {
-  HandleDeletePlayerFunction,
   InitialState,
-  PlayerData,
   PlayersScreenNavigationProp,
   PlayersScreenRouteProp,
 } from "./config";
 import ScreensName from "../../constants/ScreenNames";
+import useDebouncedFunction from "../../helper/common";
 
 const initialState: InitialState = {
   showConfirmation: false,
   playerList: [],
+  isSearchEnable: false,
 };
 
 const usePlayers = () => {
   const navigation = useNavigation<PlayersScreenNavigationProp>();
   const route = useRoute<PlayersScreenRouteProp>();
   const dispatch = useDispatch<AppDispatch>();
-  const userDetails = useSelector(userDetails$);
-  const playerDetails = useSelector(playerDetails$);
   const [state, setState] = useState<InitialState>(initialState);
-  const [playerProfileResponse, setPlayerProfileResponse] =
-    useState<PlayerData>();
 
   const updateState = useCallback(
     (request: UpdateStateRequest<keyof InitialState>) => {
       try {
-        if (Array.isArray(request)) {
-          request.forEach(({ key, value }) => {
-            if (key in initialState) {
-              setState((prev) => ({ ...prev, [key]: value }));
-            } else {
-              console.error(
-                `Invalid key: ${key} is not a property of initialState`
-              );
-            }
-          });
-        } else {
-          const { key, value } = request;
-          if (key in initialState) {
-            setState((prev) => ({ ...prev, [key]: value }));
-          } else {
+        const handleUpdate = (key: keyof InitialState, value: any) => {
+          if (!(key in initialState)) {
             console.error(
               `Invalid key: ${key} is not a property of initialState`
             );
+            return;
           }
+          setState((prev) => ({ ...prev, [key]: value }));
+        };
+
+        if (Array.isArray(request)) {
+          request.forEach(({ key, value }) => handleUpdate(key, value));
+        } else {
+          const { key, value } = request;
+          handleUpdate(key, value);
         }
       } catch (error) {
         console.error("An error occurred in updateState:", error);
@@ -66,39 +50,44 @@ const usePlayers = () => {
     []
   );
 
-  const fetchPlayer = useCallback(() => {
-    dispatch(fetchPlayers()).then((res) =>
-      updateState({ key: "playerList", value: res?.payload?.data || [] })
-    );
-  }, [dispatch, updateState]);
-
-  useEffect(() => {
-    fetchPlayer();
-  }, [fetchPlayer]);
-
-  useEffect(() => {
-    const playerId = route.params?.id;
-    if (playerId) {
-      dispatch(fetchPlayerById(playerId)).then((res) => {
-        const mapped = mapResponseToPlayerData(res.payload?.data);
-        setPlayerProfileResponse(mapped);
-      });
+  const handleFetchPlayer = async () => {
+    try {
+      const response = await dispatch(fetchPlayers());
+      const playerData = response?.payload?.data || [];
+      updateState({ key: "playerList", value: playerData });
+      navigation.navigate(ScreensName.Players, { shouldRefresh: false });
+    } catch (error) {
+      console.error("Error fetching players:", error);
+      // Handle the error as needed, e.g., show a notification to the user
     }
-  }, [dispatch, route.params, updateState]);
-
-  const handleDeletePlayer: HandleDeletePlayerFunction = () => {
-    const playerId = route.params?.id;
-    if (!playerId) return;
-
-    dispatch(deletePlayer({ id: playerId })).then(() => {
-      navigation.navigate("Players", { isPlayerDeleted: true });
-    });
   };
 
+  useEffect(() => {
+    handleFetchPlayer();
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.shouldRefresh) {
+      handleFetchPlayer();
+    }
+  }, [route.params?.shouldRefresh]);
+
   const onChangeSearchBar = (searchText: string) => {
-    dispatch(searchPlayer(searchText)).then((res) => {
-      updateState({ key: "playerList", value: res.payload?.data || [] });
-    });
+    if (searchText?.length > 1)
+      dispatch(searchPlayer(searchText)).then((res) => {
+        updateState({ key: "playerList", value: res.payload?.data || [] });
+        updateState({
+          key: "isSearchEnable",
+          value: true,
+        });
+      });
+    else {
+      updateState({
+        key: "isSearchEnable",
+        value: false,
+      });
+      handleFetchPlayer();
+    }
   };
 
   const handleGoBack = () => navigation.goBack();
@@ -116,17 +105,13 @@ const usePlayers = () => {
       return;
     }
 
-    navigation.navigate(ScreensName.PlayerProfile, { id: playerId });
+    navigation.navigate(ScreensName.PlayerProfile, { playerId: playerId });
   };
 
   return {
     goToCreatePlayer,
-    userDetails,
-    playerDetails,
-    playerProfileResponse,
     state,
-    handleDeletePlayer,
-    onChangeSearchBar,
+    debouncedOnChangeSearchBar: useDebouncedFunction(onChangeSearchBar, 300),
     handleGoBack,
     handleEditBtn,
     goToPlayerProfile,
