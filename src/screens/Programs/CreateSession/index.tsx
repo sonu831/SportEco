@@ -1,17 +1,10 @@
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
 import Header from '../../../components/MyHeader'
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Feather from "react-native-vector-icons/Feather";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import MyText from '../../../components/MyText';
 import { Colors } from '../../../constants/Colors';
 import { TextInput } from "react-native-paper";
-import { CenteredLineWithText } from '../../../components';
-import MyButton from "../../../components/MyButton";
-import { AppDispatch } from '../../../store';
-import { useDispatch } from 'react-redux';
-import { addSessionInProgram } from '../../../services/programs';
 import { useCreateSession } from './useCreateSession';
 
 const CreateSession = () => {

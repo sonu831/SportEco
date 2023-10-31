@@ -75,7 +75,7 @@ const CreatePrograms = () => {
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                 <MyButton
                     width={"90%"}
-                    disabled={false}
+                    disabled={!programName || !programDescription}
                     alignSelf="center"
                     title={"Add Session"}
                     Icon={<AntDesign name="check" size={18} color={"#fff"} />}
