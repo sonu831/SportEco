@@ -22,11 +22,12 @@ export const useCreateProgram = () => {
         navigation.navigate("Programs", { shouldRefresh: true });
     }, [navigation]);
 
-    const goToAddSession = useCallback(() => {
-        navigation.navigate("CreateSession")
-    }, [navigation])
+    const goToProgramInfoScreen = useCallback((item) =>
+        navigation.navigate('ProgramInfo',
+            { programInfo: item }
+        ), [navigation])
 
-    // Batch creation handler
+    // Program creation handler
     const handleCreateProgram = useCallback(async () => {
         const request: ProgramRequest = {
             name: programName,
@@ -34,17 +35,17 @@ export const useCreateProgram = () => {
         };
         try {
             const response = await dispatch(addPrograms(request)).unwrap();
-            console.log("response", response);
             if (response?.data?._id) {
                 setProgramName("");
                 setProgramDescription("");
-                goToProgramsScreen();
+                goToProgramsScreen()
             }
         } catch (error) {
             console.error("Error creating programs", error);
             // Handle error appropriately, e.g., show a notification to the user
         }
-    }, [programName, programDescription, dispatch, goToProgramsScreen]);
+    }, [programName, programDescription, dispatch, goToProgramsScreen, goToProgramInfoScreen]);
+
 
     // Exposed values and functions
     return {
@@ -53,6 +54,6 @@ export const useCreateProgram = () => {
         programDescription,
         setProgramDescription,
         handleCreateProgram,
-        goToAddSession,
+        goToProgramInfoScreen
     };
 };

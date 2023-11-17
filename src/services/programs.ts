@@ -79,15 +79,15 @@ type AddSessionInProgramProps = {
 export const addSessionInProgram = createAsyncThunk(
   "addSessionInProgram",
   async (request: AddSessionInProgramProps, { rejectWithValue }) => {
-    const { data, id } = request;
-
     return axios
-      .post(endpoints.addSessionInProgram, data, {
+      .post(endpoints.addSessionInProgram, request.data, {
         headers: {
-          program_id: id,
+          program_id: request.id,
         },
       })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data
+      })
       .catch((err) => {
         rejectWithValue(err);
       });
@@ -97,7 +97,6 @@ export const addSessionInProgram = createAsyncThunk(
 export const getProgromDataById = createAsyncThunk(
   "getProgromDataById",
   async (id: string, { rejectWithValue }) => {
-    console.log("ididid", id);
     return axios
       .get(endpoints.getProgromDataById, {
         headers: {

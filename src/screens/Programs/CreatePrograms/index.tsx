@@ -22,7 +22,6 @@ const CreatePrograms = () => {
         programDescription,
         setProgramDescription,
         handleCreateProgram,
-        goToAddSession,
     } = useCreateProgram()
     return (
         <View style={styles.container}>
@@ -71,17 +70,6 @@ const CreatePrograms = () => {
                 />
                 <View style={{ height: "3%" }} />
                 <CenteredLineWithText lineText={"Sessions"} />
-            </View>
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <MyButton
-                    width={"90%"}
-                    disabled={false}
-                    alignSelf="center"
-                    title={"Add Session"}
-                    Icon={<AntDesign name="check" size={18} color={"#fff"} />}
-                    backgroundColor={Colors.orange}
-                    onPress={goToAddSession}
-                />
             </View>
         </View>
     )
