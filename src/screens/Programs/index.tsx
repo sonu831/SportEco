@@ -14,19 +14,13 @@ import usePrograms from './usePrograms'
 import { styles } from './style'
 
 const Programs = ({ navigation, route }) => {
-    const {
-        state: { programList: programData },
-        handleGoBack,
-        handleCreateProgram,
-        goToProgramInfo,
-    } = usePrograms({ navigation, route }); // var
-    const goToCreatePrograms = () => navigation.navigate('CreatePrograms') // var
+    const { state: { programList: programData }, goToProgramInfoScreen, handleCreateProgram } = usePrograms({ navigation, route }); // var
     const renderProgram = ({ item, index }) => (
         <BatchCard
             bathName={item?.name}
             batchSubData={item?.sessions.length}
             bacthIndex={index}
-            onPress={() => goToProgramInfo(item)}
+            onPress={() => goToProgramInfoScreen(item)}
         />
     )
     const renderEmptyProgram = () => (
@@ -51,7 +45,7 @@ const Programs = ({ navigation, route }) => {
                     contentContainerStyle={{ flexGrow: 1, marginBottom: 20 }}
                 />
             </ScrollView>
-            <FAB onPress={() => goToCreatePrograms()} />
+            <FAB onPress={handleCreateProgram} />
         </View>
     )
 }

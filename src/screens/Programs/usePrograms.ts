@@ -12,6 +12,7 @@ import { InitialState, ProgramData, } from "./config";
 import { UpdateStateRequest } from "../../types/UpdateState";
 // services
 import { fetchPrograms } from "../../services/programs";
+import ScreensName from "../../constants/ScreenNames";
 
 const initialState = {
     showConfirmation: false,
@@ -26,8 +27,7 @@ const usePrograms = ({ navigation, route }: useProgramProps) => {
     // Navigation Handler
     const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
     const handleEditBtn = useCallback(() => navigation.navigate("MyAccount"), [navigation]);
-    const handleCreateProgram = useCallback(() => navigation.navigate('CreatePrograms'), [navigation])
-    const goToProgramInfo = useCallback((item) => navigation.navigate('ProgramInfo', { programInfo: item }), [navigation])
+    const handleCreateProgram = useCallback(() => navigation.navigate("CreatePrograms"), [navigation])
     // states
     const [state, setState] = useState<Partial<InitialState>>(initialState);
     const [programsList, setProgramsList] = useState<ProgramData>();
@@ -56,7 +56,10 @@ const usePrograms = ({ navigation, route }: useProgramProps) => {
             .then((res) => setProgramsList(res.payload.data))
             .catch((error) => console.error("Failed to fetch programs:", error));
     }, [dispatch]);
-
+    const goToProgramInfoScreen = useCallback((item) =>
+        navigation.navigate(ScreensName.ProgramInfo, { ...item }),
+        [navigation]
+    )
     // State updater
     const updateState = (request: UpdateStateRequest<keyof InitialState>) => {  // Function: To Update the state
         if (Array.isArray(request)) {
@@ -76,7 +79,7 @@ const usePrograms = ({ navigation, route }: useProgramProps) => {
         handleGoBack,
         handleEditBtn,
         handleCreateProgram,
-        goToProgramInfo
+        goToProgramInfoScreen
     }
 }
 

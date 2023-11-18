@@ -14,33 +14,35 @@ import { useProgramInfo } from './useProgramInfo';
 import { Colors } from '../../../constants/Colors';
 // styles
 import { styles } from '../style';
+import FAB from '../../../components/FAB';
 
 const ProgramInfo = ({ navigation }) => {
-    const { programInfo } = useProgramInfo()
+    const { programDetails, goToAddSession, goToEditProgram } = useProgramInfo();
     return (
         <View style={styles.container}>
             <Header
                 title=""
                 hasActionIcon
-                actionBtnPress={() => { }}
+                actionBtnPress={() => goToEditProgram()}
                 ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
             />
             <View style={styles.mainView}>
-                <MyText text={programInfo?.name} fontsize={24} fontFamily="BOLD" />
-                <MyText text={programInfo?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
+                {/* <MyText text={programDetails?.name} fontsize={24} fontFamily="BOLD" /> */}
+                <MyText text={programDetails?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <SearchBox />
-                {programInfo && programInfo?.sessions.map((item, index) => {
+                {programDetails?.sessions.length > 0 && programDetails?.sessions.map((item, index) => {
                     return (
                         <PlayerCard
                             key={index.toString()}
-                            playerName={item.name}
-                            playerTime={item.duration}
+                            playerName={item?.name}
+                            playerTime={item?.duration}
                             hasRemoveBtn={true}
                             onPress={() => navigation.navigate('SessionDetails', { sessionName: item?.name, sessionDuration: item?.duration, sessionDescription: item?.description })}
                         />
                     );
                 })}
             </View>
+            <FAB onPress={() => goToAddSession(programDetails)} />
         </View>
     )
 }

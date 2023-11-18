@@ -53,6 +53,7 @@ import PlayerProfileManager from "../Players/PlayerProfileManager";
 import NetInfo from "@react-native-community/netinfo";
 import MyText from "../../components/MyText";
 import { Colors } from "../../constants/Colors";
+import EditProgram from "../Programs/EditProgram";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -165,6 +166,10 @@ const Navigation = () => {
                 <Stack.Screen
                   name="CreatePrograms"
                   component={CreatePrograms}
+                />
+                <Stack.Screen
+                  name="EditProgram"
+                  component={EditProgram}
                 />
                 <Stack.Screen name="CreateSession" component={CreateSession} />
                 <Stack.Screen name="ProgramInfo" component={ProgramInfo} />
