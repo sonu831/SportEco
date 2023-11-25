@@ -1,10 +1,11 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Address } from "../Venue/ChooseLocation/useChooseLocation";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
+    interface RootParamList extends RootStackParamList {}
   }
 }
 
@@ -21,31 +22,34 @@ export type RootStackParamList = {
   Calendar: undefined;
   Message: undefined;
   AddBatch:
-  | {
-    isEdit?: boolean;
-  }
-  | any;
+    | {
+        isEdit?: boolean;
+      }
+    | any;
   AddProgram:
-  | {
-    isEdit?: boolean;
-  }
-  | any;
+    | {
+        isEdit?: boolean;
+      }
+    | any;
   SelectPlayer: any;
   AddSession: any;
   AddEvents: any;
-  AddVenue: { isEdit?: boolean } | undefined;
+  AddVenue:
+    | { isEdit?: boolean; address?: Address }
+    | { address: Address }
+    | undefined;
   BatchScreen: any;
   ProgramDetails: any;
   VenueDetail: any;
   Profile: { player?: boolean } | undefined;
   Confirmation:
-  | {
-    label?: string;
-    navigateTo?: keyof RootStackParamList;
-    navigateOption?: any;
-    isNewUser?: boolean;
-  }
-  | undefined;
+    | {
+        label?: string;
+        navigateTo?: keyof RootStackParamList;
+        navigateOption?: any;
+        isNewUser?: boolean;
+      }
+    | undefined;
   Events: any;
   CalendarScreen: any;
   MyAccount: any;
