@@ -13,8 +13,6 @@ enum ScreensName {
   AddSession = "AddSession",
   BatchScreen = "BatchScreen",
   SelectPlayer = "SelectPlayer",
-  AddVenue = "AddVenue",
-  VenueDetail = "VenueDetail",
   Events = "Events",
   AddEvents = "AddEvents",
   ProgramDetails = "ProgramDetails",

@@ -28,7 +28,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "sport.eco",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": ["android.permission.RECORD_AUDIO"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDFJlmj270Oz3P90ptUE-8mSFT2vKoV8NM"
+        }
+      }
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"

@@ -9,20 +9,7 @@ import { AppDispatch } from "../../../store";
 import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
-
-export interface Address {
-  city?: string;
-  country?: string;
-  district?: string | null;
-  isoCountryCode?: string;
-  name?: string;
-  postalCode?: string;
-  region?: string;
-  street?: string;
-  streetNumber?: string;
-  subregion?: string;
-  timezone?: string | null;
-}
+import { Address } from "react-native-maps";
 
 interface LocationState {
   showConfirmation: boolean;
@@ -32,7 +19,9 @@ interface LocationState {
   venueDescription: string;
   image: string;
   currentRegion: LocationObject | null;
+  markerCoordinates: LocationObject | null;
   address: Address;
+  isRegionChange: boolean;
 }
 
 export interface LocationObject {
@@ -43,8 +32,8 @@ export interface LocationObject {
 }
 
 const defaultRegion = {
-  latitude: 28.6139,
-  longitude: 77.2090,
+  latitude: 28.4595,
+  longitude: 77.0266,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
@@ -58,7 +47,9 @@ const useChooseLocation = () => {
 
   const [state, setState] = useState<Partial<LocationState>>({
     showConfirmation: false,
-    currentRegion: null,
+    currentRegion: defaultRegion,
+    markerCoordinates: defaultRegion,
+    isRegionChange: true,
     address: {
       name: "",
       subregion: "The Majestine Sports",
@@ -66,7 +57,7 @@ const useChooseLocation = () => {
     },
   });
 
-  const { currentRegion, address } = state;
+  const { currentRegion, address, markerCoordinates, isRegionChange } = state;
 
   const updateState = (request: UpdateStateRequest<keyof LocationState>) => {
     Array.isArray(request)
@@ -85,14 +76,93 @@ const useChooseLocation = () => {
 
   const handleConfirmLocation = () => {
     /* implementation */
-    handleGoBack();
+    goToAddVenue();
   };
   const handleGoBack = () => navigation.goBack();
   const goToVenueLists = () => navigation.navigate(ScreensName.Venues);
   const goToAddVenue = () =>
-    navigation.navigate(ScreensName.AddVenue, {
-      address,
+    navigation.navigate(ScreensName.CreateVenue, {
+      address: address,
     });
+
+  const onRegionChange = (region) => {
+    if (!isRegionChange) return;
+    console.log("region", region);
+    updateState({
+      key: "currentRegion",
+      value: region,
+    });
+  };
+
+  const handleOnDragStart = () => {
+    updateState({
+      key: "isRegionChange",
+      value: false,
+    });
+  };
+
+  const handleOnDragEnd = (pin) => {
+    console.log("pin", pin);
+    updateState({
+      key: "markerCoordinates",
+      value: pin,
+    });
+    updateState({
+      key: "isRegionChange",
+      value: true,
+    });
+  };
+
+  useEffect(() => {
+    let timeoutId;
+
+    if (currentRegion) {
+      timeoutId = setTimeout(() => {
+        updateState({
+          key: "markerCoordinates",
+          value: {
+            latitude: currentRegion.latitude,
+            longitude: currentRegion.longitude,
+            latitudeDelta: currentRegion.latitudeDelta,
+            longitudeDelta: currentRegion.longitudeDelta,
+          },
+        });
+      }, 500); // Delay of 1000 milliseconds (1 second)
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [currentRegion]);
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (markerCoordinates) {
+        try {
+          // Reverse Geocoding to get the address
+          const address = await Location.reverseGeocodeAsync({
+            latitude: markerCoordinates.latitude,
+            longitude: markerCoordinates.longitude,
+          });
+
+          if (address.length > 0) {
+            console.log("Address:", address[0]);
+            updateState({
+              key: "address",
+              value: address[0],
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching address:", error);
+          // Handle the error, e.g., set an error state or show a message
+        }
+      }
+    };
+
+    fetchAddress();
+  }, [markerCoordinates]);
 
   useEffect(() => {
     (async () => {
@@ -103,9 +173,9 @@ const useChooseLocation = () => {
       }
 
       const location = await Location.getCurrentPositionAsync({});
-      const distance = 1; // distance in kilometers you want to display from the center
+      const distance = 5; // distance in kilometers you want to display from the center
 
-      const latitudeDelta = distance / 10;
+      const latitudeDelta = distance / 180;
       const longitudeDelta =
         latitudeDelta * Math.cos((location.coords.latitude * Math.PI) / 10);
 
@@ -114,35 +184,25 @@ const useChooseLocation = () => {
         value: {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          latitudeDelta,
+          longitudeDelta,
         },
       });
-
-      // Reverse Geocoding to get the address
-      const address = await Location.reverseGeocodeAsync({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-      if (address.length > 0) {
-        console.log("Address:", address[0]);
-        updateState({
-          key: "address",
-          value: address[0],
-        });
-        // You can update the state or perform other actions with the address here
-      }
     })();
   }, []);
 
   return {
-    markerCoordinates: currentRegion || defaultRegion,
+    currentRegion,
+    markerCoordinates,
     route,
+    onRegionChange,
     handleChange,
     handleConfirmLocation,
     handleGoBack,
     goToAddVenue,
     goToVenueLists,
+    handleOnDragEnd,
+    handleOnDragStart,
     ...state,
   };
 };

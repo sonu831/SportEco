@@ -20,10 +20,7 @@ import { TouchableOpacity, View } from "react-native";
 import Toast from "../../components/Toast";
 import AddProgram from "../AddProgram";
 import AddSession from "../AddSession";
-import AddVenue from "../AddVenue";
-import VenueDetail from "../VenueDetail";
 import Events from "../Events";
-import AddEvents from "../AddEvents";
 import ProgramDetails from "../ProgramDetails";
 import CalendarScreen from "../CalendarScreen";
 import Loading from "../Loading";
@@ -141,10 +138,9 @@ const Navigation = () => {
                 <Stack.Screen name="AddSession" component={AddSession} />
                 <Stack.Screen name="BatchScreen" component={BatchScreen} />
                 <Stack.Screen name="SelectPlayer" component={SelectPlayer} />
-                <Stack.Screen name="AddVenue" component={AddVenue} />
-                <Stack.Screen name="VenueDetail" component={VenueDetail} />
+
                 <Stack.Screen name="Events" component={Events} />
-                <Stack.Screen name="AddEvents" component={AddEvents} />
+
                 <Stack.Screen
                   name="ProgramDetails"
                   component={ProgramDetails}
@@ -167,10 +163,7 @@ const Navigation = () => {
                   name="CreatePrograms"
                   component={CreatePrograms}
                 />
-                <Stack.Screen
-                  name="EditProgram"
-                  component={EditProgram}
-                />
+                <Stack.Screen name="EditProgram" component={EditProgram} />
                 <Stack.Screen name="CreateSession" component={CreateSession} />
                 <Stack.Screen name="ProgramInfo" component={ProgramInfo} />
                 <Stack.Screen

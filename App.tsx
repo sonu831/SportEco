@@ -12,6 +12,7 @@ import ErrorBoundary from "./src/screens/ErrorBoundary";
 import { OtaUpdater } from "./OtaUpdater";
 import { StatusBar } from "expo-status-bar";
 import { PaperProvider } from "react-native-paper";
+
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
