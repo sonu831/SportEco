@@ -34,7 +34,7 @@ export const fetchPrograms = createAsyncThunk(
 
 export const deleteProgram = createAsyncThunk(
   "deleteProgram",
-  async ({ programId }: { programId: string }, { rejectWithValue }) => {
+  async (programId: string, { rejectWithValue }) => {
     return axios
       .get(endpoints.deleteProgram, {
         headers: {

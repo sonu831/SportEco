@@ -17,6 +17,7 @@ export const useProgramInfo = () => {
     const route = useRoute<RouteProp<RootStackParamList, "ProgramInfo">>();
     // useState
     const [programDetails, setProgramDetails] = useState<ProgramDetail | null>(null)
+    const [programName, setProgramName] = useState<ProgramDetail | null>(route.params?.name)
     // useEffect
     useEffect(() => {
         if (route.params?._id) {
@@ -28,26 +29,27 @@ export const useProgramInfo = () => {
     const goToAddSession = useCallback((programData) => {
         navigation.navigate("CreateSession", { ...programData })
     }, [navigation])
-    const goToEditProgram = useCallback(() => {
-        if (programDetails) {
-            navigation.navigate('EditProgram', { programInfo: programDetails })
-        } else {
-            console.log("programInfo not found")
-        }
-    }, [navigation])
     // Program by id handler
-    const fetchProgramById = useCallback(async (programId: string) => {
+    const fetchProgramById = async (programId: string) => {
         try {
             const response = await dispatch(getProgromDataById(programId)).unwrap();
-            setProgramDetails(response?.data)
+            const programData = response?.data;
+            setProgramDetails(programData)
         } catch (error) {
             console.error("Error fetching programs info", error);
         }
-    }, [dispatch]);
-
+    }
+    const goToEditProgram = useCallback(() => {
+        if (programDetails) {
+            navigation.navigate('EditProgram', { programInfo: programDetails, programsName: route.params?.name })
+        } else {
+            console.log("programInfo not found")
+        }
+    }, [navigation, programDetails, programName])
     return {
         programDetails,
         goToEditProgram,
-        goToAddSession
+        goToAddSession,
+        programName
     };
 };

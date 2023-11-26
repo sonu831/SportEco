@@ -10,7 +10,7 @@ import { useRoute } from '@react-navigation/native';
 import { useEditProgram } from './useEditProgram';
 
 const EditProgram = () => {
-    const { programName, programDesc, setProgramName, setProgramDesc } = useEditProgram()
+    const { programName, programDesc, setProgramName, setProgramDesc, handleDeleteProgram, programInfo } = useEditProgram()
     return (
         <View style={styles.container}>
             <Header
@@ -22,7 +22,7 @@ const EditProgram = () => {
             />
             <View style={styles.mainView}>
                 <MyText text={"Edit Program Details."} fontsize={24} fontFamily="BOLD" />
-                <MyText text={"Edit the name & description of this program"} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
+                <MyText text={"Edit the name & description of this program."} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <View style={{ height: '15%' }} />
                 <TextInput
                     mode="outlined"
@@ -63,7 +63,7 @@ const EditProgram = () => {
                     alignSelf="center"
                     title={"Delete Program"}
                     backgroundColor={Colors.darkGray}
-                    onPress={() => { }}
+                    onPress={() => handleDeleteProgram(programInfo?._id)}
                 />
             </View>
         </View>

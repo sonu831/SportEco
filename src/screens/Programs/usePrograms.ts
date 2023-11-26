@@ -56,10 +56,9 @@ const usePrograms = ({ navigation, route }: useProgramProps) => {
             .then((res) => setProgramsList(res.payload.data))
             .catch((error) => console.error("Failed to fetch programs:", error));
     }, [dispatch]);
-    const goToProgramInfoScreen = useCallback((item) =>
+    const goToProgramInfoScreen = useCallback((item: any) =>
         navigation.navigate(ScreensName.ProgramInfo, { ...item }),
-        [navigation]
-    )
+        [navigation])
     // State updater
     const updateState = (request: UpdateStateRequest<keyof InitialState>) => {  // Function: To Update the state
         if (Array.isArray(request)) {

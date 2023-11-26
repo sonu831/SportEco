@@ -5,30 +5,41 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RouteProp } from "@react-navigation/native";
 // navigation types
 import { RootStackParamList } from "../../Navigation/types";
-//config
-import { ProgramDetail, ProgramRequest } from "../config";
 // redux
 import { useDispatch } from "react-redux";
 // services
-import { getProgromDataById } from "../../../services/programs";
+import { deleteProgram } from "../../../services/programs";
 
 export const useEditProgram = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<RouteProp<RootStackParamList, "EditProgram">>();
-    const { programInfo } = route.params || {};
-    console.log("programInfo", programInfo);
-
-    const { _id: batchId, program_name = "", description = "" } = programInfo || {};
+    const { programInfo, programsName } = route.params || {};
+    const { _id = "", program_name = programsName, description = "" } = programInfo || {};
     const [programName, setProgramName] = useState(program_name);
     const [programDesc, setProgramDesc] = useState(description);
     // useEffect
     // Redux dispatch and navigation hook
     const dispatch = useDispatch();
-
+    // Function
+    const handleDeleteProgram = useCallback(async (_id: string) => {
+        if (!_id) return;
+        try {
+            const res = await dispatch(deleteProgram(_id)).unwrap();
+            if (res?.success) {
+                navigation.replace("Programs", { shouldRefresh: true });
+            } else {
+                console.log("Program deletion was not successful");
+            }
+        } catch (error) {
+            console.error("Failed to delete Program:", error);
+        }
+    }, [_id, dispatch, navigation]);
     return {
         programName,
         programDesc,
         setProgramName,
-        setProgramDesc
+        setProgramDesc,
+        handleDeleteProgram,
+        programInfo
     };
 };
