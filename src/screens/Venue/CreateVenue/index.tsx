@@ -9,18 +9,57 @@ import { styles } from "./styles";
 import { Colors } from "../../../constants/Colors";
 import MyText from "../../../components/MyText";
 import useCreateVenue from "./useCreateVenue";
+import AddressComponent from "../AddressComponent";
 
 const CreateVenue = ({ navigation, currentImage }) => {
   const {
     state,
     handleGoBack,
-    goToVenueLists,
     goToChooseLocation,
     handleImage,
     pickImage,
     handleChange,
+    handleSubmit,
   } = useCreateVenue();
-  const { venueName, sport, courtName, venueDescription, image } = state;
+  const { venueName, sport, courtName, venueDescription, image, address } =
+    state;
+
+  const renderActionButton = () => {
+    if (address)
+      return (
+        <MyButton
+          width={"100%"}
+          alignSelf="center"
+          title="Save"
+          leftIcon={
+            <Feather
+              name="map"
+              size={20}
+              color={"#FFF"}
+              style={{ marginRight: 10 }}
+            />
+          }
+          onPress={handleSubmit}
+        />
+      );
+    else
+      return (
+        <MyButton
+          width={"100%"}
+          alignSelf="center"
+          title="Select Location"
+          leftIcon={
+            <Feather
+              name="map"
+              size={20}
+              color={"#FFF"}
+              style={{ marginRight: 10 }}
+            />
+          }
+          onPress={() => goToChooseLocation()}
+        />
+      );
+  };
 
   const renderImagePlaceholder = () => {
     if (currentImage) {
@@ -135,6 +174,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
           }}
         />
       </View>
+
       <View
         style={{
           flex: 1,
@@ -142,20 +182,18 @@ const CreateVenue = ({ navigation, currentImage }) => {
           justifyContent: "flex-end",
         }}
       >
-        <MyButton
-          width={"100%"}
-          alignSelf="center"
-          title="Select Location"
-          leftIcon={
-            <Feather
-              name="map"
-              size={20}
-              color={"#FFF"}
-              style={{ marginRight: 10 }}
-            />
-          }
-          onPress={() => goToChooseLocation()}
-        />
+        {address && (
+          <View
+            style={{
+              borderColor: Colors.gray3,
+              borderWidth: 1, // Add this line
+              display: "flex",
+            }}
+          >
+            <AddressComponent address={address} isEditLocation handleEditLocation={goToChooseLocation}/>
+          </View>
+        )}
+        {renderActionButton()}
       </View>
     </View>
   );

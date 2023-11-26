@@ -11,8 +11,6 @@ import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
 import { Address } from "react-native-maps";
 
-
-
 interface LocationState {
   showConfirmation: boolean;
   venueName: string;
@@ -78,13 +76,13 @@ const useChooseLocation = () => {
 
   const handleConfirmLocation = () => {
     /* implementation */
-    handleGoBack();
+    goToAddVenue();
   };
   const handleGoBack = () => navigation.goBack();
   const goToVenueLists = () => navigation.navigate(ScreensName.Venues);
   const goToAddVenue = () =>
-    navigation.navigate(ScreensName.AddVenue, {
-      address,
+    navigation.navigate(ScreensName.CreateVenue, {
+      address: address,
     });
 
   const onRegionChange = (region) => {

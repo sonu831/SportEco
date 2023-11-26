@@ -1,27 +1,30 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Camera from 'expo-camera';
+import * as Camera from "expo-camera";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
+import { Address } from "../types";
 
 type InitialState = {
   showConfirmation: boolean;
-  venueName: "";
-  sport: "";
-  courtName: "";
-  venueDescription: "";
-  image: "";
+  venueName: string;
+  sport: string;
+  courtName: string;
+  venueDescription: string;
+  image: string;
+  address: Address;
 };
 
 const initialState = {
   showConfirmation: false,
+  address: null,
 };
 
 const useCreateVenue = () => {
@@ -33,6 +36,8 @@ const useCreateVenue = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [state, setState] = useState<Partial<InitialState>>(initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const { address } = state;
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
     if (Array.isArray(request)) {
@@ -55,20 +60,21 @@ const useCreateVenue = () => {
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
     let status;
-  
+
     if (type === "camera") {
       const cameraPermission = await Camera.requestPermissionsAsync();
       status = cameraPermission.status;
     } else {
-      const libraryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const libraryPermission =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       status = libraryPermission.status;
     }
-  
+
     if (status !== "granted") {
       Alert.alert("Permission not granted");
       return;
     }
-  
+
     if (type === "camera") {
       result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -82,7 +88,7 @@ const useCreateVenue = () => {
         base64: true,
       });
     }
-  
+
     if (!!result?.assets?.length) {
       handleImage?.(result.assets[0].uri);
       setShowModal(false);
@@ -102,6 +108,19 @@ const useCreateVenue = () => {
   const goToChooseLocation = () =>
     navigation.navigate(ScreensName.ChooseLocation);
 
+  const handleSubmit = () => {
+    goToVenueLists();
+  };
+
+  useEffect(() => {
+    if (route?.params?.address) {
+      updateState({
+        key: "address",
+        value: route?.params?.address,
+      });
+    }
+  }, [route?.params?.address]);
+
   return {
     pickImage,
     route,
@@ -112,6 +131,7 @@ const useCreateVenue = () => {
     handleImage,
     goToChooseLocation,
     handleChange,
+    handleSubmit,
   };
 };
 

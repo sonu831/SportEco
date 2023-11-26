@@ -1,7 +1,8 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Address } from "../Venue/ChooseLocation/useChooseLocation";
+import { Address } from "../Venue/types";
+
 
 declare global {
   namespace ReactNavigation {
@@ -40,7 +41,6 @@ export type RootStackParamList = {
     | undefined;
   BatchScreen: any;
   ProgramDetails: any;
-  VenueDetail: any;
   Profile: { player?: boolean } | undefined;
   Confirmation:
     | {

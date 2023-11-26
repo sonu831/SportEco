@@ -7,19 +7,43 @@ import { Address } from "../types";
 
 type AddressProps = {
   address: Address;
+  handleEditLocation?: () => void;
+  isEditLocation?: boolean;
 };
 
-const AddressComponent = ({ address }: AddressProps) => {
+const AddressComponent = ({
+  address,
+  isEditLocation = false,
+  handleEditLocation,
+}: AddressProps) => {
   return (
     <View style={styles.locationRow}>
       <MaterialIcons name="location-pin" size={35} style={styles.iconStyle} />
       <View>
-        <MyText
-          text={`${address.name || ""}, ${address.streetNumber || ""}, ${
-            address.street || ""
-          }`}
-          fontFamily="BOLD"
-        />
+        {isEditLocation ? (
+          <View style={styles.editIconRow}>
+            <MyText
+              text={`${address.name || ""}, ${address.streetNumber || ""}, ${
+                address.street || ""
+              }`}
+              fontFamily="BOLD"
+            />
+
+            <MaterialIcons
+              onPress={handleEditLocation}
+              name="edit"
+              size={18}
+              style={styles.editIcon}
+            />
+          </View>
+        ) : (
+          <MyText
+            text={`${address.name || ""}, ${address.streetNumber || ""}, ${
+              address.street || ""
+            }`}
+            fontFamily="BOLD"
+          />
+        )}
         <MyText
           text={`${address.subregion || ""}, ${address.region || ""}, ${
             address.city || ""

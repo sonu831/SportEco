@@ -71,7 +71,6 @@ const useCommonScreen = ({
         isAddPlayer: true,
       });
     else if (showPrograms) navigation.navigate("AddProgram");
-    else if (showVenues) navigation.navigate("AddVenue");
     else navigation.navigate("AddBatch");
   };
 
