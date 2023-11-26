@@ -16,17 +16,11 @@ export const fetchVenueList = createAsyncThunk(
   }
 );
 
-type AddVenueProps = {
-  data: { [key: string]: any };
-};
-
 export const addVenue = createAsyncThunk(
   "addVenue",
-  async (request: AddVenueProps, { rejectWithValue }) => {
-    const { data } = request;
-
+  async (request: FormData, { rejectWithValue }) => {
     return axios
-      .post(endpoints.addVenue, data)
+      .post(endpoints.addVenue, request)
       .then((res) => res.data)
       .catch((err) => {
         rejectWithValue(err);

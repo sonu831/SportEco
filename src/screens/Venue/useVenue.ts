@@ -46,6 +46,15 @@ function useVenue() {
     dispatch(fetchVenueList());
   }, []);
 
+  useEffect(()=>{
+  if(venueList.length)
+  console.log('venueList...',venueList)
+  },[venueList])
+
+  useEffect(() => {
+    if (route.params?.shouldRefresh) dispatch(fetchVenueList());
+  }, [route.params?.shouldRefresh]);
+
   return {
     route,
     venueList,
