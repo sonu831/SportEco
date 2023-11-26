@@ -1,6 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert } from "react-native";
-import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as Camera from 'expo-camera';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

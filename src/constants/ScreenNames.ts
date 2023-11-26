@@ -14,7 +14,6 @@ enum ScreensName {
   BatchScreen = "BatchScreen",
   SelectPlayer = "SelectPlayer",
   AddVenue = "AddVenue",
-  VenueDetail = "VenueDetail",
   Events = "Events",
   AddEvents = "AddEvents",
   ProgramDetails = "ProgramDetails",
