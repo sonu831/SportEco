@@ -17,7 +17,7 @@ import { styles } from '../style';
 import FAB from '../../../components/FAB';
 
 const ProgramInfo = ({ navigation }) => {
-    const { programDetails, goToAddSession, goToEditProgram } = useProgramInfo();
+    const { programDetails, goToAddSession, goToEditProgram, programName } = useProgramInfo();
     return (
         <View style={styles.container}>
             <Header
@@ -27,7 +27,7 @@ const ProgramInfo = ({ navigation }) => {
                 ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
             />
             <View style={styles.mainView}>
-                {/* <MyText text={programDetails?.name} fontsize={24} fontFamily="BOLD" /> */}
+                <MyText text={programDetails?.name ? programDetails?.name : programName} fontsize={24} fontFamily="BOLD" />
                 <MyText text={programDetails?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <SearchBox />
                 {programDetails?.sessions.length > 0 && programDetails?.sessions.map((item, index) => {
