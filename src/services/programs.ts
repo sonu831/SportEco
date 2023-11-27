@@ -48,6 +48,22 @@ export const deleteProgram = createAsyncThunk(
   }
 );
 
+// export const deleteSessionInProgram = createAsyncThunk(
+//   "deleteProgram",
+//   async (programId: string, { rejectWithValue }) => {
+//     return axios
+//       .get(endpoints.deleteProgram, {
+//         headers: {
+//           program_id: programId,
+//         },
+//       })
+//       .then((res) => res.data)
+//       .catch((err) => {
+//         rejectWithValue(err);
+//       });
+//   }
+// );
+
 type UpdateProgramProps = {
   data: { [key: string]: any };
   id: string | undefined;

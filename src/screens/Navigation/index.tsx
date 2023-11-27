@@ -45,7 +45,7 @@ import CreatePrograms from "../Programs/CreatePrograms";
 import CreateSession from "../Programs/CreateSession";
 import ProgramInfo from "../Programs/ProgramInfo";
 import SessionDetails from "../Programs/SessionDetails/SessionDetails";
-import EditSession from "../Programs/EditSession/EditSession";
+import EditSession from "../Programs/EditSession";
 import PlayerProfileManager from "../Players/PlayerProfileManager";
 import NetInfo from "@react-native-community/netinfo";
 import MyText from "../../components/MyText";

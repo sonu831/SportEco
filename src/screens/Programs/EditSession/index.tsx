@@ -1,22 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+// pakages
 import { TextInput } from "react-native-paper";
+// components
 import Header from '../../../components/MyHeader';
-import { Colors } from '../../../constants/Colors';
 import MyButton from '../../../components/MyButton';
 import MyText from '../../../components/MyText';
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { useRoute } from '@react-navigation/native';
+// contants
+import { Colors } from '../../../constants/Colors';
+import useEditSession from './useEditSession';
 
 const EditSession = () => {
-    const route = useRoute();
-    const [sessionName, setSessionName] = useState(route?.params?.editSessionName ? route?.params?.editSessionName : '')
-    const [sessionDescription, setSessionDescription] = useState(route?.params?.editSessionDes ? route?.params?.editSessionDes : '')
-    const [sessionDuration, setSessionDuration] = useState(route?.params?.editDuration ? route?.params?.editDuration : "")
+    const {
+        sessionName,
+        sessionDescription,
+        sessionDuration,
+        setSessionName,
+        setSessionDescription,
+        setSessionDuration
+    } = useEditSession()
     return (
         <View style={styles.container}>
             <Header
-                title={route?.params?.editSessionName.length > 0 && "Edit Program"}
+                title={"Edit Session"}
                 hasActionIcon
                 actionBtnPress={() => { }}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
@@ -44,7 +51,7 @@ const EditSession = () => {
                 <View style={{ height: "6%" }} />
                 <TextInput
                     mode="outlined"
-                    label="Enter Session Duration"
+                    label="Session Duration"
                     placeholder="Enter Session Duration"
                     value={sessionDescription}
                     multiline
@@ -62,7 +69,7 @@ const EditSession = () => {
 
                 <TextInput
                     mode="outlined"
-                    label="Enter Session Duration"
+                    label="Session Duration"
                     placeholder="Enter Session Duration"
                     value={sessionDuration}
                     multiline
