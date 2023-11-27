@@ -30,14 +30,14 @@ const ProgramInfo = ({ navigation }) => {
                 <MyText text={programDetails?.name ? programDetails?.name : programName} fontsize={24} fontFamily="BOLD" />
                 <MyText text={programDetails?.description} fontsize={13} fontFamily="REGULAR" color={Colors.gray2} />
                 <SearchBox />
-                {programDetails?.sessions.length > 0 && programDetails?.sessions.map((item, index) => {
+                {programDetails?.sessions?.length > 0 && programDetails?.sessions.map((item, index) => {
                     return (
                         <PlayerCard
                             key={index.toString()}
                             playerName={item?.name}
                             playerTime={item?.duration}
                             hasRemoveBtn={true}
-                            onPress={() => navigation.navigate('SessionDetails', { sessionName: item?.name, sessionDuration: item?.duration, sessionDescription: item?.description })}
+                            onPress={() => navigation.navigate('SessionDetails', { sessionInfo: item })}
                         />
                     );
                 })}

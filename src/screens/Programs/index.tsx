@@ -18,7 +18,7 @@ const Programs = ({ navigation, route }) => {
     const renderProgram = ({ item, index }) => (
         <BatchCard
             bathName={item?.name}
-            batchSubData={item?.sessions.length}
+            batchSubData={item?.sessions?.length}
             bacthIndex={index}
             onPress={() => goToProgramInfoScreen(item)}
         />

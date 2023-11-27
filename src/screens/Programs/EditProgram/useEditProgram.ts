@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 // navigation packages
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -8,7 +8,7 @@ import { RootStackParamList } from "../../Navigation/types";
 // redux
 import { useDispatch } from "react-redux";
 // services
-import { deleteProgram } from "../../../services/programs";
+import { deleteProgram, updateProgram } from "../../../services/programs";
 
 export const useEditProgram = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -17,10 +17,9 @@ export const useEditProgram = () => {
     const { _id = "", program_name = programsName, description = "" } = programInfo || {};
     const [programName, setProgramName] = useState(program_name);
     const [programDesc, setProgramDesc] = useState(description);
-    // useEffect
     // Redux dispatch and navigation hook
     const dispatch = useDispatch();
-    // Function
+    // Function :To Delete Programs
     const handleDeleteProgram = useCallback(async (_id: string) => {
         if (!_id) return;
         try {
@@ -34,12 +33,27 @@ export const useEditProgram = () => {
             console.error("Failed to delete Program:", error);
         }
     }, [_id, dispatch, navigation]);
+    //Function:To Update the program details
+    const handleSavePrograms = () => {
+        const request = {
+            name: programName,
+            description: programDesc,
+        };
+        dispatch(updateProgram({ data: request, id: _id })).then(
+            (res) => {
+                if (res?.payload?.success) {
+                    navigation.navigate("Programs", { shouldRefresh: true })
+                }
+            }
+        );
+    };
     return {
         programName,
         programDesc,
         setProgramName,
         setProgramDesc,
         handleDeleteProgram,
-        programInfo
+        programInfo,
+        handleSavePrograms
     };
 };

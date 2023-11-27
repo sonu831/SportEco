@@ -1,22 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
 import { TextInput } from "react-native-paper";
 import Header from '../../../components/MyHeader';
 import { Colors } from '../../../constants/Colors';
 import MyButton from '../../../components/MyButton';
 import MyText from '../../../components/MyText';
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { useRoute } from '@react-navigation/native';
 import { useEditProgram } from './useEditProgram';
 
 const EditProgram = () => {
-    const { programName, programDesc, setProgramName, setProgramDesc, handleDeleteProgram, programInfo } = useEditProgram()
+    const {
+        programName,
+        programDesc,
+        setProgramName,
+        setProgramDesc,
+        handleDeleteProgram,
+        programInfo,
+        handleSavePrograms
+    } = useEditProgram()
     return (
         <View style={styles.container}>
             <Header
                 title={"Edit Program"}
                 hasActionIcon
-                actionBtnPress={() => { }}
+                actionBtnPress={() => handleSavePrograms()}
                 ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
                 isActionBtnDisabled={!programName || !programDesc}
             />
@@ -42,8 +49,8 @@ const EditProgram = () => {
                 <View style={{ height: "6%" }} />
                 <TextInput
                     mode="outlined"
-                    label="Program Duration"
-                    placeholder="Program Duration"
+                    label="Program Description"
+                    placeholder="Program Description"
                     value={programDesc}
                     multiline
                     placeholderTextColor={"#000"}
