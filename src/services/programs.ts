@@ -48,21 +48,22 @@ export const deleteProgram = createAsyncThunk(
   }
 );
 
-// export const deleteSessionInProgram = createAsyncThunk(
-//   "deleteProgram",
-//   async (programId: string, { rejectWithValue }) => {
-//     return axios
-//       .get(endpoints.deleteProgram, {
-//         headers: {
-//           program_id: programId,
-//         },
-//       })
-//       .then((res) => res.data)
-//       .catch((err) => {
-//         rejectWithValue(err);
-//       });
-//   }
-// );
+export const deleteSessionInProgram = createAsyncThunk(
+  "removesessioninprogram",
+  async (request: any, { rejectWithValue }) => {
+    return axios
+      .get(endpoints.removeSessionInProgram, {
+        headers: {
+          program_id: request.program_id,
+          session_id: request.session_id,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        rejectWithValue(err);
+      });
+  }
+);
 
 type UpdateProgramProps = {
   data: { [key: string]: any };

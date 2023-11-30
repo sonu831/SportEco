@@ -8,15 +8,15 @@ import { Colors } from '../../../constants/Colors';
 
 
 const SessionDetails = ({ navigation }) => {
-    const goToEditSessionScreen = (sessionInfo: any) => navigation.navigate('EditSession', { sessionInfo: sessionInfo })
+    const goToEditSessionScreen = (sessionInfo: any, programDetails: any) => navigation.navigate('EditSession', { sessionInfo: sessionInfo, programDetails: programDetails })
     const route = useRoute();
-    const { sessionInfo } = route.params
+    const { sessionInfo, programDetails } = route.params
     return (
         <View style={styles.container}>
             <Header
                 title=""
                 hasActionIcon
-                actionBtnPress={() => goToEditSessionScreen(sessionInfo)}
+                actionBtnPress={() => goToEditSessionScreen(sessionInfo, programDetails)}
                 ActionIcon={<Feather name="edit" size={18} color={"#fff"} />}
             />
             <View style={styles.mainView}>

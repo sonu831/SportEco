@@ -41,4 +41,5 @@ export const endpoints = {
   updateProgram: `api/program/updateprogram`,
   addSessionInProgram: `api/program/addsessioninprogram`,
   getProgromDataById: `/api/program/getprogramdatabyid`,
+  removeSessionInProgram: `/api/program/removesessioninprogram`
 };
