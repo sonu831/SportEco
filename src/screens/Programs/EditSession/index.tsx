@@ -18,7 +18,8 @@ const EditSession = () => {
         sessionDuration,
         setSessionName,
         setSessionDescription,
-        setSessionDuration
+        setSessionDuration,
+        handleDeleteSession,
     } = useEditSession()
     return (
         <View style={styles.container}>
@@ -90,7 +91,7 @@ const EditSession = () => {
                     alignSelf="center"
                     title={"Delete Sessions"}
                     backgroundColor={Colors.darkGray}
-                    onPress={() => { }}
+                    onPress={handleDeleteSession}
                 />
             </View>
         </View>

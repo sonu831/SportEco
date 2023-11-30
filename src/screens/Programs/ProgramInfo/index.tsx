@@ -37,7 +37,7 @@ const ProgramInfo = ({ navigation }) => {
                             playerName={item?.name}
                             playerTime={item?.duration}
                             hasRemoveBtn={true}
-                            onPress={() => navigation.navigate('SessionDetails', { sessionInfo: item })}
+                            onPress={() => navigation.navigate('SessionDetails', { sessionInfo: item, programDetails: programDetails })}
                         />
                     );
                 })}
