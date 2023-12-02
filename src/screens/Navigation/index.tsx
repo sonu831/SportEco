@@ -13,7 +13,6 @@ import ProfileScreen from "../ProfilePage";
 import Confirmation from "../Confirmation";
 import Spinner from "react-native-loading-spinner-overlay";
 import NotReady from "../NotReady";
-import AddBatch from "../AddBatch";
 import SelectPlayer from "../SelectPlayers";
 import BatchScreen from "../BatchDetails";
 import { TouchableOpacity, View } from "react-native";
@@ -36,7 +35,7 @@ import EditBatchInfo from "../Batches/EditBatchInfo";
 import AddRemovePlayer from "../Batches/AddRemovePlayer";
 import PlayerProfile from "../Players/PlayerProfile";
 import Venues from "../Venue";
-import VenueDetails from "../Venue/VenueDetails/VenueDetails";
+import VenueDetails from "../Venue/VenueDetails";
 import ChooseLocation from "../Venue/ChooseLocation";
 import CreateVenue from "../Venue/CreateVenue";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -133,7 +132,6 @@ const Navigation = () => {
                 <Stack.Screen name="ChangeAvatar" component={ChangeAvatar} />
                 <Stack.Screen name="EditProfile" component={EditProfile} />
                 <Stack.Screen name="CommonScreen" component={CommonScreen} />
-                <Stack.Screen name="AddBatch" component={AddBatch} />
                 <Stack.Screen name="AddProgram" component={AddProgram} />
                 <Stack.Screen name="AddSession" component={AddSession} />
                 <Stack.Screen name="BatchScreen" component={BatchScreen} />

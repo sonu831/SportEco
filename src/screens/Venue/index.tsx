@@ -14,8 +14,14 @@ import VenueCard from "../../components/Venue/VenueCard";
 import manage3 from "../../assets/images/manage_3.png";
 
 const Venues = () => {
-  const { venueList, handleGoBack, goToCreateVenue, goToVenueDetails } =
-    useVenue();
+  const {
+    venueList,
+    handleGoBack,
+    goToCreateVenue,
+    goToVenueDetails,
+    venueDeStructure,
+    onDeleteVenue,
+  } = useVenue();
   return (
     <View style={styles.container}>
       <Header title="Manage" />
@@ -31,14 +37,12 @@ const Venues = () => {
           <View>
             <SearchBox />
             {venueList.map((item, index) => {
+              const venueDetails= venueDeStructure(item);
               return (
                 <VenueCard
                   onPress={goToVenueDetails}
-                  venueKey={index}
-                  venueName={item?.venue_name}
-                  venueType={item?.venue_type}
-                  venueLocation={item?.venue_location}
-                  venueImage={item?.url}
+                  details={venueDeStructure(venueDetails)}
+                  onDeleteVenue={onDeleteVenue}
                 />
               );
             })}

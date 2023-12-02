@@ -19,7 +19,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
     handleImage,
     pickImage,
     handleChange,
-    handleSubmit,
+    handleVenueSubmit,
   } = useCreateVenue();
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
@@ -39,7 +39,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
               style={{ marginRight: 10 }}
             />
           }
-          onPress={handleSubmit}
+          onPress={handleVenueSubmit}
         />
       );
     else

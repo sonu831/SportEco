@@ -3,7 +3,6 @@ import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Address } from "../Venue/types";
 
-
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
@@ -22,11 +21,6 @@ export type RootStackParamList = {
   Main: undefined;
   Calendar: undefined;
   Message: undefined;
-  AddBatch:
-    | {
-        isEdit?: boolean;
-      }
-    | any;
   AddProgram:
     | {
         isEdit?: boolean;
@@ -64,7 +58,7 @@ export type RootStackParamList = {
   EditBatchInfo: any;
   AddRemovePlayer: any;
   UpdatePlayerProfile: any;
-  Venues: any;
+  Venues: { shouldRefresh?: boolean } | any;
   VenueDetails: any;
   ChooseLocation: any;
   CreateVenue: any;

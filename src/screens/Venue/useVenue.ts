@@ -8,7 +8,8 @@ import { venueList$ } from "../../store/venue/selectors";
 import { UpdateStateRequest } from "../../types/UpdateState";
 import { RootStackParamList } from "../Navigation/types";
 import ScreensName from "../../constants/ScreenNames";
-import { fetchVenueList } from "../../services/venue";
+import { deleteVenue, fetchVenueList } from "../../services/venue";
+import { Venue } from "./types";
 
 type InitialState = {
   showConfirmation: boolean;
@@ -42,18 +43,57 @@ function useVenue() {
   const goToVenueDetails = () => navigation.navigate(ScreensName.VenueDetails);
   const goToCreateVenue = () => navigation.navigate(ScreensName.CreateVenue);
 
-  useEffect(() => {
+  const fetchVenues = () => {
     dispatch(fetchVenueList());
+  };
+
+  useEffect(() => {
+    fetchVenues();
   }, []);
+
+  useEffect(() => {
+    if (venueList.length) console.log("venueList...", venueList);
+  }, [venueList]);
+
+  useEffect(() => {
+    if (route.params?.shouldRefresh) dispatch(fetchVenueList());
+  }, [route.params?.shouldRefresh]);
+
+  const venueDeStructure = (venue): Venue => {
+    return {
+      _id: venue?._id || "",
+      venueName: venue?.venue_name || "",
+      venueLocation: venue?.address || "",
+      sport: venue?.sport || "",
+      distance: "",
+      description: "",
+      image: venue?.images?.filedata?.length
+        ? `data:image/png;base64,${venue.images.filedata}`
+        : "",
+      state: venue?.state || "",
+      city: venue?.city || "",
+    };
+  };
+
+  const onDeleteVenue = async (_id: any) => {
+    if (_id) {
+      const res = await dispatch(deleteVenue(_id));
+      if (!!res?.payload?.success) {
+        fetchVenues();
+      }
+    }
+  };
 
   return {
     route,
     venueList,
     handleGoBack,
     state,
+    onDeleteVenue,
     updateState,
     goToVenueDetails,
     goToCreateVenue,
+    venueDeStructure,
   };
 }
 

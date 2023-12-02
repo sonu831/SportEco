@@ -30,7 +30,7 @@ export const endpoints = {
 
   // Venues
   listOfVenue: `api/venue/listofvenue`,
-  addVenue: `api/venue/addvenuedata`,
+  addVenue: `api/venue/addvenuedatawithpic`,
   updateVenue: `api/venue/updatevenuedata`,
   deleteVenue: `api/venue/deletevenuebyid`,
 

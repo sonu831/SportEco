@@ -5,16 +5,16 @@ import MyText from "../../../components/MyText";
 // constants
 import { Colors } from "../../../constants/Colors";
 // style
-import { styles } from "./styles";
+import { VenueCardProps } from "../../../screens/Venue/types";
+import venue1 from "../../../assets/images/Venue1.png";
 
 const VenueCard = ({
   onPress = () => {},
   venueKey,
-  venueName,
-  venueLocation,
-  venueType,
-  venueImage,
-}) => {
+  details,
+  onDeleteVenue,
+}: VenueCardProps) => {
+  const { image, venueName, venueLocation, sport, _id } = details;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -30,7 +30,12 @@ const VenueCard = ({
       activeOpacity={0.5}
       key={venueKey}
     >
-      <Image source={venueImage} style={{ width: 80, height: 80 }} />
+      {image.length ? (
+        <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />
+      ) : (
+        <Image source={venue1} style={{ width: 80, height: 80 }} />
+      )}
+
       <View>
         <MyText
           text={venueName}
@@ -50,7 +55,15 @@ const VenueCard = ({
             source={require("../../../assets/images/Icon_badminton.png")}
             style={{ width: 20, height: 20, marginRight: 5 }}
           />
-          <MyText text={venueType} fontSize={10} color={Colors.darkGray} />
+          <MyText text={sport} fontSize={10} color={Colors.darkGray} />
+          <TouchableOpacity
+            onPress={() => onDeleteVenue(_id)}
+            style={{
+              marginLeft: 100,
+            }}
+          >
+            <Image source={require("../../../assets/images/delete.png")} />
+          </TouchableOpacity>
         </View>
       </View>
       <Image source={require("../../../assets/images/verified.png")} />

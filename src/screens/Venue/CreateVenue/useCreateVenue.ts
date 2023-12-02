@@ -4,13 +4,14 @@ import * as ImagePicker from "expo-image-picker";
 import * as Camera from "expo-camera";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
-import { Address } from "../types";
+import { Address, VenueRequest } from "../types";
+import { addVenue } from "../../../services/venue";
 
 type InitialState = {
   showConfirmation: boolean;
@@ -37,7 +38,8 @@ const useCreateVenue = () => {
   const [state, setState] = useState<Partial<InitialState>>(initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const { address } = state;
+  const { address, venueName, venueDescription, courtName, sport, image } =
+    state;
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
     if (Array.isArray(request)) {
@@ -104,13 +106,48 @@ const useCreateVenue = () => {
   };
 
   const handleGoBack = () => navigation.goBack();
-  const goToVenueLists = () => navigation.navigate(ScreensName.Venues);
-  const goToChooseLocation = () =>
+  const goToVenueLists = (shouldRefresh = false) =>
+    navigation.navigate(ScreensName.Venues, { shouldRefresh: shouldRefresh });
+  const goToChooseLocation = (shouldRefresh = false) =>
     navigation.navigate(ScreensName.ChooseLocation);
 
-  const handleSubmit = () => {
-    goToVenueLists();
-  };
+  const handleVenueSubmit = useCallback(async () => {
+    const formData = new FormData();
+
+    formData.append("venue_name", venueName);
+    formData.append("court_name", courtName);
+    formData.append("sport", sport);
+    formData.append(
+      "address",
+      `${address.name || ""},${address.streetNumber || ""}`
+    );
+    formData.append("city", address.city);
+    formData.append("state", address.region);
+    formData.append(
+      "latitudelongitude",
+      JSON.stringify(address.latitudelongitude)
+    );
+
+    if (image) {
+      const imagePayload = {
+        uri: image,
+        type: "image/jpeg",
+        name: "profile.jpg",
+      };
+      formData.append("image", imagePayload);
+    }
+   
+    try {
+      const res = await dispatch(addVenue({ formData }));
+      // Handle the response
+      if (res.payload.data?._id) {
+        goToVenueLists(true);
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting venue:", error);
+    }
+  }, [dispatch, venueName, courtName, sport, address, image]);
 
   useEffect(() => {
     if (route?.params?.address) {
@@ -131,7 +168,7 @@ const useCreateVenue = () => {
     handleImage,
     goToChooseLocation,
     handleChange,
-    handleSubmit,
+    handleVenueSubmit,
   };
 };
 

@@ -9,7 +9,7 @@ import { AppDispatch } from "../../../store";
 import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
-import { Address } from "react-native-maps";
+import { Address, LocationObject } from "../types";
 
 interface LocationState {
   showConfirmation: boolean;
@@ -22,13 +22,6 @@ interface LocationState {
   markerCoordinates: LocationObject | null;
   address: Address;
   isRegionChange: boolean;
-}
-
-export interface LocationObject {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
 }
 
 const defaultRegion = {
@@ -149,9 +142,15 @@ const useChooseLocation = () => {
 
           if (address.length > 0) {
             console.log("Address:", address[0]);
+            let locationAddress: Address = {
+              ...address[0],
+              latitudelongitude: markerCoordinates,
+            };
+
+          
             updateState({
               key: "address",
-              value: address[0],
+              value: locationAddress,
             });
           }
         } catch (error) {

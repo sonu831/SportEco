@@ -1,39 +1,23 @@
-import React, { useState, useRef } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { View, FlatList, Image, TouchableOpacity } from "react-native";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Octions from "@expo/vector-icons/Octicons";
 import MyButton from "../../../components/MyButton";
-import { RootStackScreenProps } from "../../Navigation/types";
+import { styles } from "./styles";
+import useVenueDetails from "./useVenueDetails";
 
-const VenueDetails = ({
-  navigation,
-  route,
-}: RootStackScreenProps<"VenueDetails">) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const flatListRef = useRef(null);
-
-  const handlePageChange = (event) => {
-    const offset = event.nativeEvent.contentOffset.x;
-    const page = Math.floor(offset / Dimensions.get("window").width);
-    setCurrentPage(page);
-  };
-
-  const carouselData = [
-    { text: "Item 1", image: require("../../../assets/images/loginImage.png") },
-    { text: "Item 2", image: require("../../../assets/images/loginImage.png") },
-    { text: "Item 3", image: require("../../../assets/images/loginImage.png") },
-  ];
+const VenueDetails = () => {
+  const {
+    route,
+    currentPage,
+    flatListRef,
+    handlePageChange,
+    carouselData,
+    navigation,
+  } = useVenueDetails();
 
   const renderItem = ({ item }) => {
     return (
@@ -196,40 +180,3 @@ const VenueDetails = ({
 };
 
 export default VenueDetails;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  carouselItem: {
-    width: Dimensions.get("window").width,
-    height: 250,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-  paginationContainer: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  paginationDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 5,
-    backgroundColor: Colors.gray,
-    marginHorizontal: 5,
-  },
-  paginationDotActive: {
-    backgroundColor: Colors.white,
-  },
-  mainView: {
-    padding: 20,
-  },
-});
