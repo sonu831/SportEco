@@ -53,9 +53,7 @@ export const updateVenue = createAsyncThunk(
 
 export const deleteVenue = createAsyncThunk(
   "deleteVenue",
-  async (request: { id: string }, { rejectWithValue }) => {
-    const { id } = request;
-
+  async (id: string, { rejectWithValue }) => {
     return axios
       .get(endpoints.deleteVenue, {
         headers: {

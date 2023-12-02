@@ -35,7 +35,7 @@ import EditBatchInfo from "../Batches/EditBatchInfo";
 import AddRemovePlayer from "../Batches/AddRemovePlayer";
 import PlayerProfile from "../Players/PlayerProfile";
 import Venues from "../Venue";
-import VenueDetails from "../Venue/VenueDetails/VenueDetails";
+import VenueDetails from "../Venue/VenueDetails";
 import ChooseLocation from "../Venue/ChooseLocation";
 import CreateVenue from "../Venue/CreateVenue";
 import { SafeAreaView } from "react-native-safe-area-context";

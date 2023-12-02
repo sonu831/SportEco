@@ -10,7 +10,7 @@ export interface Address {
   streetNumber?: string;
   subregion?: string;
   timezone?: string | null;
-  latitudelongitude?:LocationObject
+  latitudelongitude?: LocationObject;
 }
 
 export type VenueRequest = {
@@ -24,10 +24,28 @@ export type VenueRequest = {
   latitudelongitude: string;
 };
 
-
 export interface LocationObject {
   latitude: number;
   longitude: number;
   latitudeDelta: number;
   longitudeDelta: number;
 }
+
+export type Venue = {
+  _id: string;
+  venueName: string;
+  venueLocation: string;
+  sport: string;
+  distance?: string;
+  description?: string;
+  image?: string;
+  state?: string;
+  city?: string;
+};
+
+export type VenueCardProps = {
+  onPress: () => void;
+  onDeleteVenue: (_id: string) => void;
+  venueKey: number;
+  details: Venue;
+};
