@@ -133,8 +133,8 @@ const PlayerProfileManager = () => {
             placeholder="Date of Birth"
             activeOutlineColor="grey"
             placeholderTextColor={"#000"}
-            value={selectedDate.format("MM-DD-YYYY")}
-            onPressIn={handleToggleDatePicker}
+            value={selectedDate.format("DD-MM-YYYY")}
+            onTouchStart={handleToggleDatePicker}
           />
 
           <CenteredLineWithText lineText="Gender" />

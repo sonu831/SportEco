@@ -124,7 +124,11 @@ export const updatePlayerProfile = createAsyncThunk(
           "Content-Type": "multipart/form-data", // Setting content type for FormData
         },
       })
-      .then((res) => res.data)
+      .then((res) => {
+        console.log("fdsfsffsffsff===>", res.data);
+        res.data;
+      })
+
       .catch((err) => {
         rejectWithValue(err);
       });

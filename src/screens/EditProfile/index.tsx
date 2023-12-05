@@ -6,13 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  TextInput,
   ImageBackground,
   Alert,
 } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
 import uploadSuccessIcon from "../../assets/images/upload-success.png";
 import { Colors } from "../../constants/Colors";
+
 import { styles } from "./styles";
 import useEditProfile from "./useEditProfile";
 import {
@@ -34,10 +34,9 @@ import DateTimePicker from "../../components/DateTimePicker";
 import moment from "moment";
 import UserTypes from "../../components/UserTypes";
 import headerEdit from "../../assets/images/header-edit.png";
-
+import { convertToDateObject } from "../../helper/dateTimeConversion";
 // assets
 import curveBackground from "../../assets/images/editProfileBG.png";
-
 const EditProfile = ({
   navigation,
   route,
@@ -68,6 +67,7 @@ const EditProfile = ({
     dobDate,
     image,
     idProof,
+
     phNum,
   } = state;
 
@@ -75,6 +75,7 @@ const EditProfile = ({
   const monthOptions = MONTH_OPTIONS();
   const goToAvatarScreen = () => navigation.navigate("ChangeAvatar");
   const [selectedUsers, setSelectedUsers] = useState(role);
+  // const selectedDate = convertToDateObject(dobDate);
   const SaveButton = ({ handleSave }) => (
     <View
       style={[
@@ -83,14 +84,7 @@ const EditProfile = ({
         styles.saveBtn,
         styles.footer,
       ]}
-    >
-      <TouchableOpacity
-        style={[styles.nextBtn, styles.w100]}
-        onPress={handleSave}
-      >
-        <Text style={styles.nextBtnText}>Save</Text>
-      </TouchableOpacity>
-    </View>
+    ></View>
   );
   const userTypes = [
     {
@@ -112,6 +106,7 @@ const EditProfile = ({
       width: "43%",
     },
   ];
+
   const toggleUserType = (user) => {
     const index = selectedUsers.findIndex((e) => e.id === user.id);
     if (index > -1) {
@@ -124,6 +119,7 @@ const EditProfile = ({
       setSelectedUsers(updatedUsers);
     }
   };
+
   return (
     <SafeArea classNames={styles.safeView}>
       <ScrollView>
@@ -171,6 +167,8 @@ const EditProfile = ({
               />
             </View>
           )}
+
+          {/* bottom form  */}
           <View style={{ paddingHorizontal: 0 }}>
             <View style={[styles.fieldCol, styles.py16]}>
               <TextInputComponent
@@ -209,14 +207,15 @@ const EditProfile = ({
               <DateTimePicker
                 type="date"
                 value={dobDate}
-                onChange={(value: any) =>
+                onChange={(value: any) => {
+                  console.log("date", dobDate);
                   updateState({
                     key: "dobDate",
                     value: moment(value),
-                  })
-                }
+                  });
+                }}
                 dateBoxField
-                disabled={!isEdit}
+                editable={isEdit}
                 classNames={styles.containerView}
               />
             </View>
@@ -258,7 +257,6 @@ const EditProfile = ({
               ))}
             </View>
           </View>
-
           <SaveButton handleSave={handleSave} />
         </View>
       </ScrollView>
