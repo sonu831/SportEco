@@ -68,7 +68,7 @@ const responseHandler = (response: any) => {
     storeDataInStorage(StorageKeys.tokenKey, token);
   }
   //Sentry.captureException("sport eco response", response);
-  console.log("api response", response);
+  // console.log("api response", response);
   //logApiResponse(response);
   return response;
 };

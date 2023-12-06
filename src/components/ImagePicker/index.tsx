@@ -30,6 +30,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
     handleImage,
   });
 
+  
   const handleSelectImage = () => {
     setShowModal(!showModal);
   };

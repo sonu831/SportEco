@@ -6,6 +6,7 @@ import {
   userDetails$,
 } from "../../store/users/selectors";
 import { playerDetails$ } from "../../store/players/selectors";
+
 import {
   fetchUserById,
   getAllStates,
@@ -179,6 +180,7 @@ const useEditProfile = ({
         middle_name,
         contact_no,
         profile_pic,
+        dobDate,
         DOB,
       } = userDetails;
 
@@ -197,12 +199,19 @@ const useEditProfile = ({
             ? "data:image/png;base64," + profile_pic?.filedata
             : null,
         },
-        { key: "dobDate", value: DOB?.date },
+        { key: "dobDate", value: dobDate },
       ]);
     }
   }, [userDetails]);
 
   const handleSave = () => {
+    const dobDateObj = new Date(state.dobDate);
+    const dob = {
+      date: dobDateObj.getDate().toString(),
+      month: (dobDateObj.getMonth() + 1).toString(), // Months are zero-based, so add 1
+      year: dobDateObj.getFullYear().toString(),
+    };
+
     const {
       email,
       fName,
@@ -212,28 +221,25 @@ const useEditProfile = ({
       role,
       selectedState: userState,
       selectedCity,
-      dobMonth,
-      dobDate,
-      dobYear,
       image,
+      phNum,
     } = state;
 
     const request = {
       first_name: fName,
       last_name: lName,
-      ...(isAddPlayer ? { contact_no: mName } : { middle_name: mName }),
-      DOB: {
-        date: dobDate,
-        month: dobMonth,
-        year: dobYear,
-      },
+      ...(isAddPlayer ? { contact_no: phNum } : { middle_name: mName }),
+      DOB: dob,
       email: email?.toLowerCase(),
       gender: gender,
       city: selectedCity,
       state: userState,
       avatarimage: avatarImage,
       ...(!isAddPlayer && { role: role }),
+      contact_no: phNum,
     };
+
+    // console.log("request", request);
 
     if (isAddPlayer && !isEdit) {
       dispatch(addPlayer({ data: request })).then((res) => {
@@ -276,7 +282,7 @@ const useEditProfile = ({
         })
       ).then((res) => {
         dispatch(fetchUserById()).then(() =>
-          isEdit ? handleGoBack() : navigation.navigate("Main")
+          isEdit ? handleGoBack() : navigation.navigate("MyAccount")
         );
       });
     }
@@ -307,6 +313,7 @@ const useEditProfile = ({
       name: "profile_pic", // You can change the name as needed
       type: "image/jpeg", // Adjust the type based on your image format
     });
+
     // Implementation for uploading image
     dispatch(uploadUserProfilePicture(formData)).then((res) => {
       console.log("uploadUserProfilePicture res---->", res);

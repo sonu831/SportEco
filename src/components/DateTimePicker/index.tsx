@@ -7,11 +7,12 @@ import {
 } from "react-native";
 import React from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { TextInput } from "react-native-paper";
 import useDateTimePicker from "./useDateTimePicker";
 import { Moment } from "moment";
 import { styles } from "./styles";
 import { TextInputComponent } from "../TextInput";
-import { TextInput } from "..";
+// import { TextInput } from "..";
 import moment from "moment";
 
 type DateTimePickerProps = {
@@ -22,6 +23,7 @@ type DateTimePickerProps = {
   dateBoxField?: boolean;
   classNames?: StyleProp<ViewStyle>;
   disabled?: boolean;
+  editable?: boolean;
 };
 
 const DateTimePicker = ({
@@ -32,6 +34,7 @@ const DateTimePicker = ({
   classNames,
   dateBoxField = false,
   disabled = false,
+  editable = true,
 }: DateTimePickerProps) => {
   const { state, handleConfirm, handleShowDatePicker, hideDatePicker } =
     useDateTimePicker({ value, onChange });
@@ -46,19 +49,23 @@ const DateTimePicker = ({
           classNames,
           dateBoxField && styles.dateBoxContainer,
         ]}
-        onPress={!disabled ? handleShowDatePicker : () => {}}
+        onPress={!disabled && editable ? handleShowDatePicker : () => {}}
       >
         {dateBoxField ? (
           <View style={styles.dateContainer}>
-            <View style={styles.dateWrapper}>
-              <Text>{moment(date).format("D") ?? "Day"}</Text>
-            </View>
-            <View style={[styles.dateWrapper, styles.monthDateWrapper]}>
-              <Text>{moment(date).format("MMMM") ?? "Month"}</Text>
-            </View>
-            <View style={styles.dateWrapper}>
-              <Text>{moment(date).format("YYYY") ?? "Year"}</Text>
-            </View>
+            <TextInput
+              mode="outlined"
+              label="Date of Birth"
+              placeholder="Date of Birth"
+              activeOutlineColor="grey"
+              placeholderTextColor={"#000"}
+              value={date?.format("MM-DD-YYYY") ?? ""}
+              style={{
+                width: "100%",
+              }}
+              onTouchStart={editable ? handleShowDatePicker : undefined}
+              editable={editable}
+            />
           </View>
         ) : (
           <Text>{date?.format(formatToShow)}</Text>
