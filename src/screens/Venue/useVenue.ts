@@ -40,7 +40,11 @@ function useVenue() {
   };
 
   const handleGoBack = () => navigation.goBack();
-  const goToVenueDetails = () => navigation.navigate(ScreensName.VenueDetails);
+  const goToVenueDetails = (venue: Venue) => {
+    navigation.navigate(ScreensName.VenueDetails, {
+      venueDetails: venue,
+    });
+  };
   const goToCreateVenue = () => navigation.navigate(ScreensName.CreateVenue);
 
   const fetchVenues = () => {
@@ -64,6 +68,7 @@ function useVenue() {
       _id: venue?._id || "",
       venueName: venue?.venue_name || "",
       venueLocation: venue?.address || "",
+      courtName: venue?.court_name || "",
       sport: venue?.sport || "",
       distance: "",
       description: "",
@@ -72,6 +77,7 @@ function useVenue() {
         : "",
       state: venue?.state || "",
       city: venue?.city || "",
+      latitudelongitude: venue?.latitudelongitude || "",
     };
   };
 

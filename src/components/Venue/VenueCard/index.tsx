@@ -7,6 +7,7 @@ import { Colors } from "../../../constants/Colors";
 // style
 import { VenueCardProps } from "../../../screens/Venue/types";
 import venue1 from "../../../assets/images/Venue1.png";
+import { styles } from "./styles";
 
 const VenueCard = ({
   onPress = () => {},
@@ -14,7 +15,19 @@ const VenueCard = ({
   details,
   onDeleteVenue,
 }: VenueCardProps) => {
-  const { image, venueName, venueLocation, sport, _id } = details;
+  const {
+    image,
+    venueName,
+    venueLocation,
+    sport,
+    _id,
+    distance,
+    description,
+    state,
+    city,
+    courtName,
+  } = details;
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -36,14 +49,15 @@ const VenueCard = ({
         <Image source={venue1} style={{ width: 80, height: 80 }} />
       )}
 
-      <View>
-        <MyText
-          text={venueName}
-          fontSize={10}
-          color={Colors.darkGray}
-          fontFamily="MEDIUM"
-        />
-        <MyText text={venueLocation} fontSize={10} color={Colors.gray} />
+      <View style={styles.cardDetailsContainer}>
+        <View style={styles.venueName}>
+          <MyText
+            text={venueName}
+            color={Colors.darkGray}
+            fontFamily="MEDIUM"
+          />
+          <MyText text={venueLocation} fontSize={10} color={Colors.gray} />
+        </View>
         <View
           style={{
             flexDirection: "row",
@@ -55,7 +69,11 @@ const VenueCard = ({
             source={require("../../../assets/images/Icon_badminton.png")}
             style={{ width: 20, height: 20, marginRight: 5 }}
           />
-          <MyText text={sport} fontSize={10} color={Colors.darkGray} />
+          <MyText
+            text={`${sport} - ${courtName}`}
+            fontSize={10}
+            color={Colors.darkGray}
+          />
           <TouchableOpacity
             onPress={() => onDeleteVenue(_id)}
             style={{

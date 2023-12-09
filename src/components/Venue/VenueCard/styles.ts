@@ -10,4 +10,12 @@ export const styles = StyleSheet.create({
   mainView: {
     padding: 20,
   },
+  flexDirRow: { flexDirection: "row" },
+  cardDetailsContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  venueName:{
+    width: 100,
+  }
 });

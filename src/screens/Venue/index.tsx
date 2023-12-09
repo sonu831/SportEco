@@ -37,11 +37,12 @@ const Venues = () => {
           <View>
             <SearchBox />
             {venueList.map((item, index) => {
-              const venueDetails= venueDeStructure(item);
+              const venueDetails = venueDeStructure(item);
+
               return (
                 <VenueCard
-                  onPress={goToVenueDetails}
-                  details={venueDeStructure(venueDetails)}
+                  onPress={() => goToVenueDetails(venueDetails)}
+                  details={venueDetails}
                   onDeleteVenue={onDeleteVenue}
                 />
               );
