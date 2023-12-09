@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
+//import * as Permissions from "expo-permissions";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
@@ -63,8 +63,8 @@ const useCreateVenue = () => {
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
     const permission =
-      type === "camera" ? Permissions.CAMERA : Permissions.MEDIA_LIBRARY;
-    const { status } = await Permissions.askAsync(permission);
+    type === "camera" ? await ImagePicker.requestCameraPermissionsAsync() : ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { status } = await ImagePicker.getCameraPermissionsAsync();
     if (status !== "granted") {
       Alert.alert(`${permission} permission not granted`);
       return;
@@ -123,7 +123,7 @@ const useCreateVenue = () => {
     );
 
     if (image) {
-      const imagePayload = {
+      const imagePayload: any = {
         uri: image,
         type: "image/jpeg",
         name: "profile.jpg",

@@ -41,6 +41,7 @@ const Venues = () => {
 
               return (
                 <VenueCard
+                  key={index}
                   onPress={() => goToVenueDetails(venueDetails)}
                   details={venueDetails}
                   onDeleteVenue={onDeleteVenue}
