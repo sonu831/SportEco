@@ -12,12 +12,12 @@ const useImagePicker = ({ handleImage }: UseImagePickerProps) => {
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
     const permission =
-      type === "camera" ? Permissions.CAMERA : Permissions.MEDIA_LIBRARY;
-    const { status } = await Permissions.askAsync(permission);
-    if (status !== "granted") {
-      Alert.alert(`${permission} permission not granted`);
-      return;
-    }
+      type === "camera" ? await ImagePicker.requestCameraPermissionsAsync() : ImagePicker.requestMediaLibraryPermissionsAsync();
+    // const { status } = await Permissions.askAsync(permission);
+    // if (status !== "granted") {
+    //   Alert.alert(`${permission} permission not granted`);
+    //   return;
+    // }
 
     if (type === "camera") {
       result = await ImagePicker.launchCameraAsync({

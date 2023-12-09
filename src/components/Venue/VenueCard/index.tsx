@@ -77,7 +77,8 @@ const VenueCard = ({
           <TouchableOpacity
             onPress={() => onDeleteVenue(_id)}
             style={{
-              marginLeft: 100,
+              position: 'absolute',
+              right: -16
             }}
           >
             <Image source={require("../../../assets/images/delete.png")} />
