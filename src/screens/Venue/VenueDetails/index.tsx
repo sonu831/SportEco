@@ -17,6 +17,7 @@ const VenueDetails = () => {
     handlePageChange,
     carouselData,
     navigation,
+    venueDetails,
   } = useVenueDetails();
 
   const renderItem = ({ item }) => {
@@ -93,7 +94,7 @@ const VenueDetails = () => {
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <MyText
-              text="The Majestine Sports"
+              text={venueDetails?.venueName || "The Mejestine Sport"}
               fontFamily="MEDIUM"
               fontsize={18}
             />
@@ -123,7 +124,7 @@ const VenueDetails = () => {
             style={{ width: 20, height: 20, marginRight: 5 }}
           />
           <MyText
-            text={"Badminton • Court 2"}
+            text={`${venueDetails?.sport} • ${venueDetails?.courtName}`}
             fontSize={8}
             color={Colors.darkGray}
           />
@@ -155,14 +156,19 @@ const VenueDetails = () => {
             style={{ marginRight: 5 }}
           />
           <MyText
-            text={"383/1-10, 5th Cross, Bandepalya"}
+            text={
+              venueDetails?.venueLocation || "383/1-10, 5th Cross, Bandepalya"
+            }
             fontSize={8}
             color={Colors.darkGray}
           />
         </View>
         <MyText text="About Venue" fontFamily="MEDIUM" fontsize={18} />
         <MyText
-          text="The Majestine Sports is a badminton high performance center with many national athletes training at the center, kindly follow the footwear rules. Players need to carry their non marking badminton shoes in the premise. Players walking into the center wearing the shoes will not be allowed to pay with it."
+          text={
+            venueDetails?.description ||
+            "The Majestine Sports is a badminton high performance center with many national athletes training at the center, kindly follow the footwear rules. Players need to carry their non marking badminton shoes in the premise. Players walking into the center wearing the shoes will not be allowed to pay with it."
+          }
           fontFamily="MEDIUM"
           fontsize={13}
         />

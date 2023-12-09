@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Address } from "../Venue/types";
+import { Address, Venue } from "../Venue/types";
 
 declare global {
   namespace ReactNavigation {
@@ -59,7 +59,7 @@ export type RootStackParamList = {
   AddRemovePlayer: any;
   UpdatePlayerProfile: any;
   Venues: { shouldRefresh?: boolean } | any;
-  VenueDetails: any;
+  VenueDetails: { venueDetails: Venue } | any;
   ChooseLocation: any;
   CreateVenue: any;
   Programs: any;

@@ -9,15 +9,18 @@ import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
 import { Dimensions } from "react-native";
+import { Venue } from "../types";
 
 interface VenueDetails {
   showConfirmation: boolean;
   currentPage: number;
+  venueDetails: Venue;
 }
 
 const initialState = {
   showConfirmation: false,
   currentPage: 0,
+  venueDetails: undefined,
 };
 
 const useVenueDetails = () => {
@@ -49,6 +52,15 @@ const useVenueDetails = () => {
       value: page,
     });
   };
+
+  useEffect(() => {
+    if (route.params?.venueDetails) {
+      updateState({
+        key: "venueDetails",
+        value: route.params.venueDetails,
+      });
+    }
+  }, [route.params?.venueDetails]);
 
   const carouselData = [
     { text: "Item 1", image: require("../../../assets/images/loginImage.png") },

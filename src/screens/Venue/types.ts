@@ -32,6 +32,7 @@ export interface LocationObject {
 }
 
 export type Venue = {
+  latitudelongitude?: string;
   _id: string;
   venueName: string;
   venueLocation: string;
@@ -41,6 +42,7 @@ export type Venue = {
   image?: string;
   state?: string;
   city?: string;
+  courtName?:string
 };
 
 export type VenueCardProps = {
