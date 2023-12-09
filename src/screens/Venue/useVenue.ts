@@ -19,7 +19,7 @@ const initialState = {
   showConfirmation: false,
 };
 
-function useVenue() {
+const useVenue = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, ScreensName.Venues>>(); // Adjusted based on your context
@@ -101,6 +101,6 @@ function useVenue() {
     goToCreateVenue,
     venueDeStructure,
   };
-}
+};
 
 export default useVenue;

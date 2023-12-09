@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Camera from "expo-camera";
+import * as Permissions from "expo-permissions";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
@@ -59,21 +59,14 @@ const useCreateVenue = () => {
     });
   };
 
+  // TOTFO: ---
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
-    let status;
-
-    if (type === "camera") {
-      const cameraPermission = await Camera.requestPermissionsAsync();
-      status = cameraPermission.status;
-    } else {
-      const libraryPermission =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-      status = libraryPermission.status;
-    }
-
+    const permission =
+      type === "camera" ? Permissions.CAMERA : Permissions.MEDIA_LIBRARY;
+    const { status } = await Permissions.askAsync(permission);
     if (status !== "granted") {
-      Alert.alert("Permission not granted");
+      Alert.alert(`${permission} permission not granted`);
       return;
     }
 
