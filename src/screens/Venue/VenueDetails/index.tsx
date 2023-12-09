@@ -8,6 +8,7 @@ import Octions from "@expo/vector-icons/Octicons";
 import MyButton from "../../../components/MyButton";
 import { styles } from "./styles";
 import useVenueDetails from "./useVenueDetails";
+import useVenue from "../useVenue";
 
 const VenueDetails = () => {
   const {
@@ -19,6 +20,8 @@ const VenueDetails = () => {
     navigation,
     venueDetails,
   } = useVenueDetails();
+
+  const { gotoEditVenue } = useVenue();
 
   const renderItem = ({ item }) => {
     return (
@@ -52,6 +55,9 @@ const VenueDetails = () => {
             paddingVertical: 8,
             paddingHorizontal: 8,
             alignContent: "center",
+          }}
+          onPress={() => {
+            gotoEditVenue(venueDetails);
           }}
         >
           <Feather name="edit" color={"#fff"} size={22} />
