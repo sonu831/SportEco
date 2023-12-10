@@ -1,5 +1,5 @@
 import { StyleSheet, Image, TouchableOpacity, View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/MyHeader";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
@@ -11,7 +11,7 @@ import MyText from "../../../components/MyText";
 import useCreateVenue from "./useCreateVenue";
 import AddressComponent from "../AddressComponent";
 
-const CreateVenue = ({ navigation, currentImage }) => {
+const CreateVenue = ({ navigation, currentImage, route }) => {
   const {
     state,
     handleGoBack,
@@ -20,9 +20,23 @@ const CreateVenue = ({ navigation, currentImage }) => {
     pickImage,
     handleChange,
     handleVenueSubmit,
+    handleVenueUpdate,
   } = useCreateVenue();
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    if(route?.params?.isEdit){
+      setIsEdit(route?.params?.isEdit);
+      handleChange("venueName", route.params.venueInfo.venueName)
+      handleChange("sport", route.params.venueInfo.sport)
+      handleChange("courtName", route.params.venueInfo.courtName)
+      handleChange("venueDescription", route.params.venueInfo.venueDescription);
+      handleChange("id", route.params.venueInfo._id)
+    }
+  },[isEdit])
 
   const renderActionButton = () => {
     if (address)
@@ -30,7 +44,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
         <MyButton
           width={"100%"}
           alignSelf="center"
-          title="Save"
+          title={isEdit ? "Update" : "Save"}
           leftIcon={
             <Feather
               name="map"
@@ -39,7 +53,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
               style={{ marginRight: 10 }}
             />
           }
-          onPress={handleVenueSubmit}
+          onPress={isEdit ? handleVenueUpdate : handleVenueSubmit}
         />
       );
     else
@@ -105,7 +119,7 @@ const CreateVenue = ({ navigation, currentImage }) => {
   };
   return (
     <View style={styles.container}>
-      <Header title="Create Venue" />
+      <Header title={isEdit ? "Edit Venue" : "Create Venue"} />
       {renderImagePlaceholder()}
       <View style={styles.mainView}>
         <TextInput

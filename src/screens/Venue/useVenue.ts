@@ -47,6 +47,10 @@ const useVenue = () => {
   };
   const goToCreateVenue = () => navigation.navigate(ScreensName.CreateVenue);
 
+  const gotoEditVenue = (venue) => {
+    navigation.navigate(ScreensName.CreateVenue, { isEdit: true, venueInfo: venue });
+  };
+
   const fetchVenues = () => {
     dispatch(fetchVenueList());
   };
@@ -100,6 +104,7 @@ const useVenue = () => {
     goToVenueDetails,
     goToCreateVenue,
     venueDeStructure,
+    gotoEditVenue,
   };
 };
 

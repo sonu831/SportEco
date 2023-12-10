@@ -11,7 +11,7 @@ import { UpdateStateRequest } from "../../../types/UpdateState";
 import { RootStackParamList } from "../../Navigation/types";
 import ScreensName from "../../../constants/ScreenNames";
 import { Address, VenueRequest } from "../types";
-import { addVenue } from "../../../services/venue";
+import { addVenue, updateVenue } from "../../../services/venue";
 
 type InitialState = {
   showConfirmation: boolean;
@@ -21,6 +21,7 @@ type InitialState = {
   venueDescription: string;
   image: string;
   address: Address;
+  id: string;
 };
 
 const initialState = {
@@ -38,7 +39,7 @@ const useCreateVenue = () => {
   const [state, setState] = useState<Partial<InitialState>>(initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const { address, venueName, venueDescription, courtName, sport, image } =
+  const { address, venueName, venueDescription, courtName, sport, image, id } =
     state;
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
@@ -143,6 +144,48 @@ const useCreateVenue = () => {
     }
   }, [dispatch, venueName, courtName, sport, address, image]);
 
+  const handleVenueUpdate = useCallback(async () => {
+    const formData = new FormData();
+
+    formData.append("venue_name", venueName);
+    formData.append("court_name", courtName);
+    formData.append("sport", sport);
+    formData.append("venue_description", venueDescription);
+    formData.append(
+      "address",
+      `${address.name || ""},${address.streetNumber || ""}`
+    );
+    formData.append("city", address.city);
+    formData.append("state", address.region);
+    formData.append(
+      "latitudelongitude",
+      JSON.stringify(address.latitudelongitude)
+    );
+
+    if (image) {
+      const imagePayload: any = {
+        uri: image,
+        type: "image/jpeg",
+        name: "profile.jpg",
+      };
+      formData.append("image", imagePayload);
+    }
+    formData.append("id", id);
+
+    console.log("request----", JSON.stringify(formData))
+
+    try {
+      const res = await dispatch(updateVenue(formData));
+      // Handle the response
+      if (res.payload.success) {
+        goToVenueLists(true);
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting venue:", error);
+    }
+  }, [dispatch, venueName, courtName, sport, address, image, id]);
+
   useEffect(() => {
     if (route?.params?.address) {
       updateState({
@@ -163,6 +206,7 @@ const useCreateVenue = () => {
     goToChooseLocation,
     handleChange,
     handleVenueSubmit,
+    handleVenueUpdate,
   };
 };
 
