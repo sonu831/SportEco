@@ -33,7 +33,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
       handleChange("venueName", route.params.venueInfo.venueName)
       handleChange("sport", route.params.venueInfo.sport)
       handleChange("courtName", route.params.venueInfo.courtName)
-      handleChange("venueDescription", route.params.venueInfo.venueDescription);
+      handleChange("venueDescription", route.params.venueInfo.description);
       handleChange("id", route.params.venueInfo._id)
     }
   },[isEdit])

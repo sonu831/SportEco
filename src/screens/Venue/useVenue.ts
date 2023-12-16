@@ -75,7 +75,7 @@ const useVenue = () => {
       courtName: venue?.court_name || "",
       sport: venue?.sport || "",
       distance: "",
-      description: "",
+      description: venue?.description,
       image: venue?.images?.filedata?.length
         ? `data:image/png;base64,${venue.images.filedata}`
         : "",

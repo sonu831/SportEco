@@ -25,7 +25,7 @@ const usePlayerProfile = () => {
         setPlayerDetails(mapped);
       });
     }
-  }, []);
+  }, [route.params.playerId]);
 
   const { firstName, lastName, playerId, profilePic } = playerDetails || {};
 

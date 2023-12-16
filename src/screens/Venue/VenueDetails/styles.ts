@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   mainView: {
-    padding: 20,
+    paddingHorizontal: 20,
+    marginTop: -80,
   },
 });

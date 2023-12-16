@@ -111,7 +111,7 @@ const useCreateVenue = () => {
     formData.append("venue_name", venueName);
     formData.append("court_name", courtName);
     formData.append("sport", sport);
-    formData.append("venue_description", venueDescription);
+    formData.append("description", venueDescription);
     formData.append(
       "address",
       `${address.name || ""},${address.streetNumber || ""}`
@@ -150,7 +150,7 @@ const useCreateVenue = () => {
     formData.append("venue_name", venueName);
     formData.append("court_name", courtName);
     formData.append("sport", sport);
-    formData.append("venue_description", venueDescription);
+    formData.append("description", venueDescription);
     formData.append(
       "address",
       `${address.name || ""},${address.streetNumber || ""}`
@@ -170,12 +170,9 @@ const useCreateVenue = () => {
       };
       formData.append("image", imagePayload);
     }
-    formData.append("id", id);
-
-    console.log("request----", JSON.stringify(formData))
 
     try {
-      const res = await dispatch(updateVenue(formData));
+      const res = await dispatch(updateVenue({data: formData, id: id}));
       // Handle the response
       if (res.payload.success) {
         goToVenueLists(true);

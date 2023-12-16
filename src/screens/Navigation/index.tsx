@@ -98,8 +98,8 @@ const Navigation = () => {
   if (!isConnected) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <MyText text="Could not connect to the internet." />
-        <MyText text="Please check your network." />
+        <MyText color={"#878584"} text="Could not connect to the internet." />
+        <MyText color={"#878584"} text="Please check your network." />
         <TouchableOpacity onPress={handleTryAgain}>
           <MyText
             text="Try Again"

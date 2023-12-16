@@ -239,7 +239,7 @@ const useEditProfile = ({
       contact_no: phNum,
     };
 
-    // console.log("request", request);
+    console.log("request", request);
 
     if (isAddPlayer && !isEdit) {
       dispatch(addPlayer({ data: request })).then((res) => {

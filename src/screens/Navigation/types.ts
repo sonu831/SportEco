@@ -50,7 +50,7 @@ export type RootStackParamList = {
   ChangeAvatar: any;
   Notification: any;
   Players: { shouldRefresh?: boolean };
-  PlayerProfileManager: { playerId: string; isEdit?: boolean } | any;
+  PlayerProfileManager: { playerId: string; isEdit?: boolean; } | any;
   PlayerProfile: { playerId: string };
   Batches: any;
   BatchInfo: any;
