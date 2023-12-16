@@ -18,14 +18,14 @@ const usePlayerProfile = () => {
   );
 
   useEffect(() => {
-    const playerId = route.params.playerId;
+    const playerId = route.params?.playerId;
     if (playerId) {
       dispatch(fetchPlayerById(playerId)).then((res) => {
         const mapped = mapResponseToPlayerData(res.payload?.data);
         setPlayerDetails(mapped);
       });
     }
-  }, [route.params.playerId]);
+  }, []);
 
   const { firstName, lastName, playerId, profilePic } = playerDetails || {};
 
