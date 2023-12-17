@@ -84,7 +84,7 @@ const usePlayerProfileManager = () => {
   };
 
   const goToPlayersScreen = () => {
-    navigation.replace(ScreensName.Players, { shouldRefresh: true });
+    navigation.navigate(ScreensName.Players, { shouldRefresh: true });
   };
 
   const handleDeletePlayer: HandleDeletePlayerFunction = () => {

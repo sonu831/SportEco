@@ -67,7 +67,6 @@ const EditProfile = ({
     dobDate,
     image,
     idProof,
-
     phNum,
   } = state;
 
@@ -75,7 +74,7 @@ const EditProfile = ({
   const monthOptions = MONTH_OPTIONS();
   const goToAvatarScreen = () => navigation.navigate("ChangeAvatar");
   const [selectedUsers, setSelectedUsers] = useState(role);
-  // const selectedDate = convertToDateObject(dobDate);
+
   const SaveButton = ({ handleSave }) => (
     <View
       style={[

@@ -35,5 +35,6 @@ export const styles = StyleSheet.create({
   },
   mainView: {
     padding: 20,
+    flexGrow:1
   },
 });

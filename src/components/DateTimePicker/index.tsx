@@ -49,7 +49,8 @@ const DateTimePicker = ({
           classNames,
           dateBoxField && styles.dateBoxContainer,
         ]}
-        onPress={!disabled && editable ? handleShowDatePicker : () => {}}
+        onPress={handleShowDatePicker}
+        disabled={!editable}
       >
         {dateBoxField ? (
           <View style={styles.dateContainer}>

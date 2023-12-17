@@ -54,6 +54,7 @@ const usePlayers = () => {
     try {
       const response = await dispatch(fetchPlayers());
       const playerData = response?.payload?.data || [];
+      console.log("playerData------",response?.payload)
       updateState({ key: "playerList", value: playerData });
       navigation.navigate(ScreensName.Players, { shouldRefresh: false });
     } catch (error) {
@@ -104,6 +105,7 @@ const usePlayers = () => {
       );
       return;
     }
+    console.log("playerId", playerId)
 
     navigation.navigate(ScreensName.PlayerProfile, { playerId: playerId });
   };

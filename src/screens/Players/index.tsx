@@ -18,7 +18,6 @@ const Players = ({ navigation }) => {
     goToCreatePlayer,
     goToPlayerProfile,
   } = usePlayers();
-
   const renderPlayersList = () => {
     return (
       <View>
@@ -40,7 +39,7 @@ const Players = ({ navigation }) => {
               : null;
             return (
               <CardItem
-                key={`player-key-${first_name}-${last_name}`}
+                key={_id}
                 Title={`${first_name} ${last_name}`}
                 onPress={() => goToPlayerProfile(_id)}
                 isImage={!!imageSource}

@@ -88,7 +88,7 @@ const VenueDetails = () => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         onMomentumScrollEnd={handlePageChange}
-        style={{ height: 80 }}
+        style={{ height: 80}}
       />
       <View style={styles.mainView}>
         <View

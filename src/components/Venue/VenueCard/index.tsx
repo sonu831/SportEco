@@ -72,6 +72,7 @@ const VenueCard = ({
           <MyText
             text={`${sport} - ${courtName}`}
             fontSize={10}
+            style={{width: '90%'}}
             color={Colors.darkGray}
           />
           <TouchableOpacity

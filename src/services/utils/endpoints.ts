@@ -13,7 +13,7 @@ export const endpoints = {
   fetchPlayerById: `/api/player/getplayerdetailbyid`,
   addPlayer: `/api/player/addplayerprofile`,
   addPlayerWithPic: `/api/player/addplayerprofilewithpic`,
-  updatePlayerProfile: `api/player/updateplayerprofile`,
+  updatePlayerProfile: `api/player/updateplayerprofilewithpic`, //need to change payload and end point
   uploadPlayerProfileImage: `/api/player/playerprofilepicupload`,
   deletePlayer: `api/player/deleteplayerbyid`,
   searchPlayer: `api/player/searchplayers`,

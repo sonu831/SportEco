@@ -18,7 +18,7 @@ const usePlayerProfile = () => {
   );
 
   useEffect(() => {
-    const playerId = route.params.playerId;
+    const playerId = route.params?.playerId;
     if (playerId) {
       dispatch(fetchPlayerById(playerId)).then((res) => {
         const mapped = mapResponseToPlayerData(res.payload?.data);

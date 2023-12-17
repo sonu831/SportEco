@@ -117,6 +117,7 @@ export const uploadPlayerProfilePicture = createAsyncThunk(
 export const updatePlayerProfile = createAsyncThunk(
   "updatePlayerProfile",
   async (request: any, { rejectWithValue }) => {
+    console.log(" request.player" ,  request.player)
     return axios
       .post(endpoints.updatePlayerProfile, request.player, {
         headers: {
@@ -126,7 +127,7 @@ export const updatePlayerProfile = createAsyncThunk(
       })
       .then((res) => {
         console.log("fdsfsffsffsff===>", res.data);
-        res.data;
+        return res.data;
       })
 
       .catch((err) => {
