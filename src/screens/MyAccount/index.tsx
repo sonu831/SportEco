@@ -112,6 +112,7 @@ const MyAccount = ({
               <View style={styles.toogleSwitch}>
                 {arr.map((item) => (
                   <TouchableOpacity
+                    key={item.id}
                     // onPress={() => setSelectedTab(item)}
                     onPress={() => setSelectedTab(item)}
                     style={{

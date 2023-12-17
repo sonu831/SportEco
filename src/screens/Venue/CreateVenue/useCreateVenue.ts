@@ -56,38 +56,39 @@ const useCreateVenue = () => {
   const handleImage = (image = null) => {
     updateState({
       key: "image",
-      value: null,
+      value: image,
     });
   };
 
   // TOTFO: ---
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
-    const permission =
-    type === "camera" ? await ImagePicker.requestCameraPermissionsAsync() : ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permission = await ImagePicker.requestCameraPermissionsAsync()
+    //  : ImagePicker.requestMediaLibraryPermissionsAsync();
     const { status } = await ImagePicker.getCameraPermissionsAsync();
-    if (status !== "granted") {
+
+    if (!permission.granted && status !== "granted") {
       Alert.alert(`${permission} permission not granted`);
       return;
-    }
-
-    if (type === "camera") {
-      result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        base64: true,
-      });
     } else {
-      result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        base64: true,
-      });
-    }
+      if (type === "camera") {
+        result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          base64: true,
+        });
+      } else {
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          base64: true,
+        });
+      }
 
-    if (!!result?.assets?.length) {
-      handleImage?.(result.assets[0].uri);
-      setShowModal(false);
+      if (!!result?.assets?.length) {
+        handleImage?.(result.assets[0].base64);
+        setShowModal(false);
+      }
     }
   };
 
@@ -131,7 +132,6 @@ const useCreateVenue = () => {
       };
       formData.append("image", imagePayload);
     }
-
     try {
       const res = await dispatch(addVenue(formData));
       // Handle the response
@@ -168,11 +168,10 @@ const useCreateVenue = () => {
         type: "image/jpeg",
         name: "profile.jpg",
       };
-      formData.append("image", imagePayload);
+      formData.append("images", imagePayload);
     }
-
     try {
-      const res = await dispatch(updateVenue({data: formData, id: id}));
+      const res: any = await dispatch(updateVenue({data: formData, id: id}));
       // Handle the response
       if (res.payload.success) {
         goToVenueLists(true);

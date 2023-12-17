@@ -35,6 +35,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
       handleChange("courtName", route.params.venueInfo.courtName)
       handleChange("venueDescription", route.params.venueInfo.description);
       handleChange("id", route.params.venueInfo._id)
+      //handleChange("image", route.params.venueInfo.image)
     }
   },[isEdit])
 
@@ -76,13 +77,10 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
   };
 
   const renderImagePlaceholder = () => {
-    if (currentImage) {
+    if (image) {
       return (
         <View>
-          <TouchableOpacity>
-            <Image source={{ uri: image }} style={styles.imageStyle} />
-          </TouchableOpacity>
-          <MyText text="Add Images" style={{ paddingTop: 8 }} />
+          <Image source={{ uri: "data:image/png;base64," + image }} style={styles.imageStyle} />
           <TouchableOpacity
             style={{
               position: "absolute",
@@ -101,6 +99,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
               right: 20,
               zIndex: 100,
             }}
+            onPress={() => pickImage("camera")}
           >
             <AntDesign name="pluscircleo" color={"#fff"} size={26} />
           </TouchableOpacity>
@@ -109,7 +108,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
     } else if (!image) {
       return (
         <View style={styles.imagePickerStyle}>
-          <TouchableOpacity onPress={() => pickImage("library")}>
+          <TouchableOpacity onPress={() => pickImage("camera")}>
             <Image source={require("../../../assets/images/addImage.png")} />
           </TouchableOpacity>
           <MyText text="Add Images" />

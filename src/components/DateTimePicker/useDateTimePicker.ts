@@ -61,7 +61,7 @@ const useDateTimePicker = ({ value, onChange }: Props) => {
         value: moment(value),
       });
     }
-  }, []);
+  }, [value]);
 
   return {
     state,

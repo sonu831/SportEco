@@ -112,7 +112,6 @@ const usePlayerProfileManager = () => {
     } else {
       formData.append("avatarimage", avatarImage || "10");
     }
-    console.log("handle Player formData", formData);
 
     const action = isEdit
       ? updatePlayerProfile({ player: formData, playerId })

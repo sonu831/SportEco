@@ -13,4 +13,5 @@ export interface User {
   role: string[];
   state: string;
   token: string;
+  DOB: any;
 }

@@ -35,6 +35,7 @@ import group908 from "../../assets/images/group908.png";
 import group907 from "../../assets/images/group907.png";
 import group909 from "../../assets/images/group909.png";
 import { findIndexByValue } from "../../utils/methods";
+import { convertToDateObject } from "../../helper";
 
 type AvatarMap = {
   [key: number]: string;
@@ -184,6 +185,11 @@ const useEditProfile = ({
         DOB,
       } = userDetails;
 
+      let selectedDate : any = "";
+      if(DOB){
+        selectedDate = convertToDateObject(DOB);
+      }
+
       updateState([
         { key: "fName", value: first_name || "" },
         { key: "lName", value: last_name || "" },
@@ -199,7 +205,7 @@ const useEditProfile = ({
             ? "data:image/png;base64," + profile_pic?.filedata
             : null,
         },
-        { key: "dobDate", value: dobDate },
+        { key: "dobDate", value: selectedDate },
       ]);
     }
   }, [userDetails]);
