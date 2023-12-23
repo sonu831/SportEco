@@ -11,7 +11,6 @@ import { Colors } from "../../constants/Colors";
 import { styles } from "./styles";
 import useVenue from "./useVenue";
 import VenueCard from "../../components/Venue/VenueCard";
-import manage3 from "../../assets/images/manage_3.png";
 
 const Venues = () => {
   const {
@@ -58,10 +57,10 @@ const Venues = () => {
               alignItems: "center",
             }}
           >
-            <Image source={manage3} />
+            <Image source={require("../../assets/images/manage_3.png")} />
             <MyText
               text={"No Venues Found"}
-              fontSize={10}
+              fontsize={10}
               color={Colors.gray}
             />
           </View>

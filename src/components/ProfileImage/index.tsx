@@ -5,8 +5,6 @@ import { TitleText, CenteredLineWithText } from "../../components";
 import ImagePicker from "../ImagePicker";
 import AvatarImage from "../AvatarImage";
 import useProfileImage from "./useProfileImage";
-// assets
-import curveBackground from "../../assets/images/curve.png";
 // style
 import { styles } from "./styles";
 
@@ -36,7 +34,7 @@ export const ProfileImage = ({
   return (
     <Fragment>
       <ImageBackground
-        source={curveBackground}
+        source={require("../../assets/images/curve.png")}
         style={styles.curveImageBg}
         resizeMode="stretch"
       />

@@ -6,7 +6,6 @@ import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
 // style
 import { VenueCardProps } from "../../../screens/Venue/types";
-import venue1 from "../../../assets/images/Venue1.png";
 import { styles } from "./styles";
 
 const VenueCard = ({
@@ -46,7 +45,7 @@ const VenueCard = ({
       {image.length ? (
         <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />
       ) : (
-        <Image source={venue1} style={{ width: 80, height: 80 }} />
+        <Image source={require("../../../assets/images/Venue1.png")} style={{ width: 80, height: 80 }} />
       )}
 
       <View style={styles.cardDetailsContainer}>
@@ -56,7 +55,7 @@ const VenueCard = ({
             color={Colors.darkGray}
             fontFamily="MEDIUM"
           />
-          <MyText text={venueLocation} fontSize={10} color={Colors.gray} />
+          <MyText text={venueLocation} fontsize={10} color={Colors.gray} />
         </View>
         <View
           style={{
@@ -71,7 +70,7 @@ const VenueCard = ({
           />
           <MyText
             text={`${sport} - ${courtName}`}
-            fontSize={10}
+            fontsize={14}
             style={{width: '90%'}}
             color={Colors.darkGray}
           />

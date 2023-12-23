@@ -48,6 +48,6 @@ export type Venue = {
 export type VenueCardProps = {
   onPress: () => void;
   onDeleteVenue: (_id: string) => void;
-  venueKey: number;
+  venueKey?: number;
   details: Venue;
 };
