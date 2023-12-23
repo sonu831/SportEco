@@ -14,6 +14,7 @@ import AddressComponent from "../AddressComponent";
 const CreateVenue = ({ navigation, currentImage, route }) => {
   const {
     state,
+    isEdit,
     handleGoBack,
     goToChooseLocation,
     handleImage,
@@ -24,20 +25,6 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
   } = useCreateVenue();
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
-
-  const [isEdit, setIsEdit] = useState(false);
-
-  useEffect(() => {
-    if(route?.params?.isEdit){
-      setIsEdit(route?.params?.isEdit);
-      handleChange("venueName", route.params.venueInfo.venueName)
-      handleChange("sport", route.params.venueInfo.sport)
-      handleChange("courtName", route.params.venueInfo.courtName)
-      handleChange("venueDescription", route.params.venueInfo.description);
-      handleChange("id", route.params.venueInfo._id)
-      //handleChange("image", route.params.venueInfo.image)
-    }
-  },[isEdit])
 
   const renderActionButton = () => {
     if (address)
@@ -80,7 +67,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
     if (image) {
       return (
         <View>
-          <Image source={{ uri: "data:image/png;base64," + image }} style={styles.imageStyle} />
+          <Image source={{ uri: image }} style={styles.imageStyle} />
           <TouchableOpacity
             style={{
               position: "absolute",
@@ -203,7 +190,11 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
               display: "flex",
             }}
           >
-            <AddressComponent address={address} isEditLocation handleEditLocation={goToChooseLocation}/>
+            <AddressComponent
+              address={address}
+              isEditLocation
+              handleEditLocation={goToChooseLocation}
+            />
           </View>
         )}
         {renderActionButton()}

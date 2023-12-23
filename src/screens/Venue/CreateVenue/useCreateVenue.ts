@@ -38,6 +38,7 @@ const useCreateVenue = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [state, setState] = useState<Partial<InitialState>>(initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const { address, venueName, venueDescription, courtName, sport, image, id } =
     state;
@@ -63,7 +64,7 @@ const useCreateVenue = () => {
   // TOTFO: ---
   const pickImage = async (type: "camera" | "library") => {
     let result = null;
-    const permission = await ImagePicker.requestCameraPermissionsAsync()
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
     //  : ImagePicker.requestMediaLibraryPermissionsAsync();
     const { status } = await ImagePicker.getCameraPermissionsAsync();
 
@@ -86,7 +87,7 @@ const useCreateVenue = () => {
       }
 
       if (!!result?.assets?.length) {
-        handleImage?.(result.assets[0].base64);
+        handleImage?.(result.assets[0].uri);
         setShowModal(false);
       }
     }
@@ -171,7 +172,7 @@ const useCreateVenue = () => {
       formData.append("images", imagePayload);
     }
     try {
-      const res: any = await dispatch(updateVenue({data: formData, id: id}));
+      const res: any = await dispatch(updateVenue({ data: formData, id: id }));
       // Handle the response
       if (res.payload.success) {
         goToVenueLists(true);
@@ -191,7 +192,20 @@ const useCreateVenue = () => {
     }
   }, [route?.params?.address]);
 
+  useEffect(() => {
+    if (route?.params?.isEdit) {
+      setIsEdit(route?.params?.isEdit);
+      handleChange("venueName", route.params.venueInfo.venueName);
+      handleChange("sport", route.params.venueInfo.sport);
+      handleChange("courtName", route.params.venueInfo.courtName);
+      handleChange("venueDescription", route.params.venueInfo.description);
+      handleChange("id", route.params.venueInfo._id);
+      handleChange("image", route.params.venueInfo.image);
+    }
+  }, [route?.params?.isEdit]);
+
   return {
+    isEdit,
     pickImage,
     route,
     handleGoBack,
