@@ -10,6 +10,7 @@ import { Colors } from "../../../constants/Colors";
 import MyText from "../../../components/MyText";
 import useCreateVenue from "./useCreateVenue";
 import AddressComponent from "../AddressComponent";
+import useImagePicker from "../../../components/ImagePicker/useImagePicker";
 
 const CreateVenue = ({ navigation, currentImage, route }) => {
   const {
@@ -18,13 +19,14 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
     handleGoBack,
     goToChooseLocation,
     handleImage,
-    pickImage,
     handleChange,
     handleVenueSubmit,
     handleVenueUpdate,
   } = useCreateVenue();
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
+
+  const { pickImage } = useImagePicker({ handleImage });
 
   const renderActionButton = () => {
     if (address)

@@ -18,5 +18,6 @@ export const styles = StyleSheet.create({
     imageStyle: {
         width: '100%',
         height: 180,
+        resizeMode: 'cover',
     }
 })

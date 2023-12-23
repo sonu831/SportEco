@@ -61,38 +61,6 @@ const useCreateVenue = () => {
     });
   };
 
-  // TOTFO: ---
-  const pickImage = async (type: "camera" | "library") => {
-    let result = null;
-    const permission = await ImagePicker.requestCameraPermissionsAsync();
-    //  : ImagePicker.requestMediaLibraryPermissionsAsync();
-    const { status } = await ImagePicker.getCameraPermissionsAsync();
-
-    if (!permission.granted && status !== "granted") {
-      Alert.alert(`${permission} permission not granted`);
-      return;
-    } else {
-      if (type === "camera") {
-        result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          base64: true,
-        });
-      } else {
-        result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          base64: true,
-        });
-      }
-
-      if (!!result?.assets?.length) {
-        handleImage?.(result.assets[0].uri);
-        setShowModal(false);
-      }
-    }
-  };
-
   const handleChange = (key, value) => {
     if (key)
       updateState({
@@ -206,7 +174,6 @@ const useCreateVenue = () => {
 
   return {
     isEdit,
-    pickImage,
     route,
     handleGoBack,
     state,

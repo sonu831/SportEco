@@ -9,13 +9,14 @@ import React, { useCallback } from "react";
 import { Colors } from "../../constants/Colors";
 interface buttonProps {
     title: string;
-    height: DimensionValue;
-    backgroundColor: ColorValue;
-    width: DimensionValue;
-    marginVertical: DimensionValue;
+    height?: DimensionValue;
+    backgroundColor?: ColorValue;
+    width?: DimensionValue;
+    marginVertical?: DimensionValue;
     onPress: () => void;
-    disabled: boolean;
-    Icon: React.ReactNode,
+    disabled?: boolean;
+    Icon?: React.ReactNode,
+    leftIcon?: any;
     alignSelf:
     | "auto"
     | "center"
@@ -33,6 +34,7 @@ const MyButton: React.FC<buttonProps> = ({
     alignSelf = "auto",
     disabled: disabled,
     Icon,
+    leftIcon,
     onPress = () => { },
 }) => {
     const handlePress = useCallback(() => {

@@ -77,7 +77,7 @@ const usePlayerProfileManager = () => {
   };
 
   const handleToggleDatePicker = () => {
-    setState((prev) => ({
+    setState((prev:any) => ({
       ...prev,
       showDatePicker: !prev.showDatePicker,
     }));
@@ -95,7 +95,7 @@ const usePlayerProfileManager = () => {
   };
 
   const handlePlayer = () => {
-    const formData = new FormData();
+    const formData: any = new FormData();
     formData.append("first_name", firstName);
     formData.append("last_name", lastName);
     formData.append("dbo", JSON.stringify(dob));

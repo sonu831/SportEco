@@ -14,7 +14,6 @@ import { locations, UserDetailsFields } from "../../constants/Profile";
 import useProfilePage from "./useProfilePage";
 import { RootStackScreenProps } from "../Navigation/types";
 import Button from "../../components/Button";
-import dummyUser from "../../assets/images/dummy-user.png";
 import SafeArea from "../../components/SafeArea";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
@@ -48,7 +47,7 @@ const ProfileScreen = ({
             <Entypo name="chevron-left" size={20} color={Colors.darkGray} />
           </Pressable>
           <View style={styles.headerContainer}>
-            <Image source={dummyUser} style={styles.avatar} />
+            <Image source={require("../../assets/images/dummy-user.png")} style={styles.avatar} />
             <Text style={styles.username}>
               {`${dataToShow?.first_name} ${dataToShow?.last_name}`}
             </Text>
