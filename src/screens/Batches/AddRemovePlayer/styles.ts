@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     padding: 20,
+    paddingBottom: "10%",
   },
   createButton: {
     width: "90%",

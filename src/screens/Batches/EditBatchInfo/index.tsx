@@ -17,6 +17,7 @@ const EditBatchInfo = () => {
     setBatchDesc,
     gotoAddRemovePlayer,
     handleDeleteBatch,
+    handleUpdateBatch,
   } = useEditBatchInfo();
 
   //UI
@@ -25,6 +26,7 @@ const EditBatchInfo = () => {
       <Header
         title="Edit Batch"
         hasActionIcon
+        actionBtnPress={handleUpdateBatch}
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
       />
       <View style={styles.mainView}>

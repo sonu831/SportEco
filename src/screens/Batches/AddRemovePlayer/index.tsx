@@ -3,8 +3,8 @@ import {
   Text,
   Image,
   FlatList,
-  ScrollView,
   Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 import { styles } from "./styles";
@@ -14,6 +14,7 @@ import SearchBox from "../../../components/SearchBox";
 import MyButton from "../../../components/MyButton";
 import useAddRemovePlayer from "./useAddRemovePlayer";
 import PlayerCard from "../../../components/Players/PlayerCard";
+import ScreensName from "../../../constants/ScreenNames";
 
 const AddRemovePlayer = ({ navigation, route }) => {
   const {
@@ -23,7 +24,10 @@ const AddRemovePlayer = ({ navigation, route }) => {
     remainingParticipants,
     handleAddPlayerInBatch,
     currentParticipantsList,
+    navigateToCreatePlayer,
   } = useAddRemovePlayer();
+
+  const height = useWindowDimensions().height;
 
   return (
     <View style={styles.container}>
@@ -34,18 +38,16 @@ const AddRemovePlayer = ({ navigation, route }) => {
         ActionIcon={<AntDesign name="check" size={18} color={"#fff"} />}
         isActionBtnDisabled={!remainingParticipants}
       />
-      <ScrollView
+      <View
         style={styles.mainView}
-        contentContainerStyle={{
-          paddingBottom: "10%",
-        }}
       >
         {remainingParticipants?.length ||
-        currentParticipantsList?.length ||
-        allPlayers.length ? (
+          currentParticipantsList?.length ||
+          allPlayers.length ? (
           <View>
             <SearchBox />
             <FlatList
+              style={{ height: height - 250 }}
               data={remainingParticipants}
               renderItem={({ item, index }) => {
                 return (
@@ -140,8 +142,8 @@ const AddRemovePlayer = ({ navigation, route }) => {
             </Text>
           </View>
         )}
-        <MyButton title="+  Create Player" style={styles.createButton} />
-      </ScrollView>
+        <MyButton title="+  Create Player" style={styles.createButton} onPress={navigateToCreatePlayer} />
+      </View>
     </View>
   );
 };

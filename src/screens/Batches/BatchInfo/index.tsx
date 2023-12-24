@@ -9,7 +9,6 @@ import SearchBox from "../../../components/SearchBox";
 import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
 import { useBatchInfo } from "./useBatchInfo";
-import manageInfo from "../../../assets/images/manage_1.png";
 
 const BatchInfo = ({ navigation }) => {
   const { gotoEditBatchInfo, goToAddRemovePlayer, batchDetails } =
@@ -33,12 +32,13 @@ const BatchInfo = ({ navigation }) => {
           fontFamily="REGULAR"
           color={Colors.gray2}
         />
-        {batchDetails?.players.length > 0 ? (
+        {batchDetails?.players?.length > 0 ? (
           <View>
             <SearchBox />
-            {batchDetails?.players.map((item, index) => {
+            {batchDetails?.players?.map((item, index) => {
               return (
                 <BatchMemberCard
+                  key={index}
                   batchMemberInfo={item}
                   batchMemberIndex={index}
                 />
@@ -54,7 +54,7 @@ const BatchInfo = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Image source={manageInfo} />
+            <Image source={require("../../../assets/images/manage_1.png")} />
             <Text
               style={{
                 color: "grey",

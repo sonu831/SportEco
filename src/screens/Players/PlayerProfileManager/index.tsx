@@ -93,6 +93,11 @@ const PlayerProfileManager = () => {
                 },
               }));
             }}
+            style={{
+              borderColor: "grey",
+              backgroundColor: "white",
+              color: Colors.black2,
+            }}
           />
           <View style={{ height: "3%" }} />
           <TextInput
@@ -111,6 +116,11 @@ const PlayerProfileManager = () => {
                 },
               }))
             }
+            style={{
+              borderColor: "grey",
+              backgroundColor: "white",
+              color: Colors.black2,
+            }}
           />
           <View style={{ height: "4%" }} />
           <PhoneNumberInput
@@ -135,6 +145,11 @@ const PlayerProfileManager = () => {
             placeholderTextColor={"#000"}
             value={selectedDate.format("DD-MM-YYYY")}
             onTouchStart={handleToggleDatePicker}
+            style={{
+              borderColor: "grey",
+              backgroundColor: "white",
+              color: Colors.black2,
+            }}
           />
 
           <CenteredLineWithText lineText="Gender" />

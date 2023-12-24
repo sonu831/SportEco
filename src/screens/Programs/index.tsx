@@ -32,7 +32,7 @@ const Programs = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <Header title='Manage' />
-            <ScrollView style={styles.mainView}>
+            <View style={styles.mainView}>
                 <MyText text="Programs." fontFamily="BOLD" fontsize={25} />
                 <MyText text="List of all your programs." fontFamily="SEMIBOLD" fontsize={14} color={Colors.gray} />
                 <SearchBox />
@@ -44,7 +44,7 @@ const Programs = ({ navigation, route }) => {
                     showsHorizontalScrollIndicator={true}
                     contentContainerStyle={{ flexGrow: 1, marginBottom: 20 }}
                 />
-            </ScrollView>
+            </View>
             <FAB onPress={handleCreateProgram} />
         </View>
     )

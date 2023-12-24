@@ -41,7 +41,7 @@ const MainScreen = ({ navigation }) => {
     //Function: To handle Bathes Screens
     switch (item.name) {
       case "Players":
-        return navigation.navigate("Players");
+        return navigation.navigate("Players", {shouldRefresh : true});
       case "Batches":
         return navigation.navigate("Batches");
       case "Venues":
