@@ -16,7 +16,7 @@ import { styles } from "./styles";
 import useHeader from "./useHeader";
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   hasActionIcon?: boolean;
   backgroundColor?: ColorValue;
   ActionIcon?: React.ReactNode;

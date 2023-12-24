@@ -118,7 +118,11 @@ const usePlayerProfileManager = () => {
       : addPlayerWithPic(formData);
     dispatch(action).then((res) => {
       if (res?.payload?.data?._id) {
-        goToPlayersScreen();
+        if(route.params?.batch_Id){
+          navigation.navigate("AddRemovePlayer", { batch_Id: route.params?.batch_Id, shouldRefresh: true });
+        } else {
+          goToPlayersScreen();
+        }
       }
     });
   };

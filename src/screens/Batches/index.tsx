@@ -8,7 +8,6 @@ import BatchCard from "../../components/BatchCard";
 import useBatches from "./useBatches";
 import { styles } from "./styles";
 import { Colors } from "../../constants/Colors";
-import manageImg from "../../assets/images/manage_2.png";
 
 const Batches = ({ navigation, route }) => {
   const {
@@ -18,10 +17,12 @@ const Batches = ({ navigation, route }) => {
     gotoBatchInfo,
   } = useBatches({ navigation, route });
 
+  const manageImg = "../../assets/images/manage_2.png";
+
   const renderBatch = ({ item, index }) => (
     <BatchCard
       bathName={item?.batch_name}
-      batchSubData={item?.players.length}
+      batchSubData={item?.players?.length}
       bacthIndex={index}
       onPress={() => gotoBatchInfo(item)}
     />
@@ -29,7 +30,7 @@ const Batches = ({ navigation, route }) => {
 
   const renderEmptyList = () => (
     <View style={styles.dataNoFoundStyle}>
-      <Image source={manageImg} />
+      <Image source={require(manageImg)} />
       <Text style={styles.noBatchesText}>No Batches Found</Text>
     </View>
   );

@@ -5,6 +5,7 @@ import { fetchBatchById } from "../../../services/batches";
 import type { RouteProp } from "@react-navigation/native";
 import type { RootStackParamList } from "../../Navigation/types";
 import { Player, BatchDetail } from "./config";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const useBatchInfo = () => {
   const navigation =

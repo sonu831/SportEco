@@ -93,6 +93,10 @@ const useAddRemovePlayer = () => {
     }
   };
 
+  const navigateToCreatePlayer = () => {
+    navigation.navigate(ScreensName.PlayerProfileManager, {batch_Id: route?.params?.batch_Id})
+  }
+
   const goToBatchesScreen = (shouldRefresh = false) => {
     navigation.navigate(ScreensName.Batches, { shouldRefresh });
   };
@@ -181,6 +185,7 @@ const useAddRemovePlayer = () => {
     handleAddPlayerInBatch,
     goToBatchesScreen,
     handleCurrentParticipantRemove,
+    navigateToCreatePlayer,
   };
 };
 

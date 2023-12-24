@@ -20,7 +20,7 @@ const Players = ({ navigation }) => {
   } = usePlayers();
   const renderPlayersList = () => {
     return (
-      <View>
+      <View style={{marginBottom:20}}>
         <SearchBar onChange={debouncedOnChangeSearchBar} />
         {!playerList ||
           (playerList.length === 0 && (

@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { endpoints } from "./utils/endpoints";
 import axios from "./utils/axios";
 
-export const addBatch = createAsyncThunk(
+export const addBatch: any = createAsyncThunk(
   "addBatch",
   async (request: { [key: string]: any }, { rejectWithValue }) => {
     return axios
@@ -14,7 +14,7 @@ export const addBatch = createAsyncThunk(
   }
 );
 
-export const updateBatch = createAsyncThunk(
+export const updateBatch: any = createAsyncThunk(
   "updateBatch",
   async (request: { [key: string]: any }, { rejectWithValue }) => {
     return axios
@@ -58,7 +58,7 @@ export const fetchBatchById = createAsyncThunk(
   }
 );
 
-export const deleteBatch = createAsyncThunk(
+export const deleteBatch: any = createAsyncThunk(
   "deleteBatch",
   async (id: string, { rejectWithValue }) => {
     return axios
@@ -68,7 +68,7 @@ export const deleteBatch = createAsyncThunk(
         },
       })
       .then((res) => {
-        res.data;
+        return res.data;
       })
       .catch((err) => {
         rejectWithValue(err);
