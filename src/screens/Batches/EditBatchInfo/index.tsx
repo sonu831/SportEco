@@ -51,8 +51,8 @@ const EditBatchInfo = () => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
           }}
+          contentStyle={{color: "#000"}}
           onChangeText={setBatchName}
         />
         <View style={{ height: "10%" }} />
@@ -68,8 +68,8 @@ const EditBatchInfo = () => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
           }}
+          contentStyle={{color: "#000"}}
           onChangeText={setBatchDesc}
         />
       </View>
@@ -86,6 +86,9 @@ const EditBatchInfo = () => {
           alignSelf="center"
           backgroundColor={"#303030"}
           onPress={() => setShowModal(true)}
+          leftIcon={
+            <AntDesign name="delete" size={20} color={"#fff"} style={{ marginRight: 10 }} />
+          }
         />
       </View>
       <WarningModal
