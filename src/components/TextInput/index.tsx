@@ -22,7 +22,6 @@ export const TextInputComponent = ({
       borderRadius: borderRadius,
       padding: 10,
       paddingLeft: 15,
-      color: Colors.black2,
     },
   });
   return (
@@ -37,6 +36,7 @@ export const TextInputComponent = ({
         activeOutlineColor="grey"
         placeholderTextColor={"#000"}
         label={label}
+        contentStyle={{color: "#000"}}
       />
     </View>
   );

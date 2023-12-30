@@ -44,6 +44,7 @@ const CreateBatch = ({ navigation }) => {
           value={batchName}
           onChangeText={setBatchName}
           style={styles.input}
+          contentStyle={{color: "#000"}}
         />
         <View style={{ height: "10%" }} />
         <TextInput
@@ -56,6 +57,7 @@ const CreateBatch = ({ navigation }) => {
           activeOutlineColor="grey"
           style={styles.input}
           onChangeText={setBatchDescription}
+          contentStyle={{color: "#000"}}
         />
       </View>
     </View>

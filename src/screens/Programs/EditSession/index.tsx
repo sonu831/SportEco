@@ -49,8 +49,8 @@ const EditSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                 />
                 <View style={{ height: "6%" }} />
                 <TextInput
@@ -65,8 +65,8 @@ const EditSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={(text) => setSessionDescription(text)}
                 />
                 <View style={{ height: "6%" }} />
@@ -83,8 +83,8 @@ const EditSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={(text) => setSessionDuration(text)}
                 />
             </View>
