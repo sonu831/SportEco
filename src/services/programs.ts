@@ -32,7 +32,7 @@ export const fetchPrograms = createAsyncThunk(
   }
 );
 
-export const deleteProgram = createAsyncThunk(
+export const deleteProgram: any = createAsyncThunk(
   "deleteProgram",
   async (programId: string, { rejectWithValue }) => {
     return axios
@@ -48,7 +48,7 @@ export const deleteProgram = createAsyncThunk(
   }
 );
 
-export const deleteSessionInProgram = createAsyncThunk(
+export const deleteSessionInProgram: any = createAsyncThunk(
   "removesessioninprogram",
   async (request: any, { rejectWithValue }) => {
     return axios
@@ -88,18 +88,18 @@ export const updateProgram = createAsyncThunk(
   }
 );
 
-type AddSessionInProgramProps = {
-  data: { [key: string]: any };
-  id: string | undefined;
-};
+// type AddSessionInProgramProps = {
+//   data: { [key: string]: any };
+//   id: string | undefined;
+// };
 
-export const addSessionInProgram = createAsyncThunk(
+export const addSessionInProgram: any = createAsyncThunk(
   "addSessionInProgram",
-  async (request: AddSessionInProgramProps, { rejectWithValue }) => {
+  async (request: any, { rejectWithValue }) => {
     return axios
-      .post(endpoints.addSessionInProgram, request.data, {
+      .post(endpoints.addSessionInProgram, request, {
         headers: {
-          program_id: request.id,
+          program_id: request.program_id,
         },
       })
       .then((res) => {
@@ -111,7 +111,7 @@ export const addSessionInProgram = createAsyncThunk(
   }
 )
 
-export const getProgromDataById = createAsyncThunk(
+export const getProgromDataById: any = createAsyncThunk(
   "getProgromDataById",
   async (id: string, { rejectWithValue }) => {
     return axios

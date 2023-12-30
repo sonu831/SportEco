@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   phoneNumberInput: {
     flex: 1,
     borderWidth: 0,
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 4,
   },
   countryCodeContainer: {

@@ -17,8 +17,11 @@ const useEditSession = () => {
     const [sessionName, setSessionName] = useState(session_name)
     const [sessionDescription, setSessionDescription] = useState(session_desc)
     const [sessionDuration, setSessionDuration] = useState(session_dur)
+    
     // Redux dispatch and navigation hook
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState<boolean>(false);
+
     //Function:To delete the sessions
     const handleDeleteSession = useCallback(async () => {
         const request = {
@@ -41,7 +44,9 @@ const useEditSession = () => {
         setSessionDescription,
         sessionDuration,
         setSessionDuration,
-        handleDeleteSession
+        handleDeleteSession,
+        showModal,
+        setShowModal,
     }
 }
 

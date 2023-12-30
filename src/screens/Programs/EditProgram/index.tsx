@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import { TextInput } from "react-native-paper";
 import Header from '../../../components/MyHeader';
@@ -7,6 +7,7 @@ import MyButton from '../../../components/MyButton';
 import MyText from '../../../components/MyText';
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useEditProgram } from './useEditProgram';
+import WarningModal from '../../../components/WarningModal';
 
 const EditProgram = () => {
     const {
@@ -16,7 +17,9 @@ const EditProgram = () => {
         setProgramDesc,
         handleDeleteProgram,
         programInfo,
-        handleSavePrograms
+        handleSavePrograms,
+        showModal,
+        setShowModal,
     } = useEditProgram()
     return (
         <View style={styles.container}>
@@ -70,9 +73,24 @@ const EditProgram = () => {
                     alignSelf="center"
                     title={"Delete Program"}
                     backgroundColor={Colors.darkGray}
-                    onPress={() => handleDeleteProgram(programInfo?._id)}
+                    onPress={() => setShowModal(true)}
+                    leftIcon={
+                        <AntDesign name="delete" size={20} color={"#fff"} style={{ marginRight: 10 }} />
+                    }
                 />
             </View>
+            <WarningModal
+                isVisible={showModal}
+                onClose={() => setShowModal(false)}
+                onDelete={() => handleDeleteProgram(programInfo?._id)}
+                message={
+                    <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+                        <Text style={{ fontSize: 18 }}>
+                            Are you sure that you want to delete this program:{' '}
+                            <Text style={{ fontWeight: 'bold' }}>{programName}</Text>?
+                        </Text>
+                    </View>}
+            />
         </View>
     )
 }

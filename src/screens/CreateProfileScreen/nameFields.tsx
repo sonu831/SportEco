@@ -2,8 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { TitleText, TextInput, SelectionComponent } from "../../components";
 import { styles } from "./styles";
+import { Colors } from "../../constants/Colors";
 
-export const NameFields = ({ fName, lName, updateState }) => (
+export const NameFields = ({ fName, lName, updateState }: any) => (
   <View style={[styles.fieldColumn]}>
     <TitleText
       text={`What's Your Name?`}
@@ -19,7 +20,15 @@ export const NameFields = ({ fName, lName, updateState }) => (
           value: fName,
         })
       }
+      style={{
+        borderBottomWidth: 0,
+        borderColor: "grey",
+        backgroundColor: "white",
+        color: Colors.black2,
+      }}
       borderRadius={10}
+      editable={true}
+      label={"First Name"}
     />
     <TextInput
       placeholder="Last Name"
@@ -30,7 +39,15 @@ export const NameFields = ({ fName, lName, updateState }) => (
           value: lName,
         })
       }
+      style={{
+        borderBottomWidth: 0,
+        borderColor: "grey",
+        backgroundColor: "white",
+        color: Colors.black2,
+      }}
       borderRadius={10}
+      editable={true}
+      label={"Last Name"}
     />
   </View>
 );

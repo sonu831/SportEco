@@ -1,24 +1,28 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
+import { Colors } from "../../constants/Colors";
 
 export const TextInputComponent = ({
   placeholder,
   value,
   onChangeText,
-  style,
+  style = {},
   editable,
-  borderRadius = 5
+  borderRadius = 5,
+  label,
 }) => {
   const styles = StyleSheet.create({
     container: {
       marginBottom: 15,
     },
     input: {
-      borderColor: "#ccc",
+      borderColor: Colors.gray,
       borderWidth: 1,
       borderRadius: borderRadius,
       padding: 10,
-      paddingLeft: 15
+      paddingLeft: 15,
+      color: Colors.black2,
     },
   });
   return (
@@ -29,6 +33,10 @@ export const TextInputComponent = ({
         onChangeText={onChangeText}
         style={style || styles.input}
         editable={editable}
+        mode="outlined"
+        activeOutlineColor="grey"
+        placeholderTextColor={"#000"}
+        label={label}
       />
     </View>
   );

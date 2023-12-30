@@ -27,6 +27,8 @@ const useVenue = () => {
   const dispatch = useDispatch<AppDispatch>();
   const venueList = useSelector(venueList$);
   const [state, setState] = useState<Partial<InitialState>>(initialState);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [venueDetails, setVenueDetails] = useState<any>();
 
   const updateState = (request: UpdateStateRequest<keyof InitialState>) => {
     if (Array.isArray(request)) {
@@ -90,6 +92,7 @@ const useVenue = () => {
       const res = await dispatch(deleteVenue(_id));
       if (!!res?.payload?.success) {
         fetchVenues();
+        setShowModal(false);
       }
     }
   };
@@ -105,6 +108,10 @@ const useVenue = () => {
     goToCreateVenue,
     venueDeStructure,
     gotoEditVenue,
+    showModal,
+    setShowModal,
+    venueDetails,
+    setVenueDetails
   };
 };
 

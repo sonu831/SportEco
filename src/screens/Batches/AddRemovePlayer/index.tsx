@@ -15,6 +15,8 @@ import MyButton from "../../../components/MyButton";
 import useAddRemovePlayer from "./useAddRemovePlayer";
 import PlayerCard from "../../../components/Players/PlayerCard";
 import ScreensName from "../../../constants/ScreenNames";
+import { Colors } from "../../../constants/Colors";
+import WarningModal from "../../../components/WarningModal";
 
 const AddRemovePlayer = ({ navigation, route }) => {
   const {
@@ -25,6 +27,8 @@ const AddRemovePlayer = ({ navigation, route }) => {
     handleAddPlayerInBatch,
     currentParticipantsList,
     navigateToCreatePlayer,
+    showModal, 
+    setShowModal,
   } = useAddRemovePlayer();
 
   const height = useWindowDimensions().height;
@@ -87,65 +91,82 @@ const AddRemovePlayer = ({ navigation, route }) => {
                     <View>
                       {currentParticipantsList.length > 0 ? (
                         currentParticipantsList.map((item, index) => (
-                          <PlayerCard
-                            key={index.toString()}
-                            playerName={item.name}
-                            hasRemoveBtn
-                            onPress={() => handleCurrentParticipantRemove(item)}
-                          />
-                        ))
-                      ) : (
-                        <View
-                          style={{
-                            width: "100%",
-                            alignItems: "center",
-                            height: "250px",
-                            marginTop: "10%",
-                            marginBottom: "10%",
-                          }}
-                        >
-                          <Image
-                            source={require("../../../assets/images/manage_1.png")}
-                          />
-                          <Text
-                            style={{
-                              color: "grey",
-                            }}
-                          >
-                            No Current Participants
-                          </Text>
-                        </View>
+                          <View>
+                            <PlayerCard
+                              key={index.toString()}
+                              playerName={item.name}
+                              hasRemoveBtn
+                              onPress={() => setShowModal(true)}
+                            />
+                            <WarningModal
+                              key={new Date().toString()}
+                              isVisible={showModal}
+                              onClose={() => setShowModal(false)}
+                              onDelete={()=> handleCurrentParticipantRemove(item)}
+                              message={
+                                <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+                                  <Text style={{ fontSize: 18 }}>
+                                    Are you sure that you want to remove{' '}
+                                    <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                                    {' '}from this batch?
+                                  </Text>
+                                </View>}
+                            /></View>
+                            ))
+                            ) : (
+                            <View
+                              style={{
+                                width: "100%",
+                                alignItems: "center",
+                                height: "250px",
+                                marginTop: "10%",
+                                marginBottom: "10%",
+                              }}
+                            >
+                              <Image
+                                source={require("../../../assets/images/manage_1.png")}
+                              />
+                              <Text
+                                style={{
+                                  color: "grey",
+                                }}
+                              >
+                                No Current Participants
+                              </Text>
+                            </View>
                       )}
-                    </View>
+                          </View>
                   </View>
-                );
+                    );
               }}
             />
-          </View>
-        ) : (
-          <View
-            style={{
-              height: Dimensions.get("screen").height / 1.5,
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image source={require("../../../assets/images/manage_1.png")} />
-            <Text
+                  </View>
+                ) : (
+            <View
               style={{
-                color: "grey",
-                letterSpacing: 2,
+                height: Dimensions.get("screen").height / 1.5,
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              No Players Found
-            </Text>
-          </View>
+              <Image source={require("../../../assets/images/manage_1.png")} />
+              <Text
+                style={{
+                  color: "grey",
+                  letterSpacing: 2,
+                }}
+              >
+                No Players Found
+              </Text>
+            </View>
         )}
-        <MyButton title="+  Create Player" style={styles.createButton} onPress={navigateToCreatePlayer} />
-      </View>
+            <MyButton title="Create Player" style={styles.createButton} onPress={navigateToCreatePlayer} leftIcon={
+              <AntDesign name="plus" style={{ marginRight: 5 }} color={Colors.white} size={18} />
+            } />
+          </View>
     </View>
-  );
+      );
 };
 
-export default AddRemovePlayer;
+      export default AddRemovePlayer;

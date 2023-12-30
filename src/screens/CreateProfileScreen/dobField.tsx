@@ -10,7 +10,7 @@ interface DOBFieldProps {
   updateState: (data: { key: string; value: any }) => void; // Assuming updateState is a function that takes an object with key and value. Modify as needed.
 }
 
-export const DOBField: React.FC<DOBFieldProps> = ({ dobDate, updateState }) => (
+export const DOBField = ({ dobDate, updateState }: any) => (
   <View style={[styles.fieldColumn]}>
     <TitleText
       text={`What's Your Date Of Birth?`}
@@ -26,6 +26,7 @@ export const DOBField: React.FC<DOBFieldProps> = ({ dobDate, updateState }) => (
           value: moment(value),
         })
       }
+      classNames={{ backgroundColor: "white" }}
       dateBoxField
     />
   </View>

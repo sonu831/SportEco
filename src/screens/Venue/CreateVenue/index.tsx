@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TouchableOpacity, View, Text } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, View, Text, Modal, TouchableWithoutFeedback } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/MyHeader";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -11,6 +11,7 @@ import MyText from "../../../components/MyText";
 import useCreateVenue from "./useCreateVenue";
 import AddressComponent from "../AddressComponent";
 import useImagePicker from "../../../components/ImagePicker/useImagePicker";
+import { BottomSheet } from "../../../components/BottomSheet";
 
 const CreateVenue = ({ navigation, currentImage, route }) => {
   const {
@@ -26,7 +27,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
 
-  const { pickImage } = useImagePicker({ handleImage });
+  const { pickImage, setShowModal, showModal } = useImagePicker({ handleImage });
 
   const renderActionButton = () => {
     if (address)
@@ -35,15 +36,8 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
           width={"100%"}
           alignSelf="center"
           title={isEdit ? "Update" : "Save"}
-          leftIcon={
-            <Feather
-              name="map"
-              size={20}
-              color={"#FFF"}
-              style={{ marginRight: 10 }}
-            />
-          }
           onPress={isEdit ? handleVenueUpdate : handleVenueSubmit}
+          disabled={!venueName || !sport || !courtName || !venueDescription}
         />
       );
     else
@@ -88,7 +82,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
               right: 20,
               zIndex: 100,
             }}
-            onPress={() => pickImage("camera")}
+            onPress={() => setShowModal(true)}
           >
             <AntDesign name="pluscircleo" color={"#fff"} size={26} />
           </TouchableOpacity>
@@ -97,7 +91,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
     } else if (!image) {
       return (
         <View style={styles.imagePickerStyle}>
-          <TouchableOpacity onPress={() => pickImage("camera")}>
+          <TouchableOpacity onPress={() => setShowModal(true)}>
             <Image source={require("../../../assets/images/addImage.png")} />
           </TouchableOpacity>
           <MyText text="Add Images" />
@@ -201,6 +195,29 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
         )}
         {renderActionButton()}
       </View>
+
+      {showModal && <BottomSheet onClose={() => setShowModal(false)}>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => pickImage("library")}
+        >
+          <Text style={styles.modalButtonText}>Upload From Gallery</Text>
+        </TouchableOpacity>
+        <View style={styles.seperator}></View>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => pickImage("camera")}
+        >
+          <Text style={styles.modalButtonText}>Take Photo</Text>
+        </TouchableOpacity>
+        <View style={styles.seperator}></View>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => setShowModal(false)}
+        >
+          <Text style={[styles.modalButtonText, { color: '#EB5757' }]}>Cancel</Text>
+        </TouchableOpacity>
+      </BottomSheet>}
     </View>
   );
 };

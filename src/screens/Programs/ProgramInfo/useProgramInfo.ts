@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 // navigation packages
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RouteProp } from "@react-navigation/native";
 // navigation types
@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { getProgromDataById } from "../../../services/programs";
 
 export const useProgramInfo = () => {
+    const isFocused = useIsFocused();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute<RouteProp<RootStackParamList, "ProgramInfo">>();
     // useState
@@ -20,10 +21,10 @@ export const useProgramInfo = () => {
     const [programName, setProgramName] = useState<ProgramDetail | null>(route.params?.name)
     // useEffect
     useEffect(() => {
-        if (route.params?._id) {
+        if (isFocused && route.params?._id) {
             fetchProgramById(route.params?._id)
         }
-    }, [route.params?._id]);
+    }, [isFocused, route.params?._id]);
     // Redux dispatch and navigation hook
     const dispatch = useDispatch();
     const goToAddSession = useCallback((programData) => {

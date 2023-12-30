@@ -63,6 +63,7 @@ const DateTimePicker = ({
               value={date?.format("MM-DD-YYYY") ?? ""}
               style={{
                 width: "100%",
+                backgroundColor: "white",
               }}
               onTouchStart={editable ? handleShowDatePicker : undefined}
               editable={editable}

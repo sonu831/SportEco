@@ -103,7 +103,7 @@ export const customStyle = ({ window }: { window: any }) =>
       alignItems: "center",
     },
     resendTextStyle: {
-      ontWeight: "400",
+      fontWeight: "400",
       fontSize: 14,
       lineHeight: 17,
       color: Colors.darkGray,

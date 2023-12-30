@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   subtext: {
     fontSize: 15,
     color: "#888",
-    fontFamily: 'BOLD'
+    fontWeight: '600'
   },
 });
 

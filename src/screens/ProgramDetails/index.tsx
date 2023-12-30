@@ -8,7 +8,6 @@ import { RootStackScreenProps } from "../Navigation/types";
 import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import SafeArea from "../../components/SafeArea";
-import badmintonIcon from "../../assets/images/badminton.png";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
 const ProgramDetails = ({
@@ -27,7 +26,7 @@ const ProgramDetails = ({
   });
 
   const { showConfirmation } = state;
-
+  let badmintonIcon = require("../../assets/images/badminton.png");
   const sessions = programDetails?.sessions;
 
   return (

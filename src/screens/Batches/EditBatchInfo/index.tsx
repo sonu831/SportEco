@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import Header from "../../../components/MyHeader";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-paper";
@@ -8,16 +8,20 @@ import MyText from "../../../components/MyText";
 import { Colors } from "../../../constants/Colors";
 import styles from "./styles";
 import { useEditBatchInfo } from "./useEditBatchInfo";
+import WarningModal from "../../../components/WarningModal";
 
 const EditBatchInfo = () => {
   const {
     batchName,
     setBatchName,
     batchDesc,
+    batchDetails,
     setBatchDesc,
     gotoAddRemovePlayer,
     handleDeleteBatch,
     handleUpdateBatch,
+    showModal,
+    setShowModal,
   } = useEditBatchInfo();
 
   //UI
@@ -74,16 +78,28 @@ const EditBatchInfo = () => {
           width={"90%"}
           alignSelf="center"
           title="Add/Remove Players"
-          onPress={gotoAddRemovePlayer}
+          onPress={() => gotoAddRemovePlayer(batchDetails)}
         />
         <MyButton
           title="Delete Batch"
           width={"90%"}
           alignSelf="center"
           backgroundColor={"#303030"}
-          onPress={handleDeleteBatch}
+          onPress={() => setShowModal(true)}
         />
       </View>
+      <WarningModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        onDelete={handleDeleteBatch}
+        message={
+          <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+            <Text style={{ fontSize: 18 }}>
+              Are you sure that you want to delete this batch:{' '}
+              <Text style={{ fontWeight: 'bold' }}>{batchName}</Text>?
+            </Text>
+          </View>}
+      />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -18,19 +18,30 @@ export const useEditBatchInfo = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, "EditBatchInfo">>();
-
+  const [showModal, setShowModal] = useState<boolean>(false);
   const { batchInfo } = route.params || {};
+
+  const [batchDetails, setBatchDetails] = useState<any>();
+
+  useEffect(() => {
+    setBatchDetails(batchInfo);
+  }, [batchInfo]);
+
   const { _id: batchId, batch_name = "", description = "", players = [] } = batchInfo || {};
 
   const [batchName, setBatchName] = useState(batch_name);
   const [batchDesc, setBatchDesc] = useState(description);
 
-  const gotoAddRemovePlayer = useCallback(() => {
-    navigation.navigate("AddRemovePlayer");
-  }, [navigation]);
+  const gotoAddRemovePlayer = () => {
+    if (batchDetails?._id) {
+      navigation.navigate("AddRemovePlayer", { batch_Id: batchDetails._id });
+    } else {
+      console.error("Batch ID is not available");
+    }
+  }
 
   const handleDeleteBatch = useCallback(async () => {
-    console.log("batchId---",batchId);
+    console.log("batchId---", batchId);
     if (!batchId) return;
     try {
       const res = await dispatch(deleteBatch(batchId)).unwrap();
@@ -72,9 +83,12 @@ export const useEditBatchInfo = () => {
     batchName,
     setBatchName,
     batchDesc,
+    batchDetails,
     setBatchDesc,
     gotoAddRemovePlayer,
     handleDeleteBatch,
     handleUpdateBatch,
+    showModal,
+    setShowModal,
   };
 };

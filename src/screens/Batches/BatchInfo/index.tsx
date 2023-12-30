@@ -74,6 +74,7 @@ const BatchInfo = ({ navigation }) => {
 export default BatchInfo;
 
 const BatchMemberCard = ({ batchMemberInfo, batchMemberIndex }) => {
+  console.log(batchMemberInfo)
   return (
     <TouchableOpacity
       key={batchMemberIndex}
