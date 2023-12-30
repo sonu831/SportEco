@@ -35,6 +35,7 @@ const ChooseLocation = () => {
         onRegionChange={onRegionChange}
         initialRegion={currentRegion}
         showsUserLocation
+        zoomControlEnabled
       >
         <Marker
           onDragStart={handleOnDragStart}

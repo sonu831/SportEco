@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 
 // Services
 import {
@@ -39,6 +39,9 @@ interface PlayerResponse {
 const useAddRemovePlayer = () => {
   // Hooks
   const navigation = useNavigation();
+
+  const isFocused = useIsFocused();
+
   const route = useRoute<RouteParams>();
   const dispatch = useDispatch();
 
@@ -51,16 +54,18 @@ const useAddRemovePlayer = () => {
     []
   );
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   // Effects
   useEffect(() => {
-    if (route.params?.batch_Id) {
+    if (isFocused && route.params?.batch_Id) {
       fetchBatchInfoById(route.params.batch_Id);
     }
-  }, [route.params?.batch_Id]);
+  }, [isFocused, route.params?.batch_Id]);
 
   useEffect(() => {
     fetchAllPlayers();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (allPlayers?.length) {
@@ -186,6 +191,8 @@ const useAddRemovePlayer = () => {
     goToBatchesScreen,
     handleCurrentParticipantRemove,
     navigateToCreatePlayer,
+    showModal, 
+    setShowModal,
   };
 };
 

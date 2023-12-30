@@ -11,6 +11,7 @@ import groupAttendance from "../../../assets/images/groupAttendance.png";
 import groupEvaluation from "../../../assets/images/groupEvaluation.png";
 import usePlayerProfile from "./usePlayerProfile";
 import { styles } from "./styles";
+import WarningModal from "../../../components/WarningModal";
 
 const PlayerProfile = ({ navigation, route }) => {
   const {
@@ -19,6 +20,8 @@ const PlayerProfile = ({ navigation, route }) => {
     profilePic,
     goToEditPlayerProfile,
     handleDeletePlayer,
+    setShowModal,
+    showModal,
   } = usePlayerProfile();
 
   return (
@@ -60,11 +63,26 @@ const PlayerProfile = ({ navigation, route }) => {
         <MyButton
           title="Delete Player"
           width="90%"
-          onPress={handleDeletePlayer}
+          onPress={() => setShowModal(true)}
           alignSelf="center"
           backgroundColor="#303030"
+          leftIcon={
+            <AntDesign name="delete" size={20} color={"#fff"} style={{ marginRight: 10 }} />
+          }
         />
       </View>
+      <WarningModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        onDelete={handleDeletePlayer}
+        message={
+          <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+            <Text style={{ fontSize: 18 }}>
+              Are you sure that you want to delete this player:{' '}
+              <Text style={{ fontWeight: 'bold' }}>{firstName} {lastName}</Text>?
+            </Text>
+          </View>}
+      />
     </View>
   );
 };

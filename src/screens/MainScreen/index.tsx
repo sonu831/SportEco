@@ -203,7 +203,7 @@ const MainScreen = ({ navigation }) => {
                 <TouchableOpacity
                   key={index.toString()}
                   onPress={() => gotoService(item)}
-                  style={{ paddingHorizontal: 10 }}
+                  style={{ paddingHorizontal: 10, alignItems: 'center' }}
                 >
                   <Image source={item.url} style={{}} />
                   <MyText

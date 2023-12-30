@@ -11,7 +11,8 @@ const useHeader = () => {
       currentScreen === ScreensName.Batches ||
       currentScreen === ScreensName.Programs
     ) {
-      navigation.navigate(ScreensName.Main);
+      // navigation.navigate(ScreensName.Main);
+      navigation.goBack();
     } else {
       navigation.goBack();
     }

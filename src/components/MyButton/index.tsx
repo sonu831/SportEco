@@ -52,9 +52,11 @@ const MyButton: React.FC<buttonProps> = ({
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",
+                flexDirection: 'row'
             }}
             disabled={disabled}
         >
+            {leftIcon}
             <Text
                 style={{
                     fontWeight: "bold",

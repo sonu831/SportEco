@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import { TitleText } from "../../components";
 import UserTypes from "../../components/UserTypes";
 
-const SelectUserTypes = ({ updateState }) => {
+type Props = {
+  updateState?: any;
+}
+
+const SelectUserTypes = ({ updateState }: Props) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   const userTypes = [

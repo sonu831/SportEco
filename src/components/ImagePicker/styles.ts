@@ -24,30 +24,15 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     resizeMode: "cover",
   },
-  modalContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 20,
-    padding: 20,
-  },
   modalButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 10,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
   },
   modalButtonText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontSize: 17,
+    color: Colors.gray2,
+    fontWeight: '500',
   },
   uploadPhoto: {
     borderRadius: 24,
@@ -65,4 +50,15 @@ export const styles = StyleSheet.create({
   uploadPhoto1: {
     color: Colors.white,
   },
+  modalOverlay: {
+    flex: 1,
+    alignContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  seperator: {
+    borderBottomWidth: 1, 
+    borderBottomColor: Colors.gray3, 
+    width: '99%', 
+    marginBottom: 8
+  }
 });

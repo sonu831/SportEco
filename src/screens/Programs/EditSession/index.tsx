@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 // pakages
 import { TextInput } from "react-native-paper";
@@ -10,6 +10,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 // contants
 import { Colors } from '../../../constants/Colors';
 import useEditSession from './useEditSession';
+import WarningModal from '../../../components/WarningModal';
 
 const EditSession = () => {
     const {
@@ -20,6 +21,8 @@ const EditSession = () => {
         setSessionDescription,
         setSessionDuration,
         handleDeleteSession,
+        showModal,
+        setShowModal,
     } = useEditSession()
     return (
         <View style={styles.container}>
@@ -52,8 +55,8 @@ const EditSession = () => {
                 <View style={{ height: "6%" }} />
                 <TextInput
                     mode="outlined"
-                    label="Session Duration"
-                    placeholder="Enter Session Duration"
+                    label="Session Description"
+                    placeholder="Enter Session Description"
                     value={sessionDescription}
                     multiline
                     placeholderTextColor={"#000"}
@@ -91,9 +94,24 @@ const EditSession = () => {
                     alignSelf="center"
                     title={"Delete Sessions"}
                     backgroundColor={Colors.darkGray}
-                    onPress={handleDeleteSession}
+                    onPress={() => setShowModal(true)}
+                    leftIcon={
+                        <AntDesign name="delete" size={20} color={"#fff"} style={{ marginRight: 10 }} />
+                    }
                 />
             </View>
+            <WarningModal
+                isVisible={showModal}
+                onClose={() => setShowModal(false)}
+                onDelete={handleDeleteSession}
+                message={
+                    <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+                        <Text style={{ fontSize: 18 }}>
+                            Are you sure that you want to delete this session:{' '}
+                            <Text style={{ fontWeight: 'bold' }}>{sessionName}</Text>?
+                        </Text>
+                    </View>}
+            />
         </View>
     )
 }

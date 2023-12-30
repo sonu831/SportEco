@@ -25,7 +25,7 @@ export const PhoneNumberInput = ({
   return (
     <View style={styles.container}>
       <View
-        style={[styles.countryFlagContainer, isEditProfile && { height: 60 }]}
+        style={[styles.countryFlagContainer, isEditProfile && { height: 55 }]}
       >
         <CountryPicker
           withFilter
@@ -34,13 +34,13 @@ export const PhoneNumberInput = ({
           withCallingCode
           onSelect={selectCountry}
           countryCode={countryCode}
-          containerButtonStyle={{ paddingHorizontal: 5 }}
+          containerButtonStyle={{ paddingHorizontal: 5, }}
         />
         <Entypo
           name={"chevron-down"}
           size={16}
           color={Colors.gray}
-          style={{ paddingRight: 5 }}
+          style={{ paddingRight: 15 }}
         />
       </View>
       <View

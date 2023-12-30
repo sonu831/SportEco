@@ -49,7 +49,7 @@ const StateCityFields = ({
   citiesByState,
   selectedCity,
   updateState,
-}) => (
+}: any) => (
   <View style={styles.py16}>
     <Text
       style={[
@@ -60,13 +60,14 @@ const StateCityFields = ({
       Select Your City.
     </Text>
     <Text style={styles.fieldRowLabel}>
-      Help us discover the sports around.
+      Explore sports options around you!
     </Text>
     <View style={styles.searchView}>
       <GooglePlacesAutocomplete
-        placeholder="Search destination"
+        placeholder="Search"
         fetchDetails={true}
         currentLocation={true}
+        currentLocationLabel="Auto-detect my location"
         isRowScrollable={true}
         keepResultsAfterBlur={false}
         enablePoweredByContainer={false}

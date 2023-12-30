@@ -13,6 +13,8 @@ export const styles = StyleSheet.create({
   },
   containerView: {
     paddingHorizontal: 0,
+    backgroundColor: "white",
+    marginTop: 5,
   },
   py16: { padding: 8 },
   flex: { display: "flex", flexDirection: "row", alignItems: "center" },

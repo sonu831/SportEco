@@ -65,7 +65,7 @@ const CreateSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
+                        color: Colors.black2,
                     }}
                     onChangeText={setSessionDescription}
                 />

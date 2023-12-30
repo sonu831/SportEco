@@ -31,7 +31,7 @@ export const useCreateSession = () => {
     };
     // session creation handler
     const handleCreateSession = useCallback(async () => {
-        const request: sessionRequest = {
+        const request: any = {
             program_id: route.params._id,
             sessions: [
                 {

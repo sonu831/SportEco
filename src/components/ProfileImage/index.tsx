@@ -14,7 +14,7 @@ export const ProfileImage = ({
   updateState,
   fName,
   lName,
-}) => {
+}: any) => {
   const {
     imageUrl,
     initialAvatar,

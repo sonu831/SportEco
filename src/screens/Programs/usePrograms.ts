@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 // packages
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/types";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useIsFocused } from "@react-navigation/native";
 // redux
 import { AppDispatch } from "../../store";
 // config
@@ -41,10 +41,12 @@ const usePrograms = ({ navigation, route }: useProgramProps) => {
             updateState({ key: "programList", value: [] });
         }
     };
+    const isFocused = useIsFocused();
     // useEffect
     useEffect(() => {
         refetchPrograms();
-    }, [])
+    }, [isFocused]);
+    
     useEffect(() => {
         if (route?.params?.shouldRefresh) {
             refetchPrograms();

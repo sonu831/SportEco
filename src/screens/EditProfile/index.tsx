@@ -74,7 +74,6 @@ const EditProfile = ({
   const monthOptions = MONTH_OPTIONS();
   const goToAvatarScreen = () => navigation.navigate("ChangeAvatar");
   const [selectedUsers, setSelectedUsers] = useState(role);
-
   const SaveButton = ({ handleSave }) => (
     <View
       style={[
@@ -175,8 +174,9 @@ const EditProfile = ({
                 onChangeText={(newName) =>
                   updateState({ key: "fName", value: newName })
                 }
-                style={styles.fieldInput}
+                label="First Name"
                 placeholder="First Name"
+                style={{backgroundColor: "white"}}
                 editable={isEdit}
               />
               <TextInputComponent
@@ -184,12 +184,13 @@ const EditProfile = ({
                 onChangeText={(newName) =>
                   updateState({ key: "lName", value: newName })
                 }
-                style={styles.fieldInput}
+                label="Last Name"
                 placeholder="Last Name"
+                style={{backgroundColor: "white",marginTop: 5,}}
                 editable={isEdit}
               />
             </View>
-            <View style={[styles.fieldRow, styles.py16]}>
+            <View style={[styles.fieldRow, {marginBottom: 5,}]}>
               <PhoneNumberInput
                 phoneNumber={phNum}
                 onChangePhoneNumber={(phone: string) => {
@@ -207,7 +208,6 @@ const EditProfile = ({
                 type="date"
                 value={dobDate}
                 onChange={(value: any) => {
-                  console.log("date", dobDate);
                   updateState({
                     key: "dobDate",
                     value: moment(value),

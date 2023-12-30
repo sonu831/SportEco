@@ -17,6 +17,8 @@ const usePlayerProfile = () => {
     initializePlayer()
   );
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   useEffect(() => {
     const playerId = route.params?.playerId;
     if (playerId) {
@@ -50,6 +52,8 @@ const usePlayerProfile = () => {
     profilePic,
     goToEditPlayerProfile,
     handleDeletePlayer,
+    showModal,
+    setShowModal,
   };
 };
 

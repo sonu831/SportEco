@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, View, Text } from "react-native";
 import React from "react";
 // component
 import Header from "../../components/MyHeader";
@@ -11,6 +11,7 @@ import { Colors } from "../../constants/Colors";
 import { styles } from "./styles";
 import useVenue from "./useVenue";
 import VenueCard from "../../components/Venue/VenueCard";
+import WarningModal from "../../components/WarningModal";
 
 const Venues = () => {
   const {
@@ -20,6 +21,10 @@ const Venues = () => {
     goToVenueDetails,
     venueDeStructure,
     onDeleteVenue,
+    showModal,
+    setShowModal,
+    venueDetails,
+    setVenueDetails,
   } = useVenue();
   return (
     <View style={styles.container}>
@@ -43,7 +48,7 @@ const Venues = () => {
                   key={index}
                   onPress={() => goToVenueDetails(venueDetails)}
                   details={venueDetails}
-                  onDeleteVenue={onDeleteVenue}
+                  onDeleteVenue={() => {setVenueDetails(item);setShowModal(true)}}
                 />
               );
             })}
@@ -67,6 +72,18 @@ const Venues = () => {
         )}
       </View>
       <FAB onPress={() => goToCreateVenue()} />
+      <WarningModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        onDelete={() => onDeleteVenue(venueDetails?._id)}
+        message={
+          <View style={{ flexDirection: 'row', paddingHorizontal: 14 }}>
+            <Text style={{ fontSize: 18 }}>
+              Are you sure that you want to delete this venue:{' '}
+              <Text style={{ fontWeight: 'bold' }}>{venueDetails?.venue_name}</Text>?
+            </Text>
+          </View>}
+      />
     </View>
   );
 };

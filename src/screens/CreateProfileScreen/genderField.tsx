@@ -9,7 +9,7 @@ const options = [
   { label: "Other", icon: "add" },
 ];
 
-export const GenderField = ({ updateState }) => {
+export const GenderField = ({ updateState }: any) => {
   return (
     <View style={[styles.fieldColumn]}>
       <TitleText

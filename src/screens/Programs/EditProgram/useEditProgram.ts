@@ -17,6 +17,7 @@ export const useEditProgram = () => {
     const { _id = "", program_name = programsName, description = "" } = programInfo || {};
     const [programName, setProgramName] = useState(program_name);
     const [programDesc, setProgramDesc] = useState(description);
+    const [showModal, setShowModal] = useState<boolean>(false);
     // Redux dispatch and navigation hook
     const dispatch = useDispatch();
     // Function :To Delete Programs
@@ -54,6 +55,8 @@ export const useEditProgram = () => {
         setProgramDesc,
         handleDeleteProgram,
         programInfo,
-        handleSavePrograms
+        handleSavePrograms,
+        showModal,
+        setShowModal,
     };
 };
