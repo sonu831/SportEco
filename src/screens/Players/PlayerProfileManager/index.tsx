@@ -97,7 +97,7 @@ const PlayerProfileManager = () => {
               borderColor: "grey",
               backgroundColor: "white",
             }}
-            contentStyle={{color: Colors.black2}}
+            contentStyle={{color: "#000"}}
           />
           <View style={{ height: "3%" }} />
           <TextInput
