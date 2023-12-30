@@ -46,8 +46,8 @@ const EditProgram = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                 />
                 <View style={{ height: "6%" }} />
                 <TextInput
@@ -62,8 +62,8 @@ const EditProgram = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={(text) => setProgramDesc(text)}
                 />
             </View>

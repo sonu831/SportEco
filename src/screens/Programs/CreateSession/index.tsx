@@ -49,8 +49,8 @@ const CreateSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                 />
                 <View style={{ height: "8%" }} />
                 <TextInput
@@ -65,8 +65,8 @@ const CreateSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2,
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={setSessionDescription}
                 />
                 <View style={{ height: "8%" }} />
@@ -83,8 +83,8 @@ const CreateSession = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={setSessionDuration}
                 />
             </View>

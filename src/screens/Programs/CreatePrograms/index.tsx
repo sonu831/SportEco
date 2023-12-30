@@ -48,8 +48,8 @@ const CreatePrograms = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                 />
                 <View style={{ height: "3%" }} />
                 <TextInput
@@ -64,8 +64,8 @@ const CreatePrograms = () => {
                         borderBottomWidth: 0,
                         borderColor: "grey",
                         backgroundColor: 'white',
-                        color: Colors.black2
                     }}
+                    contentStyle={{color: "#000"}}
                     onChangeText={setProgramDescription}
                 />
                 <View style={{ height: "3%" }} />

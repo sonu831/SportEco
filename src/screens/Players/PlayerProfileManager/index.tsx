@@ -96,8 +96,8 @@ const PlayerProfileManager = () => {
             style={{
               borderColor: "grey",
               backgroundColor: "white",
-              color: Colors.black2,
             }}
+            contentStyle={{color: Colors.black2}}
           />
           <View style={{ height: "3%" }} />
           <TextInput
@@ -119,8 +119,8 @@ const PlayerProfileManager = () => {
             style={{
               borderColor: "grey",
               backgroundColor: "white",
-              color: Colors.black2,
             }}
+            contentStyle={{color: "#000"}}
           />
           <View style={{ height: "4%" }} />
           <PhoneNumberInput
@@ -148,10 +148,9 @@ const PlayerProfileManager = () => {
             style={{
               borderColor: "grey",
               backgroundColor: "white",
-              color: Colors.black2,
             }}
+            contentStyle={{color: "#000"}}
           />
-
           <CenteredLineWithText lineText="Gender" />
           <View
             style={{

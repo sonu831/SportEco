@@ -116,9 +116,9 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
             marginBottom: 10,
           }}
+          contentStyle={{color: "#000"}}
         />
         <TextInput
           mode="outlined"
@@ -132,9 +132,9 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
             marginBottom: 10,
           }}
+          contentStyle={{color: "#000"}}
         />
         <TextInput
           mode="outlined"
@@ -148,9 +148,9 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
             marginBottom: 10,
           }}
+          contentStyle={{color: "#000"}}
         />
         <TextInput
           mode="outlined"
@@ -165,12 +165,11 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             borderBottomWidth: 0,
             borderColor: "grey",
             backgroundColor: "white",
-            color: Colors.black2,
             marginBottom: 10,
           }}
+          contentStyle={{color: "#000"}}
         />
       </View>
-
       <View
         style={{
           flex: 1,

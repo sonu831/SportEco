@@ -67,6 +67,7 @@ const DateTimePicker = ({
               }}
               onTouchStart={editable ? handleShowDatePicker : undefined}
               editable={editable}
+              contentStyle={{color: "#000"}}
             />
           </View>
         ) : (
