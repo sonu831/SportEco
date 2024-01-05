@@ -1,5 +1,5 @@
-import { StyleSheet, Image, TouchableOpacity, View, Text, Modal, TouchableWithoutFeedback } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Image, TouchableOpacity, View, Text, } from "react-native";
+import React from "react";
 import Header from "../../../components/MyHeader";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
@@ -12,6 +12,7 @@ import useCreateVenue from "./useCreateVenue";
 import AddressComponent from "../AddressComponent";
 import useImagePicker from "../../../components/ImagePicker/useImagePicker";
 import { BottomSheet } from "../../../components/BottomSheet";
+import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown";
 
 const CreateVenue = ({ navigation, currentImage, route }) => {
   const {
@@ -23,6 +24,10 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
     handleChange,
     handleVenueSubmit,
     handleVenueUpdate,
+    items,
+    selectedItems,
+    multiSelectRef,
+    onSelectedItemsChange,
   } = useCreateVenue();
   const { venueName, sport, courtName, venueDescription, image, address } =
     state;
@@ -118,9 +123,16 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             backgroundColor: "white",
             marginBottom: 10,
           }}
-          contentStyle={{color: "#000"}}
+          contentStyle={{ color: "#000" }}
         />
-        <TextInput
+        <MultipleSelectDropdown
+          multiSelectRef={multiSelectRef}
+          options={items}
+          selectedItems={selectedItems}
+          placeholder={"Select Sports"}
+          searchInputPlaceholderText={"Search Sports"}
+          onChange={onSelectedItemsChange} />
+        {/* <TextInput
           mode="outlined"
           label="Sport"
           placeholder="Enter Sport"
@@ -135,7 +147,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             marginBottom: 10,
           }}
           contentStyle={{color: "#000"}}
-        />
+        /> */}
         <TextInput
           mode="outlined"
           label="Court Name"
@@ -150,7 +162,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             backgroundColor: "white",
             marginBottom: 10,
           }}
-          contentStyle={{color: "#000"}}
+          contentStyle={{ color: "#000" }}
         />
         <TextInput
           mode="outlined"
@@ -167,7 +179,7 @@ const CreateVenue = ({ navigation, currentImage, route }) => {
             backgroundColor: "white",
             marginBottom: 10,
           }}
-          contentStyle={{color: "#000"}}
+          contentStyle={{ color: "#000" }}
         />
       </View>
       <View

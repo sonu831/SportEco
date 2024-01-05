@@ -1,10 +1,8 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Alert } from "react-native";
-import * as ImagePicker from "expo-image-picker";
 //import * as Permissions from "expo-permissions";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { UpdateStateRequest } from "../../../types/UpdateState";
@@ -16,7 +14,7 @@ import { addVenue, updateVenue } from "../../../services/venue";
 type InitialState = {
   showConfirmation: boolean;
   venueName: string;
-  sport: string;
+  sport: any;
   courtName: string;
   venueDescription: string;
   image: string;
@@ -67,6 +65,30 @@ const useCreateVenue = () => {
         key,
         value,
       });
+  };
+
+  const items = [{
+    label: 'Basket Ball',
+    value: 'Basket Ball'
+  }, {
+    label: 'Volley Ball',
+    value: 'Volley Ball'
+  }, {
+    label: 'Badminton',
+    value: 'Badminton'
+  }, {
+    label: 'Karate',
+    value: 'Karate'
+  }, {
+    label: 'Cricket',
+    value: 'Cricket'
+  }]
+
+  const [selectedItems, setSelectedItems] = useState<any>([]);
+  const multiSelectRef = useRef(null);
+  const onSelectedItemsChange = (items: any) => {
+    setSelectedItems(items);
+    handleChange("sport", items);
   };
 
   const handleGoBack = () => navigation.goBack();
@@ -163,8 +185,11 @@ const useCreateVenue = () => {
   useEffect(() => {
     if (route?.params?.isEdit) {
       setIsEdit(route?.params?.isEdit);
+      let sportsString = route.params.venueInfo.sport;
+      let arrayOfSports = sportsString.split(',');
+      setSelectedItems(arrayOfSports);
       handleChange("venueName", route.params.venueInfo.venueName);
-      handleChange("sport", route.params.venueInfo.sport);
+      //handleChange("sport", route.params.venueInfo.sport);
       handleChange("courtName", route.params.venueInfo.courtName);
       handleChange("venueDescription", route.params.venueInfo.description);
       handleChange("id", route.params.venueInfo._id);
@@ -184,6 +209,10 @@ const useCreateVenue = () => {
     handleChange,
     handleVenueSubmit,
     handleVenueUpdate,
+    items,
+    selectedItems,
+    multiSelectRef,
+    onSelectedItemsChange,
   };
 };
 
